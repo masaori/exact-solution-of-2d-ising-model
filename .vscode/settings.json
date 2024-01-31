@@ -1,0 +1,32 @@
+{
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-pdfdvi",
+                "-e",
+                "$max_repeat = 4;",
+                "-e",
+                "$latex = 'platex -synctex=1 -kanji=utf8 -interaction=nonstopmode -file-line-error -halt-on-error %O %S';",
+                "-e",
+                "$dvipdf = 'dvipdfmx %O -o %D %S';",
+                "-outdir=./dist",
+                "%DOCFILE%"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "pLaTeX",
+            "tools": [
+                "latexmk",
+            ]
+        }
+    ],
+    "latex-workshop.message.log.show": true,
+    "latex-workshop.message.badbox.show": true,
+    "latex-workshop.latex.autoBuild.run": "onFileChange",
+    "latex-workshop.latex.outDir": "%DIR%/dist",
+}
