@@ -1,0 +1,63 @@
+\documentclass{jlreq}
+\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
+\usepackage{indentfirst}
+\usepackage{theorem}
+\usepackage{wrapfig}
+\usepackage[dvipdfmx,hiresbb]{graphicx,pict2e}
+\usepackage{amsmath, amssymb}
+\usepackage{type1cm}
+\usepackage{comment}
+\usepackage{setspace}
+\usepackage{braket}
+\usepackage{stmaryrd}
+\usepackage[dvipdfmx]{graphicx}
+
+\begin{document}
+
+\newcommand{\linsp}{\text{Linear\ Space}} $\linsp: 線型空間 \\$
+\newcommand{\Z}{\mathbf{Z}} $\Z: 集合としての整数 \\$
+\newcommand{\Zpos}{\mathbf{Z}_{\geq 0}} $\Zpos := \{0, 1, 2, \cdots \} \subset \Z  \\$
+\newcommand{\R}{\mathbf{R}} $\R: 集合としての実数 \\$
+\newcommand{\C}{\mathbf{C}} $\C: 集合としての複素数 \\$
+\newcommand{\Zr}{\mathbb{Z}} $\Zr := (\mathbf{Z}, +_{\Zr},\cdot_{\Zr}): 整数環 \\$
+\newcommand{\Rf}{\mathbb{R}} $\mathbb{R} := (\mathbf{R}, +_{\Rf},\cdot_{\Rf}): 実数体 \\$
+\newcommand{\Cf}{\mathbb{C}} $\mathbb{C} := (\mathbf{C}, +_{\Cf},\cdot_{\Cf}): 複素数体 \\$
+\newcommand{\congas}[1]{\underset{\text{as}\ #1}{\cong}} $\congas{aaa}: 同型 \\$
+\newcommand{\congaslin}{\congas{\text{lin.\ sp.}}} $\congaslin: 線形同型 \\$
+\newcommand{\congasalg}[1]{\congas{\text{ass.}\ #1-\text{alg.}}} $\congasalg{\Rf}: 結合代数同型 \\$
+\newcommand{\congasztwo}{\congas{\text{ass.}\ \Zr_{2}次数つき\text{alg.}}} $\congasztwo: \Zr_{2} 代数同型 \\$
+\newcommand{\Ztwo}{\Zr_{2}} $\Ztwo := \Zr/2\Zr から積を忘れて巡回群として見たもの \\$
+\newcommand{\Rlin}[1]{\mathbf{R}_{\text{lin}}^{#1}}
+\newcommand{\Rlinja}[1]{#1 次元標準 \R 線型空間} $\Rlin{n} := (\mathbf{R}^{n}, +_{\Rlin{n}},\cdot^{sc}_{\Rlin{n}}) : \Rlinja{n} \\$
+\newcommand{\signedInnerProd}{<\cdot,\cdot>_{p,q}} $\signedInnerProd: 符号つき内積 \\$
+\newcommand{\signedInnerProdR}[3]{\mathbf{R}^{#1}_{#2,#3}}
+\newcommand{\signedInnerProdRja}[1]{符号つき内積をもつ #1 次元標準 \R 線型空間} $\signedInnerProdR{n}{p}{q}: \signedInnerProdRja{n} \\$
+\newcommand{\Ggradedalg}[1]{#1\text{-}次数代数}
+\newcommand{\Ggradedalgja}[1]{#1\text{-}次数代数}  $\Ggradedalg{G}: \Ggradedalgja{G} \\$
+\newcommand{\Cl}[1]{\text{C}l(#1)} $\Cl{V}: クリフォード代数(V:\linsp) \\$
+\newcommand{\Clpq}[2]{\text{C}l_{#1,#2}} $\Clpq{p}{q}: 実クリフォード代数 \\$
+\newcommand{\CCl}[1]{\mathbb{C}l(#1)} $\CCl{V}: 複素クリフォード代数(V:\linsp) \\$
+\newcommand{\CClp}[1]{\mathbb{C}l_{#1}} $\CClp{p}: 複素クリフォード代数 \\$
+\newcommand{\Cmat}[1]{\mathbb{C}({#1})} $\Cmat{p}: \Cf 行列環 \\$
+\newcommand{\otimesalg}[1]{\otimes^{alg}_{#1}} $\otimesalg{\Cf}: 代数のテンソル積 \\$
+\newcommand{\otimeshat}{\widehat{\otimes}} $\otimeshat: \Ggradedalg{\Ztwo}のテンソル積$ \\ 
+
+
+クリフォード代数 行列環との同型 \\
+
+$m\in\Zpos \\$
+\begin{align}
+\CClp{2m+1} &\cong \Cmat{2^{m}} \oplus \Cmat{2^{m}} \\
+\CClp{2m+2} &\cong \Cmat{2^{m+1}}
+m\in\Zpos \\
+    \CClp{m+2} &\cong \CClp{m} \otimesalg{\Cf} \CClp{2}
+    n\in\Zpos \\
+        \Clpq{n}{0} \otimesalg{\Rf} \Clpq{0}{2} &\cong \Clpq{0}{n+2},
+        \quad
+        \Clpq{0}{n} \otimesalg{\Rf} \Clpq{2}{0} \cong \Clpq{n+2}{0}
+\end{align}
+
+
+\end{document}
+
+
