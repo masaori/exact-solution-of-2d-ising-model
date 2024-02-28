@@ -3,8 +3,8 @@
 ## 構成案(1: 数ベクトル空間 $R^n$ をベースとして展開
 ### 0. 記号
 ##### 略称
-- $\newcommand{\linsp}{\mathrm{Linear\ Space}} \linsp: 線型空間$
-##### 定義する
+- $\newcommand{\linsp}[1]{#1\text{-}\mathrm{Linear\ Space}} \linsp{K}: K\text{-}線型空間$
+##### 定義しない
 - $\renewcommand{\Z}{\mathbf{Z}}
     \Z: 集合としての整数$
 - $\newcommand{\Zpos}{\mathbf{Z}_{\geq 0}}
@@ -29,6 +29,9 @@
     \congasalg{\Rf}: 結合代数同型$
 - $\newcommand{\congasztwo}{\congas{\text{ass.}\ \Zr_{2}次数つき\text{alg.}}}
     \congasztwo: \Zr_{2} 代数同型$
+- $\newcommand{\subspadd}[1]{+^{\text{sub.sp.}}_{#1}}
+    \newcommand{\subspaddja}[1]{部分空間 \ #1 同士の和}
+    \subspadd{V}: \subspaddja{V}$
 - $\newcommand{\scprod}[1]{\cdot^{\text{sc}}_{#1}}
     \newcommand{\scprodja}[1]{\linsp \ #1 の スカラー積}
     \scprod{V}: \scprodja{V}$
@@ -62,7 +65,7 @@
 - $\newcommand{\Ggradedalg}[1]{#1\text{-}次数代数}
     \newcommand{\Ggradedalgja}[1]{#1\text{-}次数代数} 
     \Ggradedalg{G}: \Ggradedalgja{G}$
-- $\newcommand{\tensoralg}[1]{T^{*}(#1)}
+- $\newcommand{\tensoralg}[1]{T(#1)}
     \newcommand{\tensoralgja}[1]{テンソル代数(#1:\linsp)} 
     \tensoralg{V}: \tensoralgja{V}$
 - $\newcommand{\Cl}[1]{\mathrm{C}l(#1)}
@@ -75,8 +78,14 @@
     \CClp{p}: 複素クリフォード代数$
 - $\newcommand{\Cmat}[1]{\mathbb{C}({#1})}
     \Cmat{p}: \Cf 行列環$
+- $\newcommand{\sublinspGeneratedBy}[1]{\left\langle #1 \right\rangle_{lin}}
+    \sublinspGeneratedBy{S} : Sで生成される部分空間$
+- $\newcommand{\idealGeneratedBy}[1]{\left\langle #1 \right\rangle_{ideal}}
+    \idealGeneratedBy{S} : Sで生成されるイデアル$
+- $\newcommand{\otimeslin}[1]{\otimes^{lin}_{#1}}
+    \otimeslin{\Rf}: \Rf - 線形空間のテンソル積$
 - $\newcommand{\otimesalg}[1]{\otimes^{alg}_{#1}}
-    \otimesalg{\Cf}: 代数のテンソル積$
+    \otimesalg{\Cf}: \Cf - 代数のテンソル積$
 - $\newcommand{\otimeshat}{\widehat{\otimes}}
     \otimeshat: \Ggradedalg{\Ztwo}のテンソル積$ 
 <!-- スタイル -->
@@ -89,41 +98,40 @@
     - 定義
     $$
     \begin{align}
-        K&:\text{set}\\
-        +_{K}&:K \times K \to K\\
-            \cdot_{K}&:K \times K \to K
+        S&:\text{set}\\
+        +_{K}&:S \times S \to S\\
+            \cdot_{K}&:S \times S \to S
     \end{align}
     $$
     とする。
-    - $K:set, +_{K}:K \times K \to K, \cdot_{K}:K \times K \to Kが以下を満たすとき(K, +_{K}, \cdot_{K})を体という$
-        - (1) $K$ の任意の元  に対し, $(a+b)+c=a+(b+c)$ がなりたつ. (和の結合則)
-        - (2) $K$ の元 0 で, $K$ の任意の元 $a$ に対し, $a+0=0+a=a$ をみたすも のがただ 1 つある. (零元の存在)
-        - (3) $K$ の任意の元 $a$ に対し, $a+b=b+a=0$ をみたす $K$ の元 $b$ がただ 1 つある. (和の逆元の存在)
-        - (4) $K$ の任意の元 $a, b$ に対し, $a+b=b+a$ がなりたつ. (和の可換則)
-        - (5) $K$ の任意の元 $a, b, c$ に対し, $(a b) c=a(b c)$ がなりたつ. (積の結合則)
-        - (6) $K$ の 0 でない元 1 で, $K$ の任意の元 $a$ に対し, $a 1=1 a=a$ をみたす ものがただ 1 つある. (積の単位元の存在)
-        - (7) $K$ の 0 でない任意の元 $a$ に対し, $a b=b a=1$ をみたす $K$ の元 $b$ がた だ 1 つある. (積の逆元の存在)
-        - (8) $K$ の任意の元 $a, b$ に対し, $a b=b a$ がなりたつ. (積の可換則)
-        - (9) $K$ の任意の元 $a, b, c$ に対し, $(a+b) c=a c+b c, a(b+c)=a b+a c$ が なりたつ. (分配則)
+    - が、以下を満たすとき、$K:=(S, +_{K}, \cdot_{K})$を体という
+        - (1) $S$ の任意の元  に対し, $(a+_{K}b)+_{K}c=a+_{K}(b+_{K}c)$ がなりたつ. (和の結合則)
+        - (2) $S$ の元 0 で, $S$ の任意の元 $a$ に対し, $a+_{K}0=0+_{K}a=a$ をみたすも のがただ 1 つある. (零元の存在)
+        - (3) $S$ の任意の元 $a$ に対し, $a+_{K}b=b+_{K}a=0$ をみたす $S$ の元 $b$ がただ 1 つある. (和の逆元の存在)
+        - (4) $S$ の任意の元 $a, b$ に対し, $a+_{K}b=b+_{K}a$ がなりたつ. (和の可換則)
+        - (5) $S$ の任意の元 $a, b, c$ に対し, $(a \cdot_{K} b) c=a \cdot_{K} (b \cdot_{K} c)$ がなりたつ. (積の結合則)
+        - (6) $S$ の 0 でない元 1 で, $S$ の任意の元 $a$ に対し, $a \cdot_{K} 1=1 \cdot_{K} a=a$ をみたす ものがただ 1 つある. (積の単位元の存在)
+        - (7) $S$ の 0 でない任意の元 $a$ に対し, $a \cdot_{K} b=b \cdot_{K} a=1$ をみたす $S$ の元 $b$ がた だ 1 つある. (積の逆元の存在)
+        - (8) $S$ の任意の元 $a, b$ に対し, $a \cdot_{K} b=b \cdot_{K} a$ がなりたつ. (積の可換則)
+        - (9) $S$ の任意の元 $a, b, c$ に対し, $(a+_{K}b) c=a c+_{K}b \cdot_{K} c, a(b+_{K}c)=a \cdot_{K} b+_{K}a c$ が なりたつ. (分配則)
     - ↑論理式で書き直す
     - $\Rfと\Cfは体の具体例です$
-        - 積は略記します
 ### 線型空間
 $$
 \begin{align}
-    V&:\text{set}\\
-    +_{V}&:V \times V \to V\\
-    \scprod{V}&:K \times V \to V
+    S&:\text{set}\\
+    +_{V}&:S \times S \to S\\
+    \scprod{V}&:K \times S \to S
 \end{align}
 $$
-が、以下を満たすとき$V$を$K-Linear\ Space$という
-- (1) $V$ の任意の元 $x, y, z$ に対し, $(x+y)+z=x+(y+z)$ がなりたつ.
-- (2) $V$ の元 0 で, $V$ の任意の元 $x$ に対し, $x+0=0+x=x$ をみたすもの がただ 1 ある.
-- (3) $V$ の任意の元 $x$ に対し, $x+y=y+x=0$ をみたす $V$ の元 $y$ がただ 1 つある。
-- (4) $V$ の任意の元 $x, y$ に対し, $x+y=y+x$ がなりたつ.
-- (5) $K$ の任意の元 $a$ と $V$ の任意の元 $x, y$ に対し, $a(x+y)=a x+a y$ がな りたつ.
-- (6) $K$ の任意の元 $a, b$ と $V$ の任意の元 $x$ に対し, $(a b) x=a(b x)$ と $(a+b) x=a x+b x$ がなりたつ.
-- (7) $V$ の任意の元 $x$ に対し, $1 x=x$ がなりたつ.
+が、以下を満たすとき$V:=(S, +_{V}, \scprod{V})$を$\linsp{}$という
+- (1) $S$ の任意の元 $x, y, z$ に対し, $(x+_{V}y)+_{V}z=x+_{V}(y+_{V}z)$ がなりたつ.
+- (2) $S$ の元 0 で, $S$ の任意の元 $x$ に対し, $x+_{V}0=0+_{V}x=x$ をみたすもの がただ 1 ある.
+- (3) $S$ の任意の元 $x$ に対し, $x+_{V}y=y+_{V}x=0$ をみたす $S$ の元 $y$ がただ 1 つある。
+- (4) $S$ の任意の元 $x, y$ に対し, $x+_{V}y=y+_{V}x$ がなりたつ.
+- (5) $K$ の任意の元 $a$ と $S$ の任意の元 $x, y$ に対し, $a \scprod{V}(x+_{V}y)=a \scprod{V} x+_{V}a \scprod{V} y$ がな りたつ.
+- (6) $K$ の任意の元 $a, b$ と $S$ の任意の元 $x$ に対し, $(a \scprod{V} b) x=a \scprod{V} (b \scprod{V} x)$ と $(a+_{V}b) x=a \scprod{V} x+_{V}b \scprod{V} x$ がなりたつ.
+- (7) $S$ の任意の元 $x$ に対し, $1_{K} \scprod{V} x=x$ がなりたつ.
 - ↑論理式で書き直す
 - $\Rlin{n}$ (n次元標準\R線型空間) は具体例です
 #### def. 基底
@@ -186,7 +194,9 @@ $$
 $[\cdot ]_{\sim_{R}} : X \to P(X)$
 
 #### def. 商空間
-$V$ を $K$ 線形空間とし, $W$ を $V$ の $K$ 部分空間とする. $V$ の $W$ による商空間 (quotient space) とは, $V$ の部分集合 $V/W$ であって, 次の条件をみたすものである.
+$V$ を $K$ 線形空間とし, $W$ を $V$ の $K$ 部分空間とする. 
+
+$V$ の $W$ による商空間 (quotient space) とは, $V$ の部分集合 $V/W$ であって, 次の条件をみたすものである.
 
 同値関係$\sim_{W}$を、
 $$
@@ -218,18 +228,242 @@ $V$ を $K$ 線形空間とし, $W$ を $V$ の $K$ 部分空間、$V/W$を商�
 
 $v \in V$について、$v$の$V/W$における同値類を、
 $$
+<<<<<<< HEAD
 [v]_{V/W} := \eqclass{\sim_{W}}{v}
+=======
+\eqclass{V/W}{v} := \eqclass{\sim_{W}}{v}
+>>>>>>> b4a4e37 (20240228-165058)
 $$
 と定める。
 
+### 直和
+TODO
 
 ### テンソル積
+$K: 体$
 
+$V, W: \linsp{K}$
 
-- (次回:2/14) ここから
-    - テンソル代数/クリフォード代数の基底の表記くらいまではかっちり決めておきたい
+$K^{(V \times W)}=\{h: V \times W \rightarrow K \mid h(x, y) \neq 0$ となる $(x, y) \in V \times W$ は有限個 $\}$
+
+$e_{x, y} \in K^{(V \times W)}$ を、
+$$
+e_{x, y}(x, y) =
+\begin{cases}
+    1 & \left((x, y) =\left(x^{\prime}, y^{\prime}\right)\right) \\
+    0 & \left((x, y) \neq\left(x^{\prime}, y^{\prime}\right)\right)
+\end{cases}
+$$
+で定める。
+
+$R_1, R_2, R_3 \subset K^{(V \times W)}$ を、
+
+$$
+\begin{aligned}
+    & R_1=\sublinspGeneratedBy{e_{x+x^{\prime}, y}-_{K^{(V \times W)}}e_{x, y}-_{K^{(V \times W)}}e_{x^{\prime}, y} \mid x, x^{\prime} \in V, y \in W} \\ 
+    & R_2=\sublinspGeneratedBy{e_{x, y+y^{\prime}}-_{K^{(V \times W)}}e_{x, y}-_{K^{(V \times W)}}e_{x, y^{\prime}} \mid x \in V, y, y^{\prime} \in W} \\ 
+    & R_3=\sublinspGeneratedBy{e_{a x, y}-_{K^{(V \times W)}}a e_{x, y}, e_{x, a y}-_{K^{(V \times W)}}a e_{x, y} \mid a \in K, x \in V, y \in W}
+\end{aligned}$$
+
+$V \otimeslin{K} W := K^{(V \times W)} / (R_{1}\subspadd{K^{(V \times W)}}R_{2}\subspadd{K^{(V \times W)}}R_{3})$
+
+$V \otimeslin{K} W$を、$V$と$W$のテンソル積という。
+
+#### テンソル積の元
+$x \in V, y \in W$について、$x \otimeslin{K} y \in V \otimeslin{K} W$を、
+$$
+    x \otimeslin{K} y := \eqclass{V \otimeslin{K} W}{e_{x, y}}
+$$
+
+#### テンソル積のn乗
+TODO
     
-- 複素化
+### 複素化
+TODO
+
+## 環
+### 環の定義
+$R: 集合$
+$$
+\begin{align}
+    +_{R}&:R \times R \to R\\
+    \cdot_{R}&:R \times R \to R
+\end{align}
+$$
+が、以下を満たすとき$(R, +_{R}, \cdot_{R})$を環という
+- (1) $R$ の任意の元  に対し, $(a+_{R}b)+_{R}c=a+_{R}(b+_{R}c)$ がなりたつ. (和の結合則)
+- (2) $R$ の元 $0_{R}$ で, $R$ の任意の元 $a$ に対し, $a+_{R}0_{R}=0_{R}+_{R}a=a$ をみたすも のがただ 1 つある. (零元の存在)
+- (3) $R$ の任意の元 $a$ に対し, $a+_{R}b=0_{R}$ をみたす $R$ の元 $b$ がただ 1 つある. (和の逆元の存在)
+- (4) $R$ の任意の元 $a, b$ に対し, $a+_{R}b=b+_{R}a$ がなりたつ. (和の可換則)
+- (5) $R$ の任意の元 $a, b, c$ に対し, $(a\cdot_{R}b)\cdot_{R}c=a\cdot_{R}(b\cdot_{R}c)$ がなりたつ. (積の結合則)
+- (6) $R$ の $0_{R}$ でない元 $1_{R}$ で, $R$ の任意の元 $a$ に対し, $a\cdot_{R}1_{R}=1_{R}\cdot_{R}a=a$ をみたす ものがただ 1 つある. (積の単位元の存在)
+- (7) $R$ の任意の元 $a, b, c$ に対し, $a\cdot_{R}(b+_{R}c)=a\cdot_{R}b+a\cdot_{R}c, (a+_{R}b)\cdot_{R}c=a\cdot_{R}c+b\cdot_{R}c$ が なりたつ. (分配則)
+
+### イデアル
+$R: 環$
+$I \subset R$ で、以下を満たすものを左イデアルという
+$$
+\begin{align}
+    \forall a, b \in I, a+_{R}b \in I \\
+    \forall a \in I, r \in R, r\cdot_{R}a \in I
+\end{align}
+$$
+$I \subset R$ で、以下を満たすものを右イデアルという
+$$
+\begin{align}
+    \forall a, b \in I, a+_{R}b \in I \\
+    \forall a \in I, r \in R, a\cdot_{R}r \in I
+\end{align}
+$$
+$I \subset R$ で、左イデアルでも右イデアルでもあるものを両側イデアルという
+
+単にイデアルと言ったら、左イデアル、右イデアル、両側イデアルのいずれかを指す
+
+### 剰余環
+$R: 環, I: Rのイデアル$
+
+同値関係$\sim_{I}$を、
+$$
+\begin{align}
+    a \sim_{I} b \Leftrightarrow a-b \in I
+\end{align}
+$$
+と定める。
+
+$$
+\begin{align}
+    +_{R/I}&: R/\sim_{I} \times R/\sim_{I} \to R/\sim_{I} \\
+    \cdot_{R/I}&: R/\sim_{I} \times R/\sim_{I} \to R/\sim_{I}
+\end{align}
+$$
+を、
+$$
+\begin{align}
+    \eqclass{\sim_{I}}{a} +_{R/I} \eqclass{\sim_{I}}{b} &:= \eqclass{\sim_{I}}{a+_{R}b} \\
+    \eqclass{\sim_{I}}{a} \cdot_{R/I} \eqclass{\sim_{I}}{b} &:= \eqclass{\sim_{I}}{a\cdot_{R}b}
+\end{align}
+$$
+で定めたとき、$R/I := (R/\sim_{I}, +_{R/I}, \cdot_{R/I})$を、$R$の$I$による剰余環という。
+
+
+
+## 体
+### 体の定義
+$R: 環$ について、
+$R$が、以下を満たすとき、$R$を体という
+- (8) $R$ の 0 でない任意の元 $a$ に対し, $a\cdot_{R}b=b\cdot_{R}a=1_{R}$ をみたす $R$ の元 $b$ がた だ 1 つある. (積の逆元の存在)
+
+
+## 結合代数 
+### の結合代数の定義
+$A: 集合, R: 環$
+$$
+\begin{align}
+    +_{A}&:A \times A \to A \\
+    \cdot_{A}&:A \times A \to A \\
+    \scprod{A}&: R \times A \to A
+\end{align}
+$$
+が、以下を満たすとき$(A, +_{A}, \cdot_{A}, \scprod{A})$を$R$-結合代数という
+- (1) $A$ の任意の元  に対し, $(a+_{A}b)+_{A}c=a+_{A}(b+_{A}c)$ がなりたつ. (和の結合則)
+- (2) $A$ の元 $0_{A}$ で, $A$ の任意の元 $a$ に対し, $a+_{A}0_{A}=0_{A}+_{A}a=a$ をみたすも のがただ 1 つある. (零元の存在)
+- (3) $A$ の任意の元 $a$ に対し, $a+_{A}b=0_{A}$ をみたす $A$ の元 $b$ がただ 1 つある. (和の逆元の存在)
+- (4) $A$ の任意の元 $a, b$ に対し, $a+_{A}b=b+_{A}a$ がなりたつ. (和の可換則)
+- (5) $A$ の任意の元 $a, b, c$ に対し, $(a\cdot_{A}b)\cdot_{A}c=a\cdot_{A}(b\cdot_{A}c)$ がなりたつ. (積の結合則)
+- (6) $A$ の 0 でない元 1 で, $A$ の任意の元 $a$ に対し, $a\cdot_{A}1_{A}=1_{A}\cdot_{A}a=a$ をみたす ものがただ 1 つある. (積の単位元の存在)
+- (7) $A$ の任意の元 $a, b, c$ に対し, $a\cdot_{A}(b+_{A}c)=a\cdot_{A}b+a\cdot_{A}c, (a+_{A}b)\cdot_{A}c=a\cdot_{A}c+b\cdot_{A}c$ が なりたつ. (分配則)
+- (8) $R$ の任意の元 $r$ と $A$ の任意の元 $a, b$ に対し, $r\scprod{A}(a+_{A}b)=r\scprod{A}a+r\scprod{A}b$ がな りたつ. (スカラー倍の分配則)
+- (9) $R$ の任意の元 $r_{1}, r_{2}$ と $A$ の任意の元 $a$ に対し, $(r_{1} +_{R} r_{2})\scprod{A}a=r_{1}\scprod{A}a+r_{2}\scprod{A}a$ がなりたつ. (スカラー倍の分配則)
+- (10) $R$ の任意の元 $r_{1}, r_{2}$ と $A$ の任意の元 $a$ に対し, $(r_{1} \cdot_{R} r_{2})\scprod{A}a=r_{1}\scprod{A}(r_{2}\scprod{A}a)$ がなりたつ. (スカラー倍の結合則)
+- (11) $A$ の任意の元 $a$ に対し, $1_{R}\scprod{A}a=a$ がなりたつ. (スカラー倍の単位元)
+- (12) $A$ の任意の元 $a, b, c$ に対し, $a\scprod{A}(b\cdot_{A}c)=(a\scprod{A}b)\cdot_{A}c$ がなりたつ. (スカラー倍の積の結合則)
+
+(1)-(7)を考えると$(A, +_{A}, \cdot_{A})$は環である
+
+(1)-(4), (8)-(12)を考え、$R$が体$K$であるとき$A$を$\linsp{K}$とみなせる
+
+### 商結合代数
+$R: 環$
+
+$A: R\text{-}結合代数, I: Aのイデアル$
+
+$A/I: Aを環とみたときのIによる剰余環$
+
+$$
+\begin{align}
+    \scprod{A/I}&: R \times A/I \to A/I
+\end{align}
+$$
+を、
+$$
+\begin{align}
+    r\scprod{A/I}\eqclass{\sim_{I}}{a} &:= \eqclass{\sim_{I}}{r\scprod{A}a}
+\end{align}
+$$
+で定めたとき、$A/I := (A/\sim_{I}, +_{A/I}, \cdot_{A/I}, \scprod{A/I})$を、$A$の$I$による商結合代数という。
+
+### 自由代数
+TODO: 自由代数ならば生成系上の写像があれば代数準同型が一意に定まる、をやる時に戻ってくる
+
+### テンソル代数
+$K: 体, V: \linsp{K}$
+
+$$
+\tensoralg{V} := \bigoplus_{n=0}^{\infty} V^{\otimes n}
+$$
+
+を、$V$のテンソル代数という。
+
+#### テンソル代数の基底
+次回(2/28)ここから
+- テンソル代数とクリフォード代数の基底の記号までは定めたい
+
+### クリフォード代数
+#### n次元標準$\R$-線型空間
+$\R^{n} := \R \times \cdots \times \R$ に対して
+$$
+\begin{align}
+    +_{\Rlin{n}}&:\R^{n} \times \R^{n} \to \R^{n} \\
+    \scprod{\Rlin{n}}&: \R \times \R^{n} \to \R^{n}
+\end{align}
+$$
+を、
+$$
+\begin{align}
+    \forall x=, y \in \R^{n}, x +_{\Rlin{n}} y &:= (x_1 +_{\R} y_1, \ldots, x_n +_{\R} y_n) \\
+    \forall a \in \R, x \in \R^{n}, a \scprod{\Rlin{n}} x &:= (a \cdot_{\R} x_1, \ldots, a \cdot_{\R} x_n)
+\end{align}
+$$
+と定めたとき、$\Rlin{n} := (\R^{n}, +_{\R^{n}}, \scprod{\R^{n}})$を、n次元標準$\R$-線型空間という。
+
+- $\Rlin{n}$ (n次元標準\R線型空間)
+    - 和とスカラーを入れる (具体的にやっとく)
+- 符号数つき内積っぽい二項演算を$\R^n$上に定義する (あんまり名前もつけずに記号として定める) 
+    - $\R^{n}_{p,q}$が定義できる
+- $Cl_{p,q}$ : ($\R^{n}_{p,q}$の自由代数の商結合代数)
+    - $I := \left(\{v \cdot v - \signedInnerProd{p}{q}{v}{v} \mid v \in \R^{n}_{p,q} \}から生成される両側イデアル\right)$
+    - $Cl_{p,q} := \tensoralg{\signedInnerProdR{p}{q}}/I$
+- $Cl_{0,1}$の基底
+    - $\{ (\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}, (\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}, \cdots \} \subset \tensoralg{\signedInnerProdR{p}{q}}$は、基底
+    - $l \in Cl_{0,1}$は、$l = r_{even} \scprod{Cl_{0,1}} \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}} - r_{odd} \scprod{Cl_{0,1}} \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}}$
+        - 証明はone note $Cl_{1} \cong \Cf$ 参照
+    - $\{ \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}},  \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}}\}$
+        が$Cl_{0,1}$の基底であることを示す
+        - 証明はone note $Cl_{1} \cong \Cf$ 参照
+- $Cl_{0,2}$の基底
+    - $\basiselm{}{}$
+- スピン幾何学 補題1.1
+    - $ \mathrm{Cl}_{n, 0} \otimes \mathrm{Cl}_{0,2} \cong \mathrm{Cl}_{0, n+2}, \quad \mathrm{Cl} l_{0, n} \otimes \mathrm{Cl}_{2,0} \cong \mathrm{Cl}_{n+2,0} $
+    - これを複素化する
+- スピン幾何学に従って $\mathbb{C}$-行列環との同型までは行ける？
+    - 命題1.10 ミスってるのでは？？
+- 基底の記号を定める
+- クリフォード群 (?)
+
+### G-次数代数
+#### Z2-次数代数
+
+### 行列環
 
 - 結合代数 (環R上の結合代数)
     - 剰余環: (「環上の加群」に従う)
@@ -242,28 +476,6 @@ $$
     - テンソル代数は自由代数でZ2-次数代数
 - 行列環
 - クリフォード代数 (符号数つき内積付き$R^n$のテンソル代数の商代数)
-    - $\Rlin{n}$ (n次元標準\R線型空間)
-        - 和とスカラーを入れる (具体的にやっとく)
-    - 符号数つき内積っぽい二項演算を$\R^n$上に定義する (あんまり名前もつけずに記号として定める) 
-        - $\R^{n}_{p,q}$が定義できる
-    - $Cl_{p,q}$ : ($\R^{n}_{p,q}$の自由代数の商結合代数)
-        - $I := \left(\{v \cdot v - \signedInnerProd{p}{q}{v}{v} \mid v \in \R^{n}_{p,q} \}から生成される両側イデアル\right)$
-        - $Cl_{p,q} := \tensoralg{\signedInnerProdR{p}{q}}/I$
-    - $Cl_{0,1}$の基底
-        - $\{ (\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}, (\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}, \cdots \} \subset \tensoralg{\signedInnerProdR{p}{q}}$は、基底
-        - $l \in Cl_{0,1}$は、$l = r_{even} \scprod{Cl_{0,1}} \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}} - r_{odd} \scprod{Cl_{0,1}} \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}}$
-            - 証明はone note $Cl_{1} \cong \Cf$ 参照
-        - $\{ \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}},  \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}}\}$
-            が$Cl_{0,1}$の基底であることを示す
-            - 証明はone note $Cl_{1} \cong \Cf$ 参照
-    - $Cl_{0,2}$の基底
-        - $\basiselm{}{}$
-    - スピン幾何学 補題1.1
-        - $ \mathrm{Cl}_{n, 0} \otimes \mathrm{Cl}_{0,2} \cong \mathrm{Cl}_{0, n+2}, \quad \mathrm{Cl} l_{0, n} \otimes \mathrm{Cl}_{2,0} \cong \mathrm{Cl}_{n+2,0} $
-        - これを複素化する
-    - スピン幾何学に従って $\mathbb{C}$-行列環との同型までは行ける？
-        - 命題1.10 ミスってるのでは？？
-- クリフォード群 (?)
         
 ### 2. イジング模型の分配関数の計算
 - その先の計算 (イジング模型の分配関数 => $ST:\R^{2^{n}\times 2^{n}}$これの固有値を計算する)
