@@ -3,12 +3,16 @@
 ## 構成案(1: 数ベクトル空間 $R^n$ をベースとして展開
 ### 0. 記号
 ##### 略称
-- $\newcommand{\linsp}[1]{#1\text{-}\mathrm{Linear\ Space}} \linsp{K}: K\text{-}線型空間$
+- $\newcommand{\Kset}{\mathbf{K}} \Kset$
+- $\newcommand{\Kf}{\mathbb{K}} \Kf$
+- $\newcommand{\linsp}[1]{#1\text{-}\mathrm{線形空間}} \linsp{\Kf}$
 ##### 定義しない
 - $\renewcommand{\Z}{\mathbf{Z}}
     \Z: 集合としての整数$
 - $\newcommand{\Zpos}{\mathbf{Z}_{\geq 0}}
     \Zpos := \{0, 1, 2, ...\} \subset \Z $
+- $\newcommand{\Zone}{\mathbf{Z}_{\geq 1}}
+    \Zone := \{1, 2, ...\} \subset \Z $
 - $\renewcommand{\R}{\mathbf{R}}
     \R: 集合としての実数$
 - $\newcommand{\C}{\mathbf{C}}
@@ -19,6 +23,8 @@
     \mathbb{R} := (\mathbf{R}, +_{\Rf},\cdot_{\Rf}): 実数体$
 - $\newcommand{\Cf}{\mathbb{C}}
     \mathbb{C} := (\mathbf{C}, +_{\Cf},\cdot_{\Cf}): 複素数体$
+
+##### 定義する
 - $\newcommand{\Mat}[2]{\mathbf{M}(#1, #2)}
     \Mat{n}{K}: K上のn次行列の集合$
 - $\newcommand{\congas}[1]{\underset{\text{as}\ #1}{\cong}}
@@ -33,44 +39,52 @@
     \newcommand{\subspaddja}[1]{部分空間 \ #1 同士の和}
     \subspadd{V}: \subspaddja{V}$
 - $\newcommand{\scprod}[1]{\cdot^{\text{sc}}_{#1}}
-    \newcommand{\scprodja}[1]{\linsp \ #1 の スカラー積}
+    \newcommand{\scprodja}[1]{\linsp{K} \ #1 の スカラー積}
     \scprod{V}: \scprodja{V}$
 - $\newcommand{\basis}[1]{E_{#1}}
-    \newcommand{\basisja}[1]{\linsp \ #1 の 基底}
+    \newcommand{\basisja}[1]{\linsp{K} \ #1 の 基底}
     \basis{V}: \basisja{V}$
-- $\newcommand{\basiselm}[2]{e^{(#2)}_{#1}}
-    \newcommand{\basiselmja}[2]{\linsp \ #1 の 基底の #2 番目の要素}
-    \basiselm{V}{i}: \basiselmja{V}{i}$
+- $\newcommand{\stdbasis}[2]{E^{std}_{{#1}^{#2}}}
+    \newcommand{\stdbasisja}[2]{\linsp{K} {#1}^{#2} の標準基底}
+    \stdbasis{K}{n}: \stdbasisja{K}{n}$
+- $\newcommand{\stdbasiselm}[2]{e^{(#2)}_{#1}}
+    \newcommand{\stdbasiselmja}[2]{\linsp{K} \ #1 の 標準基底の要素 で添え字が #2 }
+    \stdbasiselm{V}{i}: \stdbasiselmja{V}{i}$
 - $\newcommand{\eqclass}[2]{[#2]_{#1}}
     \newcommand{\eqclassja}[2]{集合 \ #1 における #2 の 同値類}
     \eqclass{S}{v}: \eqclassja{S}{v}$
-
-##### 定義する
 - $\newcommand{\Ztwo}{\Zr_{2}}
     \Ztwo := \Zr/2\Zr から積を忘れて巡回群として見たもの$
+- $\Kf := (\Kset, +_{\Kf},\cdot^{sc}_{\Kf}): 体に対して、$
+  - $\newcommand{\stdlin}[2]{#1_{\mathrm{lin}}^{#2}}
+    \newcommand{\stdlinja}[2]{#2 次元標準\linsp{#1}}
+    \stdlin{\Kset}{n} := (\Kset^{n}, +_{\stdlin{\Kset}{n}},\cdot^{sc}_{\stdlin{\Kset}{n}}) : \stdlinja{\Kf}{n}$
 - $\newcommand{\Rlin}[1]{\mathbf{R}_{\mathrm{lin}}^{#1}}
-    \newcommand{\Rlinja}[1]{#1 次元標準\Rf線型空間}
+    \newcommand{\Rlinja}[1]{#1 次元標準\linsp{\Rf}}
     \Rlin{n} := (\mathbf{R}^{n}, +_{\Rlin{n}},\cdot^{sc}_{\Rlin{n}}) : \Rlinja{n}$
 - $\newcommand{\Clin}[1]{\mathbf{C}_{\mathrm{lin}}^{#1}}
-    \newcommand{\Clinja}[1]{#1 次元標準\Cf線型空間}
+    \newcommand{\Clinja}[1]{#1 次元標準\linsp{\Cf}}
     \Clin{n} := (\mathbf{C}^{n}, +_{\Clin{n}},\cdot^{sc}_{\Clin{n}}) : \Clinja{n}$
 - $\newcommand{\Matlin}[2]{\mathbf{M}_{\mathrm{lin}}(#1, #2)}
-    \newcommand{\Matlinja}[2]{#2上の#1次正方行列のなすK線型空間}
+    \newcommand{\Matlinja}[2]{#2上の#1次正方行列のなす\linsp{K}}
     \Matlin{n}{K}: \Matlinja{n}{K}$
 - $\newcommand{\signedInnerProd}[4]{<#3,#4>_{#1,#2}}
-    \signedInnerProd{p}{q}{\cdot}{\cdot}: 符号つき内積$
-- $\newcommand{\signedInnerProdR}[2]{\mathbf{R}_{#1,#2}}
-    \newcommand{\signedInnerProdRja}[2]{符号つき内積をもつ (#1+#2) 次元標準 \R 線型空間} 
+    \newcommand{\signedInnerProdja}[4]{(#1,#2)\text{-符号つき内積}}
+    \signedInnerProd{p}{q}{\cdot}{\cdot}: \signedInnerProdja{p}{q}{\cdot}{\cdot}$
+- $\newcommand{\signedInnerProdR}[2]{\mathbf{R}^{#1,#2}_{\mathrm{lin}}}
+    \newcommand{\signedInnerProdRja}[2]{符号つき内積 \signedInnerProd{p}{q}{\cdot}{\cdot} をもつ (#1+#2) 次元標準\linsp{\Rf}} 
     \signedInnerProdR{p}{q}: \signedInnerProdRja{p}{q}$
 - $\newcommand{\Ggradedalg}[1]{#1\text{-}次数代数}
     \newcommand{\Ggradedalgja}[1]{#1\text{-}次数代数} 
     \Ggradedalg{G}: \Ggradedalgja{G}$
 - $\newcommand{\tensoralg}[1]{T(#1)}
-    \newcommand{\tensoralgja}[1]{テンソル代数(#1:\linsp)} 
+    \newcommand{\tensoralgja}[1]{#1上のテンソル代数} 
     \tensoralg{V}: \tensoralgja{V}$
 - $\newcommand{\Cl}[1]{\mathrm{C}l(#1)}
-    \Cl{V}: クリフォード代数(V:\linsp)$
+    \newcommand{\Clja}[1]{#1上のクリフォード代数}
+    \Cl{V}: \Clja{V}$
 - $\newcommand{\Clpq}[2]{\mathrm{C}l_{#1,#2}}
+    \newcommand{\Clpqja}[2]{#1次元#2次数のクリフォード代数}
     \Clpq{p}{q}: 実クリフォード代数$
 - $\newcommand{\CCl}[1]{\mathbb{Cl}(#1)}
     \CCl{V}: 複素クリフォード代数(V:\linsp)$
@@ -92,55 +106,69 @@
 
 ### 1. 定義と定理
 
+#### めも
+$\Kf:=(\Kset, +_\Kf,\cdot_\Kf)$
+
+このような「再帰」してしまっている定義は、暗黙的な記号の濫用のルールが存在しているということなので、コラムとかで紹介できるといいかもしれない。本書のテーマとして「数学書を読むときは書いてあることを信じるな」がある。
+
+記号 $\Kf$ のもと、まず演算記号 $+_\Kf, \cdot_\Kf$ が定まり、それによって定まる三つ組を記号の濫用で$\Kf$と定義する、が正しい？
+
 - 群
     - Z2 (Rから0,1取ってきて演算表で定義)
 - 体
     - 定義
-    $$
-    \begin{align}
-        S&:\text{set}\\
-        +_{K}&:S \times S \to S\\
-            \cdot_{K}&:S \times S \to S
-    \end{align}
-    $$
-    とする。
-    - が、以下を満たすとき、$K:=(S, +_{K}, \cdot_{K})$を体という
-        - (1) $S$ の任意の元  に対し, $(a+_{K}b)+_{K}c=a+_{K}(b+_{K}c)$ がなりたつ. (和の結合則)
-        - (2) $S$ の元 0 で, $S$ の任意の元 $a$ に対し, $a+_{K}0=0+_{K}a=a$ をみたすも のがただ 1 つある. (零元の存在)
-        - (3) $S$ の任意の元 $a$ に対し, $a+_{K}b=b+_{K}a=0$ をみたす $S$ の元 $b$ がただ 1 つある. (和の逆元の存在)
-        - (4) $S$ の任意の元 $a, b$ に対し, $a+_{K}b=b+_{K}a$ がなりたつ. (和の可換則)
-        - (5) $S$ の任意の元 $a, b, c$ に対し, $(a \cdot_{K} b) c=a \cdot_{K} (b \cdot_{K} c)$ がなりたつ. (積の結合則)
-        - (6) $S$ の 0 でない元 1 で, $S$ の任意の元 $a$ に対し, $a \cdot_{K} 1=1 \cdot_{K} a=a$ をみたす ものがただ 1 つある. (積の単位元の存在)
-        - (7) $S$ の 0 でない任意の元 $a$ に対し, $a \cdot_{K} b=b \cdot_{K} a=1$ をみたす $S$ の元 $b$ がた だ 1 つある. (積の逆元の存在)
-        - (8) $S$ の任意の元 $a, b$ に対し, $a \cdot_{K} b=b \cdot_{K} a$ がなりたつ. (積の可換則)
-        - (9) $S$ の任意の元 $a, b, c$ に対し, $(a+_{K}b) c=a c+_{K}b \cdot_{K} c, a(b+_{K}c)=a \cdot_{K} b+_{K}a c$ が なりたつ. (分配則)
-    - ↑論理式で書き直す
-    - $\Rfと\Cfは体の具体例です$
+        3つ組 $\Kf:=(\Kset, +_\Kf,\cdot_\Kf)$が
+        $$
+        \begin{align}
+            \Kset&:\text{set}\\
+            +_{\Kf}&:S \times S \to S\\
+                \cdot_{\Kf}&:S \times S \to S
+        \end{align}
+        $$
+        であって、以下を満たすとき、$\Kf$を体という.
+    
+        - (1) $\Kset$ の任意の元  に対し, $(a+_{\Kf}b)+_{\Kf}c=a+_{\Kf}(b+_{\Kf}c)$ がなりたつ. (和の結合則)
+        - (2) $\Kset$ の元 $0_{\Kf}$ で, $\Kset$ の任意の元 $a$ に対し, $a+_{\Kf}0_{\Kf}=0_{\Kf}+_{\Kf}a=a$ をみたすも のがただ 1 つある. (零元の存在)
+        - (3) $\Kset$ の任意の元 $a$ に対し, $a+_{\Kf}b=b+_{\Kf}a=0$ をみたす $\Kset$ の元 $b$ がただ 1 つある. (和の逆元の存在)
+        - (4) $\Kset$ の任意の元 $a, b$ に対し, $a+_{\Kf}b=b+_{\Kf}a$ がなりたつ. (和の可換則)
+        - (5) $\Kset$ の任意の元 $a, b, c$ に対し, $(a \cdot_{\Kf} b) c=a \cdot_{\Kf} (b \cdot_{\Kf} c)$ がなりたつ. (積の結合則)
+        - (6) $\Kset$ の 0 でない元 $1_{\Kf}$ で, $\Kset$ の任意の元 $a$ に対し, $a \cdot_{\Kf} 1_{\Kf}=1_{\Kf} \cdot_{\Kf} a=a$ をみたす ものがただ 1 つある. (積の単位元の存在)
+        - (7) $\Kset$ の 0 でない任意の元 $a$ に対し, $a \cdot_{\Kf} b=b \cdot_{\Kf} a=1$ をみたす $\Kset$ の元 $b$ がた だ 1 つある. (積の逆元の存在)
+        - (8) $\Kset$ の任意の元 $a, b$ に対し, $a \cdot_{\Kf} b=b \cdot_{\Kf} a$ がなりたつ. (積の可換則)
+        - (9) $\Kset$ の任意の元 $a, b, c$ に対し, $(a+_{\Kf}b) c=a c+_{\Kf}b \cdot_{\Kf} c, a(b+_{\Kf}c)=a \cdot_{\Kf} b+_{K}a c$ が なりたつ. (分配則)
+
+    - memo
+        - ↑論理式で書き直す
+        - $\Rfと\Cfは体の具体例です$
 ### 線型空間
+$\Kf:=(\Kset, +_\Kf,\cdot_\Kf)$：体
+3つ組$V_{\text{lin}}:=(V,+_{V_{\text{lin}}},\scprod{V_{\text{lin}}})$が
 $$
 \begin{align}
-    S&:\text{set}\\
-    +_{V}&:S \times S \to S\\
-    \scprod{V}&:K \times S \to S
+    V&:\text{set}\\
+    +_{V_{\text{lin}}}&:S \times S \to S\\
+    \scprod{V_{\text{lin}}}&:K \times S \to S
 \end{align}
 $$
-が、以下を満たすとき$V:=(S, +_{V}, \scprod{V})$を$\linsp{}$という
-- (1) $S$ の任意の元 $x, y, z$ に対し, $(x+_{V}y)+_{V}z=x+_{V}(y+_{V}z)$ がなりたつ.
-- (2) $S$ の元 0 で, $S$ の任意の元 $x$ に対し, $x+_{V}0=0+_{V}x=x$ をみたすもの がただ 1 ある.
-- (3) $S$ の任意の元 $x$ に対し, $x+_{V}y=y+_{V}x=0$ をみたす $S$ の元 $y$ がただ 1 つある。
-- (4) $S$ の任意の元 $x, y$ に対し, $x+_{V}y=y+_{V}x$ がなりたつ.
-- (5) $K$ の任意の元 $a$ と $S$ の任意の元 $x, y$ に対し, $a \scprod{V}(x+_{V}y)=a \scprod{V} x+_{V}a \scprod{V} y$ がな りたつ.
-- (6) $K$ の任意の元 $a, b$ と $S$ の任意の元 $x$ に対し, $(a \scprod{V} b) x=a \scprod{V} (b \scprod{V} x)$ と $(a+_{V}b) x=a \scprod{V} x+_{V}b \scprod{V} x$ がなりたつ.
-- (7) $S$ の任意の元 $x$ に対し, $1_{K} \scprod{V} x=x$ がなりたつ.
-- ↑論理式で書き直す
-- $\Rlin{n}$ (n次元標準\R線型空間) は具体例です
+であり、以下を満たすとき$V_{\text{lin}}:=(V, +_{V_{\text{lin}}}, \scprod{V_{\text{lin}}})$を$\linsp{\Kf}$という
+- (1) $S$ の任意の元 $x, y, z$ に対し, $(x+_{V_{\text{lin}}}y)+_{V_{\text{lin}}}z=x+_{V_{\text{lin}}}(y+_{V_{\text{lin}}}z)$ がなりたつ.
+- (2) $S$ の元 0 で, $S$ の任意の元 $x$ に対し, $x+_{V_{\text{lin}}}0=0+_{V_{\text{lin}}}x=x$ をみたすもの がただ 1 ある.
+- (3) $S$ の任意の元 $x$ に対し, $x+_{V_{\text{lin}}}y=y+_{V_{\text{lin}}}x=0$ をみたす $S$ の元 $y$ がただ 1 つある。
+- (4) $S$ の任意の元 $x, y$ に対し, $x+_{V_{\text{lin}}}y=y+_{V_{\text{lin}}}x$ がなりたつ.
+- (5) $K$ の任意の元 $a$ と $S$ の任意の元 $x, y$ に対し, $a \scprod{V_{\text{lin}}}(x+_{V_{\text{lin}}}y)=a \scprod{V_{\text{lin}}} x+_{V_{\text{lin}}}a \scprod{V_{\text{lin}}} y$ がな りたつ.
+- (6) $K$ の任意の元 $a, b$ と $S$ の任意の元 $x$ に対し, $(a \scprod{V_{\text{lin}}} b) x=a \scprod{V_{\text{lin}}} (b \scprod{V_{\text{lin}}} x)$ と $(a+_{V_{\text{lin}}}b) x=a \scprod{V_{\text{lin}}} x+_{V_{\text{lin}}}b \scprod{V_{\text{lin}}} x$ がなりたつ.
+- (7) $S$ の任意の元 $x$ に対し, $1_{\Kf} \scprod{V_{\text{lin}}} x=x$ がなりたつ.
+
+- memo
+    - ↑論理式で書き直す
+    - $\Rlin{n}$ (n次元標準\R線型空間) は具体例です
 #### def. 基底
 $V$ を $K$ 線形空間とし, $x_1, \ldots, x_n$ を $V$ の元とする. $x_1, \ldots, x_n$
 が $V$ の基底 (basis) であるとは, $V$ の任意の元 $x$ に対し, $x=a_1 x_1+\cdots+a_n x_n$ をみたす $a=\left(\begin{array}{c}a_1 \\ \vdots \\ a_n\end{array}\right) \in K^n$ が，たた 1 つ存在することをいう.
 
 ==== この辺は本に投げても良いかも
 #### def. 線型独立
-$V$ を $K$ 線形空間とし, $x_1, \ldots, x_n$ を $V$ の元とする. $x_1, \ldots, x_n$ が $\left\langle x_1, \ldots, x_n\right\rangle$ の基底であるとき， $x_1, \ldots, x_n$ は 1 次独立 (linearly independent) であるという.
+$V_{lin}$ を $K$ 線形空間とし, $x_1, \ldots, x_n$ を $V$ の元とする. $x_1, \ldots, x_n$ が $\left\langle x_1, \ldots, x_n\right\rangle$ の基底であるとき， $x_1, \ldots, x_n$ は 1 次独立 (linearly independent) であるという.
 
 #### def. 線型従属
 $V$ を $K$ 線形空間とし, $x_1, \ldots, x_n$ を $V$ の元とする. $x_1, \ldots, x_n$ が $\left\langle x_1, \ldots, x_n\right\rangle$ の基底でないとき， $x_1, \ldots, x_n$ は 1 次従属 (linearly dependent) であるという.
@@ -228,11 +256,7 @@ $V$ を $K$ 線形空間とし, $W$ を $V$ の $K$ 部分空間、$V/W$を商�
 
 $v \in V$について、$v$の$V/W$における同値類を、
 $$
-<<<<<<< HEAD
-[v]_{V/W} := \eqclass{\sim_{W}}{v}
-=======
 \eqclass{V/W}{v} := \eqclass{\sim_{W}}{v}
->>>>>>> b4a4e37 (20240228-165058)
 $$
 と定める。
 
@@ -240,13 +264,13 @@ $$
 TODO
 
 ### テンソル積
-$K: 体$
+$\Kf:=(\Kset, +_\Kf,\cdot_\Kf) \ 体$
 
-$V, W: \linsp{K}$
+$V, W: \linsp{\Kf}$
 
-$K^{(V \times W)}=\{h: V \times W \rightarrow K \mid h(x, y) \neq 0$ となる $(x, y) \in V \times W$ は有限個 $\}$
+$\Kset^{(V \times W)}=\{h: V \times W \rightarrow K \mid h(x, y) \neq 0$ となる $(x, y) \in V \times W$ は有限個 $\}$
 
-$e_{x, y} \in K^{(V \times W)}$ を、
+$e_{x, y} \in \Kset^{(V \times W)}$ を、
 $$
 e_{x, y}(x, y) =
 \begin{cases}
@@ -256,23 +280,25 @@ e_{x, y}(x, y) =
 $$
 で定める。
 
-$R_1, R_2, R_3 \subset K^{(V \times W)}$ を、
+$\Kset^{(V \times W)}は、\linsp{\Kf}$である。
+
+$R_1, R_2, R_3 \subset \Kset^{(V \times W)}$ を、
 
 $$
 \begin{aligned}
-    & R_1=\sublinspGeneratedBy{e_{x+x^{\prime}, y}-_{K^{(V \times W)}}e_{x, y}-_{K^{(V \times W)}}e_{x^{\prime}, y} \mid x, x^{\prime} \in V, y \in W} \\ 
-    & R_2=\sublinspGeneratedBy{e_{x, y+y^{\prime}}-_{K^{(V \times W)}}e_{x, y}-_{K^{(V \times W)}}e_{x, y^{\prime}} \mid x \in V, y, y^{\prime} \in W} \\ 
-    & R_3=\sublinspGeneratedBy{e_{a x, y}-_{K^{(V \times W)}}a e_{x, y}, e_{x, a y}-_{K^{(V \times W)}}a e_{x, y} \mid a \in K, x \in V, y \in W}
+    & R_1=\sublinspGeneratedBy{e_{x+x^{\prime}, y}-_{\Kset^{(V \times W)}}e_{x, y}-_{\Kset^{(V \times W)}}e_{x^{\prime}, y} \mid x, x^{\prime} \in V, y \in W} \\ 
+    & R_2=\sublinspGeneratedBy{e_{x, y+y^{\prime}}-_{\Kset^{(V \times W)}}e_{x, y}-_{\Kset^{(V \times W)}}e_{x, y^{\prime}} \mid x \in V, y, y^{\prime} \in W} \\ 
+    & R_3=\sublinspGeneratedBy{e_{a x, y}-_{\Kset^{(V \times W)}}a e_{x, y}, e_{x, a y}-_{\Kset^{(V \times W)}}a e_{x, y} \mid a \in K, x \in V, y \in W}
 \end{aligned}$$
 
-$V \otimeslin{K} W := K^{(V \times W)} / (R_{1}\subspadd{K^{(V \times W)}}R_{2}\subspadd{K^{(V \times W)}}R_{3})$
+$V \otimeslin{\Kf} W := \Kset^{(V \times W)} / (R_{1}\subspadd{\Kset^{(V \times W)}}R_{2}\subspadd{\Kset^{(V \times W)}}R_{3})$
 
-$V \otimeslin{K} W$を、$V$と$W$のテンソル積という。
+$V \otimeslin{\Kf} W$を、$V$と$W$のテンソル積という。
 
 #### テンソル積の元
-$x \in V, y \in W$について、$x \otimeslin{K} y \in V \otimeslin{K} W$を、
+$x \in V, y \in W$について、$x \otimeslin{\Kf} y \in V \otimeslin{\Kf} W$を、
 $$
-    x \otimeslin{K} y := \eqclass{V \otimeslin{K} W}{e_{x, y}}
+    x \otimeslin{\Kf} y := \eqclass{V \otimeslin{\Kf} W}{e_{x, y}}
 $$
 
 #### テンソル積のn乗
@@ -406,20 +432,29 @@ $$
 TODO: 自由代数ならば生成系上の写像があれば代数準同型が一意に定まる、をやる時に戻ってくる
 
 ### テンソル代数
-$K: 体, V: \linsp{K}$
+$\Kf: 体, V: \linsp{\Kf}$
 
 $$
-\tensoralg{V} := \bigoplus_{n=0}^{\infty} V^{\otimes n}
+\tensoralg{V} := \bigoplus_{n=0}^{\infty} V^{\otimeslin{\Kf} n} \hspace{40pt} (\text{ただし、}V^{\otimeslin{\Kf} 0} := \Kf)
 $$
 
 を、$V$のテンソル代数という。
 
 #### テンソル代数の基底
-次回(2/28)ここから
-- テンソル代数とクリフォード代数の基底の記号までは定めたい
+$\Kf := (\Kset, +_\Kf,\cdot_\Kf) \ 体$
+
+$\stdlin{\Kset}{n}: \stdlinja{\mathbf{\Kf}}{n}$
+
+$\tensoralg{\stdlin{\Kset}{n}}: \tensoralgja{\stdlin{\Kset}{n}}$
+
+$\stdbasiselm{\stdlin{\Kset}{n}}{1}, \dots ,\stdbasiselm{\stdlin{\Kset}{n}}{n} \in \stdbasis{\Kset}{n}$とするとき、
+
+$$
+\basis{\tensoralg{\stdlin{\Kset}{n}}} := \{ 1_{\Kf} \} \cup \{ \stdbasiselm{\stdlin{\Kset}{n}}{i_1} \otimeslin{\Kf} \cdots \otimeslin{\Kf} \stdbasiselm{\stdlin{\Kset}{n}}{i_m} \mid m \in \Zone, \ i_1, \dots, i_m \in \{1, \dots, n\} \}
+$$
 
 ### クリフォード代数
-#### n次元標準$\R$-線型空間
+#### $\Rlinja{n}$
 $\R^{n} := \R \times \cdots \times \R$ に対して
 $$
 \begin{align}
@@ -436,10 +471,23 @@ $$
 $$
 と定めたとき、$\Rlin{n} := (\R^{n}, +_{\R^{n}}, \scprod{\R^{n}})$を、n次元標準$\R$-線型空間という。
 
-- $\Rlin{n}$ (n次元標準\R線型空間)
-    - 和とスカラーを入れる (具体的にやっとく)
-- 符号数つき内積っぽい二項演算を$\R^n$上に定義する (あんまり名前もつけずに記号として定める) 
-    - $\R^{n}_{p,q}$が定義できる
+### $\signedInnerProdja{p}{q}{\cdot}{\cdot}$
+$\R^{n} := \R \times \cdots \times \R$ に対して
+
+$\signedInnerProd{p}{q}{\cdot}{\cdot}:\R^{n} \times \R^{n} \to \R$ を、
+
+$$
+\begin{align}
+    \forall x, y \in \R^{n}に対して\  \signedInnerProd{p}{q}{x}{y} &:= \sum_{i=1}^{p} x_i\cdot_{\Rf} y_i - \sum_{i=p+1}^{n} x_i\cdot_{\Rf} y_i
+\end{align}
+$$
+
+と定めたとき、$\signedInnerProd{p}{q}{\cdot}{\cdot}$を、$\R^{n}$上の$\signedInnerProdja{p}{q}{\cdot}{\cdot}$という。
+
+次回(3/9)
+- クリフォード代数の基底の記号を定め↓たら、計算を進める(最下部)
+
+- $\signedInnerProdR{p}{q}$が定義できる
 - $Cl_{p,q}$ : ($\R^{n}_{p,q}$の自由代数の商結合代数)
     - $I := \left(\{v \cdot v - \signedInnerProd{p}{q}{v}{v} \mid v \in \R^{n}_{p,q} \}から生成される両側イデアル\right)$
     - $Cl_{p,q} := \tensoralg{\signedInnerProdR{p}{q}}/I$
