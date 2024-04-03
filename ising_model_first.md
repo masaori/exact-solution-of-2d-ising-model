@@ -1,3 +1,22 @@
+めも
+- $s_{i,j} \in \mathbb{Z}/2\mathbb{Z} := \{0, 1\}$みたいに捉えるのはどうか
+- $\mathbb{Z}/2\mathbb{Z} \times \mathbf{R} \to \mathbf{R}$
+
+$$
+    Z(J,J'):=\sum_{
+        \begin{align*}
+            s_{i,j}\in \mathbb{Z}/2\mathbb{Z}\\
+            s_{i,N+1=s_i,1}\\
+            s_{M+1,j}=s_{1,j}
+        \end{align*}
+        }
+        \left(\prod^M_{i=1}\left(
+            \left(\prod^N_{j_1=1}\exp((s_{i,j_1}+_{\mathbb{Z}/2\mathbb{Z}} s_{i,j_1+1}) \cdot J)\right)
+            \cdot 
+            \left(\prod^N_{j_1=1}\exp(J\cdot s_{i,j_2}\cdot s_{i+1,j_2})\right)
+        \right)\right)
+$$
+
 "2次元Ising模型の厳密解"
 $$
 \newcommand{\bM}{\mathbb{M}}

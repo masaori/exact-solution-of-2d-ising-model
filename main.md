@@ -1,3 +1,8 @@
+# 方針メモ
+- Z(J, J')の定義を{1-, 1}ではなくて、Z/Z2 := {+,-} でやってみる
+    - 自然数でない何かを添え字とする行列
+    - 状態のペアに値をふるものとして捉えている。コラムっぽく買いとけば良いのでは？
+
 # 必要な要素
 
 ## 構成案(1: 数ベクトル空間 $R^n$ をベースとして展開
@@ -484,29 +489,27 @@ $$
 
 と定めたとき、$\signedInnerProd{p}{q}{\cdot}{\cdot}$を、$\R^{n}$上の$\signedInnerProdja{p}{q}{\cdot}{\cdot}$という。
 
-次回(3/9)
-- クリフォード代数の基底の記号を定め↓たら、計算を進める(最下部)
-
+TODO:
 - $\signedInnerProdR{p}{q}$が定義できる
 - $Cl_{p,q}$ : ($\R^{n}_{p,q}$の自由代数の商結合代数)
     - $I := \left(\{v \cdot v - \signedInnerProd{p}{q}{v}{v} \mid v \in \R^{n}_{p,q} \}から生成される両側イデアル\right)$
     - $Cl_{p,q} := \tensoralg{\signedInnerProdR{p}{q}}/I$
 - $Cl_{0,1}$の基底
-    - $\{ (\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}, (\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}, \cdots \} \subset \tensoralg{\signedInnerProdR{p}{q}}$は、基底
-    - $l \in Cl_{0,1}$は、$l = r_{even} \scprod{Cl_{0,1}} \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}} - r_{odd} \scprod{Cl_{0,1}} \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}}$
+    - $\{ (\stdbasiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}, (\stdbasiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}, \cdots \} \subset \tensoralg{\signedInnerProdR{p}{q}}$は、基底
+    - $l \in Cl_{0,1}$は、$l = r_{even} \scprod{Cl_{0,1}} \eqclass{Cl_{0,1}}{(\stdbasiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}} - r_{odd} \scprod{Cl_{0,1}} \eqclass{Cl_{0,1}}{(\stdbasiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}}$
         - 証明はone note $Cl_{1} \cong \Cf$ 参照
-    - $\{ \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}},  \eqclass{Cl_{0,1}}{(\basiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}}\}$
+    - $\{ \eqclass{Cl_{0,1}}{(\stdbasiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 0}},  \eqclass{Cl_{0,1}}{(\stdbasiselm{\signedInnerProdR{0}{1}}{1})^{\otimes 1}}\}$
         が$Cl_{0,1}$の基底であることを示す
         - 証明はone note $Cl_{1} \cong \Cf$ 参照
 - $Cl_{0,2}$の基底
-    - $\basiselm{}{}$
+    - 照明は、スピン幾何学参照
 - スピン幾何学 補題1.1
     - $ \mathrm{Cl}_{n, 0} \otimes \mathrm{Cl}_{0,2} \cong \mathrm{Cl}_{0, n+2}, \quad \mathrm{Cl} l_{0, n} \otimes \mathrm{Cl}_{2,0} \cong \mathrm{Cl}_{n+2,0} $
     - これを複素化する
+        - $ \mathrm{Cl}_{p, q} \otimes_{\mathbb{R}} \Cf は、 \mathbb{Cl}_{p+q}$ になる
 - スピン幾何学に従って $\mathbb{C}$-行列環との同型までは行ける？
-    - 命題1.10 ミスってるのでは？？
+    - 命題1.10 証明ミスってる気がするから自分たちの証明を参照する
 - 基底の記号を定める
-- クリフォード群 (?)
 
 ### G-次数代数
 #### Z2-次数代数
@@ -555,4 +558,12 @@ $$
             \Clpq{0}{n} \otimesalg{\Rf} \Clpq{2}{0} \cong \Clpq{n+2}{0}
             $
         
-        
+流れメモ (4/3)
+- クリフォード代数の基底の記号を定め↓たら、計算を進める(最下部)
+- クリフォード群 (?)
+    - ホロノミック量子場
+
+## ホロノミック量子場
+- 行列の主平方根について存在を示す必要あり https://ja.wikipedia.org/wiki/%E8%A1%8C%E5%88%97%E3%81%AE%E5%B9%B3%E6%96%B9%E6%A0%B9
+    - semipositiveであることを示す
+- 自由エネルギー $f$は、系全体の自由エネルギーの格子点ごとの平均という意味
