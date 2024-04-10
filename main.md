@@ -43,27 +43,32 @@
 - $\newcommand{\subspadd}[1]{+^{\text{sub.sp.}}_{#1}}
     \newcommand{\subspaddja}[1]{部分空間 \ #1 同士の和}
     \subspadd{V}: \subspaddja{V}$
-- $\newcommand{\scprod}[1]{\cdot^{\text{sc}}_{#1}}
-    \newcommand{\scprodja}[1]{\linsp{K} \ #1 の スカラー積}
-    \scprod{V}: \scprodja{V}$
-- $\newcommand{\basis}[1]{E_{#1}}
-    \newcommand{\basisja}[1]{\linsp{K} \ #1 の 基底}
-    \basis{V}: \basisja{V}$
-- $\newcommand{\stdbasis}[2]{E^{std}_{{#1}^{#2}}}
-    \newcommand{\stdbasisja}[2]{\linsp{K} {#1}^{#2} の標準基底}
-    \stdbasis{K}{n}: \stdbasisja{K}{n}$
-- $\newcommand{\stdbasiselm}[2]{e^{(#2)}_{#1}}
-    \newcommand{\stdbasiselmja}[2]{\linsp{K} \ #1 の 標準基底の要素 で添え字が #2 }
-    \stdbasiselm{V}{i}: \stdbasiselmja{V}{i}$
 - $\newcommand{\eqclass}[2]{[#2]_{#1}}
     \newcommand{\eqclassja}[2]{集合 \ #1 における #2 の 同値類}
     \eqclass{S}{v}: \eqclassja{S}{v}$
 - $\newcommand{\Ztwo}{\Zr_{2}}
     \Ztwo := \Zr/2\Zr から積を忘れて巡回群として見たもの$
-- $\Kf := (\Kset, +_{\Kf},\cdot^{sc}_{\Kf}): 体に対して、$
+- $\Kf := (\Kset, +_{\Kf},\cdot_{\Kf}): 体に対して、$
   - $\newcommand{\stdlin}[2]{#1_{\mathrm{lin}}^{#2}}
     \newcommand{\stdlinja}[2]{#2 次元標準\linsp{#1}}
     \stdlin{\Kset}{n} := (\Kset^{n}, +_{\stdlin{\Kset}{n}},\cdot^{sc}_{\stdlin{\Kset}{n}}) : \stdlinja{\Kf}{n}$
+- $\newcommand{\scprod}[1]{\cdot^{\text{sc}}_{#1}}
+    \newcommand{\scprodja}[1]{\linsp{\mathbb{K}} \ #1 の スカラー積}
+    \scprod{V}: \scprodja{V}$
+- $\newcommand{\basis}[1]{E_{#1}}
+    \newcommand{\basisja}[2]{#1 \ #2 の 基底}
+    \basis{V}: \basisja{\linsp{\mathbb{K}}}{V}$
+    - 一意に定まらない
+- $\newcommand{\basiselm}[2]{e^{(#2)}_{#1}}
+    \newcommand{\basiselmja}[3]{#1 \ #2 の 基底の要素 で添え字が #3 }
+    \basiselm{V}{i}: \basiselmja{\linsp{\mathbb{K}}}{V}{i}$
+    - 一意に定まらない
+- $\newcommand{\stdbasis}[1]{E^{std}_{{#1}}}
+    \newcommand{\stdbasisja}[2]{{#1} \ {#2} の標準基底}
+    \stdbasis{\stdlin{\Kset}{n}}: \stdbasisja{\linsp{\mathbb{K}}}{\stdlin{\Kset}{n}}$
+- $\newcommand{\stdbasiselm}[2]{e^{std(#2)}_{#1}}
+    \newcommand{\stdbasiselmja}[3]{#1 \ #2 の 標準基底の要素 で添え字が #3 }
+    \stdbasiselm{\stdlin{\Kset}{n}}{i}: \stdbasiselmja{\linsp{\mathbb{K}}}{\stdlin{\Kset}{n}}{i}$
 - $\newcommand{\Rlin}[1]{\mathbf{R}_{\mathrm{lin}}^{#1}}
     \newcommand{\Rlinja}[1]{#1 次元標準\linsp{\Rf}}
     \Rlin{n} := (\mathbf{R}^{n}, +_{\Rlin{n}},\cdot^{sc}_{\Rlin{n}}) : \Rlinja{n}$
@@ -85,14 +90,20 @@
 - $\newcommand{\tensoralg}[1]{T(#1)}
     \newcommand{\tensoralgja}[1]{#1上のテンソル代数} 
     \tensoralg{V}: \tensoralgja{V}$
+- $\newcommand{\tensoralgbasis}[1]{\{1_{\Rf}\} \cup \left( \bigcup_{k=1}^{\infty}\{ \bigotimes^{k}_{i=1} \basiselm{V}{j_{i}}\} \right)} 
+    \newcommand{\tensoralgbasisja}[1]{#1上のテンソル代数の基底} 
+    \tensoralgbasis{V}: \tensoralgbasisja{V}$
+- $\newcommand{\tensoralgbasiselm}[1]{T_{\Rf}(#1)}
+    \newcommand{\tensoralgbasiselmja}[1]{#1上のテンソル代数の基底の要素} 
+    \tensoralgbasiselm{V}: \tensoralgbasiselmja{V}$
 - $\newcommand{\Cl}[1]{\mathrm{C}l(#1)}
     \newcommand{\Clja}[1]{#1上のクリフォード代数}
     \Cl{V}: \Clja{V}$
 - $\newcommand{\Clpq}[2]{\mathrm{C}l_{#1,#2}}
     \newcommand{\Clpqja}[2]{#1次元#2次数のクリフォード代数}
-    \Clpq{p}{q}: 実クリフォード代数$
+    \Clpq{p}{q} := (\tensoralg{\Rlin{p+q}}を割ったもの) : 実クリフォード代数$
 - $\newcommand{\CCl}[1]{\mathbb{Cl}(#1)}
-    \CCl{V}: 複素クリフォード代数(V:\linsp)$
+    \CCl{V}: V上の複素クリフォード代数$
 - $\newcommand{\CClp}[1]{\mathbb{Cl}_{#1}}
     \CClp{p}: 複素クリフォード代数$
 - $\newcommand{\Cmat}[1]{\mathbb{C}({#1})}
@@ -558,12 +569,56 @@ TODO:
             \Clpq{0}{n} \otimesalg{\Rf} \Clpq{2}{0} \cong \Clpq{n+2}{0}
             $
         
-流れメモ (4/3)
-- クリフォード代数の基底の記号を定め↓たら、計算を進める(最下部)
-- クリフォード群 (?)
-    - ホロノミック量子場
 
 ## ホロノミック量子場
+### TODO/メモ
+
 - 行列の主平方根について存在を示す必要あり https://ja.wikipedia.org/wiki/%E8%A1%8C%E5%88%97%E3%81%AE%E5%B9%B3%E6%96%B9%E6%A0%B9
     - semipositiveであることを示す
 - 自由エネルギー $f$は、系全体の自由エネルギーの格子点ごとの平均という意味
+
+$V = V_{1}^{1/2}V_{2}V_{1}^{1/2}$
+
+$Z_{MN}(J, J^{\prime}) = tr(V^{N})$
+
+$V$の最大固有値を$\lambda_{0,M}$と書く時、
+
+$$
+-\beta f=\lim _{M, N \rightarrow \infty} \frac{1}{M N} \log Z_{MN}(J, J^{\prime})=\lim _{M \rightarrow \infty} \frac{1}{M} \log \lambda_{0, M}
+$$
+
+が成り立つので、Vの固有値を求めたい。
+
+$\sigma_k^x := I \otimes \cdots \otimes \stackrel{k\text{th}}{\sigma^x} \otimes \cdots \otimes I$
+
+$\sigma_k^y := I \otimes \cdots \otimes \stackrel{k\text{th}}{\sigma^y} \otimes \cdots \otimes I$
+
+$\sigma_k^z := I \otimes \cdots \otimes \stackrel{k\text{th}}{\sigma^z} \otimes \cdots \otimes I$
+
+$V_1=\exp K_1\left(\sigma_1^z \sigma_2^z+\sigma_2^z \sigma_3^z+\cdots+\sigma_M^z \sigma_1^z\right)$
+
+$V_2=\left(2 \sinh 2 K_2\right)^{\frac{M}{2}} \exp K_2^*\left(\sigma_1^x+\sigma_2^x+\cdots+\sigma_M^x\right)$
+
+$\mathcal{F} := (\Cf^{2})^{\otimes M}$
+
+$p_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z$
+
+$q_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y$
+
+
+$\varepsilon=\sigma_1^x \cdots \sigma_M^x=i^M p_1 q_1 \cdots p_M q_M$ とおいて、
+$$
+V_1=\exp \left(i K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)
+$$
+
+$$
+V_2=\left(2 s_2\right)^{\frac{M}{2}} \exp \left(i K_2^*\left(p_1 q_1+p_2 q_2+\cdots+p_M q_M\right)\right)
+$$
+
+と表せる
+
+
+流れメモ (4/10)
+- クリフォード代数の基底の記号を定め↓たら、計算を進める(最下部)
+- クリフォード群 (?)
+    - ホロノミック量子場 P.28 cから紐解く
