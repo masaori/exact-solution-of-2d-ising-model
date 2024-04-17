@@ -36,14 +36,14 @@
     \congas{aaa}: 同型$
 - $\newcommand{\congaslin}{\congas{\text{lin. sp.}}}
     \congaslin: 線形同型$
-- $\newcommand{\congasalg}[1]{\congas{\text{ass.}\ #1-\text{alg.}}}
+- $\newcommand{\congasalg}[1]{\congas{\text{ass.}\ #1\text{-alg.}}}
     \congasalg{\Rf}: 結合代数同型$
 - $\newcommand{\congasztwo}{\congas{\text{ass.}\ \Zr_{2}次数つき\text{alg.}}}
     \congasztwo: \Zr_{2} 代数同型$
 - $\newcommand{\subspadd}[1]{+^{\text{sub.sp.}}_{#1}}
     \newcommand{\subspaddja}[1]{部分空間 \ #1 同士の和}
     \subspadd{V}: \subspaddja{V}$
-- $\newcommand{\eqclass}[2]{[#2]_{#1}}
+- $\newcommand{\eqclass}[2]{\left[#2\right]_{#1}}
     \newcommand{\eqclassja}[2]{集合 \ #1 における #2 の 同値類}
     \eqclass{S}{v}: \eqclassja{S}{v}$
 - $\newcommand{\Ztwo}{\Zr_{2}}
@@ -75,15 +75,24 @@
 - $\newcommand{\Clin}[1]{\mathbf{C}_{\mathrm{lin}}^{#1}}
     \newcommand{\Clinja}[1]{#1 次元標準\linsp{\Cf}}
     \Clin{n} := (\mathbf{C}^{n}, +_{\Clin{n}},\cdot^{sc}_{\Clin{n}}) : \Clinja{n}$
+- $\newcommand{\Matset}[2]{\mathbf{M}(#1, #2)}
+    \newcommand{\Matsetja}[2]{#2上の#1次正方行列のなす集合}
+    \Matset{n}{K}: \Matsetja{n}{K}$
 - $\newcommand{\Matlin}[2]{\mathbf{M}_{\mathrm{lin}}(#1, #2)}
-    \newcommand{\Matlinja}[2]{#2上の#1次正方行列のなす\linsp{K}}
-    \Matlin{n}{K}: \Matlinja{n}{K}$
+    \newcommand{\Matlinja}[2]{#2上の#1次正方行列のなす\linsp{#2}}
+    \Matlin{n}{K} := (\Matset{n}{K}, +_{\Matlin{n}{K}}, \scprod{\Matlin{n}{K}}): \Matlinja{n}{K}$
+- $\newcommand{\MatAlg}[2]{\mathbf{M}_{\mathrm{alg}}(#1, #2)}
+    \newcommand{\MatAlgja}[2]{#2上の#1次正方行列のなすK \text{-} 結合代数 }
+    \MatAlg{n}{K} := (\Matset{n}{K}, +_{\MatAlg{n}{K}}, \cdot_{\MatAlg{n}{K}}, \scprod{\MatAlg{n}{K}}): \MatAlgja{n}{K}$
 - $\newcommand{\signedInnerProd}[4]{<#3,#4>_{#1,#2}}
     \newcommand{\signedInnerProdja}[4]{(#1,#2)\text{-符号つき内積}}
     \signedInnerProd{p}{q}{\cdot}{\cdot}: \signedInnerProdja{p}{q}{\cdot}{\cdot}$
 - $\newcommand{\signedInnerProdR}[2]{\mathbf{R}^{#1,#2}_{\mathrm{lin}}}
     \newcommand{\signedInnerProdRja}[2]{符号つき内積 \signedInnerProd{p}{q}{\cdot}{\cdot} をもつ (#1+#2) 次元標準\linsp{\Rf}} 
     \signedInnerProdR{p}{q}: \signedInnerProdRja{p}{q}$
+- $\newcommand{\signedInnerProdRstdbasiselm}[3]{e^{std(#3)}_{\signedInnerProdR{#1}{#2}}}
+    \newcommand{\signedInnerProdRstdbasiselmja}[4]{#1 の 標準基底の要素 で添え字が #4 }
+    \signedInnerProdRstdbasiselm{p}{q}{i}: \signedInnerProdRstdbasiselmja{\signedInnerProdR{p}{q}}{p}{q}{i}$
 - $\newcommand{\Ggradedalg}[1]{#1\text{-}次数代数}
     \newcommand{\Ggradedalgja}[1]{#1\text{-}次数代数} 
     \Ggradedalg{G}: \Ggradedalgja{G}$
@@ -579,12 +588,12 @@ TODO:
 
 $V = V_{1}^{1/2}V_{2}V_{1}^{1/2}$
 
-$Z_{MN}(J, J^{\prime}) = tr(V^{N})$
+$Z_{MN}(K_{1}, K_{2}) = tr(V^{N})$
 
 $V$の最大固有値を$\lambda_{0,M}$と書く時、
 
 $$
--\beta f=\lim _{M, N \rightarrow \infty} \frac{1}{M N} \log Z_{MN}(J, J^{\prime})=\lim _{M \rightarrow \infty} \frac{1}{M} \log \lambda_{0, M}
+-\beta f=\lim _{M, N \rightarrow \infty} \frac{1}{M N} \log Z_{MN}(K_{1}, K_{2})=\lim _{M \rightarrow \infty} \frac{1}{M} \log \lambda_{0, M}
 $$
 
 が成り立つので、Vの固有値を求めたい。
@@ -605,20 +614,54 @@ $p_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z$
 
 $q_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y$
 
+$K_{1}^{*} := -\frac{1}{2}\log(\tanh K_{1}) \Leftrightarrow \sinh{K_{1}}\sinh{K_{1}^{*}} = 1$
 
-$\varepsilon=\sigma_1^x \cdots \sigma_M^x=i^M p_1 q_1 \cdots p_M q_M$ とおいて、
+$K_{2}^{*} := -\frac{1}{2}\log(\tanh K_{2}) \Leftrightarrow \sinh{K_{2}}\sinh{K_{2}^{*}} = 1$
+
+$c_i := \cosh 2 K_i, \quad s_i := \sinh 2 K_i$,
+
+$c_i^* := \cosh 2 K_i^*, \quad s_i^* := \sinh 2 K_i^*$
+
+$\varepsilon := \sigma_1^x \cdots \sigma_M^x = (\sqrt{-1})^M p_1 q_1 \cdots p_M q_M$
+
+とおくと、
+
 $$
-V_1=\exp \left(i K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)
+V_1=\exp \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)
 $$
 
 $$
-V_2=\left(2 s_2\right)^{\frac{M}{2}} \exp \left(i K_2^*\left(p_1 q_1+p_2 q_2+\cdots+p_M q_M\right)\right)
+V_2=\left(2 s_2\right)^{\frac{M}{2}} \exp \left(\sqrt{-1} K_2^*\left(p_1 q_1+p_2 q_2+\cdots+p_M q_M\right)\right)
 $$
 
 と表せる
 
+### Clifford群
+
+Claim.
+$$
+\text{End}((\Cf^{2})^{\otimes M}) = \MatAlg{2^{M}}{\Cf} \congasalg{\Cf} \CClp{2M}
+$$
+Proof. スピン幾何学 定理 1.3
+
+$\signedInnerProdR{2M}{0} \ni \{\signedInnerProdRstdbasiselm{2M}{0}{1}, \dots, \signedInnerProdRstdbasiselm{2M}{0}{2M} \}$ を正規直交基底とするとき、$\CClp{2M}$ の部分空間として
+
+$$
+W=\mathbb{C} \scprod{\CClp{2M}} \eqclass{\CClp{2M}}{\signedInnerProdRstdbasiselm{2M}{0}{1}} \oplus \cdots \oplus \mathbb{C} \eqclass{\CClp{2M}}{\signedInnerProdRstdbasiselm{2M}{0}{2M}}
+$$
+
+が取れる
+
 
 流れメモ (4/10)
-- クリフォード代数の基底の記号を定め↓たら、計算を進める(最下部)
-- クリフォード群 (?)
-    - ホロノミック量子場 P.28 cから紐解く
+- クリフォード代数の部分集合として、クリフォード群が取れる
+    - クリフォード群の定義が wiki と微妙にずれている
+        - $\varepsilon$ を使って定義するっぽい ($\alpha$はZ2代数で出てきた主対合という$v \mapsto -v$から定まる代数同型で、これが$\varepsilon$と対応しているっぽい)
+        > クリフォード代数の元へのその可逆元の群による作用はひねられた共軛 (twisted conjugation) の言葉によって定義できる。x は y ↦ xyα(x)−1 と写す、ただし α は上で定義された main involution、による twisted conjugation。
+    - $\signedInnerProdR{p}{q}$は内積が定まっているので、この内積のもとで $\varepsilon$ はクリフォード群上の単位元になるみたいなことが起きてたりするのかもしれない
+
+    - というか、付録Aを読んでみたほうがいいかもしれない。複素クリフォード代数の定義が違うけど・・・
+
+    - ホロノミック量子場 P.28 cのわかるところを $\CClp{2M}$ の話として拾う
+        - $\CClp{2M}$の直和分解ごとにV1の制限を考えると、これがそれぞれClifford群に属している <= これをちゃんと理解する
+    - 2.３転送行列の対角化に進みつつ戻りつつ
