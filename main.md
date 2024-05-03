@@ -707,21 +707,20 @@ def. $O\left(\complexification{(\signedInnerProdR{2M}{0})}\right)
         \forall v, w \in \complexification{(\signedInnerProdR{2M}{0})} (\complexifiedSignedInnerProd{2M}{0}{v}{w} = \complexifiedSignedInnerProd{2M}{0}{T(v)}{T(w)}) \}$
 
 ---
-Claim.
-(次回 5/3 Tgとgの間に全単車があるを言いたい)
+Claim. $T_{g}$と$g$は定数倍を除いて一対一対応する
+$$
+全単射 \ f: \{ T_{g} \mid g \in \Clgrpp{2M} \} \to \Clgrpp{2M}/\Cabel \ が存在する。
+$$
 
-$\mathbf{T} := \{ T_{g} \mid g \in \Clgrpp{2M} \}, \Clgrpp{2M}/(\Cf^{❌}という群でわると見た方がいい？？)$
 
+Proof. (TODO)
 
-流れメモ (4/10)
-- クリフォード代数の部分集合として、クリフォード群が取れる
+流れメモ (5/3)
+- ホロノミック量子場 P.28 cのわかるところを $\CClp{2M}$ の話として拾う
+    - $\CClp{2M}$の直和分解ごとにV1の制限を考えると、これがそれぞれClifford群に属している <= これをちゃんと理解する
+- 2.３転送行列の対角化に進みつつ戻りつつ
+- 以下めも) クリフォード代数の部分集合として、クリフォード群が取れる
     - クリフォード群の定義が wiki と微妙にずれている
         - $\varepsilon$ を使って定義するっぽい ($\alpha$はZ2代数で出てきた主対合という$v \mapsto -v$から定まる代数同型で、これが$\varepsilon$と対応しているっぽい)
         > クリフォード代数の元へのその可逆元の群による作用はひねられた共軛 (twisted conjugation) の言葉によって定義できる。x は y ↦ xyα(x)−1 と写す、ただし α は上で定義された main involution、による twisted conjugation。
     - $\signedInnerProdR{p}{q}$は内積が定まっているので、この内積のもとで $\varepsilon$ はクリフォード群上の単位元になるみたいなことが起きてたりするのかもしれない
-
-    - というか、付録Aを読んでみたほうがいいかもしれない。複素クリフォード代数の定義が違うけど・・・
-
-    - ホロノミック量子場 P.28 cのわかるところを $\CClp{2M}$ の話として拾う
-        - $\CClp{2M}$の直和分解ごとにV1の制限を考えると、これがそれぞれClifford群に属している <= これをちゃんと理解する
-    - 2.３転送行列の対角化に進みつつ戻りつつ
