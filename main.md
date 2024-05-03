@@ -25,9 +25,13 @@
 - $\newcommand{\Zr}{\mathbb{Z}}
     \Zr := (\mathbf{Z}, +_{\Zr},\cdot_{\Zr}): 整数環$
 - $\newcommand{\Rf}{\mathbb{R}}
-    \mathbb{R} := (\mathbf{R}, +_{\Rf},\cdot_{\Rf}): 実数体$
+    \Rf := (\mathbf{R}, +_{\Rf},\cdot_{\Rf}): 実数体$
 - $\newcommand{\Cf}{\mathbb{C}}
-    \mathbb{C} := (\mathbf{C}, +_{\Cf},\cdot_{\Cf}): 複素数体$
+    \Cf := (\mathbf{C}, +_{\Cf},\cdot_{\Cf}): 複素数体$
+- $\newcommand{\Rabel}{\mathbb{R}^{\times}}
+    \Rabel := \Rf\backslash{0} := (\mathbf{R},\cdot_{\Rf}): 実数の乗法群$
+- $\newcommand{\Cabel}{\mathbb{C}^{\times}}
+    \Cabel := \Cf\backslash{0} := (\mathbf{C},\cdot_{\Cf}): 複素数の乗法群$
 
 ##### 定義する
 - $\newcommand{\Mat}[2]{\mathbf{M}(#1, #2)}
@@ -69,6 +73,9 @@
 - $\newcommand{\stdbasiselm}[2]{e^{std(#2)}_{#1}}
     \newcommand{\stdbasiselmja}[3]{#1 \ #2 の 標準基底の要素 で添え字が #3 }
     \stdbasiselm{\stdlin{\Kset}{n}}{i}: \stdbasiselmja{\linsp{\mathbb{K}}}{\stdlin{\Kset}{n}}{i}$
+- $\newcommand{\complexification}[1]{{#1}^{\Cf}}
+    \newcommand{\complexificationja}[1]{\linsp{\Rf} \ #1 の複素化}
+    \complexification{V}: \complexificationja{V}$
 - $\newcommand{\Rlin}[1]{\mathbf{R}_{\mathrm{lin}}^{#1}}
     \newcommand{\Rlinja}[1]{#1 次元標準\linsp{\Rf}}
     \Rlin{n} := (\mathbf{R}^{n}, +_{\Rlin{n}},\cdot^{sc}_{\Rlin{n}}) : \Rlinja{n}$
@@ -87,6 +94,9 @@
 - $\newcommand{\signedInnerProd}[4]{<#3,#4>_{#1,#2}}
     \newcommand{\signedInnerProdja}[4]{(#1,#2)\text{-符号つき内積}}
     \signedInnerProd{p}{q}{\cdot}{\cdot}: \signedInnerProdja{p}{q}{\cdot}{\cdot}$
+- $\newcommand{\complexifiedSignedInnerProd}[4]{<#3,#4>^{\Cf}_{#1,#2}}
+    \newcommand{\complexifiedSignedInnerProdja}[4]{(#1,#2)\text{-符号つきエルミート内積}}
+    \complexifiedSignedInnerProd{p}{q}{\cdot}{\cdot}: \complexifiedSignedInnerProdja{p}{q}{\cdot}{\cdot}$
 - $\newcommand{\signedInnerProdR}[2]{\mathbf{R}^{#1,#2}_{\mathrm{lin}}}
     \newcommand{\signedInnerProdRja}[2]{符号つき内積 \signedInnerProd{p}{q}{\cdot}{\cdot} をもつ (#1+#2) 次元標準\linsp{\Rf}} 
     \signedInnerProdR{p}{q}: \signedInnerProdRja{p}{q}$
@@ -115,6 +125,10 @@
     \CCl{V}: V上の複素クリフォード代数$
 - $\newcommand{\CClp}[1]{\mathbb{Cl}_{#1}}
     \CClp{p}: 複素クリフォード代数$
+- $\newcommand{\Clgrpp}[1]{G_{\mathbb{Cl}_{#1}}}
+    \newcommand{\Clgrppja}[1]{\CClp{#1}のクリフォード群}
+    \Clgrpp{p}: \Clgrppja{p}$
+
 - $\newcommand{\Cmat}[1]{\mathbb{C}({#1})}
     \Cmat{p}: \Cf 行列環$
 - $\newcommand{\sublinspGeneratedBy}[1]{\left\langle #1 \right\rangle_{lin}}
@@ -644,13 +658,59 @@ $$
 $$
 Proof. スピン幾何学 定理 1.3
 
-$\signedInnerProdR{2M}{0} \ni \{\signedInnerProdRstdbasiselm{2M}{0}{1}, \dots, \signedInnerProdRstdbasiselm{2M}{0}{2M} \}$ を正規直交基底とするとき、$\CClp{2M}$ の部分空間として
+---
+($\signedInnerProdR{2M}{0} は、\CClp{2M} の台線型空間$)
+
+$\signedInnerProdR{2M}{0} \supset \{\signedInnerProdRstdbasiselm{2M}{0}{1}, \dots, \signedInnerProdRstdbasiselm{2M}{0}{2M} \}$ を正規直交基底とするとき、$\CClp{2M}$ の部分空間として
 
 $$
-W=\mathbb{C} \scprod{\CClp{2M}} \eqclass{\CClp{2M}}{\signedInnerProdRstdbasiselm{2M}{0}{1}} \oplus \cdots \oplus \mathbb{C} \eqclass{\CClp{2M}}{\signedInnerProdRstdbasiselm{2M}{0}{2M}}
+\complexification{(\signedInnerProdR{2M}{0})} = \mathbb{C} \scprod{\CClp{2M}} \eqclass{\CClp{2M}}{\signedInnerProdRstdbasiselm{2M}{0}{1}} \oplus \cdots \oplus \mathbb{C} \eqclass{\CClp{2M}}{\signedInnerProdRstdbasiselm{2M}{0}{2M}}
 $$
 
-が取れる
+に対して、
+
+$$
+\Clgrpp{2M} := \left\{ g \in \CClp{2M} \mid gは可逆 \land \left(\forall x \in \complexification{(\signedInnerProdR{2M}{0})} \text{ に対して、 } g \cdot_{\CClp{2M}} x \cdot_{\CClp{2M}} g^{-1} \in W\right)  \right\}
+$$
+を$\Clgrppja{2M}$という
+
+$g \in \Clgrpp{2M}$ に対して、
+$$
+T_{g}: \CClp{2M} \to \CClp{2M} \\
+T_{g}(x) := g \cdot_{\CClp{2M}} x \cdot_{\CClp{2M}} g^{-1}
+$$
+を定める。
+
+---
+Claim
+$$
+\complexification{(\signedInnerProdR{2M}{0})} の内積は \complexifiedSignedInnerProd{2M}{0}{v}{w} := (TODO)
+$$
+Proof. (TODO)
+
+---
+
+Claim
+$g \in \Clgrpp{2M}$ に対して、
+$$
+\forall v, w \in \complexification{(\signedInnerProdR{2M}{0})} (\complexifiedSignedInnerProd{2M}{0}{v}{w} = \complexifiedSignedInnerProd{2M}{0}{T_{g} \mid_{\complexification{(\signedInnerProdR{2M}{0})}}(v)}{T_{g} \mid_{\complexification{(\signedInnerProdR{2M}{0})}}(w)})
+
+$$
+
+Proof. (TODO)
+
+---
+
+def. $O\left(\complexification{(\signedInnerProdR{2M}{0})}\right)
+    := \{ T は \complexification{(\signedInnerProdR{2M}{0})}上の線形写像
+        \mid
+        \forall v, w \in \complexification{(\signedInnerProdR{2M}{0})} (\complexifiedSignedInnerProd{2M}{0}{v}{w} = \complexifiedSignedInnerProd{2M}{0}{T(v)}{T(w)}) \}$
+
+---
+Claim.
+(次回 5/3 Tgとgの間に全単車があるを言いたい)
+
+$\mathbf{T} := \{ T_{g} \mid g \in \Clgrpp{2M} \}, \Clgrpp{2M}/(\Cf^{❌}という群でわると見た方がいい？？)$
 
 
 流れメモ (4/10)
