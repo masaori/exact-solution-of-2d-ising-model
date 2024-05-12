@@ -670,7 +670,7 @@ $$
 に対して、
 
 $$
-\Clgrpp{2M} := \left\{ g \in \CClp{2M} \mid gは可逆 \land \left(\forall x \in \complexification{(\signedInnerProdR{2M}{0})} \text{ に対して、 } g \cdot_{\CClp{2M}} x \cdot_{\CClp{2M}} g^{-1} \in W\right)  \right\}
+\Clgrpp{2M} := \left\{ g \in \CClp{2M} \mid gは可逆 \land \left(\forall x \in \complexification{(\signedInnerProdR{2M}{0})} \text{ に対して、 } g \cdot_{\CClp{2M}} x \cdot_{\CClp{2M}} g^{-1} \in \complexification{(\signedInnerProdR{2M}{0})} \right)  \right\}
 $$
 を$\Clgrppja{2M}$という
 
@@ -708,16 +708,227 @@ def. $O\left(\complexification{(\signedInnerProdR{2M}{0})}\right)
 
 ---
 Claim. $T_{g}$と$g$は定数倍を除いて一対一対応する
+
+めも : 全単射よりも強いなんらかの関係があるかも？
+
+乗法群$\Cabel$の$\Clgrpp{2M}$への作用、
 $$
-全単射 \ f: \{ T_{g} \mid g \in \Clgrpp{2M} \} \to \Clgrpp{2M}/\Cabel \ が存在する。
+\begin{align}
+    \Cabel \times \Clgrpp{2M} &\to \Clgrpp{2M} \\
+    (c, g) &\mapsto c \cdot_{\CClp{2M}} g
+\end{align}
+$$
+を考える時、
+$$
+全単射 \ f: \{ T_{g} \mid g \in \Clgrpp{2M} \} \to \Cabel \backslash \Clgrpp{2M} \ が存在する。
 $$
 
 
 Proof. (TODO)
 
+---
+
+めも
+
+ただし、上記 $\cdot_{\CClp{2M}}$は、$\Cabel$を\CClp{2M}に乗法群で埋め込んだものと見ている
+
+R^2M -> T(R^2M) -> Cl(R^2M) -> Cl(R^2M) $\otimes \Cf \hookleftarrow$ $\Cabel$
+
+---
+
+# 対角化の計算 (ホロノミック量子場 付録B)
+
+$\mathcal{F} := (\Cf^{2})^{\otimes M}$
+
+$\sigma_k^x := I \otimes \cdots \otimes \stackrel{k\text{th}}{\sigma^x} \otimes \cdots \otimes I \in \text{End}(\mathcal{F})$
+
+$\sigma_k^y := I \otimes \cdots \otimes \stackrel{k\text{th}}{\sigma^y} \otimes \cdots \otimes I \in \text{End}(\mathcal{F})$
+
+$\sigma_k^z := I \otimes \cdots \otimes \stackrel{k\text{th}}{\sigma^z} \otimes \cdots \otimes I \in \text{End}(\mathcal{F})$
+
+$V_1:=\exp K_1\left(\sigma_1^z \sigma_2^z+\sigma_2^z \sigma_3^z+\cdots+\sigma_M^z \sigma_1^z\right) \in \text{End}(\mathcal{F})$
+
+$V_2:=\left(2 \sinh 2 K_2\right)^{\frac{M}{2}} \exp K_2^*\left(\sigma_1^x+\sigma_2^x+\cdots+\sigma_M^x\right) \in \text{End}(\mathcal{F})$
+
+$p_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z \in \text{End}(\mathcal{F}) \ ただし、p_{1} := \sigma_1^z$
+
+$q_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y \in \text{End}(\mathcal{F}) \ ただし、q_{1} := \sigma_1^y$
+
+$K_{1}^{*} := -\frac{1}{2}\log(\tanh K_{1}) \Leftrightarrow \sinh{K_{1}}\sinh{K_{1}^{*}} = 1$
+
+$K_{2}^{*} := -\frac{1}{2}\log(\tanh K_{2}) \Leftrightarrow \sinh{K_{2}}\sinh{K_{2}^{*}} = 1$
+
+$c_i := \cosh 2 K_i, \quad s_i := \sinh 2 K_i$,
+
+$c_i^* := \cosh 2 K_i^*, \quad s_i^* := \sinh 2 K_i^*$
+
+$\varepsilon := \sigma_1^x \cdots \sigma_M^x = (\sqrt{-1})^M p_1 q_1 \cdots p_M q_M \in \text{End}(\mathcal{F})$
+
+---
+
+Def. $\mathcal{F}^{(\pm)}$
+
+$\mathcal{F^{+}}:=\{f\in\mathcal{F} \mid \varepsilon f=+f\}$
+
+$\mathcal{F^{-}}:=\{f\in\mathcal{F} \mid \varepsilon f=-f\}$
+
+---
+Claim. 
+$$
+\begin{align*}
+V_1 &= \exp \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right) \\
+V_2 &= \left(2 s_2\right)^{\frac{M}{2}} \exp\sqrt{-1}  K_2^*\left(p_1 q_1+p_2 q_2+\cdots+p_M q_M\right)
+\end{align*}
+$$
+
+Proof.
+$$
+\begin{align*}
+p_m :&= \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z \ ただし、p_{1} := \sigma_1^z \\
+q_m :&= \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y \ ただし、q_{1} := \sigma_1^y \\
+\end{align*}
+$$
+
+より、
+$$
+\begin{align*}
+p_1 q_1 &= \sigma_1^z \sigma_1^y = -\sqrt{-1} \sigma_1^x \\
+p_m q_m &= (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z) (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y) \\
+&= \left(
+    (\stackrel{1\text{th}}{\sigma^x} \otimes \cdots \otimes I)
+    \cdot_{\text{End}(\mathcal{F})} \cdots \cdot_{\text{End}(\mathcal{F})}
+    (I \otimes \cdots \otimes \stackrel{m-1\text{th}}{\sigma^x} \otimes \cdots \otimes I)
+    \cdot_{\text{End}(\mathcal{F})}
+    (I \otimes \cdots \otimes \stackrel{m\text{th}}{\sigma^z} \otimes \cdots \otimes I)
+\right)
+\cdot_{\text{End}(\mathcal{F})}
+\left(
+    (\stackrel{1\text{th}}{\sigma^x} \otimes \cdots \otimes I)
+    \cdot_{\text{End}(\mathcal{F})} \cdots \cdot_{\text{End}(\mathcal{F})}
+    (I \otimes \cdots \otimes \stackrel{m-1\text{th}}{\sigma^x} \otimes \cdots \otimes I)
+    \cdot_{\text{End}(\mathcal{F})}
+    (I \otimes \cdots \otimes \stackrel{m\text{th}}{\sigma^y} \otimes \cdots \otimes I)
+\right) \\
+&= \overbrace{\sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^x}^{1\text{th}}
+    \otimes \cdots \otimes
+\overbrace{\sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^x}^{m-1\text{th}}
+\otimes
+\overbrace{\sigma^z \cdot_{\text{End}(\Cf^{2})} \sigma^y}^{m\text{th}}
+\otimes \cdots \otimes
+I \\
+&= \overbrace{I}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{I}^{m-1\text{th}}
+\otimes
+\overbrace{-\sqrt{-1} \sigma^x}^{m\text{th}}
+\otimes \cdots \otimes
+I
+\ \left(\because パウリ行列の性質 \right) \\
+&= -\sqrt{-1} \sigma_{m}^{z}
+\end{align*}
+$$
+同様に、
+$$
+\begin{align*}
+q_1 p_2 &= \sigma_1^y (\sigma_1^x \sigma_2^z) \\
+&= (\sigma_1^y \sigma_1^x) \sigma_2^z \\
+&= -\sqrt{-1} \sigma_1^z \sigma_2^z \\
+q_m p_{m+1} &= (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y) (\sigma_1^x \cdots \sigma_{m}^x \sigma_{m+1}^z) \\
+&= \overbrace{\sigma^x \
+\cdot_{\text{End}(\Cf^{2})} \sigma^x}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{\sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^x}^{m-1\text{th}}
+\otimes
+\overbrace{\sigma^y \cdot_{\text{End}(\Cf^{2})} \sigma^x}^{m\text{th}}
+\otimes
+\overbrace{\sigma^z}^{m+1\text{th}}
+\otimes \cdots \otimes
+I
+\\
+&= \overbrace{I}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{I}^{m-1\text{th}}
+\otimes
+\overbrace{-\sqrt{-1} \sigma^z}^{m\text{th}}
+\otimes
+\overbrace{\sigma^z}^{m+1\text{th}}
+\otimes \cdots \otimes
+I
+ \\
+&= -\sqrt{-1} \sigma_{m}^{z} \sigma_{m+1}^{z} \\
+\end{align*}
+$$
+
+また、
+$$
+\begin{align*}
+- \varepsilon q_M p_1 :&= - (\sigma_1^x \cdots \sigma_M^x) (\sigma_1^x \cdots \sigma_{M-1}^x \sigma_M^z) \sigma_1^z \\
+&= - \left(
+    \overbrace{
+    \left(\sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^x \right) \cdot_{\text{End}(\Cf^{2})} \sigma^z
+    }^{1\text{th}}
+    \otimes \cdots \otimes
+    \overbrace{
+        \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^x
+    }^{M-1\text{th}}
+    \otimes
+    \overbrace{
+        \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^z
+    }^{M\text{th}}
+    \otimes \cdots \otimes
+    I
+\right) \\
+&= - \left(
+    \overbrace{\sigma^z}^{1\text{th}}
+    \otimes \cdots \otimes
+    \overbrace{I}^{M-1\text{th}}
+    \otimes
+    \overbrace{-\sqrt{-1} \sigma^y}^{M\text{th}}
+    \otimes \cdots \otimes
+    I
+\right) \\
+&= \sqrt{-1} \sigma_{M}^{y} \sigma_{1}^{z}
+\end{align*}
+$$
+
+より、
+$$
+\begin{align*}
+q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1
+&= (-\sqrt{-1} \sigma_1^z \sigma_2^z) + (-\sqrt{-1} \sigma_2^z \sigma_3^z) + \cdots + (\sqrt{-1} \sigma_M^y \sigma_1^z) \\
+&= -\sqrt{-1} \left(
+    \sigma_1^z \sigma_2^z + \sigma_2^z \sigma_3^z + \cdots
+    \underbrace{
+        -\sigma_M^y \sigma_1^z
+    }_{(5/12)計算合わない。\sigma_M^z \sigma_1^zになってほしい}
+\right)
+\end{align*}
+$$
+(次回 5/12)
+- 計算ここから
+- $\mathcal{F}^{\pm}の固有ベクトルの個数の総数が\mathcal{F}の固有ベクトルの数に到達する、みたいなことがありそう$
+$$
+\begin{align*}
+V_1 :=& \exp K_1\left(\sigma_1^z \sigma_2^z+\sigma_2^z \sigma_3^z+\cdots+\sigma_M^z \sigma_1^z\right) \\
+=& \exp K_1\left(
+    (\stackrel{1\text{th}}{\sigma^z} \otimes \stackrel{2\text{th}}{\sigma^z} \otimes \cdots \otimes I)
+    + \cdots +
+    (I \otimes \cdots \otimes \stackrel{k\text{th}}{\sigma^z} \otimes \stackrel{k+1\text{th}}{\sigma^z} \otimes \cdots \otimes I)
+    + \cdots +
+    (\stackrel{1\text{th}}{\sigma^z} \otimes \cdots \otimes \stackrel{M\text{th}}{\sigma^z})
+\right)
+\end{align*}
+$$
+
+
+
+
+
+
 流れメモ (5/3)
-- ホロノミック量子場 P.28 cのわかるところを $\CClp{2M}$ の話として拾う
-    - $\CClp{2M}$の直和分解ごとにV1の制限を考えると、これがそれぞれClifford群に属している <= これをちゃんと理解する
+- ホロノミック量子場 付録B 対角化の計算を読む
+    - $\CClp{2M}$の直和分解ごとにV1の制限を考えると、これがそれぞれClifford群に属している
+    - (a) T_{g}のフーリエ変換
 - 2.３転送行列の対角化に進みつつ戻りつつ
 - 以下めも) クリフォード代数の部分集合として、クリフォード群が取れる
     - クリフォード群の定義が wiki と微妙にずれている
