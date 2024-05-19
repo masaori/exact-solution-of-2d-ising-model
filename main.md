@@ -752,7 +752,11 @@ $V_2:=\left(2 \sinh 2 K_2\right)^{\frac{M}{2}} \exp K_2^*\left(\sigma_1^x+\sigma
 
 $p_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z \in \text{End}(\mathcal{F}) \ ただし、p_{1} := \sigma_1^z$
 
+正し、$p_{M+1} := p_{1}$
+
 $q_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y \in \text{End}(\mathcal{F}) \ ただし、q_{1} := \sigma_1^y$
+
+正し、$q_{M+1} := q_{1}$
 
 $K_{1}^{*} := -\frac{1}{2}\log(\tanh K_{1}) \Leftrightarrow \sinh{K_{1}}\sinh{K_{1}^{*}} = 1$
 
@@ -793,6 +797,7 @@ $$
 $$
 \begin{align*}
 p_1 q_1 &= \sigma_1^z \sigma_1^y = -\sqrt{-1} \sigma_1^x \\
+2 \
 p_m q_m &= (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z) (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y) \\
 &= \left(
     (\stackrel{1\text{th}}{\sigma^x} \otimes \cdots \otimes I)
@@ -824,7 +829,7 @@ I \\
 \otimes \cdots \otimes
 I
 \ \left(\because パウリ行列の性質 \right) \\
-&= -\sqrt{-1} \sigma_{m}^{z}
+&= -\sqrt{-1} \sigma_{m}^{x}
 \end{align*}
 $$
 同様に、
@@ -862,7 +867,7 @@ $$
 また、
 $$
 \begin{align*}
-- \varepsilon q_M p_1 :&= - (\sigma_1^x \cdots \sigma_M^x) (\sigma_1^x \cdots \sigma_{M-1}^x \sigma_M^z) \sigma_1^z \\
+- \varepsilon q_M p_1 :&= - (\sigma_1^x \cdots \sigma_M^x) (\sigma_1^x \cdots \sigma_{M-1}^x \sigma_M^y) \sigma_1^z \\
 &= - \left(
     \overbrace{
     \left(\sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^x \right) \cdot_{\text{End}(\Cf^{2})} \sigma^z
@@ -873,39 +878,189 @@ $$
     }^{M-1\text{th}}
     \otimes
     \overbrace{
-        \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^z
+        \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^y
     }^{M\text{th}}
-    \otimes \cdots \otimes
-    I
 \right) \\
 &= - \left(
     \overbrace{\sigma^z}^{1\text{th}}
     \otimes \cdots \otimes
     \overbrace{I}^{M-1\text{th}}
     \otimes
-    \overbrace{-\sqrt{-1} \sigma^y}^{M\text{th}}
-    \otimes \cdots \otimes
-    I
+    \overbrace{\sqrt{-1} \sigma^z}^{M\text{th}}
 \right) \\
-&= \sqrt{-1} \sigma_{M}^{y} \sigma_{1}^{z}
+&= -\sqrt{-1} \sigma_{M}^{z} \sigma_{1}^{z}
 \end{align*}
 $$
 
 より、
 $$
 \begin{align*}
-q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1
-&= (-\sqrt{-1} \sigma_1^z \sigma_2^z) + (-\sqrt{-1} \sigma_2^z \sigma_3^z) + \cdots + (\sqrt{-1} \sigma_M^y \sigma_1^z) \\
-&= -\sqrt{-1} \left(
-    \sigma_1^z \sigma_2^z + \sigma_2^z \sigma_3^z + \cdots
-    \underbrace{
-        -\sigma_M^y \sigma_1^z
-    }_{(5/12)計算合わない。\sigma_M^z \sigma_1^zになってほしい}
-\right)
+p_1 q_2+p_2 q_3+\cdots+p_M q_M = -\sqrt{-1} \left(
+    \sigma_1^z \sigma_2^z + \sigma_2^z \sigma_3^z + \cdots + \sigma_M^z \sigma_1^z
+\right) \\
 \end{align*}
 $$
-(次回 5/12)
-- 計算ここから
+$$
+\begin{align*}
+q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1
+&= (-\sqrt{-1} \sigma_1^z \sigma_2^z) + (-\sqrt{-1} \sigma_2^z \sigma_3^z) + \cdots + (-\sqrt{-1} \sigma_M^z \sigma_1^z) \\
+&= -\sqrt{-1} \left(
+    \sigma_1^z \sigma_2^z + \sigma_2^z \sigma_3^z + \cdots
+        +\sigma_M^z \sigma_1^z
+\right) \\
+\end{align*}
+$$
+$Q.E.D.$
+
+Claim
+
+$1 \leq m - 1 \leq M$ に対して、
+$$
+\begin{align*}
+\varepsilon q_{m} p_{m+1} = q_{m} p_{m+1} \varepsilon
+\end{align*}
+$$
+かつ、
+$$
+\begin{align*}
+\varepsilon q_{M} p_{1} = q_{M} p_{1} \varepsilon
+\end{align*}
+$$
+Proof
+$$
+\begin{align*}
+1 \leq m \leq M - 1 に対して、 \\
+\varepsilon q_{m} p_{m+1}
+&= (\sigma_1^x \cdots \sigma_M^x) (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_{m}^y) (\sigma_1^x \cdots \sigma_{m}^x \sigma_{m+1}^z) \\
+&= \overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \left(
+        \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^x
+    \right)
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \left(
+        \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^x
+    \right)
+}^{m-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \left(
+        \sigma^y \cdot_{\text{End}(\Cf^{2})} \sigma^x
+    \right)
+}^{m\text{th}}
+\otimes
+\overbrace{
+    \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^z
+}^{m+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+}^{M-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+}^{M\text{th}}
+\end{align*}
+$$
+$ \overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \left(
+        \sigma^y \cdot_{\text{End}(\Cf^{2})} \sigma^x
+    \right)
+}^{m\text{th}}
+= - \left(\sigma^y \cdot_{\text{End}(\Cf^{2})} \sigma^x \right) \cdot_{\text{End}(\Cf^{2})} \sigma^x
+$
+
+$ \overbrace{
+    \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^z
+}^{m+1\text{th}}
+= - \sigma^z \cdot_{\text{End}(\Cf^{2})} \sigma^x
+$
+
+この２つ以外の項は、入れ替えても符号が変わらないので、
+
+$$
+\begin{align*}
+\varepsilon q_{m} p_{m+1} = q_{m} p_{m+1} \varepsilon
+\end{align*}
+$$
+
+また、
+$$
+\begin{align*}
+\varepsilon q_{M} p_{1} &= (\sigma_1^x \cdots \sigma_M^x) (\sigma_1^x \cdots \sigma_{M-1}^x \sigma_M^y) \sigma_1^z \\
+&= \overbrace{
+    \sigma^x \cdot_{\text{End}(\Cf^{2})} \left( \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^z  \right)
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^x
+}^{M-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^y
+}^{M\text{th}}
+\end{align*}
+$$
+
+$ \overbrace{
+    \sigma^x \cdot_{\text{End}(\Cf^{2})} \left( \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^z  \right)
+}^{1\text{th}}
+= - \left( \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^z  \right) \cdot_{\text{End}(\Cf^{2})} \sigma^x
+$
+
+$ \overbrace{
+    \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^y
+}^{M\text{th}}
+= - \sigma^y \cdot_{\text{End}(\Cf^{2})} \sigma^x
+$
+
+この２つ以外の項は、入れ替えても符号が変わらないので、
+$$
+\begin{align*}
+\varepsilon q_{M} p_{1} = q_{M} p_{1} \varepsilon
+\end{align*}
+$$
+
+$Q.E.D.$
+
+---
+def.
+$$
+V_{1}^{(\pm)} := V_{1} \mid_{\mathcal{F}^{(\pm)}}
+$$
+
+Claim.
+$$
+V_{1}^{(\pm)} = \exp \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp q_M p_1\right)
+$$
+Proof
+$$
+\begin{align*}
+\exp \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)
+&= \sum_{n=0}^{\infty} \frac{1}{n!} \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n} \\
+\end{align*}
+$$
+$ n \in \Z $ について、$\left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n}$ を展開したときの各項は、
+
+$$
+\frac{
+    n! \prod_{i=1}^{M} p_{i} q_{i+1} (5/19 ここから) 
+}{
+    \prod_{i=1}^M p_{i}!
+}
+$$
+
+(次回 5/19)
+- ↑計算進める (参考: https://www.aihara.co.jp/~taiji/browser-security/js/multinomial_coefficient.html)
 - $\mathcal{F}^{\pm}の固有ベクトルの個数の総数が\mathcal{F}の固有ベクトルの数に到達する、みたいなことがありそう$
 $$
 \begin{align*}
