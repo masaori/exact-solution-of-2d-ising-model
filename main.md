@@ -777,6 +777,17 @@ $\mathcal{F^{+}}:=\{f\in\mathcal{F} \mid \varepsilon f=+f\}$
 $\mathcal{F^{-}}:=\{f\in\mathcal{F} \mid \varepsilon f=-f\}$
 
 ---
+Claim.
+
+$n \in \Zpos について、\\$
+$$
+\begin{align*}
+
+\end{align*}
+$$
+
+---
+
 Claim. 
 $$
 \begin{align*}
@@ -1033,47 +1044,134 @@ $$
 $Q.E.D.$
 
 ---
-def.
-$$
-V_{1}^{(\pm)} := V_{1} \mid_{\mathcal{F}^{(\pm)}}
-$$
-
 Claim.
 $$
-V_{1}^{(\pm)} = \exp \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp q_M p_1\right)
+V_{1} \mid_{\mathcal{F}^{(\pm)}}
+= \left(
+    \exp \left(
+            \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp q_M p_1\right)
+    \right)
+\right) \mid_{\mathcal{F}^{(\pm)}}
 $$
+
 Proof
 $$
 \begin{align*}
-\exp \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)
+V_{1} = \exp \left(
+    \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)
+\right)
 &= \sum_{n=0}^{\infty} \frac{1}{n!} \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n} \\
 \end{align*}
 $$
-$ n \in \Z $ について、$\left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n}$ を展開したときの各項は、
+$ n \in \Z $ について、$\left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n}$ を展開したときの各項は全て、一番右に$(- \varepsilon)^{k} (1 \leq k \leq M)$ がかかっている形になっている。 $(\because 上記Claim)$
 
-$$
-\frac{
-    n! \prod_{i=1}^{M} p_{i} q_{i+1} (5/19 ここから) 
-}{
-    \prod_{i=1}^M p_{i}!
-}
-$$
-
-(次回 5/19)
-- ↑計算進める (参考: https://www.aihara.co.jp/~taiji/browser-security/js/multinomial_coefficient.html)
-- $\mathcal{F}^{\pm}の固有ベクトルの個数の総数が\mathcal{F}の固有ベクトルの数に到達する、みたいなことがありそう$
+各項が、$\sigma \in \text{End}(\mathcal{F})$を用いて、$\sigma \cdot (- \varepsilon)^{k}$と書けるので、$f^{(\pm)} \in \mathcal{F}^{(\pm)}$ について、
 $$
 \begin{align*}
-V_1 :=& \exp K_1\left(\sigma_1^z \sigma_2^z+\sigma_2^z \sigma_3^z+\cdots+\sigma_M^z \sigma_1^z\right) \\
-=& \exp K_1\left(
-    (\stackrel{1\text{th}}{\sigma^z} \otimes \stackrel{2\text{th}}{\sigma^z} \otimes \cdots \otimes I)
-    + \cdots +
-    (I \otimes \cdots \otimes \stackrel{k\text{th}}{\sigma^z} \otimes \stackrel{k+1\text{th}}{\sigma^z} \otimes \cdots \otimes I)
-    + \cdots +
-    (\stackrel{1\text{th}}{\sigma^z} \otimes \cdots \otimes \stackrel{M\text{th}}{\sigma^z})
-\right)
+\left( \sigma \cdot (- \varepsilon)^{k} \right) \cdot f^{(\pm)} 
+&= \sigma \cdot (- \varepsilon)^{k-1} \cdot \left(- \varepsilon \cdot f^{(\pm)} \right) \\
+&= \sigma \cdot (- \varepsilon)^{k-1} \cdot \left((-1) \cdot (\pm 1_{\text{End}(\mathcal{F})}) \cdot f^{(\pm)} \right) \\
+&= \sigma \cdot (- \varepsilon)^{k-2}
+    \cdot
+    \left((-1) \cdot \varepsilon \right)
+    \cdot
+    \left(
+        (-1) \cdot (\pm 1_{\text{End}(\mathcal{F})}) \cdot f^{(\pm)}
+    \right) \\
+&= \sigma \cdot (- \varepsilon)^{k-2}
+    \cdot
+    \left(
+        (-1)^{2} \cdot (\varepsilon \cdot \pm 1_{\text{End}(\mathcal{F})}) \cdot f^{(\pm)}
+    \right) \\
+&= \sigma \cdot (- \varepsilon)^{k-2}
+    \cdot
+    \left(
+        (-1)^{2} \cdot (\pm 1_{\text{End}(\mathcal{F})} \cdot \varepsilon) \cdot f^{(\pm)}
+    \right) \\
+&= \sigma \cdot (- \varepsilon)^{k-2}
+    \cdot
+    \left(
+        (-1)^{2} \cdot \pm 1_{\text{End}(\mathcal{F})} \cdot (\varepsilon \cdot f^{(\pm)})
+    \right) \\
+&= \sigma \cdot (- \varepsilon)^{k-2}
+    \cdot
+    \left(
+        (-1)^{2} \cdot \pm 1_{\text{End}(\mathcal{F})} \cdot (\pm 1_{\text{End}(\mathcal{F})} \cdot f^{(\pm)})
+    \right) \\
+&= \sigma \cdot (- \varepsilon)^{k-2}
+    \cdot
+    \left(
+        (-1)^{2} \cdot (\pm 1_{\text{End}(\mathcal{F})})^{2} \cdot f^{(\pm)}
+    \right) \\
+&= \sigma \cdot (- \varepsilon)^{k-2}
+    \cdot
+    \left(
+        (\mp 1_{\text{End}(\mathcal{F})})^{2} \cdot f^{(\pm)}
+    \right) \\
+&= \cdots \\
+&= \sigma \cdot (- \varepsilon) \cdot \left((\mp 1_{\text{End}(\mathcal{F})})^{k-1} \cdot f^{(\pm)} \right) \\
+&= \sigma \cdot \left((\mp 1_{\text{End}(\mathcal{F})})^{k} \cdot f^{(\pm)} \right) \\
+&= \left( \sigma \cdot (\mp 1_{\text{End}(\mathcal{F})})^{k} \right) \cdot f^{(\pm)} \\
 \end{align*}
 $$
+
+よって、
+
+$$
+\begin{align*}
+\sigma \cdot (- \varepsilon)^{k} = \sigma \cdot (\mp 1_{\text{End}(\mathcal{F})})^{k}
+\end{align*}
+$$
+
+$\mp 1_{\text{End}(\mathcal{F})}$ は、任意の$\sigma \in \text{End}(\mathcal{F})$と可換なので、
+$$
+\left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n}
+= \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp 1_{\text{End}(\mathcal{F})} q_M p_1\right)\right)^{n}
+$$
+
+$$
+\begin{align*}
+V_{1}^{(\pm)}
+&= V_{1} \mid_{\mathcal{F}^{(\pm)}} \\
+&= \left(
+    \sum_{n=0}^{\infty} \frac{1}{n!} \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n} \\
+\right) \mid_{\mathcal{F}^{(\pm)}} \\
+&= \left(
+    \sum_{n=0}^{\infty} \frac{1}{n!} \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp 1_{\text{End}(\mathcal{F})} q_M p_1\right)\right)^{n} \\
+\right) \mid_{\mathcal{F}^{(\pm)}} \\
+&= \left(
+    \exp \left(
+        \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp 1_{\text{End}(\mathcal{F})} q_M p_1\right)
+    \right)
+\right) \mid_{\mathcal{F}^{(\pm)}} \\
+\end{align*}
+$$
+
+よって、Q.E.D.
+
+---
+def.
+
+$V_{1}^{(\pm)} : \text{End}(\mathcal{F}^{(\pm)})$ を、
+$$
+V_{1}^{(\pm)} := \exp \left(
+    \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp 1_{\text{End}(\mathcal{F})} q_M p_1\right)
+\right)
+$$
+で、定める。
+
+
+---
+
+(次回 5/19)
+- $V_{1}^{(\pm)}の\mathcal{F}^{\pm}における固有ベクトルの和が、\mathcal{F}におけるV_{1}の固有ベクトルの数と等しい、みたいなことがありそう$
+    - これの検証を進める
+
+- 未来の話
+    - 2次元トーラスではない閉曲面上のイジング模型を考えるのは面白そう
+    - まずシンプルに種数を増やした閉曲面を考えて、モンテカルロシミュレーションやってみる
+    - ポアンカレディスクを群作用で割るといろんな閉曲面が出てくる
+        - トーラス(含む何種類か)だけ例外
 
 
 
