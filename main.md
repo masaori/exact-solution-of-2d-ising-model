@@ -1179,22 +1179,362 @@ TODO: 一般論(exp(二次式)は〜云々)として示す？
 
 ---
 
-$Claim$ (付録B)
-
+$Claim$ (付録B) ベイカー–キャンベル–ハウスドルフの公式　https://ja.wikipedia.org/wiki/%E4%BA%A4%E6%8F%9B%E5%AD%90
 $$
 e^X Y e^{-X}=e^{\operatorname{ad}(X)}(Y)
 $$
 
-(6/2) そもそもこれがどう使われてるかからわからん
+TODO:
 
 ---
+### 離散フーリエ変換
+$I^{(+)} := \{ \frac{1}{2}, \frac{3}{2}, \cdots ,\frac{2M+1}{2}\}$
+
+$I^{(-)} := \{ 1, 2, \cdots, M \}$
+
+$\mu^{(\pm)} \in I^{(\pm)}$について、$\theta_{\mu^{(\pm)}} := 2 \pi \mu^{(\pm)} / M$ として、
+
+$\widehat{p}^{(\pm)} := \sum^{M}_{j=1}\left(
+    p_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\pm)}} \right)
+\right)$
+
+$\widehat{q}^{(\pm)} := \sum^{M}_{j=1}\left(
+    q_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\pm)}} \right)
+\right)$
+
+$Claim$
+
+$1 \leq m \leq M$と、$1 \leq j \leq M$ について、
+$$
+\begin{align*}
+\sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \exp\left(
+        \frac{
+            \sqrt{-1} 2 \pi \mu^{(\pm)}
+        }{
+            M
+        }
+        (
+            -j
+            +
+            m
+        )
+    \right)
+\right) =
+\begin{cases}
+    M & (j = m) \\
+    0 & (j \neq m)
+\end{cases}
+\end{align*}
+$$
+
+$Proof$
+
+##### (a) $j = m$ のとき
+$$
+\begin{align*}
+\sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \exp\left(
+        \frac{
+            \sqrt{-1} 2 \pi \mu^{(\pm)}
+        }{
+            M
+        }
+        (
+            -m
+            +
+            m
+        )
+    \right)
+\right)
+&=
+\sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \exp\left(
+        \frac{
+            \sqrt{-1} 2 \pi \mu^{(\pm)}
+        }{
+            M
+        }
+        \cdot 0
+    \right)
+\right) \\
+&=
+\sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \exp\left(
+        0
+    \right)
+\right) \\
+&=
+\sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    1
+\right) \\
+&=
+M
+\end{align*}
+$$
+
+##### (b) $j \neq m$ のとき
+まず$\mu^{(-)} \in I^{(-)}$ について考えると、
+
+初項 : $\exp\left(
+        \frac{
+            \sqrt{-1} 2 \pi
+        }{
+            M
+        }
+        (
+            -j
+            +
+            m
+        )
+    \right)$
+公比 : $\exp\left(
+        \frac{
+            \sqrt{-1} 2 \pi
+        }{
+            M
+        }
+        (
+            -j
+            +
+            m
+        )
+    \right)$
+
+の等比数列なので、
+
+$$
+\begin{align*}
+\sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \exp\left(
+        \frac{
+            \sqrt{-1} 2 \pi \mu^{(\pm)}
+        }{
+            M
+        }
+        (
+            -j
+            +
+            m
+        )
+    \right)
+\right)
+&= \frac{
+    1 - \left(
+            \exp\left(
+                \frac{
+                    \sqrt{-1} 2 \pi
+                }{
+                    M
+                }
+                (
+                    -j
+                    +
+                    m
+                )
+            \right)
+        \right)^{M}
+    }{
+        1 - \exp\left(
+            \frac{
+                \sqrt{-1} 2 \pi
+            }{
+                M
+            }
+            (
+                -j
+                +
+                m
+            )
+        \right)
+    } \\
+&=
+\frac{
+    1 - \overbrace{
+            \exp\left(
+                \sqrt{-1} 2 \pi
+                (
+                    -j
+                    +
+                    m
+                )
+            \right)
+        }^{
+            1
+        }
+    }{
+        1 - \exp\left(
+            \frac{
+                \sqrt{-1} 2 \pi
+            }{
+                M
+            }
+            (
+                -j
+                +
+                m
+            )
+        \right)
+    } \\
+&= 0
+\end{align*}
+$$
+
+まず$\mu_{+} \in I^{+}$ の場合も、
+
+初項 : $\exp\left(
+        \frac{
+            \sqrt{-1} 2 \pi \cdot \frac{1}{2}
+        }{
+            M
+        }
+        (
+            -j
+            +
+            m
+        )
+    \right)$
+,
+公比 : $\exp\left(
+        \frac{
+            \sqrt{-1} 2 \pi
+        }{
+            M
+        }
+        (
+            -j
+            +
+            m
+        )
+    \right)$
+
+の等比数列なので同様である。
+
+$Q.E.D.$
+
+---
+
+$Claim$
+$$
+\begin{align*}
+p_{m} &= \frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \widehat{p}^{(\pm)} \exp\left( \sqrt{-1} m \theta_{\mu^{(\pm)}} \right)
+\right) \\
+q_{m} &= \frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \widehat{q}^{(\pm)} \exp\left( \sqrt{-1} m \theta_{\mu^{(\pm)}} \right)
+\right)
+\end{align*}
+$$
+
+$Proof$
+
+$$
+\begin{align*}
+\frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \widehat{q}^{(\pm)} \exp\left( \sqrt{-1} m \theta_{\mu^{(\pm)}} \right)
+\right) 
+&=
+\frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \sum^{M}_{j=1}\left(
+        q_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\pm)}} \right)
+    \right)
+    \exp\left( \sqrt{-1} m \theta_{\mu^{(\pm)}} \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \sum^{M}_{j=1}\left(
+        q_{j}\exp\left( -\sqrt{-1} j \left(2 \pi \mu^{(\pm)}\right) / M \right)
+    \right)
+    \exp\left( \sqrt{-1} m \left(2 \pi \mu^{(\pm)}\right) / M \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \sum^{M}_{j=1}\left(
+        q_{j}\exp\left(
+            -\sqrt{-1} j \left(2 \pi \mu^{(\pm)}\right) / M
+            +
+            \sqrt{-1} m \left(2 \pi \mu^{(\pm)}\right) / M
+        \right)
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    \sum^{M}_{j=1}\left(
+        q_{j}\exp\left(
+            \frac{
+                \sqrt{-1} 2 \pi \mu^{(\pm)}
+            }{
+                M
+            }
+            (
+                -j
+                +
+                m
+            )
+        \right)
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum^{M}_{j=1} \left(
+    \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+        q_{j}\exp\left(
+            \frac{
+                \sqrt{-1} 2 \pi \mu^{(\pm)}
+            }{
+                M
+            }
+            (
+                -j
+                +
+                m
+            )
+        \right)
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum^{M}_{j=1} \left(
+    q_{j} \cdot \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+        \exp\left(
+            \frac{
+                \sqrt{-1} 2 \pi \mu^{(\pm)}
+            }{
+                M
+            }
+            (
+                -j
+                +
+                m
+            )
+        \right)
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum^{M}_{j=1} \left(
+    \begin{cases}
+        q_{m} \cdot M & (j = m) \\
+        0 & (j \neq m)
+    \end{cases}
+\right) \ \left(\because 上記Claim \right)\\
+&=
+q_{m}
+\end{align*}
+$$
+
+$\widehat{p}^{(\pm)}$ についても同様に示せる。
+
+$Q.E.D.$
+
+---
+
+### メモ
+$q_{m}, p_{m}$ を $\{1, \cdots, M\} \to \text{End}(\mathcal{F})$ という写像としてみたときに、これの定義域を$\Rf$に拡張した$C^{\infty}$関数が存在して、この関数の離散フーリエ変換をしていると考えることができる。
 
 ## $V_{1}$の対角化
 ### 方針メモ
 - $V_{1}^{(\pm)} \in \Clgrpp{2M}$ は、それが、$T_{V_{1}^{(\pm)}}: \CClp{2M} \to \CClp{2M}$ によって定数倍を除いて決まるので、$T_{V_{1}^{(\pm)}}$を対角化することを考える
     - これは同型があるから良い
 - $T_{V_{1}^{(\pm)}}$は添字のずらし $m \rightarrow m+1$ と関して不変な形をしているので, Fourier 変換によって $2 \times 2$ 行列の対角化に帰着させることができる.
-    - フーリエ変換も具体的に記述できるのであんまり問題ない
+    - (次回 6/9) $\widehat{p}^{(\pm)}, \widehat{q}^{(\pm)}$ を使って、$H_{1}, H_{2}及びV_{1}^{(\pm)}$を書く
     - 上の$Claim$ (付録B) が絡んでいるあたりが今の所完全にわからんので具体的に計算してみる
 - $V_{1}^{( \pm)}$の固有ベクトルのうちで $\mathcal{F}^{( \pm)}$に属するものを集めれば $V$ 自身 の固有値・固有ベクトルがわかる.
 
