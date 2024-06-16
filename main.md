@@ -1187,16 +1187,65 @@ $$
 TODO:
 
 ---
+$def.$
+
+$k \in \Zr$ に対して、
+
+(次回:6/16 ここをちゃんと書く)
+- 再帰的に書いた方がいいかもしれない
+- $-\mu$ってなんじゃい
+    - $\Zr$ に拡張ではなく、$\{-M, \dots, -2, -1, 1, 2, \dots, M\}$ に拡張とした方がいいのでは
+    - そうすると、
+$$
+p_{j}^{(\pm)} :=
+\begin{cases}
+    p_{j} & (j \in \{1, 2, \dots, M\}) \\
+    \mp p_{-j} & (j \in \{-M, \dots, -2, -1\})
+\end{cases} \\
+$$
+
+こうかける。
+
+ほんとに誠実にやるなら、$1^{\prime}, 2^{\prime}, \dots$として、$(k^{\prime})^{\prime}=k, k+k^{\prime}=0$というルールを定めるべきかもしれない。
+
+$$
+p_{j}^{(\pm)} :=
+\begin{cases}
+    p_{j/M - \lfloor j / M \rfloor} & (\lfloor j / M \rfloor \text{ is even}) \\
+    \mp p_{j} & (\lfloor j / M \rfloor \text{ is odd})
+\end{cases} \\
+q_{j}^{(\pm)} :=
+\begin{cases}
+    q_{j} & (\lfloor j / M \rfloor \text{ is even}) \\
+    \mp q_{j} & (\lfloor j / M \rfloor \text{ is odd})
+\end{cases}
+$$
+
+---
 ### 離散フーリエ変換
-$I^{(+)} := \{ \frac{1}{2}, \frac{3}{2}, \cdots ,\frac{2M+1}{2}\}$
+(6/16)
+- $I$の分割は不要かもしれない(浅香先生のノートを見る限り)
+- なら$\theta$を、$\theta \in \{-2\pi, \dots, -\frac{4\pi}{M}, -\frac{2\pi}{M}, \frac{2\pi}{M}, \frac{4\pi}{M}, \dots, \frac{2(M-1)\pi}{M}, 2\pi \}$としちゃった方がわかりやすくない？
 
-$I^{(-)} := \{ 1, 2, \cdots, M \}$
+$I^{(\text{half})} := \{ \frac{1}{2}, \frac{3}{2}, \cdots ,\frac{2M+1}{2}\}$
 
-$\mu^{(\pm)} \in I^{(\pm)}$について、$\theta_{\mu^{(\pm)}} := 2 \pi \mu^{(\pm)} / M$ として、
+$I^{(\text{int})} := \{ 1, 2, \cdots, M \}$
 
-$\widehat{p}^{(\pm)} := \sum^{M}_{j=1}\left(
-    p_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\pm)}} \right)
-\right)$
+$\mu^{(\text{half})} \in I^{(\text{half})}$について、$\theta_{\mu^{(\text{half})}} := 2 \pi \mu^{(\text{half})} / M$
+
+$\mu^{(\text{int})} \in I^{(\text{int})}$について、$\theta_{\mu^{(\text{int})}} := 2 \pi \mu^{(\text{int})} / M$
+
+として、
+
+$
+\widehat{p}^{(\text{half})} := \sum^{M}_{j=1}\left(
+    p_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\text{half})}} \right)
+\right)
+,\ 
+\widehat{p}^{(\text{int})} := \sum^{M}_{j=1}\left(
+    p_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\text{int})}} \right)
+\right)
+$
 
 $\widehat{q}^{(\pm)} := \sum^{M}_{j=1}\left(
     q_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\pm)}} \right)
@@ -1526,6 +1575,9 @@ $Q.E.D.$
 
 ---
 
+$Claim$
+
+
 ### メモ
 $q_{m}, p_{m}$ を $\{1, \cdots, M\} \to \text{End}(\mathcal{F})$ という写像としてみたときに、これの定義域を$\Rf$に拡張した$C^{\infty}$関数が存在して、この関数の離散フーリエ変換をしていると考えることができる。
 
@@ -1542,8 +1594,13 @@ $q_{m}, p_{m}$ を $\{1, \cdots, M\} \to \text{End}(\mathcal{F})$ という写�
 - 付録Bの右ページの計算を進める。一行ずつClaimにしないといけない
 - $V_{1}^{(\pm)}の\mathcal{F}^{\pm}における固有ベクトルの和が、\mathcal{F}におけるV_{1}の固有ベクトルの数と等しい、みたいなことがありそう$
     - これの検証を進める
-- 未来の話
+
+### 未来の話
+- よくわかっている多様体上でのイジングモデル
     - 2次元トーラスではない閉曲面上のイジング模型を考えるのは面白そう
     - まずシンプルに種数を増やした閉曲面を考えて、モンテカルロシミュレーションやってみる
     - ポアンカレディスクを群作用で割るといろんな閉曲面が出てくる
         - トーラス(含む何種類か)だけ例外
+- アニーリングとの関係
+    - 完全にランダムな盤面から始まる状態の時間発展をいい感じに記述できると、厳密解に類するなんかがないか？
+    - 無限時間後にありうる状態の集合が共通でもつ不変量があるとかないとか、が、厳密解の有無に関わってたりしないか
