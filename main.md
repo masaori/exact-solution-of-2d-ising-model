@@ -624,9 +624,9 @@ $V_2=\left(2 \sinh 2 K_2\right)^{\frac{M}{2}} \exp K_2^*\left(\sigma_1^x+\sigma_
 
 $\mathcal{F} := (\Cf^{2})^{\otimes M}$
 
-$p_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z$
+$Z_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z$
 
-$q_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y$
+$Y_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y$
 
 $K_{1}^{*} := -\frac{1}{2}\log(\tanh K_{1}) \Leftrightarrow \sinh{K_{1}}\sinh{K_{1}^{*}} = 1$
 
@@ -636,16 +636,16 @@ $c_i := \cosh 2 K_i, \quad s_i := \sinh 2 K_i$,
 
 $c_i^* := \cosh 2 K_i^*, \quad s_i^* := \sinh 2 K_i^*$
 
-$\varepsilon := \sigma_1^x \cdots \sigma_M^x = (\sqrt{-1})^M p_1 q_1 \cdots p_M q_M$
+$\varepsilon := \sigma_1^x \cdots \sigma_M^x = (\sqrt{-1})^M Z_1 Y_1 \cdots Y_M Y_M$
 
 とおくと、
 
 $$
-V_1=\exp \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)
+V_1=\exp \left(\sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots-\varepsilon Y_M Z_1\right)\right)
 $$
 
 $$
-V_2=\left(2 s_2\right)^{\frac{M}{2}} \exp \left(\sqrt{-1} K_2^*\left(p_1 q_1+p_2 q_2+\cdots+p_M q_M\right)\right)
+V_2=\left(2 s_2\right)^{\frac{M}{2}} \exp \left(\sqrt{-1} K_2^*\left(Z_1 Y_1+Z_2 Y_2+\cdots+Y_M Y_M\right)\right)
 $$
 
 と表せる
@@ -752,13 +752,13 @@ $V_1:=\exp K_1\left(\sigma_1^z \sigma_2^z+\sigma_2^z \sigma_3^z+\cdots+\sigma_M^
 
 $V_2:=\left(2 \sinh 2 K_2\right)^{\frac{M}{2}} \exp K_2^*\left(\sigma_1^x+\sigma_2^x+\cdots+\sigma_M^x\right) \in \text{End}(\mathcal{F})$
 
-$p_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z \in \text{End}(\mathcal{F}) \ ただし、p_{1} := \sigma_1^z$
+$Z_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z \in \text{End}(\mathcal{F}) \ ただし、Z_{1} := \sigma_1^z$
 
-正し、$p_{M+1} := p_{1}$
+正し、$Z_{M+1} := Z_{1}$
 
-$q_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y \in \text{End}(\mathcal{F}) \ ただし、q_{1} := \sigma_1^y$
+$Y_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y \in \text{End}(\mathcal{F}) \ ただし、Y_{1} := \sigma_1^y$
 
-正し、$q_{M+1} := q_{1}$
+正し、$Y_{M+1} := Y_{1}$
 
 $K_{1}^{*} := -\frac{1}{2}\log(\tanh K_{1}) \Leftrightarrow \sinh{K_{1}}\sinh{K_{1}^{*}} = 1$
 
@@ -768,7 +768,7 @@ $c_i := \cosh 2 K_i, \quad s_i := \sinh 2 K_i$,
 
 $c_i^* := \cosh 2 K_i^*, \quad s_i^* := \sinh 2 K_i^*$
 
-$\varepsilon := \sigma_1^x \cdots \sigma_M^x = (\sqrt{-1})^M p_1 q_1 \cdots p_M q_M \in \text{End}(\mathcal{F})$
+$\varepsilon := \sigma_1^x \cdots \sigma_M^x = (\sqrt{-1})^M Z_1 Y_1 \cdots Y_M Y_M \in \text{End}(\mathcal{F})$
 
 ---
 
@@ -793,25 +793,25 @@ $$
 Claim. 
 $$
 \begin{align*}
-V_1 &= \exp \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right) \\
-V_2 &= \left(2 s_2\right)^{\frac{M}{2}} \exp\sqrt{-1}  K_2^*\left(p_1 q_1+p_2 q_2+\cdots+p_M q_M\right)
+V_1 &= \exp \sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots-\varepsilon Y_M Z_1\right) \\
+V_2 &= \left(2 s_2\right)^{\frac{M}{2}} \exp\sqrt{-1}  K_2^*\left(Z_1 Y_1+Z_2 Y_2+\cdots+Y_M Y_M\right)
 \end{align*}
 $$
 
 Proof.
 $$
 \begin{align*}
-p_m :&= \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z \ ただし、p_{1} := \sigma_1^z \\
-q_m :&= \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y \ ただし、q_{1} := \sigma_1^y \\
+Z_m :&= \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z \ ただし、Z_{1} := \sigma_1^z \\
+Y_m :&= \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y \ ただし、Y_{1} := \sigma_1^y \\
 \end{align*}
 $$
 
 より、
 $$
 \begin{align*}
-p_1 q_1 &= \sigma_1^z \sigma_1^y = -\sqrt{-1} \sigma_1^x \\
+Z_1 Y_1 &= \sigma_1^z \sigma_1^y = -\sqrt{-1} \sigma_1^x \\
 2 \
-p_m q_m &= (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z) (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y) \\
+Z_m Y_m &= (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z) (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y) \\
 &= \left(
     (\stackrel{1\text{th}}{\sigma^x} \otimes \cdots \otimes I)
     \cdot_{\text{End}(\mathcal{F})} \cdots \cdot_{\text{End}(\mathcal{F})}
@@ -848,10 +848,10 @@ $$
 同様に、
 $$
 \begin{align*}
-q_1 p_2 &= \sigma_1^y (\sigma_1^x \sigma_2^z) \\
+Y_1 Z_2 &= \sigma_1^y (\sigma_1^x \sigma_2^z) \\
 &= (\sigma_1^y \sigma_1^x) \sigma_2^z \\
 &= -\sqrt{-1} \sigma_1^z \sigma_2^z \\
-q_m p_{m+1} &= (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y) (\sigma_1^x \cdots \sigma_{m}^x \sigma_{m+1}^z) \\
+Y_m Z_{m+1} &= (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y) (\sigma_1^x \cdots \sigma_{m}^x \sigma_{m+1}^z) \\
 &= \overbrace{\sigma^x \
 \cdot_{\text{End}(\Cf^{2})} \sigma^x}^{1\text{th}}
 \otimes \cdots \otimes
@@ -880,7 +880,7 @@ $$
 また、
 $$
 \begin{align*}
-- \varepsilon q_M p_1 :&= - (\sigma_1^x \cdots \sigma_M^x) (\sigma_1^x \cdots \sigma_{M-1}^x \sigma_M^y) \sigma_1^z \\
+- \varepsilon Y_M Z_1 :&= - (\sigma_1^x \cdots \sigma_M^x) (\sigma_1^x \cdots \sigma_{M-1}^x \sigma_M^y) \sigma_1^z \\
 &= - \left(
     \overbrace{
     \left(\sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^x \right) \cdot_{\text{End}(\Cf^{2})} \sigma^z
@@ -908,14 +908,14 @@ $$
 より、
 $$
 \begin{align*}
-p_1 q_2+p_2 q_3+\cdots+p_M q_M = -\sqrt{-1} \left(
+Z_1 Y_2+Z_2 Z_3+\cdots+Y_M Y_M = -\sqrt{-1} \left(
     \sigma_1^z \sigma_2^z + \sigma_2^z \sigma_3^z + \cdots + \sigma_M^z \sigma_1^z
 \right) \\
 \end{align*}
 $$
 $$
 \begin{align*}
-q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1
+Y_1 Z_2+Y_2 Z_3+\cdots-\varepsilon Y_M Z_1
 &= (-\sqrt{-1} \sigma_1^z \sigma_2^z) + (-\sqrt{-1} \sigma_2^z \sigma_3^z) + \cdots + (-\sqrt{-1} \sigma_M^z \sigma_1^z) \\
 &= -\sqrt{-1} \left(
     \sigma_1^z \sigma_2^z + \sigma_2^z \sigma_3^z + \cdots
@@ -930,20 +930,20 @@ Claim
 $1 \leq m - 1 \leq M$ に対して、
 $$
 \begin{align*}
-\varepsilon q_{m} p_{m+1} = q_{m} p_{m+1} \varepsilon
+\varepsilon Z_{m} Z_{m+1} = Z_{m} Z_{m+1} \varepsilon
 \end{align*}
 $$
 かつ、
 $$
 \begin{align*}
-\varepsilon q_{M} p_{1} = q_{M} p_{1} \varepsilon
+\varepsilon Y_{M} Z_{1} = Y_{M} Z_{1} \varepsilon
 \end{align*}
 $$
 Proof
 $$
 \begin{align*}
 1 \leq m \leq M - 1 に対して、 \\
-\varepsilon q_{m} p_{m+1}
+\varepsilon Z_{m} Z_{m+1}
 &= (\sigma_1^x \cdots \sigma_M^x) (\sigma_1^x \cdots \sigma_{m-1}^x \sigma_{m}^y) (\sigma_1^x \cdots \sigma_{m}^x \sigma_{m+1}^z) \\
 &= \overbrace{
     \sigma^x
@@ -1002,14 +1002,14 @@ $
 
 $$
 \begin{align*}
-\varepsilon q_{m} p_{m+1} = q_{m} p_{m+1} \varepsilon
+\varepsilon Z_{m} Z_{m+1} = Z_{m} Z_{m+1} \varepsilon
 \end{align*}
 $$
 
 また、
 $$
 \begin{align*}
-\varepsilon q_{M} p_{1} &= (\sigma_1^x \cdots \sigma_M^x) (\sigma_1^x \cdots \sigma_{M-1}^x \sigma_M^y) \sigma_1^z \\
+\varepsilon Y_{M} Z_{1} &= (\sigma_1^x \cdots \sigma_M^x) (\sigma_1^x \cdots \sigma_{M-1}^x \sigma_M^y) \sigma_1^z \\
 &= \overbrace{
     \sigma^x \cdot_{\text{End}(\Cf^{2})} \left( \sigma^x \cdot_{\text{End}(\Cf^{2})} \sigma^z  \right)
 }^{1\text{th}}
@@ -1039,7 +1039,7 @@ $
 この２つ以外の項は、入れ替えても符号が変わらないので、
 $$
 \begin{align*}
-\varepsilon q_{M} p_{1} = q_{M} p_{1} \varepsilon
+\varepsilon Y_{M} Z_{1} = Y_{M} Z_{1} \varepsilon
 \end{align*}
 $$
 
@@ -1051,7 +1051,7 @@ $$
 V_{1} \mid_{\mathcal{F}^{(\pm)}}
 = \left(
     \exp \left(
-            \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp q_M p_1\right)
+            \sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots \mp Y_M Z_1\right)
     \right)
 \right) \mid_{\mathcal{F}^{(\pm)}}
 $$
@@ -1060,12 +1060,12 @@ Proof
 $$
 \begin{align*}
 V_{1} = \exp \left(
-    \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)
+    \sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots-\varepsilon Y_M Z_1\right)
 \right)
-&= \sum_{n=0}^{\infty} \frac{1}{n!} \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n} \\
+&= \sum_{n=0}^{\infty} \frac{1}{n!} \left(\sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots-\varepsilon Y_M Z_1\right)\right)^{n} \\
 \end{align*}
 $$
-$ n \in \Z $ について、$\left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n}$ を展開したときの各項は全て、一番右に$(- \varepsilon)^{k} (1 \leq k \leq M)$ がかかっている形になっている。 $(\because 上記Claim)$
+$ n \in \Z $ について、$\left(\sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots-\varepsilon Y_M Z_1\right)\right)^{n}$ を展開したときの各項は全て、一番右に$(- \varepsilon)^{k} (1 \leq k \leq M)$ がかかっている形になっている。 $(\because 上記Claim)$
 
 各項が、$\sigma \in \text{End}(\mathcal{F})$を用いて、$\sigma \cdot (- \varepsilon)^{k}$と書けるので、$f^{(\pm)} \in \mathcal{F}^{(\pm)}$ について、
 $$
@@ -1127,8 +1127,8 @@ $$
 
 $\mp 1_{\text{End}(\mathcal{F})}$ は、任意の$\sigma \in \text{End}(\mathcal{F})$と可換なので、
 $$
-\left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n}
-= \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp 1_{\text{End}(\mathcal{F})} q_M p_1\right)\right)^{n}
+\left(\sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots-\varepsilon Y_M Z_1\right)\right)^{n}
+= \left(\sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots \mp 1_{\text{End}(\mathcal{F})} Y_M Z_1\right)\right)^{n}
 $$
 
 $$
@@ -1136,14 +1136,14 @@ $$
 V_{1}^{(\pm)}
 &= V_{1} \mid_{\mathcal{F}^{(\pm)}} \\
 &= \left(
-    \sum_{n=0}^{\infty} \frac{1}{n!} \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots-\varepsilon q_M p_1\right)\right)^{n} \\
+    \sum_{n=0}^{\infty} \frac{1}{n!} \left(\sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots-\varepsilon Y_M Z_1\right)\right)^{n} \\
 \right) \mid_{\mathcal{F}^{(\pm)}} \\
 &= \left(
-    \sum_{n=0}^{\infty} \frac{1}{n!} \left(\sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp 1_{\text{End}(\mathcal{F})} q_M p_1\right)\right)^{n} \\
+    \sum_{n=0}^{\infty} \frac{1}{n!} \left(\sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots \mp 1_{\text{End}(\mathcal{F})} Y_M Z_1\right)\right)^{n} \\
 \right) \mid_{\mathcal{F}^{(\pm)}} \\
 &= \left(
     \exp \left(
-        \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp 1_{\text{End}(\mathcal{F})} q_M p_1\right)
+        \sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots \mp 1_{\text{End}(\mathcal{F})} Y_M Z_1\right)
     \right)
 \right) \mid_{\mathcal{F}^{(\pm)}} \\
 \end{align*}
@@ -1157,7 +1157,7 @@ def.
 $V_{1}^{(\pm)} : \text{End}(\mathcal{F}^{(\pm)})$ を、
 $$
 V_{1}^{(\pm)} := \exp \left(
-    \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp 1_{\text{End}(\mathcal{F})} q_M p_1\right)
+    \sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots \mp 1_{\text{End}(\mathcal{F})} Y_M Z_1\right)
 \right)
 $$
 で、定める。
@@ -1169,7 +1169,7 @@ $Claim$
 
 $$
 V_{1}^{(\pm)} := \exp \left(
-    \sqrt{-1} K_1\left(q_1 p_2+q_2 p_3+\cdots \mp 1_{\text{End}(\mathcal{F})} q_M p_1\right)
+    \sqrt{-1} K_1\left(Y_1 Z_2+Y_2 Z_3+\cdots \mp 1_{\text{End}(\mathcal{F})} Y_M Z_1\right)
 \right) \in \Clgrpp{2M}
 $$
 
@@ -1185,73 +1185,50 @@ e^X Y e^{-X}=e^{\operatorname{ad}(X)}(Y)
 $$
 
 TODO:
+- 多様体はいらなさそう
+- リー群とリー環で十分そう
 
 ---
 $def.$
 
-$k \in \Zr$ に対して、
+$\mathcal{M} := \{-M, \dots, -2, -1, 1, 2, \dots, M\}$
 
-(次回:6/16 ここをちゃんと書く)
-- 再帰的に書いた方がいいかもしれない
-- $-\mu$ってなんじゃい
-    - $\Zr$ に拡張ではなく、$\{-M, \dots, -2, -1, 1, 2, \dots, M\}$ に拡張とした方がいいのでは
-    - そうすると、
-$$
-p_{j}^{(\pm)} :=
+と定める。
+
+$\mu \in \mathcal{M}$
+
+に対して、
+
+$\theta_{\mu} := \frac{2 \pi \mu}{M}$
+
+と定め、
+
+$
+Z_{\mu}^{(\pm)} :=
 \begin{cases}
-    p_{j} & (j \in \{1, 2, \dots, M\}) \\
-    \mp p_{-j} & (j \in \{-M, \dots, -2, -1\})
-\end{cases} \\
-$$
-
-こうかける。
-
-ほんとに誠実にやるなら、$1^{\prime}, 2^{\prime}, \dots$として、$(k^{\prime})^{\prime}=k, k+k^{\prime}=0$というルールを定めるべきかもしれない。
-
-$$
-p_{j}^{(\pm)} :=
-\begin{cases}
-    p_{j/M - \lfloor j / M \rfloor} & (\lfloor j / M \rfloor \text{ is even}) \\
-    \mp p_{j} & (\lfloor j / M \rfloor \text{ is odd})
-\end{cases} \\
-q_{j}^{(\pm)} :=
-\begin{cases}
-    q_{j} & (\lfloor j / M \rfloor \text{ is even}) \\
-    \mp q_{j} & (\lfloor j / M \rfloor \text{ is odd})
+    Z_{\mu} & (\mu \in \{1, 2, \dots, M\}) \\
+    \mp Z_{-\mu} & (\mu \in \{-M, \dots, -2, -1\})
 \end{cases}
-$$
-
----
-### 離散フーリエ変換
-(6/16)
-- $I$の分割は不要かもしれない(浅香先生のノートを見る限り)
-- なら$\theta$を、$\theta \in \{-2\pi, \dots, -\frac{4\pi}{M}, -\frac{2\pi}{M}, \frac{2\pi}{M}, \frac{4\pi}{M}, \dots, \frac{2(M-1)\pi}{M}, 2\pi \}$としちゃった方がわかりやすくない？
-
-$I^{(\text{half})} := \{ \frac{1}{2}, \frac{3}{2}, \cdots ,\frac{2M+1}{2}\}$
-
-$I^{(\text{int})} := \{ 1, 2, \cdots, M \}$
-
-$\mu^{(\text{half})} \in I^{(\text{half})}$について、$\theta_{\mu^{(\text{half})}} := 2 \pi \mu^{(\text{half})} / M$
-
-$\mu^{(\text{int})} \in I^{(\text{int})}$について、$\theta_{\mu^{(\text{int})}} := 2 \pi \mu^{(\text{int})} / M$
-
-として、
+$
 
 $
-\widehat{p}^{(\text{half})} := \sum^{M}_{j=1}\left(
-    p_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\text{half})}} \right)
-\right)
-,\ 
-\widehat{p}^{(\text{int})} := \sum^{M}_{j=1}\left(
-    p_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\text{int})}} \right)
+\widehat{Z}_{\mu} := \sum^{M}_{j=1}\left(
+    Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
 \right)
 $
 
-$\widehat{q}^{(\pm)} := \sum^{M}_{j=1}\left(
-    q_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\pm)}} \right)
+$\widehat{Y}_{\mu} := \sum^{M}_{j=1}\left(
+    Y_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
 \right)$
 
+と定める。
+
+### 離散フーリエ変換
+
 $Claim$
+
+TODO: 記号を上に合わせて書き直す
+
 
 $1 \leq m \leq M$と、$1 \leq j \leq M$ について、
 $$
@@ -1462,44 +1439,48 @@ $$
 $Q.E.D.$
 
 ---
+$Claim$ (逆変換の成立)
 
-$Claim$
+$1 \leq m \leq M$ について、
+
 $$
 \begin{align*}
-p_{m} &= \frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
-    \widehat{p}^{(\pm)} \exp\left( \sqrt{-1} m \theta_{\mu^{(\pm)}} \right)
+Z_{m} &= \frac{1}{M} \sum_{\mu \in \mathcal{M}} \left(
+    \widehat{Z}_{m} \exp\left( \sqrt{-1} m \theta_{\mu} \right)
 \right) \\
-q_{m} &= \frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
-    \widehat{q}^{(\pm)} \exp\left( \sqrt{-1} m \theta_{\mu^{(\pm)}} \right)
+Y_{m} &= \frac{1}{M} \sum_{\mu \in \mathcal{M}} \left(
+    \widehat{Y}_{m} \exp\left( \sqrt{-1} m \theta_{\mu} \right)
 \right)
 \end{align*}
 $$
 
 $Proof$
 
+TODO: 記号を上に合わせて書き直す
+
 $$
 \begin{align*}
 \frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
-    \widehat{q}^{(\pm)} \exp\left( \sqrt{-1} m \theta_{\mu^{(\pm)}} \right)
+    \widehat{Y}^{(\pm)} \exp\left( \sqrt{-1} m \theta_{\mu^{(\pm)}} \right)
 \right) 
 &=
 \frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
     \sum^{M}_{j=1}\left(
-        q_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\pm)}} \right)
+        Y_{j}\exp\left( -\sqrt{-1} j \theta_{\mu^{(\pm)}} \right)
     \right)
     \exp\left( \sqrt{-1} m \theta_{\mu^{(\pm)}} \right)
 \right) \\
 &=
 \frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
     \sum^{M}_{j=1}\left(
-        q_{j}\exp\left( -\sqrt{-1} j \left(2 \pi \mu^{(\pm)}\right) / M \right)
+        Y_{j}\exp\left( -\sqrt{-1} j \left(2 \pi \mu^{(\pm)}\right) / M \right)
     \right)
     \exp\left( \sqrt{-1} m \left(2 \pi \mu^{(\pm)}\right) / M \right)
 \right) \\
 &=
 \frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
     \sum^{M}_{j=1}\left(
-        q_{j}\exp\left(
+        Y_{j}\exp\left(
             -\sqrt{-1} j \left(2 \pi \mu^{(\pm)}\right) / M
             +
             \sqrt{-1} m \left(2 \pi \mu^{(\pm)}\right) / M
@@ -1509,7 +1490,7 @@ $$
 &=
 \frac{1}{M} \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
     \sum^{M}_{j=1}\left(
-        q_{j}\exp\left(
+        Y_{j}\exp\left(
             \frac{
                 \sqrt{-1} 2 \pi \mu^{(\pm)}
             }{
@@ -1526,7 +1507,7 @@ $$
 &=
 \frac{1}{M} \sum^{M}_{j=1} \left(
     \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
-        q_{j}\exp\left(
+        Y_{j}\exp\left(
             \frac{
                 \sqrt{-1} 2 \pi \mu^{(\pm)}
             }{
@@ -1542,7 +1523,7 @@ $$
 \right) \\
 &=
 \frac{1}{M} \sum^{M}_{j=1} \left(
-    q_{j} \cdot \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+    Y_{j} \cdot \sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
         \exp\left(
             \frac{
                 \sqrt{-1} 2 \pi \mu^{(\pm)}
@@ -1560,33 +1541,87 @@ $$
 &=
 \frac{1}{M} \sum^{M}_{j=1} \left(
     \begin{cases}
-        q_{m} \cdot M & (j = m) \\
+        Z_{m} \cdot M & (j = m) \\
         0 & (j \neq m)
     \end{cases}
 \right) \ \left(\because 上記Claim \right)\\
 &=
-q_{m}
+Z_{m}
 \end{align*}
 $$
 
-$\widehat{p}^{(\pm)}$ についても同様に示せる。
+$\widehat{Z}^{(\pm)}$ についても同様に示せる。
 
 $Q.E.D.$
 
 ---
 
+$def.$
+
+TODO: このデルタ記号に名前をつけてグローバルに定義
+
+$k, l \in \Zr$ について、
+
+$$
+\delta_{k, l} := 
+\begin{cases}
+    1 & (k \equiv l \bmod M \mathbb{Z}) \\
+    0 & (\text{それ以外})
+\end{cases}
+$$
+
+
+$Claim$ (論文 B.6)
+
+$\mu, \nu \in \mathcal{M}$ について、
+
+$$
+\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+} = 2 M \delta_{\mu+\nu, 0}
+, \quad
+\left[\widehat{Z}_\mu, \widehat{Y}_\nu\right]_{+} = 0
+, \quad
+\left[\widehat{Y}_\mu, \widehat{Y}_\nu\right]_{+}=2 M \delta_{\mu+\nu, 0}
+$$
+
+$Proof$
+
+TODO: (次回 6/23)
+
+---
+
 $Claim$
+
+TODO: (次回 6/23) 記号を上に合わせて書き直す
+
+$$
+\operatorname{ad}\left(H_i\right)(X)=\left[H_i, X\right] \\
+\begin{aligned}
+& \left(\operatorname{ad}\left(H_1\right)\left(\hat{p}_\mu\right), \operatorname{ad}\left(H_1\right)\left(\hat{q}_\mu\right)\right)=\left(\hat{p}_\mu, \hat{q}_\mu\right)\left(\begin{array}{cc}
+0 & -2 e^{i \theta_\mu} \\
+2 e^{-i \theta_\mu} & 0
+\end{array}\right), \\
+& \left(\operatorname{ad}\left(H_2\right)\left(\hat{p}_\mu\right), \operatorname{ad}\left(H_2\right)\left(\hat{q}_\mu\right)\right)=\left(\hat{p}_\mu, \hat{q}_\mu\right)\left(\begin{array}{cc}
+0 & 2 \\
+-2 & 0
+\end{array}\right)
+\end{aligned}
+
+$$
+
+---
+
 
 
 ### メモ
-$q_{m}, p_{m}$ を $\{1, \cdots, M\} \to \text{End}(\mathcal{F})$ という写像としてみたときに、これの定義域を$\Rf$に拡張した$C^{\infty}$関数が存在して、この関数の離散フーリエ変換をしていると考えることができる。
+
+$Z_{m}, Z_{m}$ を $\{1, \cdots, M\} \to \text{End}(\mathcal{F})$ という写像としてみたときに、これの定義域を$\Rf$に拡張した$C^{\infty}$関数が存在して、この関数の離散フーリエ変換をしていると考えることができる。
 
 ## $V_{1}$の対角化
 ### 方針メモ
 - $V_{1}^{(\pm)} \in \Clgrpp{2M}$ は、それが、$T_{V_{1}^{(\pm)}}: \CClp{2M} \to \CClp{2M}$ によって定数倍を除いて決まるので、$T_{V_{1}^{(\pm)}}$を対角化することを考える
     - これは同型があるから良い
 - $T_{V_{1}^{(\pm)}}$は添字のずらし $m \rightarrow m+1$ と関して不変な形をしているので, Fourier 変換によって $2 \times 2$ 行列の対角化に帰着させることができる.
-    - (次回 6/9) $\widehat{p}^{(\pm)}, \widehat{q}^{(\pm)}$ を使って、$H_{1}, H_{2}及びV_{1}^{(\pm)}$を書く
+    - (次回 6/9) $\widehat{Z}^{(\pm)}, \widehat{Y}^{(\pm)}$ を使って、$H_{1}, H_{2}及びV_{1}^{(\pm)}$を書く
     - 上の$Claim$ (付録B) が絡んでいるあたりが今の所完全にわからんので具体的に計算してみる
 - $V_{1}^{( \pm)}$の固有ベクトルのうちで $\mathcal{F}^{( \pm)}$に属するものを集めれば $V$ 自身 の固有値・固有ベクトルがわかる.
 
