@@ -1559,11 +1559,20 @@ $Q.E.D.$
 $def.$
 
 TODO: このデルタ記号に名前をつけてグローバルに定義
+$\newcommand{\modDelta}[3]{\delta^{(#1)}_{#2, #3}}$
 
 $k, l \in \Zr$ について、
 
 $$
-\delta_{k, l} := 
+\delta_{k, l} :=
+\begin{cases}
+    1 & (k = l) \\
+    0 & (k \neq l)
+\end{cases}
+$$
+
+$$
+\modDelta{M}{k}{l} := 
 \begin{cases}
     1 & (k \equiv l \bmod M \mathbb{Z}) \\
     0 & (\text{それ以外})
@@ -1571,22 +1580,1492 @@ $$
 $$
 
 
+$Claim$
+
+$\mu, \nu \in \{1, \dots, M \}$ について、
+
+$$
+\left[Z_\mu, Z_\nu\right]_{+} = 2I \delta_{\mu, \nu}
+, \quad
+\left[Z_\mu, Y_\nu\right]_{+} = 0
+, \quad
+\left[Y_\mu, Y_\nu\right]_{+} = 2I \delta_{\mu, \nu}
+$$
+
+$Proof$
+
+$Z_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^z \in \text{End}(\mathcal{F}) \ ただし、Z_{1} := \sigma_1^z$
+
+正し、$Z_{M+1} := Z_{1}$
+
+$Y_m := \sigma_1^x \cdots \sigma_{m-1}^x \sigma_m^y \in \text{End}(\mathcal{F}) \ ただし、Y_{1} := \sigma_1^y$
+
+正し、$Y_{M+1} := Y_{1}$
+
+## $\left[Z_\mu, Z_\nu\right]_{+}$ について、
+### $\text{(i)} \nu - \mu \geq 2$ のとき
+
+$$
+\begin{align*}
+\left[Z_\mu, Z_\nu\right]_{+} 
+&=
+Z_{\mu} Z_{\nu} + Z_{\nu} Z_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^z
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right) \\
+&=
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&=
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    -\sqrt{-1}\sigma^y
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sqrt{-1}\sigma^y
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+
+    \sigma^z
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&=
+-\sqrt{-1}
+    \sigma^y_{\mu}
+    \sigma^x_{\mu+1}
+    \sigma^x_{\nu-1}
+    \sigma^z_{\nu}
++
+\sqrt{-1}
+    \sigma^y_{\mu}
+    \sigma^x_{\mu+1}
+    \sigma^x_{\nu-1}
+    \sigma^z_{\nu} \\
+&= 0
+\end{align*}
+$$
+
+### $\text{(ii)} \nu - \mu = 1$ のとき
+$$
+\begin{align*}
+\left[Z_\mu, Z_\nu\right]_{+} 
+&=
+Z_{\mu} Z_{\nu} + Z_{\nu} Z_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^z
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right) \\
+&=
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\mu\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&=
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sqrt{-1}\sigma^y
+}^{\mu\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    -\sqrt{-1}\sigma^y
+}^{\mu\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&=
+\sqrt{-1}
+    \sigma^y_{\mu}
+    \sigma^z_{\nu}
+-\sqrt{-1}
+    \sigma^y_{\mu}
+    \sigma^z_{\nu} \\
+&= 0
+\end{align*}
+$$
+
+### $\text{(iii)} \nu = \mu$ のとき
+$$
+\begin{align*}
+\left[Z_\mu, Z_\nu\right]_{+}
+&=
+Z_{\mu} Z_{\nu} + Z_{\nu} Z_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^z
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right) \\
+&=
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\mu\text{th} = \nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\mu+1\text{th} = \nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\mu\text{th} = \nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\mu+1\text{th} = \nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&=
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\mu\text{th} = \nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\mu+1\text{th} = \nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\mu\text{th} = \nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\mu+1\text{th} = \nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&= 2I
+\end{align*}
+$$
+
+### $\text{(iv)} \mu > \nu$ のとき
+
+$\left[Z_\mu, Z_\nu\right]_{+} = \left[Z_\nu, Z_\mu\right]_{+}$ であるから、$ \text{(i)},\text{(ii)}$の証明において$\mu, \nu$の記号を入れ替えれば、同様に示せる。
+
+
+## $\left[Z_\mu, Y_\nu\right]_{+}$ について、
+### $\text{(i)} \nu - \mu \geq 2$ のとき
+$$
+\begin{align*}
+\left[Z_\mu, Y_\nu\right]_{+}
+&=
+Z_{\mu} Y_{\nu} + Y_{\nu} Z_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right) \\
+&=
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^y
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&=
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sqrt{-1}\sigma^y
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    -\sqrt{-1}\sigma^y
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&=
+\sqrt{-1}
+    \sigma^y_{\mu}
+    \sigma^x_{\mu+1}
+    \sigma^x_{\nu-1}
+    \sigma^y_{\nu}
+-\sqrt{-1}
+    \sigma^y_{\mu}
+    \sigma^x_{\mu+1}
+    \sigma^x_{\nu-1}
+    \sigma^y_{\nu} \\
+&= 0
+\end{align*}
+$$
+
+### $\text{(ii)} \nu - \mu = 1$ のとき
+$$
+\begin{align*}
+\left[Z_\mu, Y_\nu\right]_{+}
+&=
+Z_{\mu} Y_{\nu} + Y_{\nu} Z_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right) \\
+&=
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^y
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\mu\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&=
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sqrt{-1}\sigma^y
+}^{\mu\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    -\sqrt{-1}\sigma^y
+}^{\mu\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&=
+\sqrt{-1}
+    \sigma^y_{\mu}
+    \sigma^y_{\nu}
+-\sqrt{-1}
+    \sigma^y_{\mu}
+    \sigma^y_{\nu} \\
+&= 0
+\end{align*}
+$$
+
+### $\text{(iii)} \nu = \mu$ のとき
+$$
+\begin{align*}
+\left[Z_\mu, Y_\nu\right]_{+}
+&=
+Z_{\mu} Y_{\nu} + Y_{\nu} Z_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right) \\
+&=
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^y
+}^{\mu\text{th} = \nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\mu+1\text{th} = \nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\mu\text{th} = \nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\mu+1\text{th} = \nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&=
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    -\sqrt{-1}\sigma^x
+}^{\mu\text{th} = \nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\mu+1\text{th} = \nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th} = \nu-1\text{th}}
+\otimes
+\overbrace{
+    \sqrt{-1}\sigma^x
+}^{\mu\text{th} = \nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\mu+1\text{th} = \nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&=
+-\sqrt{-1}
+    \sigma^x_{\mu}
++\sqrt{-1}
+    \sigma^x_{\mu} \\
+&= 0
+\end{align*}
+$$
+
+### $\text{(iv)} \nu - \mu = -1$ のとき
+$$
+\begin{align*}
+\left[Z_\mu, Y_\nu\right]_{+}
+&=
+Z_{\mu} Y_{\nu} + Y_{\nu} Z_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right) \\
+&=
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^y
+}^{\nu\text{th} = \mu-1\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\nu\text{th} = \mu-1\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&=
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sqrt{-1}\sigma^z
+}^{\nu\text{th} = \mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    -\sqrt{-1}\sigma^z
+}^{\nu\text{th} = \mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&=
+\sqrt{-1}
+    \sigma^z_{\nu}
+    \sigma^z_{\mu}
+-\sqrt{-1}
+    \sigma^z_{\nu}
+    \sigma^z_{\mu} \\
+&= 0
+\end{align*}
+$$
+
+### $\text{(v)} \nu - \mu \leq -2$ のとき
+$$
+\begin{align*}
+\left[Z_\mu, Y_\nu\right]_{+}
+&=
+Z_{\mu} Y_{\nu} + Y_{\nu} Z_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^z
+\right) \\
+&=
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^y
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^z
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^x
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    \sigma^z
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+    \cdot_{\text{End}(\Cf^{2})}
+    I
+}^{M\text{th}} \\
+&=
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    \sqrt{-1}\sigma^y
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&\quad +
+\overbrace{
+    I
+}^{1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    \sigma^x
+}^{\nu-1\text{th}}
+\otimes
+\overbrace{
+    \sigma^y
+}^{\nu\text{th}}
+\otimes
+\overbrace{
+    I
+}^{\nu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{\mu-1\text{th}}
+\otimes
+\overbrace{
+    -\sqrt{-1}\sigma^y
+}^{\mu\text{th}}
+\otimes
+\overbrace{
+    \sigma^x
+}^{\mu+1\text{th}}
+\otimes \cdots \otimes
+\overbrace{
+    I
+}^{M\text{th}} \\
+&=
+\sqrt{-1}
+    \sigma^y_{\nu}
+    \sigma^x_{\mu}
+    \sigma^x_{\nu-1}
+    \sigma^y_{\mu}
+-\sqrt{-1}
+    \sigma^y_{\nu}
+    \sigma^x_{\mu}
+    \sigma^x_{\nu-1}
+    \sigma^y_{\mu} \\
+&= 0
+\end{align*}
+$$
+
+## $\left[Y_\mu, Y_\nu\right]_{+}$ について、
+$\left[X_\mu, X_\nu\right]_{+}$ と同様。
+### $\text{(i)} \nu - \mu \geq 2$ のとき
+$$
+\begin{align*}
+\left[Y_\mu, Y_\nu\right]_{+}
+&=
+Y_{\mu} Y_{\nu} + Y_{\nu} Y_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^y
+\right) \\
+&=
+-\sqrt{-1}
+    \sigma^z_{\mu}
+    \sigma^x_{\mu+1}
+    \sigma^x_{\nu-1}
+    \sigma^y_{\nu}
++
+\sqrt{-1}
+    \sigma^z_{\mu}
+    \sigma^x_{\mu+1}
+    \sigma^x_{\nu-1}
+    \sigma^y_{\nu} \\
+&= 0
+\end{align*}
+$$
+
+### $\text{(ii)} \nu - \mu = 1$ のとき
+$$
+\begin{align*}
+\left[Y_\mu, Y_\nu\right]_{+}
+&=
+Y_{\mu} Y_{\nu} + Y_{\nu} Y_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^y
+\right) \\
+&=
+\sqrt{-1}
+    \sigma^z_{\mu}
+    \sigma^y_{\nu}
+-\sqrt{-1}
+    \sigma^z_{\mu}
+    \sigma^y_{\nu} \\
+&= 0
+\end{align*}
+$$
+
+### $\text{(iii)} \nu = \mu$ のとき
+$$
+\begin{align*}
+\left[Y_\mu, Y_\nu\right]_{+}
+&=
+Y_{\mu} Y_{\nu} + Y_{\nu} Y_{\mu} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{\nu-1}^x \sigma_{\nu}^y
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{\mu-1}^x \sigma_{\mu}^y
+\right) \\
+&= 2I
+\end{align*}
+$$
+
+### $\text{(iv)} \nu - \mu = -1$ のとき
+TODO: (次回 6/30)
+
+### $\text{(v)} \nu - \mu \leq -2$ のとき
+TODO: (次回 6/30)
+
+
 $Claim$ (論文 B.6)
 
 $\mu, \nu \in \mathcal{M}$ について、
 
 $$
-\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+} = 2 M \delta_{\mu+\nu, 0}
+\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+} = 2 M \modDelta{M}{\mu+\nu}{0}
 , \quad
 \left[\widehat{Z}_\mu, \widehat{Y}_\nu\right]_{+} = 0
 , \quad
-\left[\widehat{Y}_\mu, \widehat{Y}_\nu\right]_{+}=2 M \delta_{\mu+\nu, 0}
+\left[\widehat{Y}_\mu, \widehat{Y}_\nu\right]_{+}=2 M \modDelta{M}{\mu+\nu}{0}
 $$
 
 $Proof$
 
-TODO: (次回 6/23)
 
+$
+\widehat{Z}_{\mu} := \sum^{M}_{j=1}\left(
+    Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
+\right)
+$
+
+$\widehat{Y}_{\mu} := \sum^{M}_{j=1}\left(
+    Y_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
+\right)$
+
+$$
+\begin{align*}
+\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+}
+&=
+\left[
+    \sum^{M}_{j=1}\left(
+        Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
+    \right),
+    \sum^{M}_{k=1}\left(
+        Z_{k}\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
+    \right)
+\right]_{+} \\
+&=
+\left(
+    \sum^{M}_{j=1}\left(
+        Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
+    \right)
+\right)
+\left(
+    \sum^{M}_{k=1}\left(
+        Z_{k}\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
+    \right)
+\right)
++
+\left(
+    \sum^{M}_{k=1}\left(
+        Z_{k}\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
+    \right)
+\right)
+\left(
+    \sum^{M}_{j=1}\left(
+        Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
+    \right)
+\right) \\
+\end{align*}
+$$
+
+(次回 6/30)
 ---
 
 $Claim$
