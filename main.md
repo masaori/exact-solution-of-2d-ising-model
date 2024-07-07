@@ -1230,31 +1230,30 @@ $Claim$
 TODO: 記号を上に合わせて書き直す
 
 
-$1 \leq m \leq M$と、$1 \leq j \leq M$ について、
+$k \in \Zr$ について、
 $$
 \begin{align*}
-\sum_{\mu^{(\pm)} \in I^{(\pm)}} \left(
+\sum_{j = 1}^{M} \left(
     \exp\left(
+        k
+        \cdot
         \frac{
-            \sqrt{-1} 2 \pi \mu^{(\pm)}
+            \sqrt{-1} 2 \pi j
         }{
             M
         }
-        (
-            -j
-            +
-            m
-        )
     \right)
 \right) =
 \begin{cases}
-    M & (j = m) \\
-    0 & (j \neq m)
+    M & (k = 0) \\
+    0 & (k \neq 0)
 \end{cases}
 \end{align*}
 $$
 
 $Proof$
+
+TODO: やり直し
 
 ##### (a) $j = m$ のとき
 $$
@@ -1559,25 +1558,18 @@ $Q.E.D.$
 $def.$
 
 TODO: このデルタ記号に名前をつけてグローバルに定義
-$\newcommand{\modDelta}[3]{\delta^{(#1)}_{#2, #3}}$
+$\newcommand{\diracDelta}[2]{\delta_{#1, #2}}$
 
 $k, l \in \Zr$ について、
 
 $$
-\delta_{k, l} :=
+\diracDelta{k}{l} :=
 \begin{cases}
     1 & (k = l) \\
     0 & (k \neq l)
 \end{cases}
 $$
 
-$$
-\modDelta{M}{k}{l} := 
-\begin{cases}
-    1 & (k \equiv l \bmod M \mathbb{Z}) \\
-    0 & (\text{それ以外})
-\end{cases}
-$$
 
 
 $Claim$
@@ -2076,10 +2068,11 @@ Z_{\mu} Z_{\nu} + Z_{\nu} Z_{\mu} \\
 \end{align*}
 $$
 
-### $\text{(iv)} \mu > \nu$ のとき
+### $\text{(iv)} \nu - \mu = -1$ のとき
+TODO: 
 
-$\left[Z_\mu, Z_\nu\right]_{+} = \left[Z_\nu, Z_\mu\right]_{+}$ であるから、$ \text{(i)},\text{(ii)}$の証明において$\mu, \nu$の記号を入れ替えれば、同様に示せる。
-
+### $\text{(v)} \nu - \mu \leq -2$ のとき
+TODO: 
 
 ## $\left[Z_\mu, Y_\nu\right]_{+}$ について、
 ### $\text{(i)} \nu - \mu \geq 2$ のとき
@@ -2904,7 +2897,7 @@ Z_{\mu} Y_{\nu} + Y_{\nu} Z_{\mu} \\
 $$
 
 ## $\left[Y_\mu, Y_\nu\right]_{+}$ について、
-$\left[X_\mu, X_\nu\right]_{+}$ と同様。
+$\left[Z_\mu, Z_\nu\right]_{+}$ と同様。
 ### $\text{(i)} \nu - \mu \geq 2$ のとき
 $$
 \begin{align*}
@@ -2997,10 +2990,122 @@ Y_{\mu} Y_{\nu} + Y_{\nu} Y_{\mu} \\
 $$
 
 ### $\text{(iv)} \nu - \mu = -1$ のとき
-TODO: (次回 6/30)
+TODO: 
 
 ### $\text{(v)} \nu - \mu \leq -2$ のとき
-TODO: (次回 6/30)
+TODO: 
+
+$Claim$
+
+$\mu, \nu \in \mathcal{M}$ について、
+
+$$
+\diracDelta{\mu + \nu}{0}
+= 
+\sum^{M}_{j=1}\left(
+    \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} j \theta_{\nu} \right)
+\right)
+$$
+
+めも
+
+$\theta_{\mu} := \frac{2 \pi \mu}{M}$
+
+$$
+\begin{align*}
+\sum_{j = 1}^{M} \left(
+    \exp\left(
+        k
+        \cdot
+        \frac{
+            \sqrt{-1} 2 \pi j
+        }{
+            M
+        }
+    \right)
+\right) =
+\begin{cases}
+    M & (k = 0) \\
+    0 & (k \neq 0)
+\end{cases}
+\end{align*}
+$$
+
+
+$Proof$
+
+$$
+\begin{align*}
+\sum^{M}_{j=1}\left(
+    \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} j \theta_{\nu} \right)
+\right)
+&=
+\sum^{M}_{j=1}\left(
+    \exp\left( -\sqrt{-1} j \theta_{\mu} -\sqrt{-1} j \theta_{\nu} \right)
+\right) \\
+&=
+\sum^{M}_{j=1}\left(
+    \exp\left( -\sqrt{-1} j \left( \theta_{\mu} + \theta_{\nu} \right) \right)
+\right) \\
+&=
+\sum^{M}_{j=1}\left(
+    \exp\left(
+        -\sqrt{-1} j
+        \left(
+            \frac{
+                2\pi\mu
+            }{
+                M
+            }
+            +
+            \frac{
+                2\pi\nu
+            }{
+                M
+            }
+        \right)
+    \right)
+\right) \\
+&=
+\sum^{M}_{j=1}\left(
+    \exp\left(
+        \frac{
+            -2 \pi\sqrt{-1} j
+        }{
+            M
+        }
+        \left(
+            \mu
+            +
+            \nu
+        \right)
+    \right)
+\right) \\
+&=
+\sum^{M}_{j=1}\left(
+    \exp\left(
+        -\left(
+            \mu
+            +
+            \nu
+        \right)
+        \frac{
+            2 \pi\sqrt{-1} j
+        }{
+            M
+        }
+    \right)
+\right) \\
+&=
+\begin{cases}
+    M & (\mu + \nu = 0) \\
+    0 & (\mu + \nu \neq 0)
+\end{cases} \\
+&=
+M\diracDelta{\mu + \nu}{0}
+\end{align*}
+$$
+
 
 
 $Claim$ (論文 B.6)
@@ -3008,11 +3113,11 @@ $Claim$ (論文 B.6)
 $\mu, \nu \in \mathcal{M}$ について、
 
 $$
-\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+} = 2 M \modDelta{M}{\mu+\nu}{0}
+\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+} = 2 M \diracDelta{\mu+\nu}{0} I
 , \quad
 \left[\widehat{Z}_\mu, \widehat{Y}_\nu\right]_{+} = 0
 , \quad
-\left[\widehat{Y}_\mu, \widehat{Y}_\nu\right]_{+}=2 M \modDelta{M}{\mu+\nu}{0}
+\left[\widehat{Y}_\mu, \widehat{Y}_\nu\right]_{+}=2 M \diracDelta{\mu+\nu}{0}
 $$
 
 $Proof$
@@ -3027,6 +3132,8 @@ $
 $\widehat{Y}_{\mu} := \sum^{M}_{j=1}\left(
     Y_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
 \right)$
+
+### $\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+}$ について、
 
 $$
 \begin{align*}
@@ -3062,15 +3169,80 @@ $$
         Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
     \right)
 \right) \\
+&=
+\sum^{M}_{j=1}\sum^{M}_{k=1}\left(
+    Z_{j}Z_{k}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
+\right)
++
+\sum^{M}_{k=1}\sum^{M}_{j=1}\left(
+    Z_{k}Z_{j}\exp\left( -\sqrt{-1} k \theta_{\nu} \right)\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
+\right) \\
+&=
+\sum^{M}_{j=1}\sum^{M}_{k=1}\left(
+    Z_{j}Z_{k}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
+    +
+    Z_{k}Z_{j}\exp\left( -\sqrt{-1} k \theta_{\nu} \right)\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
+\right) \\
+&=
+\sum^{M}_{j=1}\sum^{M}_{k=1}\left(
+    \left(
+        Z_{j}Z_{k} + Z_{k}Z_{j}
+    \right)
+    \left( 
+        \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
+    \right)
+\right) (\because \exp() \text{は複素数なので可換}) \\
+&=
+\sum^{M}_{j=1}\sum^{M}_{k=1}\left(
+    \left[Z_{j}, Z_{k}\right]_{+}
+    \left( 
+        \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
+    \right)
+\right) \\
+&=
+\sum^{M}_{j=1}\sum^{M}_{k=1}\left(
+    \left(
+        \begin{cases}
+            2I & (j = k) \\
+            0 & (j \neq k)
+        \end{cases}
+    \right)
+    \left( 
+        \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
+    \right)
+\right) \\
+&=
+\sum^{M}_{j=1}\left(
+    2I
+    \left( 
+        \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} j \theta_{\nu} \right)
+    \right)
+\right) \\
+&=
+2I
+\sum^{M}_{j=1}\left(
+    \left( 
+        \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} j \theta_{\nu} \right)
+    \right)
+\right) \\
+&=
+2M\diracDelta{\mu + \nu}{0}I
 \end{align*}
 $$
 
-(次回 6/30)
+### $\left[\widehat{Z}_\mu, \widehat{Y}_\nu\right]_{+}$ について、
+
+TODO: 
+
+### $\left[\widehat{Y}_\mu, \widehat{Y}_\nu\right]_{+}$ について、
+
+TODO: 
+
 ---
 
 $Claim$
 
-TODO: (次回 6/23) 記号を上に合わせて書き直す
+TODO: (次回 7/7) 記号を上に合わせて書き直す
 
 $$
 \operatorname{ad}\left(H_i\right)(X)=\left[H_i, X\right] \\
