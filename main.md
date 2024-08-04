@@ -1243,7 +1243,7 @@ $\widehat{Y}_{\mu} := \sum^{M}_{j=1}\left(
 
 ### 離散フーリエ変換
 
-$Claim$
+$Claim$ : expの和の公式 (等比数列の和と見る)
 
 $k \in \Zr$ について、
 $$
@@ -1531,30 +1531,30 @@ $Q.E.D.$
 $def.$
 
 TODO: このデルタ記号に名前をつけてグローバルに定義
-$\newcommand{\diracDelta}[2]{\delta_{#1, #2}}$
+$\newcommand{\diracDelta}[3]{\delta^{#1}_{#2, #3}}$
 
 $k, l \in \Zr$ について、
 
 $$
-\diracDelta{k}{l} :=
+\diracDelta{M}{k}{l} :=
 \begin{cases}
-    1 & (k = l) \\
-    0 & (k \neq l)
+    1 & (k \equiv l \mod M) \\
+    0 & (k \not\equiv l \mod M)
 \end{cases}
 $$
 
-
-
 $Claim$
+
+次回(8/4) この反抗感関係は、$Z_{\mu}^{(\pm)}$ について示す必要がある
 
 $\mu, \nu \in \{1, \dots, M \}$ について、
 
 $$
-\left[Z_\mu, Z_\nu\right]_{+} = 2I \delta_{\mu, \nu}
+\left[Z_\mu, Z_\nu\right]_{+} = 2I \diracDelta{M}{\mu}{\nu}
 , \quad
 \left[Z_\mu, Y_\nu\right]_{+} = 0
 , \quad
-\left[Y_\mu, Y_\nu\right]_{+} = 2I \delta_{\mu, \nu}
+\left[Y_\mu, Y_\nu\right]_{+} = 2I \diracDelta{M}{\mu}{\nu}
 $$
 
 $Proof$
@@ -1917,7 +1917,8 @@ Z_{\mu} Z_{\nu} + Z_{\nu} Z_{\mu} \\
 \end{align*}
 $$
 
-### $\text{(iii)} \nu = \mu$ のとき
+### $\text{(iii)} \nu \equiv \mu \mod M \Leftrightarrow \nu - \mu = 0, \pm M$ のとき
+##### a) $\nu - \mu = 0$ のとき
 $$
 \begin{align*}
 \left[Z_\mu, Z_\nu\right]_{+}
@@ -2038,6 +2039,30 @@ Z_{\mu} Z_{\nu} + Z_{\nu} Z_{\mu} \\
     I
 }^{M\text{th}} \\
 &= 2I
+\end{align*}
+$$
+
+##### b) $\nu - \mu = M$ のとき
+$1 \leq j \leq M-1$ として、$$ \mu = -M+j, \nu = j $$ とfixする。
+$$
+\begin{align*}
+\left[Z_{-M+j}, Z_{j}\right]_{+}
+&=
+Z_{-M+j} Z_{j} + Z_{j} Z_{-M+j} \\
+&=
+\left(
+    \sigma_1^x \cdots \sigma_{-M+j-1}^x \sigma_{-M+j}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{j-1}^x \sigma_{j}^z
+\right)
++
+\left(
+    \sigma_1^x \cdots \sigma_{j-1}^x \sigma_{j}^z
+\right)
+\left(
+    \sigma_1^x \cdots \sigma_{-M+j-1}^x \sigma_{-M+j}^z
+\right) \\
 \end{align*}
 $$
 
@@ -3460,10 +3485,6 @@ Y_1 Z_2+Y_2 Z_3+\cdots \mp Y_M Z_1
 \end{align*}
 $$
 
----
-
-$Claim$
-
 TODO: グローバルに定める
 
 $\newcommand{\zeromat}[1]{O_{#1}}$
@@ -3471,6 +3492,105 @@ $\zeromat{2^{M}} := 2^{M} \times 2^{M}の零行列$
 
 $\newcommand{\unitmat}[1]{I_{#1}}$
 $\unitmat{2^{M}} := 2^{M} \times 2^{M}の単位行列$
+
+---
+
+$Claim$ 
+
+$\mu \in \mathcal{M}$ について、
+
+$$
+\begin{align*}
+\sum_{j, k \in \{1, \cdots, M\}, j \not= k}\left(
+    \exp\left(
+        -\sqrt{-1}
+        \frac{2 \pi \mu}{M}
+        (j - k)
+    \right)
+\right) &= 0
+
+\end{align*}
+$$
+
+$Proof$
+
+$j \in \{1, \cdots, M\}$ について、
+
+$$
+\begin{align*}
+\sum_{k \in \{1, \cdots, M\}, j \not= k}\left(
+    \exp\left(
+        -\sqrt{-1}
+        \frac{2 \pi \mu}{M}
+        (j - k)
+    \right)
+\right)
+&=
+\sum_{k \in \{j+1, \cdots, M, 1, \cdots, j-1\}}\left(
+    \exp\left(
+        -\sqrt{-1}
+        \frac{2 \pi \mu}{M}
+        (j - k)
+    \right)
+\right) \\
+&=
+\sum_{k \in \{j+1, \cdots, M, M+1, \cdots, M+j-1\}}\left(
+    \exp\left(
+        -\sqrt{-1}
+        \frac{2 \pi \mu}{M}
+        (j - k)
+    \right)
+\right)
+\quad
+(\because 和の各項 \exp(~~) は周期 M を持つので、添え字を M ずらしても値が変わらない) \\
+&=
+\left(
+     \exp\left(
+        -\sqrt{-1}
+        \frac{2 \pi \mu}{M}
+        (j - (j+1))
+    \right)
+\right)
+\frac{
+    1 - \left(
+        \exp\left(
+            -\sqrt{-1}
+            \frac{2 \pi \mu}{M}
+        \right)
+    \right)^{M}
+}{
+    1 - \exp\left(
+        -\sqrt{-1}
+        \frac{2 \pi \mu}{M}
+    \right)
+}
+\quad
+(\because 初項 k=j+1 項数 M-1 の等比数列の和とみる) \\
+&=
+0
+\quad
+\left(\because 
+    \left(
+        \exp\left(
+            -\sqrt{-1}
+            \frac{2 \pi \mu}{M}
+        \right)
+    \right)^{M}
+    =
+    \left(
+        \exp\left(
+            -\sqrt{-1} 2 \pi \mu
+        \right)
+    \right)
+    =
+    1
+\right) \\
+\end{align*}
+$$
+
+---
+
+$Claim$
 
 $$
 \left(
@@ -3741,7 +3861,7 @@ H_{1}^{(\pm)} \widehat{Z}_{\mu}^{(\pm)} - \widehat{Z}_{\mu}^{(\pm)} H_{1}^{(\pm)
             \widehat{Z}_{\mu}
             +
             2MI \cdot \widehat{Y}_{j}
-            +
+            -
             \widehat{Y}_{j}
             \widehat{Z}_{-j}
             \widehat{Z}_{\mu}
@@ -3759,7 +3879,7 @@ H_{1}^{(\pm)} \widehat{Z}_{\mu}^{(\pm)} - \widehat{Z}_{\mu}^{(\pm)} H_{1}^{(\pm)
         \widehat{Z}_{\mu}
         +
         2MI
-        +
+        -
         \widehat{Z}_{-\mu}
         \widehat{Z}_{\mu}
     \right)
@@ -3772,26 +3892,16 @@ H_{1}^{(\pm)} \widehat{Z}_{\mu}^{(\pm)} - \widehat{Z}_{\mu}^{(\pm)} H_{1}^{(\pm)
     2
     \widehat{Y}_{\mu}
     \left(
-        \widehat{Z}_{-\mu}
-        \widehat{Z}_{\mu}
-        +
         MI
     \right)
 \right)
 \\
 &=
-\frac{1}{M}
+2
 \left(
     \exp\left(-\sqrt{-1} \theta_{j}\right)
-    2
-    \widehat{Y}_{\mu}
-    \left(
-        \widehat{Z}_{-\mu}
-        \widehat{Z}_{\mu}
-        +
-        MI
-    \right)
 \right)
+I
 \\
 \end{align*}
 $$
