@@ -1206,42 +1206,91 @@ $\mathcal{M} := \{-M, \dots, -2, -1, 1, 2, \dots, M\}$
 
 と定める。
 
-$\mu \in \mathcal{M}$
+Def. $\widehat{Z}_{\mu}^{(\pm)} \quad \widehat{Y}_{\mu}$
 
-に対して、
+$\mu \in \mathcal{M}$ について、
 
-$\theta_{\mu} := \frac{2 \pi \mu}{M}$
-
-と定め、
-
-$
-Z_{\mu}^{(\pm)} :=
-\begin{cases}
-    Z_{\mu} & (\mu \in \{1, 2, \dots, M\}) \\
-    \mp Z_{-\mu} & (\mu \in \{-M, \dots, -2, -1\})
-\end{cases}
-$
-
-$
+$$
+\begin{align*}
 \widehat{Z}_{\mu}^{(\pm)}
-:=
-\sum_{j \in \{1, \cdots, M\}}\left(
-    \begin{cases}
-        Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-            & (\mu \in \mathcal{M}) \\
-        \mp Z_{j}\exp\left( -\sqrt{-1} j \theta_{1} \right)
-            & (\mu = -(M + 1)) \\
-    \end{cases}
+:=&
+\sum_{j=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{j}
+    \exp \left(
+        -
+        \sqrt{-1}
+        j
+        \frac{
+            2
+            \pi
+            \mu
+        }{
+            M
+        }
+    \right)
+\right) \\
+=&
+\mp
+Z_{1}
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        \mu
+    }{
+        M
+    }
 \right)
-$
++
+\sum_{j=2}^{M} \left(
+    Z_{j}
+    \exp \left(
+        -
+        \sqrt{-1}
+        j
+        \frac{
+            2
+            \pi
+            \mu
+        }{
+            M
+        }
+    \right)
+\right)
+\\
+\widehat{Y}_{\mu}
+:=&
+\sum_{j=1}^{M} \left(
+    Y_{j}
+    \exp \left(
+        -
+        \sqrt{-1}
+        j
+        \frac{
+            2
+            \pi
+            \mu
+        }{
+            M
+        }
+    \right)
+\right) \\
+\end{align*}
+$$
 
-$\widehat{Y}_{\mu} := \sum^{M}_{j=1}\left(
-    Y_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-\right)$
-
-と定める。
 
 ### 離散フーリエ変換
+
+TODO: $\widehat{Z}_{\mu}^{(\pm)}$ と $\widehat{Y}_{\mu}$ の定義が変わっているのでやり直し。逆変換は必要かもわからん(8/25)
 
 $Claim$ : expの和の公式 (等比数列の和と見る)
 
@@ -1542,6 +1591,8 @@ $$
     0 & (k \not\equiv l \mod M)
 \end{cases}
 $$
+
+### $Z_{\mu}, Y_{\mu}$ の反交換関係
 
 $Claim$
 
@@ -2996,7 +3047,7 @@ $Claim$
 $\mu, \nu \in \mathcal{M}$ について、
 
 $$
-\diracDelta{\mu + \nu}{0}
+\diracDelta{M}{\mu + \nu}{0}
 = 
 \sum^{M}_{j=1}\left(
     \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} j \theta_{\nu} \right)
@@ -3098,576 +3149,1472 @@ $$
     0 & (\mu + \nu \neq 0)
 \end{cases} \\
 &=
-M\diracDelta{\mu + \nu}{0}
+M\diracDelta{M}{\mu + \nu}{0}
 \end{align*}
 $$
 
 
+### $\widehat{Z}$と$\widehat{Y}$の反交換関係
 
 $Claim$ (論文 B.6)
 
 $\mu, \nu \in \mathcal{M}$ について、
 
 $$
-\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+} = 2 M \diracDelta{\mu+\nu}{0} I
+\left[\widehat{Z}_{\mu}^{(\pm)}, \widehat{Z}_{\nu}^{(\pm)} \right]_{+} = 2 M \diracDelta{M}{\mu+\nu}{0} I
 , \quad
-\left[\widehat{Z}_\mu, \widehat{Y}_\nu\right]_{+} = 0
+\left[\widehat{Z}_{\mu}^{(\pm)}, \widehat{Y}_{\nu} \right]_{+} = 0
 , \quad
-\left[\widehat{Y}_\mu, \widehat{Y}_\nu\right]_{+}=2 M \diracDelta{\mu+\nu}{0}
+\left[\widehat{Y}_{\mu}, \widehat{Y}_{\nu} \right]_{+}= 2 M \diracDelta{M}{\mu+\nu}{0} I
 $$
 
 $Proof$
 
+$\pm$ は複号同順であるとする。
 
-$
-\widehat{Z}_{\mu} := \sum^{M}_{j=1}\left(
-    Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-\right)
-$
-
-$\widehat{Y}_{\mu} := \sum^{M}_{j=1}\left(
-    Y_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-\right)$
-
-### $\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+}$ について、
+### $\left[\widehat{Z}_{\mu}^{(\pm)}, \widehat{Z}_{\nu}^{(\pm)} \right]_{+}$ について、
 
 $$
 \begin{align*}
-\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+}
-&=
+\left[\widehat{Z}_{\mu}^{(\pm)}, \widehat{Z}_{\nu}^{(\pm)} \right]_{+}
+=&
 \left[
-    \sum^{M}_{j=1}\left(
-        Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-    \right),
-    \sum^{M}_{k=1}\left(
-        Z_{k}\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
-    \right)
-\right]_{+} \\
-&=
-\left(
-    \sum^{M}_{j=1}\left(
-        Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-    \right)
-\right)
-\left(
-    \sum^{M}_{k=1}\left(
-        Z_{k}\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
-    \right)
-\right)
-+
-\left(
-    \sum^{M}_{k=1}\left(
-        Z_{k}\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
-    \right)
-\right)
-\left(
-    \sum^{M}_{j=1}\left(
-        Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-    \right)
-\right) \\
-&=
-\sum^{M}_{j=1}\sum^{M}_{k=1}\left(
-    Z_{j}Z_{k}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
-\right)
-+
-\sum^{M}_{k=1}\sum^{M}_{j=1}\left(
-    Z_{k}Z_{j}\exp\left( -\sqrt{-1} k \theta_{\nu} \right)\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-\right) \\
-&=
-\sum^{M}_{j=1}\sum^{M}_{k=1}\left(
-    Z_{j}Z_{k}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
-    +
-    Z_{k}Z_{j}\exp\left( -\sqrt{-1} k \theta_{\nu} \right)\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-\right) \\
-&=
-\sum^{M}_{j=1}\sum^{M}_{k=1}\left(
-    \left(
-        Z_{j}Z_{k} + Z_{k}Z_{j}
-    \right)
-    \left( 
-        \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
-    \right)
-\right) (\because \exp() \text{は複素数なので可換}) \\
-&=
-\sum^{M}_{j=1}\sum^{M}_{k=1}\left(
-    \left[Z_{j}, Z_{k}\right]_{+}
-    \left( 
-        \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
-    \right)
-\right) \\
-&=
-\sum^{M}_{j=1}\sum^{M}_{k=1}\left(
+    \sum_{j=1}^{M} \left(
     \left(
         \begin{cases}
-            2I & (j = k) \\
-            0 & (j \neq k)
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
         \end{cases}
     \right)
-    \left( 
-        \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} k \theta_{\nu} \right)
-    \right)
-\right) \\
-&=
-\sum^{M}_{j=1}\left(
-    2I
-    \left( 
-        \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} j \theta_{\nu} \right)
-    \right)
-\right) \\
-&=
-2I
-\sum^{M}_{j=1}\left(
-    \left( 
-        \exp\left( -\sqrt{-1} j \theta_{\mu} \right)\exp\left( -\sqrt{-1} j \theta_{\nu} \right)
-    \right)
-\right) \\
-&=
-2M\diracDelta{\mu + \nu}{0}I
-\end{align*}
-$$
-
-### $\left[\widehat{Z}_\mu, \widehat{Y}_\nu\right]_{+}$ について、
-
-TODO: 
-
-### $\left[\widehat{Y}_\mu, \widehat{Y}_\nu\right]_{+}$ について、
-
-TODO: 
-
----
-
-
-$Claim$
-
-次回 (7/28) : この$H_{1}$の関係式を調整する
-
-
-$$
-\begin{align*}
-H_{1}^{(\pm)} &= \frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \widehat{Y}_{\mu}\widehat{Z}_{-\mu}
-\right)
-\\
-H_{2} &= \frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \widehat{Z}_{-\mu}\widehat{Y}_{\mu}
-\right)
-\end{align*}
-$$
-
-めも
-
-$
-Z_{\mu}^{(\pm)} :=
-\begin{cases}
-    Z_{\mu} & (\mu \in \{1, 2, \dots, M\}) \\
-    \mp Z_{-\mu} & (\mu \in \{-M, \dots, -2, -1\})
-\end{cases}
-$
-
-$
-\widehat{Z}_{\mu}^{(\pm)}
-:=
-\begin{cases}
-\sum_{j \in \{1, \cdots, M\}}\left(
-    Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-\right) & (\mu \in \mathcal{M}) \\
-\mp \widehat{Z}_{1} & (\mu = -(M + 1)) \\
-\end{cases}
-$
-
-$\widehat{Y}_{\mu} := \sum^{M}_{j=1}\left(
-    Y_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-\right)$
-
-
-逆変換
-$$
-\begin{align*}
-Z_{m} &= \frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \widehat{Z}_{m} \exp\left( \sqrt{-1} m \theta_{\mu} \right)
-\right) \\
-Y_{m} &= \frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \widehat{Y}_{m} \exp\left( \sqrt{-1} m \theta_{\mu} \right)
-\right)
-\end{align*}
-$$
-
-$k \in \Zr$ について、
-$$
-\begin{align*}
-\sum_{j = 1}^{M} \left(
-    \exp\left(
-        k
-        \cdot
+    \cdot
+    Z_{j}
+    \exp \left(
+        -
+        \sqrt{-1}
+        j
         \frac{
-            \sqrt{-1} 2 \pi j
+            2
+            \pi
+            \mu
         }{
             M
         }
     \right)
-\right) =
-\begin{cases}
-    % Mとkがmod Mで等しい
-    M & (k \equiv 0 \mod M) \\
-    0 & (k \not\equiv 0 \mod M)
-\end{cases}
-\end{align*}
-$$
-
-$\theta_{\mu} := \frac{2 \pi \mu}{M}$
-
-$Proof$
-
-次回 (7/21)
-
-### $H_{1}^{(\pm)}について$
-$$
-\begin{align*}
-
-(右辺) =& \frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \widehat{Y}_{\mu}\widehat{Z}_{-\mu} \exp\left( -\sqrt{-1} \theta_{\mu} \right)
-\right) \\
-=&
-\frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
+\right)
+,
+\sum_{k=1}^{M} \left(
     \left(
-        \sum_{j=1}^{M} \left(
-            Y_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-        \right)
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
     \right)
-    \left(
-        \sum_{k=1}^{M} \left(
-            Z_{k}\exp\left( -\sqrt{-1} k \theta_{-\mu} \right)
-        \right)
+    \cdot
+    Z_{k}
+    \exp \left(
+        -
+        \sqrt{-1}
+        k
+        \frac{
+            2
+            \pi
+            \nu
+        }{
+            M
+        }
     \right)
-    \exp\left( -\sqrt{-1} \theta_{\mu} \right)
-\right) \\
-=&
-\frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \left(
-        \sum_{j, k=1}^{M} \left(
-            Y_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-            \cdot
-            Z_{k}\exp\left( -\sqrt{-1} k \theta_{-\mu} \right)
-        \right)
-    \right)
-    \exp\left( -\sqrt{-1} \theta_{\mu} \right)
-\right) \\
-=&
-\frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \left(
-        \sum_{j, k=1}^{M} \left(
-            Y_{j} Z_{k}
-            \exp\left(
-                -\sqrt{-1} j \theta_{\mu} 
-                -\sqrt{-1} k \theta_{-\mu}
-            \right)
-        \right)
-    \right)
-    \exp\left( -\sqrt{-1} \theta_{\mu} \right)
-\right) \\
-=&
-\frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \left(
-        \sum_{j, k=1}^{M} \left(
-            Y_{j} Z_{k}
-            \exp\left(
-                -\sqrt{-1} j \frac{2 \pi \mu}{M}
-                -\sqrt{-1} k \frac{- 2 \pi \mu}{M}
-            \right)
-        \right)
-    \right)
-    \exp\left( -\sqrt{-1}  \frac{2 \pi \mu}{M} \right)
-\right) \\
-=&
-\frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \left(
-        \sum_{j, k=1}^{M} \left(
-            Y_{j} Z_{k}
-            \exp\left(
-                -\sqrt{-1} \frac{2 \pi \mu}{M}
-                (j - k)
-            \right)
-        \right)
-    \right)
-    \exp\left( -\sqrt{-1}  \frac{2 \pi \mu}{M} \right)
-\right) \\
-=&
-\frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \left(
-        \sum_{j, k=1}^{M} \left(
-            Y_{j} Z_{k}
-            \exp\left(
-                -\sqrt{-1} \frac{2 \pi \mu}{M}
-                (j - k)
-            \right)
-            \exp\left( -\sqrt{-1}  \frac{2 \pi \mu}{M} \right)
-        \right)
-    \right)
-\right) \\
-=&
-\frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \left(
-        \sum_{j, k=1}^{M} \left(
-            Y_{j} Z_{k}
-            \exp\left(
-                -\sqrt{-1} \frac{2 \pi \mu}{M}
-                (j - k)
-                -\sqrt{-1}  \frac{2 \pi \mu}{M}
-            \right)
-        \right)
-    \right)
-\right) \\
-=&
-\frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \sum_{j, k=1}^{M} \left(
-        Y_{j} Z_{k}
-        \exp\left(
-            -\sqrt{-1} \frac{2 \pi \mu}{M}
-            (j - k + 1)
-        \right)
-    \right)
-\right) \\
-=&
-\frac{1}{M}
-\sum_{j, k=1}^{M} \left(
-    Y_{j} Z_{k}
-    \sum_{\mu \in \{ 1, \cdots, M\}} \left(
-        \exp\left(
-            \pm
-            (k - j - 1)
-            \frac{2 \pi \sqrt{-1}  \mu}{M}
-        \right)
-    \right)
-\right) \\
-=&
-\frac{1}{M}
-\sum_{j, k=1}^{M} \left(
-    Y_{j} Z_{k}
-    \begin{cases}
-        M & (k - j \equiv 1 \mod M) \\
-        0 & (k - j \not\equiv 1 \mod M)
-    \end{cases}
-\right) \quad (\because 上記Claimにおいて k = j-k+1, j=\mu に相当)\\
-=&
-\frac{1}{M}
-\cdot
-\left(
-    M \cdot Y_{1} Z_{2}
-    +
-    M \cdot Y_{2} Z_{3}
-    + \cdots +
-    M \cdot Y_{M - 1} Z_{M}
-    +
-    M \cdot Y_{M} Z_{1}
-\right) 
-
-\end{align*}
-$$
-
-また、
-$$
-\begin{align*}
-(左辺) = H_{1}^{(\pm)}
-=&
-Y_1 Z_2+Y_2 Z_3+\cdots \mp Y_M Z_1
+\right)
+\right]_{+}
 \\
 =&
-\sum_{j, k=1}^{M} \left(
-    Y_{j} Z_{k}
-    \begin{cases}
-        1 & (k - j = 1) \\
-        \mp 1 & (j - k = M - 1) \\
-        0 & (k - j \not= 1)
-    \end{cases}
+\left(
+    \sum_{j=1}^{M} \left(
+        \left(
+            \begin{cases}
+                +1 & \text{if} \ j \not= 1 \\
+                \mp 1 & \text{if} \ j = 1 \\
+            \end{cases}
+        \right)
+        \cdot
+        Z_{j}
+        \exp \left(
+            -
+            \sqrt{-1}
+            j
+            \frac{
+                2
+                \pi
+                \mu
+            }{
+                M
+            }
+        \right)
+    \right)
 \right)
+\left(
+    \sum_{k=1}^{M} \left(
+        \left(
+            \begin{cases}
+                +1 & \text{if} \ k \not= 1 \\
+                \mp 1 & \text{if} \ k = 1 \\
+            \end{cases}
+        \right)
+        \cdot
+        Z_{k}
+        \exp \left(
+            -
+            \sqrt{-1}
+            k
+            \frac{
+                2
+                \pi
+                \nu
+            }{
+                M
+            }
+        \right)
+    \right)
+\right)
++
+\left(
+    \sum_{k=1}^{M} \left(
+        \left(
+            \begin{cases}
+                +1 & \text{if} \ k \not= 1 \\
+                \mp 1 & \text{if} \ k = 1 \\
+            \end{cases}
+        \right)
+        \cdot
+        Z_{k}
+        \exp \left(
+            -
+            \sqrt{-1}
+            k
+            \frac{
+                2
+                \pi
+                \nu
+            }{
+                M
+            }
+        \right)
+    \right)
+\right)
+\left(
+    \sum_{j=1}^{M} \left(
+        \left(
+            \begin{cases}
+                +1 & \text{if} \ j \not= 1 \\
+                \mp 1 & \text{if} \ j = 1 \\
+            \end{cases}
+        \right)
+        \cdot
+        Z_{j}
+        \exp \left(
+            -
+            \sqrt{-1}
+            j
+            \frac{
+                2
+                \pi
+                \mu
+            }{
+                M
+            }
+        \right)
+    \right)
+\right)
+\\
+=&
+\sum_{j,k=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{j}
+    \exp \left(
+        -
+        \sqrt{-1}
+        j
+        \frac{
+            2
+            \pi
+            \mu
+        }{
+            M
+        }
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{k}
+    \exp \left(
+        -
+        \sqrt{-1}
+        k
+        \frac{
+            2
+            \pi
+            \nu
+        }{
+            M
+        }
+    \right)
+\right)
++
+\sum_{j,k=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{k}
+    \exp \left(
+        -
+        \sqrt{-1}
+        k
+        \frac{
+            2
+            \pi
+            \nu
+        }{
+            M
+        }
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{j}
+    \exp \left(
+        -
+        \sqrt{-1}
+        j
+        \frac{
+            2
+            \pi
+            \mu
+        }{
+            M
+        }
+    \right)
+\right)
+\\
+=&
+\sum_{j,k=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{j}
+    Z_{k}
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        j
+        \frac{
+            2
+            \pi
+            \mu
+        }{
+            M
+        }
+        -
+        \sqrt{-1}
+        k
+        \frac{
+            2
+            \pi
+            \nu
+        }{
+            M
+        }
+    \right)
+\right)
++
+\sum_{j,k=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{k}
+    Z_{j}
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        k
+        \frac{
+            2
+            \pi
+            \nu
+        }{
+            M
+        }
+        -
+        \sqrt{-1}
+        j
+        \frac{
+            2
+            \pi
+            \mu
+        }{
+            M
+        }
+    \right)
+\right)
+\\
+=&
+\sum_{j,k=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{j}
+    Z_{k}
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+        }{
+            M
+        }
+        \left(
+            j \mu + k \nu
+        \right)
+    \right)
+\right)
++
+\sum_{j,k=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{k}
+    Z_{j}
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+        }{
+            M
+        }
+        \left(
+            j \mu + k \nu
+        \right)
+    \right)
+\right)
+\\
+=&
+\sum_{j,k=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{j}
+    Z_{k}
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+        }{
+            M
+        }
+        \left(
+            j \mu + k \nu
+        \right)
+    \right)
+    +
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    Z_{k}
+    Z_{j}
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+        }{
+            M
+        }
+        \left(
+            j \mu + k \nu
+        \right)
+    \right)
+\right)
+\\
+=&
+\sum_{j,k=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+        }{
+            M
+        }
+        \left(
+            j \mu + k \nu
+        \right)
+    \right)
+    \cdot
+    \left(
+        Z_{j}
+        Z_{k}
+        +
+        Z_{k}
+        Z_{j}
+    \right)
+\right)
+\\
+=&
+\sum_{j,k=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+        }{
+            M
+        }
+        \left(
+            j \mu + k \nu
+        \right)
+    \right)
+    \cdot
+    \left[
+        Z_{j}
+        ,
+        Z_{k}
+    \right]_{+}
+\right)
+\\
+=&
+\sum_{j,k=1}^{M} \left(
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ k \not= 1 \\
+            \mp 1 & \text{if} \ k = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+        }{
+            M
+        }
+        \left(
+            j \mu + k \nu
+        \right)
+    \right)
+    \cdot
+    2I \diracDelta{M}{j}{k}
+\right)
+\\
+=&
+\sum_{j=1}^{M} \left(
+    2
+    I
+     \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \left(
+        \begin{cases}
+            +1 & \text{if} \ j \not= 1 \\
+            \mp 1 & \text{if} \ j = 1 \\
+        \end{cases}
+    \right)
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+        }{
+            M
+        }
+        \left(
+            j \mu + j \nu
+        \right)
+    \right)
+\right)
+\\
+=&
+\sum_{j=1}^{M} \left(
+    2
+    I
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+        }{
+            M
+        }
+        \left(
+            j \mu + j \nu
+        \right)
+    \right)
+\right)
+\quad
+\left(
+    \because 複号同順のため
+\right)
+\\
+=&
+\sum_{j=1}^{M} \left(
+    2
+    I
+    \cdot
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            j
+            \pi
+        }{
+            M
+        }
+        \left(
+            \mu + \nu
+        \right)
+    \right)
+\right)
+\quad
+\cdots
+\quad
+(1)
+\\
 \end{align*}
 $$
 
-TODO: グローバルに定める
+##### a) $\mu + \nu = 0 \mod M$ のとき
 
-$\newcommand{\zeromat}[1]{O_{#1}}$
-$\zeromat{2^{M}} := 2^{M} \times 2^{M}の零行列$
-
-$\newcommand{\unitmat}[1]{I_{#1}}$
-$\unitmat{2^{M}} := 2^{M} \times 2^{M}の単位行列$
-
----
-
-$Claim$ 
-
-$\mu \in \mathcal{M}$ について、
+$l = 1,2$ を用いて、
 
 $$
 \begin{align*}
-\sum_{j, k \in \{1, \cdots, M\}, j \not= k}\left(
-    \exp\left(
-        -\sqrt{-1}
-        \frac{2 \pi \mu}{M}
-        (j - k)
-    \right)
-\right) &= 0
+(1)
+=&
+\sum_{j=1}^{M} \left(
+    2
+    \cdot
+    \overbrace{
+        \exp \left(
+            -
+            \sqrt{-1}
+            2
+            l
+            j
+            \pi
+        \right)
+    }^{
+        1
+    }
+\right)
+\\
+=&
+2MI
+\end{align*}
+$$
 
+##### b) $\mu + \nu \not= 0 \mod M$ のとき
+
+$$
+\begin{align*}
+(1)
+=
+2
+\sum_{j=1}^{M} \left(
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            j
+            \pi
+        }{
+            M
+        }
+        \left(
+            \mu + \nu
+        \right)
+    \right)
+\right)
+=&
+2
+\cdot
+\underbrace{
+    \overbrace{
+        \exp \left(
+            -
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+            }{
+                M
+            }
+            \left(
+                \mu + \nu
+            \right)
+        \right)
+    }^{初項}
+    \cdot
+    \frac{
+        1
+        -
+        \left(
+            \overbrace{
+                \exp \left(
+                    -
+                    \sqrt{-1}
+                    \frac{
+                        2
+                        \pi
+                    }{
+                        M
+                    }
+                \right)
+            }^{公比}
+        \right)
+        ^{M}
+    }{
+        1
+        -
+        \overbrace{
+            \exp \left(
+                -
+                \sqrt{-1}
+                \frac{
+                    2
+                    \pi
+                }{
+                    M
+                }
+            \right)
+        }^{公比}     
+    }
+}_{等比級数の和}
+\\
+=&
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+    }{
+        M
+    }
+    \left(
+        \mu + \nu
+    \right)
+\right)
+\cdot
+\frac{
+    1
+    -
+    \overbrace{
+        \left(
+            \exp \left(
+                -
+                \sqrt{-1}
+                2
+                \pi
+            \right)
+        \right)
+    }^{1}
+}{
+    1
+    -
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+        }{
+            M
+        }
+    \right)
+}
+\\
+=&
+0
+\end{align*}
+$$
+
+$Q.E.D.$
+
+### $H$の定義
+$
+H_{1}^{(\pm)} := Y_1 Z_2+Y_2 Z_3+\cdots \mp 1_{\text{End}(\mathcal{F})} Y_M Z_1
+$
+
+$
+H_{2} := Z_1 Y_1+Z_2 Y_2+\cdots+Z_M Y_M
+$
+
+### $H$を$\widehat{Z}$と$\widehat{Y}$で表す
+$Claim$
+$$
+\begin{align*}
+H_{1}^{(\pm)} &= \frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \widehat{Y}_{j}
+    \widehat{Z}_{-j}^{(\pm)}
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+            j
+        }{
+            M
+        }
+    \right)
+\right) \\
+
+H_{2} &= \frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \widehat{Z}_{-j}^{(-)}
+    \widehat{Y}_{j}
+\right)
 \end{align*}
 $$
 
 $Proof$
 
-$j \in \{1, \cdots, M\}$ について、
+$H_{1}^{(\pm)}$ について、
 
 $$
 \begin{align*}
-\sum_{k \in \{1, \cdots, M\}, j \not= k}\left(
-    \exp\left(
-        -\sqrt{-1}
-        \frac{2 \pi \mu}{M}
-        (j - k)
-    \right)
-\right)
+(右辺)
 &=
-\sum_{k \in \{j+1, \cdots, M, 1, \cdots, j-1\}}\left(
-    \exp\left(
-        -\sqrt{-1}
-        \frac{2 \pi \mu}{M}
-        (j - k)
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \widehat{Y}_{j}
+    \widehat{Z}_{-j}^{(\pm)}
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+            j
+        }{
+            M
+        }
     \right)
 \right) \\
 &=
-\sum_{k \in \{j+1, \cdots, M, M+1, \cdots, M+j-1\}}\left(
-    \exp\left(
-        -\sqrt{-1}
-        \frac{2 \pi \mu}{M}
-        (j - k)
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \overbrace{
+        \left(
+            \sum_{k=1}^{M} \left(
+                Y_{k}
+                \exp \left(
+                    -
+                    \sqrt{-1}
+                    k
+                    \frac{
+                        2
+                        \pi
+                        j
+                    }{
+                        M
+                    }
+                \right)
+            \right)
+        \right)
+    }^{\widehat{Y}_{j}}
+    \overbrace{
+        \left(
+            \sum_{l=1}^{M} \left(
+                \left(
+                    \begin{cases}
+                        +1 & \text{if} \ l \not= 1 \\
+                        \mp 1 & \text{if} \ l = 1 \\
+                    \end{cases}
+                \right)
+                \cdot
+                Z_{l}
+                \exp \left(
+                    -
+                    \sqrt{-1}
+                    l
+                    \frac{
+                        2
+                        \pi
+                        (-j)
+                    }{
+                        M
+                    }
+                \right)
+            \right)
+        \right)
+    }^{\widehat{Z}_{-j}^{(\pm)}}
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+            j
+        }{
+            M
+        }
     \right)
-\right)
-\quad
-(\because 和の各項 \exp(~~) は周期 M を持つので、添え字を M ずらしても値が変わらない) \\
+\right) \\
 &=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \sum_{k,l=1}^{M} \left(
+        Y_{k}
+        \exp \left(
+            -
+            \sqrt{-1}
+            k
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+        \right)
+        \cdot
+        \left(
+            \begin{cases}
+                +1 & \text{if} \ l \not= 1 \\
+                \mp 1 & \text{if} \ l = 1 \\
+            \end{cases}
+        \right)
+        \cdot
+        Z_{l}
+        \exp \left(
+            -
+            \sqrt{-1}
+            l
+            \frac{
+                2
+                \pi
+                (-j)
+            }{
+                M
+            }
+        \right)
+    \right)
+    \exp \left(
+        -
+        \sqrt{-1}
+        \frac{
+            2
+            \pi
+            j
+        }{
+            M
+        }
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \sum_{k,l=1}^{M} \left(
+        \left(
+            \begin{cases}
+                +1 & \text{if} \ l \not= 1 \\
+                \mp 1 & \text{if} \ l = 1 \\
+            \end{cases}
+        \right)
+        \cdot
+        \exp \left(
+            -
+            \sqrt{-1}
+            k
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+        \right)
+        \cdot
+        \exp \left(
+            -
+            \sqrt{-1}
+            l
+            \frac{
+                2
+                \pi
+                (-j)
+            }{
+                M
+            }
+        \right)
+        \cdot
+        \exp \left(
+            -
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+        \right)
+        Y_{k}
+        Z_{l}
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \sum_{k,l=1}^{M} \left(
+        \left(
+            \begin{cases}
+                +1 & \text{if} \ l \not= 1 \\
+                \mp 1 & \text{if} \ l = 1 \\
+            \end{cases}
+        \right)
+        \cdot
+        \exp \left(
+            -
+            \sqrt{-1}
+            k
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+            -
+            \sqrt{-1}
+            l
+            \frac{
+                2
+                \pi
+                (-j)
+            }{
+                M
+            }
+            -
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+        \right)
+        \cdot
+        Y_{k}
+        Z_{l}
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \sum_{k,l=1}^{M} \left(
+        \left(
+            \begin{cases}
+                +1 & \text{if} \ l \not= 1 \\
+                \mp 1 & \text{if} \ l = 1 \\
+            \end{cases}
+        \right)
+        \cdot
+        \exp \left(
+            -
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+            \left(
+                k
+                -
+                l
+                +
+                1
+            \right)
+        \right)
+        \cdot
+        Y_{k}
+        Z_{l}
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \sum_{
+        \begin{align*}
+        &k,l \in \{1, \dots, M\} \\
+        &k - l + 1 \equiv 0 \mod M
+        \end{align*}
+    } \left(
+        \left(
+            \begin{cases}
+                +1 & \text{if} \ l \not= 1 \\
+                \mp 1 & \text{if} \ l = 1 \\
+            \end{cases}
+        \right)
+        \cdot
+        \exp \left(
+            -
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+            \left(
+                k
+                -
+                l
+                +
+                1
+            \right)
+        \right)
+        \cdot
+        Y_{k}
+        Z_{l}
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    Y_{1}
+    Z_{2}
+    +
+    Y_{3}
+    Z_{2}
+    + \cdots \mp
+    Y_{M}
+    Z_{1}
+\right) \\
+&=
+\frac{1}{M}
+\cdot
+M
+\cdot
 \left(
-     \exp\left(
-        -\sqrt{-1}
-        \frac{2 \pi \mu}{M}
-        (j - (j+1))
-    \right)
-\right)
-\frac{
-    1 - \left(
-        \exp\left(
-            -\sqrt{-1}
-            \frac{2 \pi \mu}{M}
-        \right)
-    \right)^{M}
-}{
-    1 - \exp\left(
-        -\sqrt{-1}
-        \frac{2 \pi \mu}{M}
-    \right)
-}
-\quad
-(\because 初項 k=j+1 項数 M-1 の等比数列の和とみる) \\
-&=
-0
-\quad
-\left(\because 
-    \left(
-        \exp\left(
-            -\sqrt{-1}
-            \frac{2 \pi \mu}{M}
-        \right)
-    \right)^{M}
-    =
-    \left(
-        \exp\left(
-            -\sqrt{-1} 2 \pi \mu
-        \right)
-    \right)
-    =
-    1
+    Y_{1}
+    Z_{2}
+    +
+    Y_{3}
+    Z_{2}
+    + \cdots \mp
+    Y_{M}
+    Z_{1}
 \right) \\
+&=
+Y_{1}
+Z_{2}
++
+Y_{3}
+Z_{2}
++ \cdots \mp
+Y_{M}
+Z_{1}
 \end{align*}
 $$
+
+$Q.E.D.$
+
+$H_{2}$ について、
+
+$$
+\begin{align*}
+(右辺)
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \widehat{Z}_{-j}^{(-)}
+    \widehat{Y}_{j}
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \overbrace{
+        \left(
+            \sum_{k=1}^{M} \left(
+                Z_{k}
+                \exp \left(
+                    -
+                    \sqrt{-1}
+                    k
+                    \frac{
+                        2
+                        \pi
+                        (-j)
+                    }{
+                        M
+                    }
+                \right)
+            \right)
+        \right)
+    }^{\widehat{Z}_{-j}^{(-)}}
+    \overbrace{
+        \left(
+            \sum_{l=1}^{M} \left(
+                Y_{l}
+                \exp \left(
+                    -
+                    \sqrt{-1}
+                    l
+                    \frac{
+                        2
+                        \pi
+                        j
+                    }{
+                        M
+                    }
+                \right)
+            \right)
+        \right)
+    }^{\widehat{Y}_{j}}
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \sum_{k,l=1}^{M} \left(
+        Z_{k}
+        \exp \left(
+            -
+            \sqrt{-1}
+            k
+            \frac{
+                2
+                \pi
+                (-j)
+            }{
+                M
+            }
+        \right)
+        \cdot
+        Y_{l}
+        \exp \left(
+            -
+            \sqrt{-1}
+            l
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+        \right)
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \sum_{k,l=1}^{M} \left(
+        \exp \left(
+            -
+            \sqrt{-1}
+            k
+            \frac{
+                2
+                \pi
+                (-j)
+            }{
+                M
+            }
+            -
+            \sqrt{-1}
+            l
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+        \right)
+        \cdot
+        Z_{k}
+        Y_{l}
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \sum_{k,l=1}^{M} \left(
+        \exp \left(
+            -
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+            \left(
+                -k
+                +
+                l
+            \right)
+        \right)
+        \cdot
+        Z_{k}
+        Y_{l}
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    \sum_{
+        \begin{align*}
+        &k,l \in \{1, \dots, M\} \\
+        &-k + l \equiv 0 \mod M
+        \end{align*}
+    } \left(
+        \exp \left(
+            -
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+            \left(
+                -k
+                +
+                l
+            \right)
+        \right)
+        \cdot
+        Z_{k}
+        Y_{l}
+    \right)
+\right) \\
+&=
+\frac{1}{M} \sum_{j \in \{1, \cdots, M\}} \left(
+    Z_{1}
+    Y_{1}
+    +
+    Z_{2}
+    Y_{2}
+    + \cdots+
+    Z_{M}
+    Y_{M}
+\right) \\
+&=
+\frac{1}{M}
+\cdot
+M
+\cdot
+\left(
+    Z_{1}
+    Y_{1}
+    +
+    Z_{2}
+    Y_{2}
+    + \cdots+
+    Z_{M}
+    Y_{M}
+\right) \\
+&=
+Z_{1}
+Y_{1}
++
+Z_{2}
+Y_{2}
++ \cdots+
+Z_{M}
+Y_{M}
+\end{align*}
+$$
+
+$Q.E.D.$
+
+### $H$との交換関係
 
 ---
 
 $Claim$
 
 $$
-\left(
-    \left[H_{1}^{(\pm)}, \widehat{Z}_{\mu}^{(\pm)}\right],
-    \left[H_{1}^{(\pm)}, \widehat{Y}_{\mu}\right]
-\right)
-=
-\left(
-    \widehat{Z}_{\mu}^{(\pm)}, \widehat{Y}_{\mu}
-\right)
-\left(
-    \begin{array}{cc}
-        \zeromat{2^{M}} & -2 e^{i \theta_\mu} \unitmat{2^{M}} \\
-        2 e^{i \theta_\mu} \unitmat{2^{M}} & \zeromat{2^{M}}
-    \end{array}
-\right) \\
-
-\left(
-    \left[H_{2}, \widehat{Z}_{\mu}^{(\pm)}\right],
-    \left[H_{2}, \widehat{Y}_{\mu}\right]
-\right)
-=
-\left(
-    \widehat{Z}_{\mu}^{(\pm)}, \widehat{Y}_{\mu}
-\right)
-\left(
-    \begin{array}{cc}
-        \zeromat{2^{M}} & 2 \unitmat{2^{M}} \\
-        -2 \unitmat{2^{M}} & \zeromat{2^{M}}
-    \end{array}
-\right)
-$$
-
-めも
-
-$H_{1}^{(\pm)} := Y_1 Z_2+Y_2 Z_3+\cdots \mp 1_{\text{End}(\mathcal{F})} Y_M Z_1$
-
-$H_{2} := Z_1 Y_1+Z_2 Y_2+\cdots+Y_M Y_M$
-
-$$
 \begin{align*}
-H_{1}^{(\pm)} &= \frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \widehat{Y}_{\mu}\widehat{Z}_{-\mu}
-    \exp\left( -\sqrt{-1} \theta_{\mu} \right)
-\right)
+\left[H_{1}^{(\pm)}, \widehat{Z}_{\mu}^{(\pm)}\right]
+&=
+2 
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        \mu
+    }{
+        M
+    }
+\right) \\
+\left[H_{1}^{(\pm)}, \widehat{Y}_{\mu}\right]
+&=
+-
+2 
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        \mu
+    }{
+        M
+    }
+\right) \\
+\left[H_{2}, \widehat{Z}_{\mu}^{(\pm)}\right]
+&=
+-2 
 \\
-H_{2} &= \frac{1}{M} \sum_{\mu \in \{1, \cdots, M\}} \left(
-    \widehat{Z}_{-\mu}\widehat{Y}_{\mu}
-\right)
+\left[H_{2}, \widehat{Y}_{\mu}\right]
+&=
+2 
+\\
 \end{align*}
 $$
 
-
-$$
-\widehat{Z}_{\mu}^{(\pm)}
-:=
-\sum_{j \in \{1, \cdots, M\}}\left(
-    \begin{cases}
-        Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-            & (\mu \in \mathcal{M}) \\
-        \mp Z_{j}\exp\left( -\sqrt{-1} j \theta_{1} \right)
-            & (\mu = -(M + 1)) \\
-    \end{cases}
-\right) \\
-:=
-\sum_{j \in \{1, \cdots, M\}}\left(
-    Z_{j}\exp\left( -\sqrt{-1} j \theta_{\mu} \right)
-\right)
-$$
-
-$\mu, \nu \in \mathcal{M}$ について、
-
-$$
-\left[\widehat{Z}_\mu, \widehat{Z}_\nu\right]_{+} = 2 M \diracDelta{\mu+\nu}{0} I
-, \quad
-\left[\widehat{Z}_\mu, \widehat{Y}_\nu\right]_{+} = 0
-, \quad
-\left[\widehat{Y}_\mu, \widehat{Y}_\nu\right]_{+}=2 M \diracDelta{\mu+\nu}{0}
-$$
+---
 
 
 $Proof$
@@ -3687,126 +4634,39 @@ H_{1}^{(\pm)} \widehat{Z}_{\mu}^{(\pm)} - \widehat{Z}_{\mu}^{(\pm)} H_{1}^{(\pm)
     \sum_{j \in \{1, \cdots, M\}}
     \left(
         \widehat{Y}_{j}
-        \widehat{Z}_{-j}
-        \exp\left( -\sqrt{-1} \theta_{j}\right)
+        \widehat{Z}_{-j}^{(\pm)}
+        \exp \left(
+            -
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+        \right)
     \right)
 \right)
-\widehat{Z}_{\mu}
+\widehat{Z}_{\mu}^{(\pm)}
 -
-\widehat{Z}_{\mu}
+\widehat{Z}_{\mu}^{(\pm)}
 \left(
     \frac{1}{M}
     \sum_{j \in \{1, \cdots, M\}}
     \left(
         \widehat{Y}_{j}
-        \widehat{Z}_{-j}
-        \exp\left( -\sqrt{-1} \theta_{j}\right)
-    \right)
-\right)
-\\
-&=
-\frac{1}{M}
-\left(
-    \sum_{j \in \{1, \cdots, M\}}
-    \left(
-        \exp\left( -\sqrt{-1} \theta_{j}\right)
-        \widehat{Y}_{j}
-        \widehat{Z}_{-j}
-        \widehat{Z}_{\mu}
-    \right)
-    -
-    \sum_{j \in \{1, \cdots, M\}}
-    \left(
-        \exp\left( -\sqrt{-1} \theta_{j}\right)
-        \widehat{Z}_{\mu}
-        \widehat{Y}_{j}
-        \widehat{Z}_{-j}
-    \right)
-\right)
-\\
-&=
-\frac{1}{M}
-\left(
-    \sum_{j \in \{1, \cdots, M\}}
-    \left(
-        \exp\left( -\sqrt{-1} \theta_{j}\right)
-        \widehat{Y}_{j}
-        \widehat{Z}_{-j}
-        \widehat{Z}_{\mu}
-    \right)
-    -
-    \sum_{j \in \{1, \cdots, M\}}
-    \left(
-        -
-        \exp\left( -\sqrt{-1} \theta_{j}\right)
-        \cdot
-        \widehat{Y}_{j}
-        \widehat{Z}_{\mu}
-        \widehat{Z}_{-j}
-    \right)
-\right)
-\quad
-\left(
-    \because \left[\widehat{Z}_{\mu}, \widehat{Y}_{j}\right]_{+} = 0
-\right)
-\\
-&=
-\frac{1}{M}
-\left(
-    \sum_{j \in \{1, \cdots, M\}}
-    \left(
-        \exp\left( -\sqrt{-1} \theta_{j}\right)
-        \widehat{Y}_{j}
-        \widehat{Z}_{-j}
-        \widehat{Z}_{\mu}
-    \right)
-    -
-    \sum_{j \in \{1, \cdots, M\}}
-    \left(
-        -
-        \exp\left( -\sqrt{-1} \theta_{j}\right)
-        \cdot
-        \widehat{Y}_{j}
-        \begin{cases}
-            2MI - \widehat{Z}_{-j} \widehat{Z}_{\mu} & (\mu - j = 0) \\
-            - \widehat{Z}_{-j} \widehat{Z}_{\mu} & (\mu - j \not= 0) \\
-        \end{cases}
-    \right)
-\right)
-\quad
-\left(
-    \because \left[\widehat{Z}_{\mu}, \widehat{Z}_{-j}\right]_{+} = 2 M \diracDelta{\mu-j}{0} I
-\right)
-\\
-&=
-\frac{1}{M}
-\left(
-    \sum_{j \in \{1, \cdots, M\}}
-    \left(
-        \exp\left(-\sqrt{-1} \theta_{j}\right)
-        \widehat{Y}_{j}
-        \widehat{Z}_{-j}
-        \widehat{Z}_{\mu}
-    \right)
-    -
-    \left(
-        \sum_{j \in \{1, \cdots, M\}, \mu - j = 0}
-        \left(
+        \widehat{Z}_{-j}^{(\pm)}
+        \exp \left(
             -
-            \exp\left( -\sqrt{-1} \theta_{j}\right)
-            \cdot
-            \widehat{Y}_{j}
-            \left(
-                2MI - \widehat{Z}_{-j} \widehat{Z}_{\mu}
-            \right)
-        \right)
-        +
-        \sum_{j \in \{1, \cdots, M\}, \mu - j \not= 0}
-        \left(
-            \exp\left( -\sqrt{-1} \theta_{j}\right)
-            \cdot
-            \widehat{Y}_{j}
-            \widehat{Z}_{-j} \widehat{Z}_{\mu}
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
         \right)
     \right)
 \right)
@@ -3814,117 +4674,330 @@ H_{1}^{(\pm)} \widehat{Z}_{\mu}^{(\pm)} - \widehat{Z}_{\mu}^{(\pm)} H_{1}^{(\pm)
 &=
 \frac{1}{M}
 \left(
-    \sum_{j \in \{1, \cdots, M\}, \mu - j = 0}
+    \sum_{j \in \{1, \cdots, M\}}
     \left(
-        \exp\left(-\sqrt{-1} \theta_{j}\right)
         \widehat{Y}_{j}
-        \widehat{Z}_{-j}
-        \widehat{Z}_{\mu}
-        +
-        \exp\left( -\sqrt{-1} \theta_{j}\right)
-        \cdot
+        \widehat{Z}_{-j}^{(\pm)}
+        \widehat{Z}_{\mu}^{(\pm)}
+        \exp \left(
+            -
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
+        \right)
+        -
+        \widehat{Z}_{\mu}^{(\pm)}
         \widehat{Y}_{j}
-        \left(
-            2MI - \widehat{Z}_{-j} \widehat{Z}_{\mu}
+        \widehat{Z}_{-j}^{(\pm)}
+        \exp \left(
+            -
+            \sqrt{-1}
+            \frac{
+                2
+                \pi
+                j
+            }{
+                M
+            }
         \right)
     \right)
-    +
-    \sum_{j \in \{1, \cdots, M\}, \mu - j \not= 0}
-    \underbrace{
-        \left(
-                \exp\left(-\sqrt{-1} \theta_{j}\right)
-            \widehat{Y}_{j}
-            \widehat{Z}_{-j}
-            \widehat{Z}_{\mu}
-            -
-            \exp\left(-\sqrt{-1} \theta_{j}\right)
-            \widehat{Y}_{j}
-            \widehat{Z}_{-j}
-            \widehat{Z}_{\mu}
-        \right)
-    }_{
-        0
+\right)
+\\
+&=
+\frac{1}{M}
+\sum_{j \in \{1, \cdots, M\}}
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        j
+    }{
+        M
     }
 \right)
-\\
-&=
-\frac{1}{M}
 \left(
-    \sum_{j \in \{1, \cdots, M\}, \mu - j = 0}
-    \left(
-        \exp\left(-\sqrt{-1} \theta_{j}\right)
-        \left(
-            \widehat{Y}_{j}
-            \widehat{Z}_{-j}
-            \widehat{Z}_{\mu}
-            +
-            2MI \cdot \widehat{Y}_{j}
-            -
-            \widehat{Y}_{j}
-            \widehat{Z}_{-j}
-            \widehat{Z}_{\mu}
-        \right)
-    \right)
+    \widehat{Y}_{j}
+    \widehat{Z}_{-j}^{(\pm)}
+    \widehat{Z}_{\mu}^{(\pm)}
+    -
+    \widehat{Z}_{\mu}^{(\pm)}
+    \widehat{Y}_{j}
+    \widehat{Z}_{-j}^{(\pm)}
 \right)
 \\
 &=
 \frac{1}{M}
+\sum_{j \in \{1, \cdots, M\}}
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        j
+    }{
+        M
+    }
+\right)
 \left(
-    \exp\left(-\sqrt{-1} \theta_{j}\right)
-    \widehat{Y}_{\mu}
-    \left(
-        \widehat{Z}_{-\mu}
-        \widehat{Z}_{\mu}
-        +
-        2MI
-        -
-        \widehat{Z}_{-\mu}
-        \widehat{Z}_{\mu}
-    \right)
+    \widehat{Y}_{j}
+    \widehat{Z}_{-j}^{(\pm)}
+    \widehat{Z}_{\mu}^{(\pm)}
+    +
+    \widehat{Y}_{j}
+    \widehat{Z}_{\mu}^{(\pm)}
+    \widehat{Z}_{-j}^{(\pm)}
+\right)
+\quad
+\left(
+    \because \left[\widehat{Z}_{\mu}^{(\pm)}, \widehat{Y}_{j}\right]_{+} = 0
 \right)
 \\
 &=
 \frac{1}{M}
+\sum_{j \in \{1, \cdots, M\}}
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        j
+    }{
+        M
+    }
+\right)
+\widehat{Y}_{j}
+\cdot
 \left(
-    \exp\left(-\sqrt{-1} \theta_{j}\right)
-    2
-    \widehat{Y}_{\mu}
-    \left(
-        MI
-    \right)
+    \widehat{Z}_{-j}^{(\pm)}
+    \widehat{Z}_{\mu}^{(\pm)}
+    +
+    \widehat{Z}_{\mu}^{(\pm)}
+    \widehat{Z}_{-j}^{(\pm)}
 \right)
 \\
 &=
-2
-\left(
-    \exp\left(-\sqrt{-1} \theta_{j}\right)
+\frac{1}{M}
+\sum_{j \in \{1, \cdots, M\}}
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        j
+    }{
+        M
+    }
 \right)
-I
+\widehat{Y}_{j}
+\cdot
+\left[\widehat{Z}_{\mu}^{(\pm)}, \widehat{Z}_{-j}^{(\pm)}\right]_{+}
+\\
+&=
+\frac{1}{M}
+\sum_{j \in \{1, \cdots, M\}}
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        j
+    }{
+        M
+    }
+\right)
+\widehat{Y}_{j}
+\cdot
+\left(
+    2 M \diracDelta{M}{\mu-j}{0} I
+\right)
+\quad
+\left(
+    \because \left[\widehat{Z}_{\mu}^{(\pm)}, \widehat{Z}_{-j}^{(\pm)}\right]_{+}
+    = 2 M \diracDelta{M}{\mu-j}{0} I
+\right)
+\\
+&=
+\frac{1}{M}
+\cdot
+2 M 
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        \mu
+    }{
+        M
+    }
+\right)
+\widehat{Y}_{\mu}
+\\
+&=
+2 
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        \mu
+    }{
+        M
+    }
+\right)
+\widehat{Y}_{\mu}
+\\
+
+\end{align*}
+$$
+
+$Q.E.D.$
+
+#### $\left[H_{1}^{(\pm)}, \widehat{Y}_{\mu}\right]$ について、
+
+TODO
+
+#### $\left[H_{2}, \widehat{Z}_{\mu}^{(\pm)}\right]$ について、
+
+TODO
+
+#### $\left[H_{2}, \widehat{Y}_{\mu}\right]$ について、
+
+TODO
+
+---
+
+### $T_{V_{1}}(\widehat{Z})$と$\widehat{Z},\widehat{Y}$の関係
+
+$Claim$
+
+$$
+\begin{align*}
+T_{(V_{1}^{(\pm)})^{\frac{1}{2}}}(\widehat{Z}_{\mu}^{(\pm)})
+&=
+(V_{1}^{(\pm)})^{\frac{1}{2}}
+\cdot
+\widehat{Z}_{\mu}^{(\pm)}
+\cdot
+(V_{1}^{(\pm)})^{-\frac{1}{2}} \\
+&=
+\cosh(K_{1})
+\cdot
+\widehat{Z}_{\mu}^{(\pm)}
++
+\sqrt{-1}
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        \mu
+    }{
+        M
+    }
+\right)
+\sinh(K_{1})
+\cdot
+\widehat{Y}_{\mu}
+\\
+T_{(V_{1}^{(-)})^{\frac{1}{2}}}(\widehat{Y}_{\mu})
+&=
+(V_{1}^{(-)})^{\frac{1}{2}}
+\cdot
+\widehat{Y}_{\mu}
+\cdot
+(V_{1}^{(-)})^{-\frac{1}{2}} \\
+&=
+-
+\sqrt{-1}
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        \mu
+    }{
+        M
+    }
+\right)
+\widehat{Z}_{\mu}^{(-)}
+\cdot
++
+\cosh(K_{1})
+\cdot
+\widehat{Y}_{\mu} \\
+T_{V_{2}}(\widehat{Z}_{\mu}^{(\pm)})
+&=
+V_{2}
+\cdot
+\widehat{Z}_{\mu}^{(\pm)}
+\cdot
+V_{2}^{-1} \\
+&=
+c_{2}^{*}
+\cdot
+\widehat{Z}_{\mu}^{(\pm)}
+-
+\sqrt{-1}
+s_{2}^{*}
+\cdot
+\widehat{Y}_{\mu}
+\\
+T_{V_{2}}(\widehat{Y}_{\mu})
+&=
+V_{2}
+\cdot
+\widehat{Y}_{\mu}
+\cdot
+V_{2}^{-1} \\
+&=
+\sqrt{-1}
+s_{2}
+\cdot
+\widehat{Z}_{\mu}^{(-)}
++
+c_{2}
+\cdot
+\widehat{Y}_{\mu}
 \\
 \end{align*}
 $$
 
-次回 7/28
-- ↑$\widehat{Z}_{-\mu} \widehat{Z}_{\mu}$ が 0になってくれると嬉しい
-- jの範囲が正なので、$\mu$が負だと値がなくなってしまうので、和の範囲が$(\pm)$と関連するのでは
+$Proof$
 
-<!-- $$
-\operatorname{ad}\left(H_i\right)(X)=\left[H_i, X\right] \\
-\begin{aligned}
-& \left(\operatorname{ad}\left(H_1\right)\left(\hat{p}_\mu\right), \operatorname{ad}\left(H_1\right)\left(\hat{q}_\mu\right)\right)=\left(\hat{p}_\mu, \hat{q}_\mu\right)\left(\begin{array}{cc}
-0 & -2 e^{i \theta_\mu} \\
-2 e^{-i \theta_\mu} & 0
-\end{array}\right), \\
-& \left(\operatorname{ad}\left(H_2\right)\left(\hat{p}_\mu\right), \operatorname{ad}\left(H_2\right)\left(\hat{q}_\mu\right)\right)=\left(\hat{p}_\mu, \hat{q}_\mu\right)\left(\begin{array}{cc}
-0 & 2 \\
--2 & 0
-\end{array}\right)
-\end{aligned}
+#### $T_{V_{1}}(\widehat{Z})$について、
 
-$$ -->
+$$
+\begin{align*}
+T_{V_{1}^{\frac{1}{2}}}(\widehat{Z}_{\mu}^{(\pm)})
+&=
+V_{1}^{\frac{1}{2}}
+\cdot
+\widehat{Z}_{\mu}^{(\pm)}
+\cdot
+V_{1}^{-\frac{1}{2}} \\
+&=
 
----
+\end{align*}
+$$
 
+次回 (8/25)
+- 上記証明する
+    - どこで計算が進まなくなるかを見て、リー環リー群の必要な知識を探す
 
 
 ### メモ
