@@ -1,23 +1,11 @@
 #import "@preview/cetz:0.1.2"
 #import "@preview/commute:0.2.0": node, arr, commutative-diagram
-#import "@preview/ctheorems:1.1.2": *
-#show: thmrules.with(qed-symbol: $square$)
+#import "@preview/fletcher:0.5.1" as fletcher: diagram, node, edge
+#import "theorem.typ": theorem, claim, proof, definition, definition, theorem_rules
 
 #set block(breakable: false)
 #set heading(numbering: "1.1.")
-
-#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeffee"))
-#let corollary = thmplain(
-  "corollary",
-  "Corollary",
-  base: "theorem",
-  titlefmt: strong,
-  fill: rgb("#ffeeee")
-)
-#let claim = thmbox("claim", "Claim", fill: rgb("#eeeeff"))
-#let definition = thmbox("definition", "Definition", fill: rgb("#eeefef"))
-#let example = thmplain("example", "Example").with(numbering: none)
-#let proof = thmproof("proof", "Proof", fill: rgb("#eeffee"))
+#show: theorem_rules.with(qed-symbol: $square$)
 
 #let mapDef(f, A, B, a, b, comment) = {
   $
@@ -32,7 +20,7 @@
 }
 
 == 線型写像のexp
-#theorem[
+#theorem(none)[
   体$K$: $RR$または$CC$, $V$: 有限次元$K$-ノルム線型空間
 
   線型写像 $X$ : $V -> V$ について、
@@ -42,13 +30,12 @@
   は、線型写像 $V -> V$に各点収束する
 ]
 #proof[
-
   $V$は有限次元なので、基底$E subset V$が存在するので、$X$は有限次元行列$A in M(K)$として表せる。
   
   $v in V$について、$v$は数ベクトル$w in K^d$として表せて、$(sum_(n=0)^(infinity) (1/n!) A^n)w$の各成分は、絶対収束する。 (証明略)
 ]
 
-#definition[
+#definition(none)[
   有限次元線型空間 $V$ 
 
   線型写像 $X$ : $V -> V$ について、
@@ -85,7 +72,7 @@
 
 TODO: Z Zhatを定義
 
-#definition[
+#definition(none)[
   $
   H_1^((plus.minus)) := Y_1 Z_2 + Y_2 Z_3 + dots.c minus.plus 1_("End"(cal(F))) Y_M Z_1
   $
@@ -121,7 +108,7 @@ $
 
 == $T_(V_(1))(hat(Z))$と$hat(Z),hat(Y)$の関係
 
-#claim[
+#claim(none)[
   $
   T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))
   &=
@@ -230,43 +217,69 @@ $
 次回 (9/1)
 - 公式 : $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ を、リー郡リー間を勉強して理解する
 
-#definition[
+=== リー群リー環を使うノリ
+*参考) Lie群とLie環1 の 定理 5.49*
+
+#box[
+  #diagram(
+    cell-size: 15mm,
+    $
+      frak(g) edge(phi, ->) edge("d", exp, ->) & frak(h) edge("d", exp, ->) \
+      G edge(dif phi, ->) & H
+    $
+  )
+]
+
+$G, H:$ Lie群, 連続な準同型写像 $phi: G -> H$ について、
+- $phi$は$C^(omega)$級である。
+- Lie環$frak(g) := "Lie"(G)$から$frak(h) := "Lie"(H)$への準同型写像$dif phi_(e): frak(g) -> frak(h)$が存在し、$phi(exp(X)) = exp(dif phi_(e)(X))$を満たす。
+
+この定理の証明を参考に、以下の定理を示したい。
+#definition(none)[
   $G:$リー群, $frak(g):$リー環
 
   #mapDef("Ad", $G$, $"Aut"(G)$, $g$, $(x -> g x g^(-1))$, "")
   #mapDef("ad", $frak(g)$, $"End"(frak(g))$, $X$, $(Y -> [X, Y])$, "")
 ]
+#theorem(none)[
+  $G:$ Lie群, $frak(g):$ Lie環
 
-#theorem("Lie Groups, Lie Algebras, and Representations excise 14/Proposition 3.35")[
-  
-  $frak(g):$リー環
-  X, Y in frak(g)について、
   $
-    ("ad"(X) compose "ad"(X) compose dots compose "ad"(X))(Y) = sum_(k=0)^m binom(m, k) X^k Y(-X)^(m-k)
-
+    "Ad"(exp(X))= exp("ad"(X))
   $
   #proof[
-次回(9/8)
-- ここから
-
+    TODO:
+    もし、$"Aut"(G)$がLie群であり、$"End"(frak(g))$がそれに付随するLie環(接空間)であるならば、上の定理がそのまま使える。
+    そうでないなら、$phi$を$G->"Aut"(H)$とした別の定理を示す必要がある。
   ]
-  
 ]
 
 
-#theorem[
-  $G:$リー群, $frak(g):$リー環
-  
-  準同型 $phi:G -> G$について、微分 $dif phi:frak(g) -> frak(g)$が考えられ、以下を満たす
+=== 式変形を頑張るノリ
 
+#theorem("Lie Groups, Lie Algebras, and Representations excise 14/Proposition 3.35")[
+  $K := bb(R)$もしくは$bb(C)$, $d in bold(Z)_(gt.eq)$
+
+  $X, Y in M(K, d)$について、
+  
   $
-  phi(exp(X)) = exp(dif phi(X))
+    overbrace(
+      #$[X, [X, dots.c , [X, Y] dots.c ]$,
+      m "times"
+    )
+    =
+    sum_(k=0)^m binom(m, k) X^k Y(-X)^(m-k)
   $
+  #proof[
+    TODO:
+    帰納法で行ける
+  ]
 ]
 
-$
+次回(9/15)
+- Lie Groups, Lie Algebras, and RepresentationsのProposition 3.35.の証明の概略はたどりたい
 
-$
+=== リー群リー環を使うノリ
 
 
 = 全体のノリ
