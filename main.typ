@@ -214,9 +214,8 @@ $
   $
 ]
 
-次回 (9/1)
-- 公式 : $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ を、リー郡リー間を勉強して理解する
 
+== $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ の証明
 === リー群リー環を使うノリ
 *参考) Lie群とLie環1 の 定理 5.49*
 
@@ -224,8 +223,8 @@ $
   #diagram(
     cell-size: 15mm,
     $
-      frak(g) edge(phi, ->) edge("d", exp, ->) & frak(h) edge("d", exp, ->) \
-      G edge(dif phi, ->) & H
+      frak(g) edge(dif phi, ->) edge("d", exp, ->) & frak(h) edge("d", exp, ->) \
+      G edge(phi, ->) & H
     $
   )
 ]
@@ -257,7 +256,16 @@ $G, H:$ Lie群, 連続な準同型写像 $phi: G -> H$ について、
 
 === 式変形を頑張るノリ
 
-#theorem("Lie Groups, Lie Algebras, and Representations excise 14/Proposition 3.35")[
+- $M(n:CC)$を$CC^(n times n)$と同一視することで、$M(n:CC)$上に内積が定まる
+- その内積からノルムと距離が定まる
+- そのノルムから具体的な位相が定まるので、収束の議論がわかりやすくできる
+   - 「収束」の定義だけしておく。一般の位相構造には触れないで良いのでは？
+
+#definition([$M(n:CC)$の内積])[TODO]
+#definition([$M(n:CC)$のノルム])[TODO]
+#definition([$M(n:CC)$の収束])[TODO]
+
+#theorem("Lie Groups, Lie Algebras, and Representations excise 14")[
   $K := bb(R)$もしくは$bb(C)$, $d in bold(Z)_(gt.eq)$
 
   $X, Y in M(K, d)$について、
@@ -276,14 +284,64 @@ $G, H:$ Lie群, 連続な準同型写像 $phi: G -> H$ について、
   ]
 ]
 
-次回(9/15)
-- Lie Groups, Lie Algebras, and RepresentationsのProposition 3.35.の証明の概略はたどりたい
+#definition("Lie Groups, Lie Algebras, and Representations Definition 1.4")[
+  $"GL"(n, CC) := { x"は可逆" | x in "M"(n, CC)}$
 
-=== リー群リー環を使うノリ
+  このとき、$"GL"(n, CC)$は群になる。
+  
+  TODO: これを2組でちゃんと書く
+
+  $bold("GL")(n, CC) := ("GL"(n, CC), dot)$
+]
+
+#definition("Lie Groups, Lie Algebras, and Representations Definition 1.4")[
+  $G subset bold("GL")(n, CC)$ で、以下の性質を満たす
+  1. Gは部分群
+  2. $forall A_m : M(n, CC)"上収束する"G"の元の列" A := lim_(m->oo) A_m"とするとき、"A in G or A in.not bold("GL")(n, CC) $
+
+  このとき、$G$を Matrix Lie群という
+]
+
+#definition("Lie Groups, Lie Algebras, and Representations Definition 3.18")[
+  $G$ : Matrix Lie群について、
+
+  $frak(g) := {X in M(n, CC) | exp(t X) in G "for all" t in RR}$
+
+  $frak(g)$を$G$のLie環という
+]
+
+
+#definition("Lie Groups, Lie Algebras, and Representations Definition 3.32")[
+  $G$ : Matrix Lie群, $frak(g)$ : $G$のLie環
+
+  $A in G$について、
+  #mapDef($"Ad"_A$, $frak(g)$, $frak(g)$, $X$, $A X A^(-1)$, "")
+
+  $X in frak(g)$について、
+  #mapDef($"ad"_X$, $G$, $G$, $Y$, $[X, Y]$, "")
+]
+
+#theorem("Lie Groups, Lie Algebras, and Representations Proposition 3.35")[
+  TODO: 次回(9/22)
+  この定義おかしい。($M_n (CC)$には積が入っていない)↑の方がいいのでは
+
+  $forall X in M_n (CC)$
+  #mapDef($"ad"_X$, $M_n (CC)$, $M_n (CC)$, $Y$, $[X, Y]$, "")
+
+  と定めるとき,
+
+  $forall Y in M_n (CC)$
+
+]
+
+次回(9/22)
+- Lie Groups, Lie Algebras, and RepresentationsのProposition 3.35.の証明の概略はたどりたい
+  - 続き
+- 文献管理 Bibliography https://typst.app/docs/reference/model/bibliography/ やってみる
 
 
 = 全体のノリ
-- 分配関数を行列環の元に対応させる $<-$ これの固有値を求めたい
+- 分配関数を行列環の元のtraceに対応させる $<-$ この元の固有値を求めたい
 - その元が、行列環の「群をなす部分集合(かつ次元の低い部分空間の中にある)」の元だとわかると、リー群 リー環の対応によって計算が進む
 - なので、行列環とクリフォード代数の同型が見つけたい
-  - かつ、分配関数がクリフォード群の元に対応するとわかりたい
+  - かつ、分配関数がクリフォード群の元のtraceに対応するとわかりたい
