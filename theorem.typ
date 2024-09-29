@@ -71,17 +71,28 @@
 )
 
 #let proof = (content) => box(
-    width: 100%,
-    fill: rgb("#f0f0f0"),
-    inset: 8pt,
-    radius: 4pt,
-    [
-      $bold("Proof:")$
+  width: 100%,
+  fill: rgb("#f0f0f0"),
+  inset: 8pt,
+  radius: 4pt,
+  [
+    $bold("Proof:")$
 
-      #content
-    ]
-  )
+    #content
+  ]
+)
 
+#let note = (content) => box(
+  width: 75%,
+  fill: rgb("#ffebd1"),
+  inset: 8pt,
+  radius: 4pt,
+  [
+    #set text(size: 8pt)
+    $bold("Note:")$
+    #content
+  ]
+)
 
 #let theorem_rules(qed-symbol: $qed$, doc) = {
   show figure.where(kind: "lib:theroem"): it => it.body

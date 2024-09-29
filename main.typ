@@ -1,7 +1,7 @@
 #import "@preview/cetz:0.1.2"
 #import "@preview/commute:0.2.0": node, arr, commutative-diagram
 #import "@preview/fletcher:0.5.1" as fletcher: diagram, node, edge
-#import "theorem.typ": theorem, claim, proof, definition, definition, theorem_rules
+#import "theorem.typ": theorem, claim, proof, definition, note, theorem_rules
 
 #set block(breakable: false)
 #set heading(numbering: "1.1.")
@@ -38,14 +38,13 @@
 #definition(none)[
   有限次元線型空間 $V$ 
 
-  線型写像 $X$ : $V -> V$ について、
+  $exp : "End"(V) -> "End"(V)$を以下のように定める。
 
+  線型写像 $X in "End"(V)$ について、
   $
   exp(X) := sum_(n=0)^(infinity) (1/n!) overbrace(X compose X compose dots compose X, n "times")
   $
 ]
-
-
 
 
 = 対角化の計算 (ホロノミック量子場 付録B)
@@ -296,47 +295,71 @@ $G, H:$ Lie群, 連続な準同型写像 $phi: G -> H$ について、
 
 #definition("Lie Groups, Lie Algebras, and Representations Definition 1.4")[
   $G subset bold("GL")(n, CC)$ で、以下の性質を満たす
-  1. Gは部分群
+  1. $G$は部分群
   2. $forall A_m : M(n, CC)"上収束する"G"の元の列" A := lim_(m->oo) A_m"とするとき、"A in G or A in.not bold("GL")(n, CC) $
 
   このとき、$G$を Matrix Lie群という
 ]
 
-#definition("Lie Groups, Lie Algebras, and Representations Definition 3.18")[
-  $G$ : Matrix Lie群について、
+// #definition("Lie Groups, Lie Algebras, and Representations Definition 3.18")[
+//   $G$ : Matrix Lie群について、
 
-  $frak(g) := {X in M(n, CC) | exp(t X) in G "for all" t in RR}$
+//   $frak(g) := {X in M(n, CC) | exp(t X) in G "for all" t in RR}$
 
-  $frak(g)$を$G$のLie環という
-]
+//   $frak(g)$を$G$のLie環という
+// ]
+
+// #theorem([$frak(g)$が和と交換子で閉じていることの証明])[
+//   TODO
+// ]
+
+// #definition([$G$と$frak(g)$の共通集合])[
+//   $cal(G) subset M(n, CC)$を、
+//   $
+//   cal(G) := G sect frak(g)
+//   $
+//   と定める。
+// ]
 
 
 #definition("Lie Groups, Lie Algebras, and Representations Definition 3.32")[
-  $G$ : Matrix Lie群, $frak(g)$ : $G$のLie環
+  // $G$ : Matrix Lie群, $frak(g)$ : $G$のLie環
+  $G$ : Matrix Lie群
 
-  $A in G$について、
-  #mapDef($"Ad"_A$, $frak(g)$, $frak(g)$, $X$, $A X A^(-1)$, "")
+  $g in G$について、
+  #mapDef($"Ad"_g$, $G$, $G$, $h$, $g h g^(-1)$, "")
 
-  $X in frak(g)$について、
-  #mapDef($"ad"_X$, $G$, $G$, $Y$, $[X, Y]$, "")
+  // $X in frak(g)$について、
+  // #mapDef($"ad"_X$, $frak(g)$, $frak(g)$, $Y$, $[X, Y]$, "")
+  $X in M(n, CC)$について、
+  #mapDef($"ad"_X$, $M(n, CC)$, $M(n, CC)$, $Y$, $[X, Y]$, "")
 ]
 
 #theorem("Lie Groups, Lie Algebras, and Representations Proposition 3.35")[
-  TODO: 次回(9/22)
-  この定義おかしい。($M_n (CC)$には積が入っていない)↑の方がいいのでは
+  // $forall X in frak(g), forall Y in cal(G)$
+  $forall X, Y in M(n, CC)$
 
-  $forall X in M_n (CC)$
-  #mapDef($"ad"_X$, $M_n (CC)$, $M_n (CC)$, $Y$, $[X, Y]$, "")
-
-  と定めるとき,
-
-  $forall Y in M_n (CC)$
+  $
+  e^(op("ad")_X)(Y) = Y + [X, Y] + 1/2 [X, [X, Y]] + dots
+  $
 
 ]
 
-次回(9/22)
+#theorem("Lie Groups, Lie Algebras, and Representations Proposition 3.35")[
+  // $forall X in frak(g), forall Y in cal(G)$
+  $forall X in M(n, CC) s.t. (forall t in RR exp(t X) in G), forall Y in G$
+
+  $
+  exp(X) Y exp(-X) = op("Ad")_(exp(X))(Y) = exp(op("ad")_X)(Y)
+  $
+
+]
+
+次回(9/29)
 - Lie Groups, Lie Algebras, and RepresentationsのProposition 3.35.の証明の概略はたどりたい
   - 続き
+  - 公式の意味は定まったので、計算は進みそう
+      - Lie群であることはどこで使われるか？(収束性の話)
 - 文献管理 Bibliography https://typst.app/docs/reference/model/bibliography/ やってみる
 
 
