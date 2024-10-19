@@ -4,7 +4,6 @@
 #import "theorem.typ": theorem, claim, proof, definition, note, theorem_rules
 
 #set block(breakable: false)
-#set heading(numbering: "1.1.")
 #show: theorem_rules.with(qed-symbol: $square$)
 
 #let mapDef(f, A, B, a, b, comment) = {

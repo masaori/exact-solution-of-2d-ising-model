@@ -15,8 +15,6 @@
   radius,
   content,
 ) => {
-  let heading_counter = counter(heading)
-  let theorem_counter = counter(figure.where(kind: "lib:theroem"))
   let title_line = () => {
     let counter_str = theorem_counter_str(here())
     let title_line
@@ -96,6 +94,13 @@
 
 #let theorem_rules(qed-symbol: $qed$, doc) = {
   show figure.where(kind: "lib:theroem"): it => it.body
+  set heading(numbering: "1.1.")
+  show heading: it => {
+    return [
+      #context counter(figure.where(kind: "lib:theroem")).update(0)
+      #it
+    ]
+  }
 
   show ref: it => {
     if it.element == none {
@@ -114,11 +119,6 @@
     }
 
     let loc = it.element.location()
-    let heading_counter = counter(heading)
-    let theorem_counter = counter(figure.where(kind: "lib:theroem"))
-    let heading_counter_number = heading_counter.at(loc)
-    let theorem_counter_number = theorem_counter.at(loc)
-    let number = heading_counter_number + theorem_counter_number
     return link(
       it.target,
       [#supplement #theorem_counter_str(loc)]
@@ -128,22 +128,20 @@
   doc
 }
 
-次回(9/14)
-https://github.com/sahasatvik/typst-theorems/blob/main/theorems.typ#L219C1-L278
-を参考に、show ruleを関数として定義し、main側から呼び出す
-// #show: thmrules.with(qed-symbol: $square$) <- これに当たるものを作る
-
 
 // 
 // Examples.
 // 
 
-#set heading(numbering: "1.")
 #show: theorem_rules.with(qed-symbol: $qed$)
 
 
 = A <head_1>
 == B
+
+ここは @head_1 の
+あらすじ @thorem_1
+
 === C
 
 #figure()[
@@ -158,7 +156,8 @@ https://github.com/sahasatvik/typst-theorems/blob/main/theorems.typ#L219C1-L278
   4pt,
 )[
   hoge hogehogehogehogehogehogehoge
-]
+]<thorem_1>
+
 #block_with_counter(
   "Theorem",
   "Name of this",
@@ -177,6 +176,54 @@ https://github.com/sahasatvik/typst-theorems/blob/main/theorems.typ#L219C1-L278
 )[
   hoge
 ]
+
+== D
+
+=== E
+
+#block_with_counter(
+  "Theorem",
+  "Name of this D",
+  rgb("#ffaaaa"),
+  8pt,
+  4pt,
+)[
+  hoge
+]<theoremD>
+
+#block_with_counter(
+  "Theorem",
+  "Name of this E",
+  rgb("#aaaaaa"),
+  8pt,
+  4pt,
+)[
+  hoge
+]
+
+#block_with_counter(
+  "Theorem",
+  "Name of this E",
+  rgb("#aaaaaa"),
+  8pt,
+  4pt,
+)[
+  hoge
+]
+
+=== F
+
+#block_with_counter(
+  "Theorem",
+  "Name of this F",
+  rgb("#aaaaaa"),
+  8pt,
+  4pt,
+)[
+  hoge
+]
+
+
 
 #figure()[
   phi = 1
