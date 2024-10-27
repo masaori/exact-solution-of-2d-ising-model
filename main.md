@@ -4576,20 +4576,6 @@ $$
 \begin{align*}
 \left[H_{1}^{(\pm)}, \widehat{Z}_{\mu}^{(\pm)}\right]
 &=
-2 
-\exp \left(
-    -
-    \sqrt{-1}
-    \frac{
-        2
-        \pi
-        \mu
-    }{
-        M
-    }
-\right) \\
-\left[H_{1}^{(\pm)}, \widehat{Y}_{\mu}\right]
-&=
 -
 2 
 \exp \left(
@@ -4602,14 +4588,39 @@ $$
     }{
         M
     }
-\right) \\
+\right)
+\cdot
+\widehat{Y}_{\mu}
+\\
+\left[H_{1}^{(\pm)}, \widehat{Y}_{\mu}\right]
+&=
+2 
+\exp \left(
+    -
+    \sqrt{-1}
+    \frac{
+        2
+        \pi
+        \mu
+    }{
+        M
+    }
+\right)
+\cdot
+\widehat{Z}_{\mu}^{(\pm)}
+\\
 \left[H_{2}, \widehat{Z}_{\mu}^{(\pm)}\right]
 &=
--2 
+2 
+\cdot
+\widehat{Y}_{\mu}
 \\
 \left[H_{2}, \widehat{Y}_{\mu}\right]
 &=
+-
 2 
+\cdot
+\widehat{Z}_{\mu}^{(\pm)}
 \\
 \end{align*}
 $$

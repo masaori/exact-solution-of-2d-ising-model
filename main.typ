@@ -104,115 +104,6 @@ $
 ]
 
 
-== $T_(V_(1))(hat(Z))$と$hat(Z),hat(Y)$の関係
-
-#claim(none)[
-  $
-  T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))
-  &=
-  (V_1^((plus.minus)))^(1/2)
-  dot
-  hat(Z)_mu^((plus.minus))
-  dot
-  (V_1^((plus.minus)))^(-1/2) \
-  &=
-  cosh(K_1)
-  dot
-  hat(Z)_mu^((plus.minus))
-  +
-  sqrt(-1)
-  exp(
-    -
-    sqrt(-1)
-    (2 pi mu) / M
-  )
-  sinh(K_1)
-  dot
-  hat(Y)_mu
-  \
-
-  T_((V_1^((-)))^(1/2))(hat(Y)_mu)
-  &=
-  (V_1^((-)))^(1/2)
-  dot
-  hat(Y)_mu
-  dot
-  (V_1^((-)))^(-1/2) \
-  &=
-  -
-  sqrt(-1)
-  exp(
-    -
-    sqrt(-1)
-    (2 pi mu) / M
-  )
-  hat(Z)_mu^((-))
-  dot
-  +
-  cosh(K_1)
-  dot
-  hat(Y)_mu \
-
-  T_(V_2)(hat(Z)_mu^((plus.minus)))
-  &=
-  V_2
-  dot
-  hat(Z)_mu^((plus.minus))
-  dot
-  V_2^(-1) \
-  &=
-  c_2^*
-  dot
-  hat(Z)_mu^((plus.minus))
-  -
-  sqrt(-1)
-  s_2^*
-  dot
-  hat(Y)_mu
-  \
-
-  T_(V_2)(hat(Y)_mu)
-  &=
-  V_2
-  dot
-  hat(Y)_mu
-  dot
-  V_2^(-1) \
-  &=
-  sqrt(-1)
-  s_2
-  dot
-  hat(Z)_mu^((-))
-  +
-  c_2
-  dot
-  hat(Y)_mu
-  \
-  $
-]
-
-#proof[
-  
-  $T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))$について、
-
-  $
-  T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))
-  &=
-  (V_1^((plus.minus)))^(1/2)
-  dot
-  hat(Z)_mu^((plus.minus))
-  dot
-  (V_1^((plus.minus)))^(-1/2) \
-  &=
-  (exp(K_1 dot.op H_1^((plus.minus))))^(1/2)
-  dot
-  hat(Z)_mu^((plus.minus))
-  dot
-  (exp(K_1 dot.op H_1^((plus.minus))))^(-1/2) \
-  $
-]
-
-
 == $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ の証明
 === リー群リー環を使うノリ
 *参考) Lie群とLie環1 の 定理 5.49*
@@ -339,10 +230,22 @@ $G, H:$ Lie群, 連続な準同型写像 $phi: G -> H$ について、
   $forall X, Y in M(n, CC)$
 
   $
-  e^(op("ad")_X)(Y) = Y + [X, Y] + 1/2 [X, [X, Y]] + dots
+  e^(op("ad")_X)(Y)
+  &= sum_(n=0)^(infinity) (1/n!) overbrace(
+      #$[X, [X, dots.c , [X, Y] dots.c ]$,
+      n "times"
+    )\
+  &= Y + [X, Y] + 1/2 [X, [X, Y]] + 1/6 [X, [X, [X, Y]]] + dots
   $
 
-]
+  ただし、$overbrace(
+    #$[X, [X, dots.c , [X, Y] dots.c ]$,
+    0 "times"
+  )
+  =
+  Y$
+  とする。
+]<brianhall_exc14>
 
 #theorem("Lie Groups, Lie Algebras, and Representations Proposition 3.35")[
   // $forall X in frak(g), forall Y in cal(G)$
@@ -351,10 +254,448 @@ $G, H:$ Lie群, 連続な準同型写像 $phi: G -> H$ について、
   $
   exp(X) Y exp(-X) = op("Ad")_(exp(X))(Y) = exp(op("ad")_X)(Y)
   $
+]<brianhall_3.35>
 
+TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後回して、これが成り立ってるとして計算がどう進むかを見てみる
+
+== $T_(V_(1))(hat(Z))$と$hat(Z),hat(Y)$の関係
+
+#claim([$H_1^((plus.minus))$,$H_2$と$hat(Z)_mu^((plus.minus))$, $hat(Y)_mu$の交換関係])[
+  $ 
+    [H_1^((plus.minus)), hat(Z)_mu^((plus.minus))] 
+    &= 
+    -2 exp(
+        -sqrt(-1) (2 pi mu)/(M)
+    )
+    dot.op
+    hat(Y)_mu
+    \
+
+    [H_1^((plus.minus)), hat(Y)_mu] 
+    &= 
+    2 exp(
+        -sqrt(-1) (2 pi mu)/(M)
+    )
+    dot.op
+    hat(Z)_mu^((plus.minus))
+    \
+
+    [H_2, hat(Z)_mu^((plus.minus))] 
+    &= 
+    2
+    dot.op
+    hat(Y)_mu
+    \
+
+    [H_2, hat(Y)_mu] 
+    &= 
+    -2
+    dot.op
+    hat(Z)_mu^((-))
+    \
+    $
 ]
 
-次回(9/29)
+#claim(none)[
+  $n >= 0$について、
+  $
+    overbrace(
+      [
+        K_1 dot.op H_1^((plus.minus)),
+        dots,
+        [K_1 dot.op H_1^((plus.minus)), hat(Z)_mu^((plus.minus))]
+        dots
+      ]
+      ,
+      n "times"
+    )
+    =
+    cases(
+      (-1)^((n+1)/2)
+      dot.op
+      (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(n)
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      (-1)^(n/2)
+      dot.op
+      (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+  $
+
+  #note[
+    $n = 0$
+    $
+    overbrace(
+      [
+        K_1 dot.op H_1^((plus.minus)),
+        dots,
+        [K_1 dot.op H_1^((plus.minus)), hat(Z)_mu^((plus.minus))]
+        dots
+      ]
+      ,
+      0 "times"
+    )
+    =
+    hat(Z)_mu^((plus.minus))
+    $
+    $n = 1$
+    $
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      hat(Z)_mu^((plus.minus))
+    ]
+    &=
+    (-1)^(1) dot.op 2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)) dot.op hat(Y)_mu
+    $
+
+    $n = 2$
+    $
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      [
+        K_1 dot.op H_1^((plus.minus)),
+        hat(Z)_mu^((plus.minus))
+      ]
+    ]
+    &=
+    K_1
+    dot.op
+    -2 K_1 exp(-sqrt(-1) (2 pi mu)/(M))
+    dot.op
+    [
+      H_1^((plus.minus)),
+      hat(Y)_mu
+    ]
+    \
+    &=
+    K_1
+    dot.op
+    -2 K_1 exp(-sqrt(-1) (2 pi mu)/(M))
+    dot.op
+    2 exp(-sqrt(-1) (2 pi mu)/(M))
+    dot.op
+    hat(Z)_mu^((plus.minus))
+    \
+    &=
+    (-1)^(1)
+    dot.op
+    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(2)
+    dot.op
+    hat(Z)_mu^((plus.minus))
+    $
+
+    $n = 3$
+    $
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      [
+        K_1 dot.op H_1^((plus.minus)),
+        [
+          K_1 dot.op H_1^((plus.minus)),
+          hat(Z)_mu^((plus.minus))
+        ]
+      ]
+    ]
+    &=
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      (n=2)"の結果"
+    ]
+    \
+    &=
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      (-1)^(1)
+      dot.op
+      (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(2)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+    ]
+    \
+    &=
+    K_1
+    dot.op
+    (-1)^(1)
+    dot.op
+    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(2)
+    dot.op
+    [
+      H_1^((plus.minus)),
+      hat(Z)_mu^((plus.minus))
+    ]
+    \
+    &=
+    K_1
+    dot.op
+    (-1)^(1)
+    dot.op
+    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(2)
+    dot.op
+    - 2 exp(-sqrt(-1) (2 pi mu)/(M))
+    dot.op
+    hat(Y)_mu
+    \
+    &=
+    (-1)^(2)
+    dot.op
+    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(3)
+    dot.op
+    hat(Y)_mu
+    $
+
+    $n = 4$
+    $
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      [
+        K_1 dot.op H_1^((plus.minus)),
+        [
+          K_1 dot.op H_1^((plus.minus)),
+          [
+            K_1 dot.op H_1^((plus.minus)),
+            hat(Z)_mu^((plus.minus))
+          ]
+        ]
+      ]
+    ]
+    \
+    &=
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      (n=3)"の結果"
+    ]
+    \
+    &=
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      (-1)^(2)
+      dot.op
+      (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(3)
+      dot.op
+      hat(Y)_mu
+    ]
+    \
+    &=
+    K_1
+    dot.op
+    (-1)^(2)
+    dot.op
+    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(3)
+    dot.op
+    [
+      H_1^((plus.minus)),
+      hat(Y)_mu
+    ]
+    \
+    &=
+    K_1
+    dot.op
+    (-1)^(2)
+    dot.op
+    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(3)
+    dot.op
+    2 exp(-sqrt(-1) (2 pi mu)/(M))
+    dot.op
+    hat(Z)_mu^((plus.minus))
+    \
+    &=
+    (-1)^(2)
+    dot.op
+    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(4)
+    dot.op
+    hat(Z)_mu^((plus.minus))
+    $
+  ]
+
+  #proof[
+    TODO : note参考にして、帰納法で行ける
+  ]
+]<nesting_of_commutator_of_H_and_Z>
+
+
+
+#claim("ホロノミック量子場 p142下段 1>")[
+  $
+  T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))
+  &=
+  (V_1^((plus.minus)))^(1/2)
+  dot
+  hat(Z)_mu^((plus.minus))
+  dot
+  (V_1^((plus.minus)))^(-1/2) \
+  &=
+  cosh(K_1)
+  dot
+  hat(Z)_mu^((plus.minus))
+  +
+  sqrt(-1)
+  exp(
+    -
+    sqrt(-1)
+    (2 pi mu) / M
+  )
+  sinh(K_1)
+  dot
+  hat(Y)_mu
+  \
+
+  T_((V_1^((-)))^(1/2))(hat(Y)_mu)
+  &=
+  (V_1^((-)))^(1/2)
+  dot
+  hat(Y)_mu
+  dot
+  (V_1^((-)))^(-1/2) \
+  &=
+  -
+  sqrt(-1)
+  exp(
+    -
+    sqrt(-1)
+    (2 pi mu) / M
+  )
+  hat(Z)_mu^((-))
+  dot
+  +
+  cosh(K_1)
+  dot
+  hat(Y)_mu \
+
+  T_(V_2)(hat(Z)_mu^((plus.minus)))
+  &=
+  V_2
+  dot
+  hat(Z)_mu^((plus.minus))
+  dot
+  V_2^(-1) \
+  &=
+  c_2^*
+  dot
+  hat(Z)_mu^((plus.minus))
+  -
+  sqrt(-1)
+  s_2^*
+  dot
+  hat(Y)_mu
+  \
+
+  T_(V_2)(hat(Y)_mu)
+  &=
+  V_2
+  dot
+  hat(Y)_mu
+  dot
+  V_2^(-1) \
+  &=
+  sqrt(-1)
+  s_2
+  dot
+  hat(Z)_mu^((-))
+  +
+  c_2
+  dot
+  hat(Y)_mu
+  \
+  $
+
+  #note[  
+    $
+    exp(X) Y exp(-X) = op("Ad")_(exp(X))(Y) = exp(op("ad")_X)(Y) = e^(op("ad")_X)(Y) = Y + [X, Y] + 1/2 [X, [X, Y]] + dots
+    $
+  ]
+
+  #proof[
+    $T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))$について、
+
+    $
+    T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))
+    &=
+    (V_1^((plus.minus)))^(1/2)
+    dot
+    hat(Z)_mu^((plus.minus))
+    dot
+    (V_1^((plus.minus)))^(-1/2) \
+    &=
+    (exp(K_1 dot.op H_1^((plus.minus))))^(1/2)
+    dot
+    hat(Z)_mu^((plus.minus))
+    dot
+    (exp(K_1 dot.op H_1^((plus.minus))))^(-1/2)\
+    &=
+    hat(Z)_mu^((plus.minus))
+    +
+    [
+      K_1 dot.op H_1^((plus.minus)), hat(Z)_mu^((plus.minus))
+    ]
+    +
+    1/2 [
+      K_1 dot.op H_1^((plus.minus)), [
+        K_1 dot.op H_1^((plus.minus)), hat(Z)_mu^((plus.minus))
+      ]
+    ]
+    +
+    dots
+    quad (because #ref(<brianhall_exc14>) ) \
+    &=
+    hat(Z)_mu^((plus.minus))
+    +
+    (-1)^(1) (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(1)
+    dot.op
+    hat(Y)_mu
+    \
+    &quad +
+    1/2
+    dot.op
+    (-1)^(1) (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(2)
+    dot.op
+    hat(Z)_mu^((plus.minus))
+    \
+    &quad +
+    1/6
+    dot.op
+    (-1)^(2) (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(3)
+    dot.op
+    hat(Y)_mu
+    \
+    &quad +
+    dots
+    \
+    &quad quad (because #ref(<nesting_of_commutator_of_H_and_Z>) ) \
+    \
+    &=
+    (
+      sum_(n=0 \ n "is even")^(infinity)
+        (1/n!) 
+        dot.op
+        (-1)^(n/2)
+        dot.op
+        (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(n)
+    )
+    dot.op
+    hat(Z)_mu^((plus.minus))
+    \
+    &quad +
+    (
+      sum_(n=0 \ n "is odd")^(infinity)
+        (1/n!)
+        dot.op
+        (-1)^((n+1)/2)
+        dot.op
+        (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(n)
+    )
+    dot.op
+    hat(Y)_mu
+    $
+  ]
+]<ホロノミック量子場_p142下段_1>
+
+
+次回(10/27)
+- ↑の @ホロノミック量子場_p142下段_1 のproofを続ける
 - Lie Groups, Lie Algebras, and RepresentationsのProposition 3.35.の証明の概略はたどりたい
   - 続き
   - 公式の意味は定まったので、計算は進みそう
