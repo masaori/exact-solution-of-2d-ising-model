@@ -84,7 +84,7 @@
 )
 
 #let note = (content) => box(
-  width: 75%,
+  width: 100%,
   fill: rgb("#ffebd1"),
   inset: 8pt,
   radius: 4pt,
