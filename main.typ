@@ -48,17 +48,18 @@
 
 = 対角化の計算 (ホロノミック量子場 付録B)
 == 記号の定義
-- $cal(F) := (CC^2)^(times.circle M)$
-- $sigma_k^x := I times.circle dots.c times.circle limits(k"th")(sigma^x) times.circle dots.c times.circle I in "End"(cal(F))$
-- $sigma_k^y := I times.circle dots.c times.circle limits(k"th")(sigma^y) times.circle dots.c times.circle I in "End"(cal(F))$
-- $sigma_k^z := I times.circle dots.c times.circle limits(k"th")(sigma^z) times.circle dots.c times.circle I in "End"(cal(F))$
-- $V_1 := exp (sqrt(-1) K_1 dot.op (sigma_1^z sigma_2^z + sigma_2^z sigma_3^z + dots.c + sigma_M^z sigma_1^z)) in "End"(cal(F))$
-- $V_2 := (2 sinh 2K_2)^(M/2) exp (K_2^* dot.op (sigma_1^x + sigma_2^x + dots.c + sigma_M^x)) in "End"(cal(F))$
-- $Z_m := sigma_1^x dots.c sigma_(m-1)^x sigma_m^z in "End"(cal(F)) quad "ただし、" Z_1 := sigma_1^z quad ("ホロノミック量子場では" p_m)$
+- $I_(CC^2)$: $CC^2$上の単位行列
+- $sigma_k^x := I_(CC^2) times.circle dots.c times.circle limits(k"th")(sigma^x) times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
+- $sigma_k^y := I_(CC^2) times.circle dots.c times.circle limits(k"th")(sigma^y) times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
+- $sigma_k^z := I_(CC^2) times.circle dots.c times.circle limits(k"th")(sigma^z) times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
+- $I_((CC^2)^(times.circle M))$ = $I_(CC^2) times.circle dots.c times.circle I_(CC^2)$
+- $V_1 := exp (sqrt(-1) K_1 dot.op (sigma_1^z sigma_2^z + sigma_2^z sigma_3^z + dots.c + sigma_M^z sigma_1^z)) in "End"((CC^2)^(times.circle M))$
+- $V_2 := (2 sinh 2K_2)^(M/2) exp (K_2^* dot.op (sigma_1^x + sigma_2^x + dots.c + sigma_M^x)) in "End"((CC^2)^(times.circle M))$
+- $Z_m := sigma_1^x dots.c sigma_(m-1)^x sigma_m^z in "End"((CC^2)^(times.circle M)) quad "ただし、" Z_1 := sigma_1^z quad ("ホロノミック量子場では" p_m)$
 
 正し、$Z_(M+1) := Z_1$
 
-- $Y_m := sigma_1^x dots.c sigma_(m-1)^x sigma_m^y in "End"(cal(F)) quad "ただし、" Y_1 := sigma_1^y quad ("ホロノミック量子場では" q_m)$
+- $Y_m := sigma_1^x dots.c sigma_(m-1)^x sigma_m^y in "End"((CC^2)^(times.circle M)) quad "ただし、" Y_1 := sigma_1^y quad ("ホロノミック量子場では" q_m)$
 
 正し、$Y_(M+1) := Y_1$
 
@@ -66,11 +67,7 @@
 - $K_2^* := -1/2 log(tanh K_2) arrow.l.r sinh(K_2) sinh(K_2^*) = 1$
 - $c_i := cosh 2K_i, quad s_i := sinh 2K_i,$
 - $c_i^* := cosh 2K_i^, quad s_i^ := sinh 2K_i^*$
-- $epsilon := sigma_1^x dots.c sigma_M^x = (sqrt(-1))^M Z_1 Y_1 dots.c Y_M Y_M in "End"(cal(F))$
-
-次回(11/24)
-- $delta^M$ これの定義
-- @ホロノミック量子場_p142下段_1 の証明
+- $epsilon := sigma_1^x dots.c sigma_M^x = (sqrt(-1))^M Z_1 Y_1 dots.c Y_M Y_M in "End"((CC^2)^(times.circle M))$
 
 #definition([$delta^M_((mu, nu))$])[
   $$
@@ -277,10 +274,88 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 == $Z$と$Y$の反交換関係
 #claim([$Z$と$Y$の反交換関係])[
   $
-  [Z_mu, Z_nu]_+ = 2I delta_M(mu, nu), quad
+  [Z_mu, Z_nu]_+ = 2I_((CC^2)^(times.circle M)) delta^M_((mu, nu)), quad
   [Z_mu, Y_nu]_+ = 0, quad
-  [Y_mu, Y_nu]_+ = 2I delta_M(mu, nu)
+  [Y_mu, Y_nu]_+ = 2I_((CC^2)^(times.circle M)) delta^M_((mu, nu))
   $
+
+  #proof[
+    $mu, nu in M$について、
+
+    $mu = nu$ のとき、
+    $
+    [Z_mu, Z_mu]_+
+    &=
+    Z_mu Z_mu + Z_mu Z_mu
+    \
+    &=
+    2 I_((CC^2)^(times.circle M))
+    $
+
+    $mu < nu$のとき、
+    $
+    [Z_mu, Z_nu]_+
+    &=
+    Z_mu Z_nu + Z_nu Z_mu
+    \
+    &=
+    sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^z dot.op sigma_1^x dots.c sigma_(nu-1)^x sigma_nu^z
+    +
+    sigma_1^x dots.c sigma_(nu-1)^x sigma_nu^z dot.op sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^z
+    \
+    &=
+    #grid(
+      columns: 1,
+      gutter: 5pt,
+      align: left,
+      $sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^z$,
+      $sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^x dots.c sigma_(nu-1)^x sigma_nu^z$,
+    )
+    +
+    #grid(
+      columns: 1,
+      gutter: 5pt,
+      align: left,
+      $sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^x dots.c sigma_(nu-1)^x sigma_nu^z$,
+      $sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^z$,
+    )
+    \
+    &=
+    "次回(12/8)" \
+    "ここからやり直し" \
+    "まあこの命題はあってそう？？なので、さらっとやる" \
+    "終わったら"H, Z^hat"の方の交換関係の証明をチェック"
+    $
+
+    $
+    [Z_mu, Y_nu]_+
+    &=
+    Z_mu Y_nu + Y_nu Z_mu
+    \
+    &=
+    sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^z sigma_(mu+1)^x dots.c sigma_(nu-1)^x sigma_nu^y sigma_(nu+1)^x dots.c sigma_M^x
+    +
+    sigma_1^x dots.c sigma_(nu-1)^x sigma_nu^y sigma_(nu+1)^x dots.c sigma_(mu-1)^x sigma_mu^z sigma_(mu+1)^x dots.c sigma_M^x
+    \
+    &=
+    0
+    $
+
+    $
+    [Y_mu, Y_nu]_+
+    &=
+    Y_mu Y_nu + Y_nu Y_mu
+    \
+    &=
+    sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^y sigma_(mu+1)^x dots.c sigma_(nu-1)^
+    x sigma_nu^y sigma_(nu+1)^x dots.c sigma_M^x
+    +
+    sigma_1^x dots.c sigma_(nu-1)^x sigma_nu^y sigma_(nu+1)^x dots.c sigma_(mu-1)^x sigma_mu^y sigma_(mu+1)^x dots.c sigma_M^x
+    \
+    &=
+    2I delta_M(mu, nu)
+    $
+  ]
 ]<anticommutator_of_Z_and_Y>
 
 
