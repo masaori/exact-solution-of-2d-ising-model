@@ -49,9 +49,9 @@
 = 対角化の計算 (ホロノミック量子場 付録B)
 == 記号の定義
 - $I_(CC^2)$: $CC^2$上の単位行列
-- $sigma_k^x := I_(CC^2) times.circle dots.c times.circle limits(k"th")(sigma^x) times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
-- $sigma_k^y := I_(CC^2) times.circle dots.c times.circle limits(k"th")(sigma^y) times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
-- $sigma_k^z := I_(CC^2) times.circle dots.c times.circle limits(k"th")(sigma^z) times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
+- $sigma_k^x := I_(CC^2) times.circle dots.c times.circle overbrace(sigma^x,k"th") times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
+- $sigma_k^y := I_(CC^2) times.circle dots.c times.circle overbrace(sigma^y,k"th") times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
+- $sigma_k^z := I_(CC^2) times.circle dots.c times.circle overbrace(sigma^z,k"th") times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
 - $I_((CC^2)^(times.circle M))$ = $I_(CC^2) times.circle dots.c times.circle I_(CC^2)$
 - $V_1 := exp (sqrt(-1) K_1 dot.op (sigma_1^z sigma_2^z + sigma_2^z sigma_3^z + dots.c + sigma_M^z sigma_1^z)) in "End"((CC^2)^(times.circle M))$
 - $V_2 := (2 sinh 2K_2)^(M/2) exp (K_2^* dot.op (sigma_1^x + sigma_2^x + dots.c + sigma_M^x)) in "End"((CC^2)^(times.circle M))$
@@ -81,7 +81,57 @@
 ]
 
 
-TODO: Z Zhatを定義
+#definition($hat(Z), hat(Y)"の定義"$)[
+  $
+  hat(Z)_mu^(plus.minus)
+  &:= 
+  sum_(j=1)^M (
+    cases(
+      1 "if" j != 1,
+      minus.plus 1 "if" j = 1
+    )
+    dot
+    Z_j
+    exp(
+      -
+      sqrt(-1)
+      j
+      (2 pi mu) / M
+    )
+  )
+  \
+  &=
+  minus.plus
+  Z_1
+  exp(
+    -
+    sqrt(-1)
+    (2 pi mu) / M
+  )
+  +
+  sum_(j=2)^M (
+    Z_j
+    exp(
+      -
+      sqrt(-1)
+      j
+      (2 pi mu) / M
+    )
+  )
+  \
+  hat(Y)_mu
+  &:=
+  sum_(j=1)^M (
+    Y_j
+    exp(
+      -
+      sqrt(-1)
+      j
+      (2 pi mu) / M
+    )
+  )
+  $
+]
 
 #definition(none)[
   $
@@ -96,6 +146,10 @@ TODO: Z Zhatを定義
 $
 V_1^((plus.minus)) = exp(K_1 dot.op H_1^((plus.minus))), quad V_1^((-)) = exp(K_1 dot.op H_2)
 $
+
+次回(12/15)
+- この証明のチェックから
+   - まず書き損じがないか
 
 #claim[$H_1^((plus.minus)), H_2$を$hat(Z),hat(Y)$で表す][
   $
@@ -299,62 +353,160 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     Z_mu Z_nu + Z_nu Z_mu
     \
     &=
-    sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^z dot.op sigma_1^x dots.c sigma_(nu-1)^x sigma_nu^z
+    (sigma_1^x dots.c sigma_(mu-1)^x dot.op sigma_mu^z)
+    dot.op 
+    (sigma_1^x dots.c sigma_mu^x dots.c sigma_(nu-1)^x sigma_nu^z)
     +
-    sigma_1^x dots.c sigma_(nu-1)^x sigma_nu^z dot.op sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^z
+    (sigma_1^x dots.c sigma_mu^x dots.c sigma_(nu-1)^x sigma_nu^z)
+    dot.op
+    (sigma_1^x dots.c sigma_(mu-1)^x dot.op sigma_mu^z)
     \
     &=
-    #grid(
-      columns: 1,
-      gutter: 5pt,
-      align: left,
-      $sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^z$,
-      $sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^x dots.c sigma_(nu-1)^x sigma_nu^z$,
+    (
+      sigma^x 
+      times.circle dots.c times.circle 
+      overbrace(sigma^x,mu-1"th") 
+      times.circle 
+      overbrace(sigma^z,mu"th")
     )
-    +
-    #grid(
-      columns: 1,
-      gutter: 5pt,
-      align: left,
-      $sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^x dots.c sigma_(nu-1)^x sigma_nu^z$,
-      $sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^z$,
+    dot.op
+    (
+      sigma^x
+      times.circle dots.c times.circle 
+      overbrace(sigma^x,mu-1"th") 
+      times.circle 
+      overbrace(sigma^x,mu"th") 
+      times.circle dots.c times.circle 
+      overbrace(sigma^x,nu-1"th") 
+      times.circle 
+      overbrace(sigma^z,nu)
+    )
+    \
+    &quad +
+    (
+      sigma^x
+      times.circle dots.c times.circle 
+      overbrace(sigma^x,mu-1"th") 
+      times.circle 
+      overbrace(sigma^x,mu"th") 
+      times.circle dots.c times.circle 
+      overbrace(sigma^x,nu-1"th") 
+      times.circle 
+      overbrace(sigma^z,nu)
+    )
+    dot.op
+    (
+      sigma^x 
+      times.circle dots.c times.circle 
+      overbrace(sigma^x,mu-1"th") 
+      times.circle 
+      overbrace(sigma^z,mu"th")
     )
     \
     &=
-    "次回(12/8)" \
-    "ここからやり直し" \
-    "まあこの命題はあってそう？？なので、さらっとやる" \
-    "終わったら"H, Z^hat"の方の交換関係の証明をチェック"
-    $
-
-    $
-    [Z_mu, Y_nu]_+
-    &=
-    Z_mu Y_nu + Y_nu Z_mu
+    (
+      sigma^x dot.op sigma^x
+      times.circle dots.c times.circle 
+      overbrace(sigma^x dot.op sigma^x,mu-1"th") 
+      times.circle 
+      overbrace(sigma^z dot.op sigma^x,mu"th")
+      times.circle 
+      overbrace(sigma^x,mu+1"th")
+      times.circle dots.c times.circle
+      overbrace(sigma^x,nu-1"th")
+      times.circle
+      overbrace(sigma^z,nu)
+    )
+    \
+    &quad +
+    (
+      sigma^x dot.op sigma^x
+      times.circle dots.c times.circle 
+      overbrace(sigma^x dot.op sigma^x,mu-1"th") 
+      times.circle 
+      overbrace(sigma^x dot.op sigma^z,mu"th")
+      times.circle 
+      overbrace(sigma^x,mu+1"th")
+      times.circle dots.c times.circle
+      overbrace(sigma^x,nu-1"th")
+      times.circle
+      overbrace(sigma^z,nu)
+    )
     \
     &=
-    sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^z sigma_(mu+1)^x dots.c sigma_(nu-1)^x sigma_nu^y sigma_(nu+1)^x dots.c sigma_M^x
-    +
-    sigma_1^x dots.c sigma_(nu-1)^x sigma_nu^y sigma_(nu+1)^x dots.c sigma_(mu-1)^x sigma_mu^z sigma_(mu+1)^x dots.c sigma_M^x
+    (
+      I_((CC^2)^(times.circle M))
+      times.circle dots.c times.circle 
+      overbrace(I_((CC^2)^(times.circle M)),mu-1"th") 
+      times.circle 
+      overbrace(sigma^z dot.op sigma^x,mu"th")
+      times.circle 
+      overbrace(sigma^x,mu+1"th")
+      times.circle dots.c times.circle
+      overbrace(sigma^x,nu-1"th")
+      times.circle
+      overbrace(sigma^z,nu)
+    )
+    \
+    &quad +
+    (
+      I_((CC^2)^(times.circle M))
+      times.circle dots.c times.circle 
+      overbrace(I_((CC^2)^(times.circle M)),mu-1"th") 
+      times.circle 
+      overbrace(sigma^x dot.op sigma^z,mu"th")
+      times.circle 
+      overbrace(sigma^x,mu+1"th")
+      times.circle dots.c times.circle
+      overbrace(sigma^x,nu-1"th")
+      times.circle
+      overbrace(sigma^z,nu)
+    )
+    \
+    &=
+    (
+      I_((CC^2)^(times.circle M))
+      times.circle dots.c times.circle 
+      overbrace(I_((CC^2)^(times.circle M)),mu-1"th") 
+      times.circle 
+      overbrace(sigma^z dot.op sigma^x,mu"th")
+      times.circle 
+      overbrace(sigma^x,mu+1"th")
+      times.circle dots.c times.circle
+      overbrace(sigma^x,nu-1"th")
+      times.circle
+      overbrace(sigma^z,nu)
+    )
+    \
+    &quad -
+    (
+      I_((CC^2)^(times.circle M))
+      times.circle dots.c times.circle 
+      overbrace(I_((CC^2)^(times.circle M)),mu-1"th") 
+      times.circle 
+      overbrace(sigma^z dot.op sigma^x,mu"th")
+      times.circle 
+      overbrace(sigma^x,mu+1"th")
+      times.circle dots.c times.circle
+      overbrace(sigma^x,nu-1"th")
+      times.circle
+      overbrace(sigma^z,nu)
+    )
     \
     &=
     0
     $
+    Q.E.D.
+
+    $
+    [Z_mu, Y_nu]_+
+    $
+    TODO: 同様
 
     $
     [Y_mu, Y_nu]_+
-    &=
-    Y_mu Y_nu + Y_nu Y_mu
-    \
-    &=
-    sigma_1^x dots.c sigma_(mu-1)^x sigma_mu^y sigma_(mu+1)^x dots.c sigma_(nu-1)^
-    x sigma_nu^y sigma_(nu+1)^x dots.c sigma_M^x
-    +
-    sigma_1^x dots.c sigma_(nu-1)^x sigma_nu^y sigma_(nu+1)^x dots.c sigma_(mu-1)^x sigma_mu^y sigma_(mu+1)^x dots.c sigma_M^x
-    \
-    &=
-    2I delta_M(mu, nu)
     $
+    TODO
   ]
 ]<anticommutator_of_Z_and_Y>
 
