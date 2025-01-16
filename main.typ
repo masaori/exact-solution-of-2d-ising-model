@@ -3,6 +3,7 @@
 #import "@preview/fletcher:0.5.1" as fletcher: diagram, node, edge
 #import "theorem.typ": theorem, claim, proof, definition, note, theorem_rules
 
+#set page(height: auto)
 #set block(breakable: false)
 #show: theorem_rules.with(qed-symbol: $square$)
 
@@ -69,6 +70,140 @@
 - $c_i^* := cosh 2K_i^, quad s_i^ := sinh 2K_i^*$
 - $epsilon := sigma_1^x dots.c sigma_M^x = (sqrt(-1))^M Z_1 Y_1 dots.c Y_M Y_M in "End"((CC^2)^(times.circle M))$
 
+#claim(none)[
+  $k in ZZ "について、"$
+  $
+    \
+    sum_(j=1)^M exp(k dot (2 pi sqrt(-1) j)/M) = cases(
+      M   &"if " k equiv 0 mod M,
+      0   &"if " "otherwise"
+    )
+  $
+
+  #proof[
+    $(a) k equiv 0 mod M$のとき、
+    $l in ZZ$を用いて$k = l M$とおけるので、
+    $
+      sum_(j=1)^M exp(l M dot.op (2 pi sqrt(-1) j)/M)
+      &= sum_(j=1)^M exp(l dot.op 2 pi sqrt(-1) j)
+      \
+      &= sum_(j=1)^M cos(2 pi l j) + sqrt(-1) sin(2 pi l j)
+      \
+      &= sum_(j=1)^M (1 + sqrt(-1) dot.op 0)
+      \
+      &= sum_(j=1)^M 1
+      = M
+    $
+
+    $(b)$その他のとき、
+    $
+      sum_(j=1)^M exp(k dot.op (2 pi sqrt(-1) j)/M)
+      &=
+      overbrace(
+        exp(k dot.op (2 pi sqrt(-1))/M)
+        ,
+        "初項"
+      )
+      dot.op
+      (
+        1
+        -
+        (
+          overbrace(
+            exp(k dot.op (2 pi sqrt(-1))/M)
+            ,
+            "公比"
+          )
+        )
+        ^M
+      )
+      /
+      (
+        1
+        -
+        overbrace(
+          exp(k dot.op (2 pi sqrt(-1))/M)
+          ,
+          "公比"
+        )
+      )
+      \
+      &=
+      (
+        overbrace(
+          exp(k dot.op (2 pi sqrt(-1))/M)
+          ,
+          "初項"
+        )
+      )
+      /
+      (
+        1
+        -
+        overbrace(
+          exp(k dot.op (2 pi sqrt(-1))/M)
+          ,
+          "公比"
+        )
+      )
+      dot.op
+      (
+        1
+        -
+        (
+          overbrace(
+            exp(k dot.op (2 pi sqrt(-1))/M)
+            ,
+            "公比"
+          )
+        )
+        ^M
+      )
+      \
+      &=
+      (
+        exp(k dot.op (2 pi sqrt(-1))/M)
+      )
+      /
+      (
+        1
+        -
+        exp(k dot.op (2 pi sqrt(-1))/M)
+      )
+      dot.op
+      (
+        1
+        -
+        exp(k dot.op (2 pi sqrt(-1))/M dot.op M)
+      )
+      \
+      &=
+      (
+        exp(k dot.op (2 pi sqrt(-1))/M)
+      )
+      /
+      (
+        1
+        -
+        exp(k dot.op (2 pi sqrt(-1))/M)
+      )
+      dot.op
+      (
+        1
+        -
+        underbrace(
+          exp(k dot.op 2 pi sqrt(-1))
+          ,
+          1
+        )
+      )
+      \
+      &=
+      0
+    $
+  ]
+]<exp_sum>
+
 #definition([$delta^M_((mu, nu))$])[
   $$
   $
@@ -83,12 +218,14 @@
 
 #definition($hat(Z), hat(Y)"の定義"$)[
   $
-  hat(Z)_mu^(plus.minus)
+  hat(Z)_mu^((plus.minus))
   &:= 
   sum_(j=1)^M (
-    cases(
-      1 "if" j != 1,
-      minus.plus 1 "if" j = 1
+    (
+      cases(
+        1 "if" j != 1,
+        minus.plus 1 "if" j = 1
+      )
     )
     dot
     Z_j
@@ -509,6 +646,864 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     TODO
   ]
 ]<anticommutator_of_Z_and_Y>
+
+
+
+== $hat(Z)$と$hat(Y)$の反交換関係
+#claim([$hat(Z)$と$hat(Y)$の反交換関係])[
+  $
+    [hat(Z)_mu^((plus.minus)), hat(Z)_nu^((plus.minus))]_(+) = 2M delta^M_(mu + nu, 0) I
+    , quad
+    [hat(Z)_mu^((plus.minus)), hat(Y)_nu]_(+) = 0
+    , quad
+    [hat(Y)_mu, hat(Y)_nu]_(+) = 2M delta^M_(mu + nu, 0) I
+  $
+  ただし、複合同順
+
+  #proof[
+    $
+      [hat(Z)_mu^((plus.minus)), hat(Z)_nu^((plus.minus))]_(+)
+      &=
+      [
+        sum_(j=1)^M (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+          )
+        ),
+        sum_(k=1)^M (
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+          )
+        )
+      ]_(+)
+      \
+      &=
+      (
+        sum_(j=1)^M (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+          )
+        )
+      )
+      dot.op
+      (
+        sum_(k=1)^M (
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+          )
+        )
+      )
+      \
+      & quad +
+      (
+        sum_(k=1)^M (
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+          )
+        )
+      )
+      dot.op
+      (
+        sum_(j=1)^M (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+          )
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+          )
+        )
+        dot.op
+        (
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+          )
+        )
+      )
+      \
+      & quad +
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+          )
+        )
+        dot.op
+        (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+          )
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+          )
+        )
+      )
+      \
+      & quad +
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+          )
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+          )
+          dot.op
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+          )
+        )
+      )
+      \
+      & quad +
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+          )
+          dot.op
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+          )
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          Z_j
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+          )
+        )
+      )
+      \
+      & quad +
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          Z_k
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            k
+            (2 pi nu)/(M)
+            -
+            sqrt(-1)
+            j
+            (2 pi mu)/(M)
+          )
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          Z_j
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            (2 pi) / M
+            (
+              j mu
+              +
+              k nu
+            )
+          )
+        )
+      )
+      \
+      & quad +
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          Z_k
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            (2 pi) / M
+            (
+              k nu
+              +
+              j mu
+            )
+          )
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          Z_j
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            (2 pi) / M
+            (
+              j mu
+              +
+              k nu
+            )
+          )
+        )
+        \
+        & quad +
+        (
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          Z_k
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            (2 pi) / M
+            (
+              k nu
+              +
+              j mu
+            )
+          )
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          Z_j
+          Z_k
+          exp(
+            -
+            sqrt(-1)
+            (2 pi) / M
+            (
+              j mu
+              +
+              k nu
+            )
+          )
+        )
+        \
+        & quad +
+        (
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " k != 1,
+              minus.plus 1 "if " k = 1
+            )
+          )
+          dot.op
+          Z_k
+          Z_j
+          exp(
+            -
+            sqrt(-1)
+            (2 pi) / M
+            (
+              k nu
+              +
+              j mu
+            )
+          )
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          cases(
+            +1 "if " j != 1,
+            minus.plus 1 "if " j = 1
+          )
+        )
+        dot.op
+        (
+          cases(
+            +1 "if " k != 1,
+            minus.plus 1 "if " k = 1
+          )
+        )
+        \
+        & quad 
+        dot.op
+        (
+          (
+            Z_j
+            Z_k
+            exp(
+              -
+              sqrt(-1)
+              (2 pi) / M
+              (
+                j mu
+                +
+                k nu
+              )
+            )
+          )
+          +
+          (
+            Z_k
+            Z_j
+            exp(
+              -
+              sqrt(-1)
+              (2 pi) / M
+              (
+                k nu
+                +
+                j mu
+              )
+            )
+          )
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          cases(
+            +1 "if " j != 1,
+            minus.plus 1 "if " j = 1
+          )
+        )
+        dot.op
+        (
+          cases(
+            +1 "if " k != 1,
+            minus.plus 1 "if " k = 1
+          )
+        )
+        \
+        & quad 
+        dot.op
+        (
+          (
+            Z_j
+            Z_k
+            exp(
+              -
+              sqrt(-1)
+              (2 pi) / M
+              (
+                j mu
+                +
+                k nu
+              )
+            )
+          )
+          +
+          (
+            Z_k
+            Z_j
+            exp(
+              -
+              sqrt(-1)
+              (2 pi) / M
+              (
+                j mu
+                +
+                k nu
+              )
+            )
+          )
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          cases(
+            +1 "if " j != 1,
+            minus.plus 1 "if " j = 1
+          )
+        )
+        dot.op
+        (
+          cases(
+            +1 "if " k != 1,
+            minus.plus 1 "if " k = 1
+          )
+        )
+        dot.op
+        exp(
+          -
+          sqrt(-1)
+          (2 pi) / M
+          (
+            j mu
+            +
+            k nu
+          )
+        )
+        dot.op
+        (
+          Z_j
+          Z_k
+          +
+          Z_k
+          Z_j
+        )
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          cases(
+            +1 "if " j != 1,
+            minus.plus 1 "if " j = 1
+          )
+        )
+        dot.op
+        (
+          cases(
+            +1 "if " k != 1,
+            minus.plus 1 "if " k = 1
+          )
+        )
+        dot.op
+        exp(
+          -
+          sqrt(-1)
+          (2 pi) / M
+          (
+            j mu
+            +
+            k nu
+          )
+        )
+        dot.op
+        [
+          Z_j
+          ,
+          Z_k
+        ]_(+)
+      )
+      \
+      &=
+      sum_(j,k=1)^M (
+        (
+          cases(
+            +1 "if " j != 1,
+            minus.plus 1 "if " j = 1
+          )
+        )
+        dot.op
+        (
+          cases(
+            +1 "if " k != 1,
+            minus.plus 1 "if " k = 1
+          )
+        )
+        dot.op
+        exp(
+          -
+          sqrt(-1)
+          (2 pi) / M
+          (
+            j mu
+            +
+            k nu
+          )
+        )
+        dot.op
+        2I_((CC^2)^(times.circle M)) delta^M_((j, k))
+      )
+      \
+      &=
+      sum_(j=1)^M (
+        underbrace(
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          dot.op
+          (
+            cases(
+              +1 "if " j != 1,
+              minus.plus 1 "if " j = 1
+            )
+          )
+          ,
+          "符号がjに関わらず一致しているので" =1
+        )
+        dot.op
+        exp(
+          -
+          sqrt(-1)
+          (2 pi) / M
+          (
+            j mu
+            +
+            j nu
+          )
+        )
+        dot.op
+        2I_((CC^2)^(times.circle M))
+      )
+      \
+      &=
+      sum_(j=1)^M (
+        exp(
+          -
+          sqrt(-1)
+          (2 pi j) / M
+          (
+            mu
+            +
+            nu
+          ) 
+        )
+        dot.op
+        2I_((CC^2)^(times.circle M))
+      )
+      quad
+      dots.c
+      quad
+      (1)
+    $
+    (次回:1/16)証明ここから @exp_sum を使う
+  ]
+]
+
+
 
 
 == $T_(V_(1))(hat(Z))$と$hat(Z),hat(Y)$の関係
