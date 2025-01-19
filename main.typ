@@ -49,18 +49,20 @@
 
 = 対角化の計算 (ホロノミック量子場 付録B)
 == 記号の定義
-- $I_(CC^2)$: $CC^2$上の単位行列
-- $sigma_k^x := I_(CC^2) times.circle dots.c times.circle overbrace(sigma^x,k"th") times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
-- $sigma_k^y := I_(CC^2) times.circle dots.c times.circle overbrace(sigma^y,k"th") times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
-- $sigma_k^z := I_(CC^2) times.circle dots.c times.circle overbrace(sigma^z,k"th") times.circle dots.c times.circle I_(CC^2) in "End"((CC^2)^(times.circle M))$
-- $I_((CC^2)^(times.circle M))$ = $I_(CC^2) times.circle dots.c times.circle I_(CC^2)$
-- $V_1 := exp (sqrt(-1) K_1 dot.op (sigma_1^z sigma_2^z + sigma_2^z sigma_3^z + dots.c + sigma_M^z sigma_1^z)) in "End"((CC^2)^(times.circle M))$
-- $V_2 := (2 sinh 2K_2)^(M/2) exp (K_2^* dot.op (sigma_1^x + sigma_2^x + dots.c + sigma_M^x)) in "End"((CC^2)^(times.circle M))$
-- $Z_m := sigma_1^x dots.c sigma_(m-1)^x sigma_m^z in "End"((CC^2)^(times.circle M)) quad "ただし、" Z_1 := sigma_1^z quad ("ホロノミック量子場では" p_m)$
+- $I_("Mat"(2, CC))$: $"Mat"(2, CC)$上の単位行列
+- $sigma_k^x := I_("Mat"(2, CC)) times.circle dots.c times.circle overbrace(sigma^x,k"th") times.circle dots.c times.circle I_("Mat"(2, CC)) in "Mat"(2, CC)^(times.circle M)$
+- $sigma_k^y := I_("Mat"(2, CC)) times.circle dots.c times.circle overbrace(sigma^y,k"th") times.circle dots.c times.circle I_("Mat"(2, CC)) in "Mat"(2, CC)^(times.circle M)$
+- $sigma_k^z := I_("Mat"(2, CC)) times.circle dots.c times.circle overbrace(sigma^z,k"th") times.circle dots.c times.circle I_("Mat"(2, CC)) in "Mat"(2, CC)^(times.circle M)$
+- $I_(("Mat"(2, CC))^(times.circle M))$ := $I_("Mat"(2, CC)) times.circle dots.c times.circle I_("Mat"(2, CC))$
+- $V_1 := exp (sqrt(-1) K_1 dot.op (sigma_1^z sigma_2^z + sigma_2^z sigma_3^z + dots.c + sigma_M^z sigma_1^z)) in "Mat"(2, CC)^(times.circle M)$
+- $V_2 := (2 sinh 2K_2)^(M/2) exp (K_2^* dot.op (sigma_1^x + sigma_2^x + dots.c + sigma_M^x)) in "Mat"(2, CC)^(times.circle M)$
+- $epsilon := sigma_1^x dots.c sigma_M^x = (sqrt(-1))^M Z_1 Y_1 dots.c Y_M Y_M in "Mat"(2, CC)^(times.circle M)$
+
+- $Z_m := sigma_1^x dots.c sigma_(m-1)^x sigma_m^z in "Mat"(2, CC)^(times.circle M) quad "ただし、" Z_1 := sigma_1^z quad ("ホロノミック量子場では" p_m)$
 
 正し、$Z_(M+1) := Z_1$
 
-- $Y_m := sigma_1^x dots.c sigma_(m-1)^x sigma_m^y in "End"((CC^2)^(times.circle M)) quad "ただし、" Y_1 := sigma_1^y quad ("ホロノミック量子場では" q_m)$
+- $Y_m := sigma_1^x dots.c sigma_(m-1)^x sigma_m^y in "Mat"(2, CC)^(times.circle M) quad "ただし、" Y_1 := sigma_1^y quad ("ホロノミック量子場では" q_m)$
 
 正し、$Y_(M+1) := Y_1$
 
@@ -68,16 +70,71 @@
 - $K_2^* := -1/2 log(tanh K_2) arrow.l.r sinh(K_2) sinh(K_2^*) = 1$
 - $c_i := cosh 2K_i, quad s_i := sinh 2K_i,$
 - $c_i^* := cosh 2K_i^, quad s_i^ := sinh 2K_i^*$
-- $epsilon := sigma_1^x dots.c sigma_M^x = (sqrt(-1))^M Z_1 Y_1 dots.c Y_M Y_M in "End"((CC^2)^(times.circle M))$
+
+#claim([$V_1, V_2$を$Z, Y, epsilon$で表す])[
+  $
+    V_1 = exp (sqrt(-1) K_1 dot.op (Y_1 Z_2 + Y_2 Z_3 + dots.c + Y_(M-1) Z_M - epsilon Y_M Z_1))\
+    V_2 = (2 s_2)^(M/2) exp (sqrt(-1) K_2^* dot.op (Z_1 Y_1 + Z_2 Y_2 + dots.c + Z_M Y_M))
+  $
+  #proof[TODO]
+]
+
+#definition([$epsilon$の固有空間])[
+  $
+    cal(F) := (CC^2)^(times.circle M) \
+    cal(F)^((plus.minus)) := { f in cal(F) | epsilon f = plus.minus f }
+  $
+
+  #note[
+    $epsilon^2 = 1$ なので、$epsilon$の固有値は$plus.minus 1$ (?:ちょっと計算いる？)
+  ]
+]
+
+#definition([$"End"(cal(F))と"Mat"(2, CC)^(times.circle M)$の同型])[
+  $"End"(cal(F))$と$"Mat"(2, CC)^(times.circle M)$の線形同型写像 を一つ取り、
+  $
+    bold("end"): "End"(cal(F)) -> "Mat"(2, CC)^(times.circle M)
+  $
+  とおく。
+]
+
+
+#claim([$V_1$の固有空間への制限])[
+  $
+    (bold("end")(V_1))|_(cal(F)^((plus.minus))) = (bold("end")( exp (sqrt(-1) K_1 dot.op (Y_1 Z_2 + Y_2 Z_3 + dots.c + Y_(M-1) Z_M minus.plus Y_M Z_1))))|_(cal(F)^((plus.minus)))
+  $
+
+  #proof[
+    TODO
+  ]
+]
+
+#definition($V_1^((plus.minus))$)[
+  $
+    V_1^((plus.minus)) := exp (sqrt(-1) K_1 dot.op (Y_1 Z_2 + Y_2 Z_3 + dots.c + Y_(M-1) Z_M minus.plus Y_M Z_1))
+  $
+
+  #note[
+    上のclaimがこの定義の正当性を担保している
+  ]
+]
+
+#definition([$delta^M_((mu, nu))$])[
+  $$
+  $
+  delta^M_((mu, nu)) :=
+  cases(
+    1 & (mu equiv nu mod M),
+    0 & (mu equiv.not nu mod M)
+  )
+  $
+]
 
 #claim(none)[
   $k in ZZ "について、"$
   $
     \
-    sum_(j=1)^M exp(k dot (2 pi sqrt(-1) j)/M) = cases(
-      M   &"if " k equiv 0 mod M,
-      0   &"if " "otherwise"
-    )
+    sum_(j=1)^M exp(k dot (2 pi sqrt(-1) j)/M) = M delta^M_((k, 0))
   $
 
   #proof[
@@ -203,19 +260,7 @@
     $
   ]
 ]<exp_sum>
-
-#definition([$delta^M_((mu, nu))$])[
-  $$
-  $
-  delta^M_((mu, nu)) :=
-  cases(
-    1 & (mu equiv nu mod M),
-    0 & (mu equiv.not nu mod M)
-  )
-  $
-]
-
-
+  
 #definition($hat(Z), hat(Y)"の定義"$)[
   $
   hat(Z)_mu^((plus.minus))
@@ -272,7 +317,7 @@
 
 #definition(none)[
   $
-  H_1^((plus.minus)) := Y_1 Z_2 + Y_2 Z_3 + dots.c minus.plus 1_("End"(cal(F))) Y_M Z_1
+  H_1^((plus.minus)) := Y_1 Z_2 + Y_2 Z_3 + dots.c + Y_(M-1) Z_M minus.plus Y_M Z_1
   $
   $
   H_2 := Z_1 Y_1 + Z_2 Y_2 + dots.c + Z_M Y_M
@@ -281,12 +326,8 @@
 
 よって、
 $
-V_1^((plus.minus)) = exp(K_1 dot.op H_1^((plus.minus))), quad V_1^((-)) = exp(K_1 dot.op H_2)
+V_1^((plus.minus)) = exp(K_1 dot.op H_1^((plus.minus))), quad V_2 = exp(K_1 dot.op H_2)
 $
-
-次回(12/15)
-- この証明のチェックから
-   - まず書き損じがないか
 
 #claim[$H_1^((plus.minus)), H_2$を$hat(Z),hat(Y)$で表す][
   $
@@ -305,6 +346,10 @@ $
     hat(Y)_j
   )
   $
+
+  #proof[
+    次回(1/19)ここから
+  ]
 ]
 
 
@@ -1494,12 +1539,13 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         dot.op
         2I_((CC^2)^(times.circle M))
       )
+      \
+      &=
+      2M delta^M_(mu + nu, 0) I_((CC^2)^(times.circle M))
       quad
-      dots.c
-      quad
-      (1)
+      (because #ref(<exp_sum>))
     $
-    (次回:1/16)証明ここから @exp_sum を使う
+    $[hat(Z)_mu^((plus.minus)), hat(Y)_nu]_(+), [hat(Y)_mu, hat(Y)_nu]_(+)$についても同様
   ]
 ]
 
@@ -1542,6 +1588,25 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     hat(Z)_mu^((-))
     \
     $
+  #note[
+    $
+        H_1^((plus.minus)) &= 1/M sum_(j in {1, dots.c, M}) (
+    hat(Y)_j
+    hat(Z)_(-j)^((plus.minus))
+    exp(
+      -
+      sqrt(-1)
+      (2 pi j) / M
+    )
+  ) \
+
+  H_2 &= 1/M sum_(j in {1, dots.c, M}) (
+    hat(Z)_(-j)^((-))
+    hat(Y)_j
+  )
+
+    $
+  ]
   #proof[
     1. $[H_1^((plus.minus)), hat(Z)_mu^((plus.minus))]$について、
     $
