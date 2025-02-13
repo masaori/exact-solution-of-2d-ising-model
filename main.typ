@@ -2746,6 +2746,43 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       )
     )
     \
+    &note(
+      &(-j+mu = 2M, M, 0, -M, -2M)\
+      &(
+          mu - j = cases(
+            2M,
+            M,
+            0,
+            -M,
+            -2M
+          )
+          \
+          j - mu = cases(
+            2M,
+            M,
+            0,
+            -M,
+            -2M
+          )
+          \
+          j = cases(
+            2M + mu,
+            M + mu,
+            0 + mu,
+            -M + mu,
+            -2M + mu
+          )
+          \
+          j = cases(
+            M & quad (mu = -M),
+            M + mu & quad (-M + 1 <= mu <= -1),
+            mu & quad (1 <= mu <= M),
+          )
+      )
+      \
+      "次回(0213) ここの条件分岐を"sum"に反映する"
+    )
+    \
     &=
     2
     dot.op
@@ -3096,25 +3133,54 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       2
       dot.op
       (
-        cases(
+        sum_(
+          j in {1, dots.c, M} \
+          cases(
+            j = -mu & quad (mu <= -1),
+            j = M - mu & quad (1 <= mu <= M-1),
+            j = M & quad (mu = M),
+          )
+        ) (
           exp(
             -
             sqrt(-1)
-            (2 pi mu) / M
+            (2 pi j) / M
           )
           dot.op
-          hat(Z)_(-mu)^((plus.minus))
-          &quad
-          (mu > 0),
+          hat(Z)_(-j)^((plus.minus))
+        ) 
+      )
+      \
+      &=
+      -
+      2
+      dot.op
+      (
+        cases(
           exp(
             -
             sqrt(-1)
             (2 pi (-mu)) / M
           )
           dot.op
-          hat(Z)_mu^((plus.minus))
-          &quad
-          (mu < 0)
+          hat(Z)_(-(-mu))^((plus.minus))
+          & quad (mu <= -1),
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (M - mu)) / M
+          )
+          dot.op
+          hat(Z)_(-(M - mu))^((plus.minus))
+          & quad (1 <= mu <= M-1),
+          exp(
+            -
+            sqrt(-1)
+            (2 pi M) / M
+          )
+          dot.op
+          hat(Z)_(-M)^((plus.minus))
+          & quad (mu = M),
         )
       )
       \
