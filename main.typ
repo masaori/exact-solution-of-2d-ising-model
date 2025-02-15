@@ -1397,6 +1397,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 #claim([$hat(Z)$と$hat(Y)$の反交換関係])[
   $
     [hat(Z)_mu^((plus.minus)), hat(Z)_nu^((plus.minus))]_(+) = 2M delta^M_(mu + nu, 0) I
+    quad ("複合同順")
     \
     [hat(Z)_mu^((plus.minus)), hat(Z)_nu^((minus.plus))]_(+) = underbrace(
         2M delta^M_(mu + nu, 0)
@@ -1420,6 +1421,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           dot.op
           2I_((CC^2)^(times.circle M))
         )
+    quad ("複合同順")
     \
     [hat(Z)_mu^((plus.minus)), hat(Y)_nu]_(+) = 0
     \
@@ -2373,63 +2375,137 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 == $T_(V_(1))(hat(Z))$と$hat(Z),hat(Y)$の関係
 
 #claim([$H_1^((plus.minus))$,$H_2$と$hat(Z)_mu^((plus.minus))$, $hat(Y)_mu$の交換関係])[
-  $mu in {1, dots, M}$のとき、
-  
   $
-    [H_1^((plus.minus)), hat(Z)_mu^((plus.minus))] 
-    &= 
-    2 exp(
-        -sqrt(-1) (2 pi mu)/(M)
-    )
-    dot.op
-    hat(Y)_mu
-    \
-
-    [H_1^((plus.minus)), hat(Y)_mu] 
-    &= 
-    -2 exp(
-        -sqrt(-1) (2 pi mu)/(M)
-    )
-    dot.op
-    hat(Z)_(-mu)^((plus.minus))
-    \
-
-    [H_2, hat(Z)_mu^((plus.minus))] 
-    &= 
-    -2
-    dot.op
-    hat(Y)_mu
-    \
-
-    [H_2, hat(Y)_mu] 
-    &= 
+    [H_1^((plus.minus)), hat(Z)_mu^((plus.minus))]
+    =&
     2
     dot.op
-    hat(Z)_mu^((-))
-    \
-    $
-
-  $mu in {-M, dots, -1}$のとき、
-
-  $
-    [H_1^((plus.minus)), hat(Z)_mu^((plus.minus))] 
-    &= 
-    2 exp(
-        -sqrt(-1) (2 pi (-mu))/(M)
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (2 pi M) / M
+        )
+        dot.op
+        hat(Y)_M
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + mu)) / M
+        )
+        dot.op
+        hat(Y)_((M + mu))
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        hat(Y)_mu
+        & quad (1 <= mu <= M),
+      )
     )
-    dot.op
-    hat(Y)_(-mu)
     \
-
-    [H_1^((plus.minus)), hat(Y)_mu] 
-    &= 
-    -2 exp(
-        -sqrt(-1) (2 pi (-mu))/(M)
+    [H_1^((plus.minus)), hat(Y)_mu]
+    =&
+    -
+    2
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (-mu)) / M
+        )
+        dot.op
+        hat(Z)_(mu)^((plus.minus))
+        & quad (mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M - mu)) / M
+        )
+        dot.op
+        hat(Z)_((-M + mu))^((plus.minus))
+        & quad (1 <= mu <= M-1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi M) / M
+        )
+        dot.op
+        hat(Z)_((-M))^((plus.minus))
+        & quad (mu = M),
+      )
     )
-    dot.op
-    hat(Z)_mu^((plus.minus))
     \
+    [H_2, hat(Z)_mu^((minus))]
+    =&
+    -2
+    (  
+      cases(
+        hat(Y)_M
+        & quad (mu = -M),
+        hat(Y)_((M + mu))
+        & quad (-M + 1 <= mu <= -1),
+        hat(Y)_mu
+        & quad (1 <= mu <= M),
+      )
+    )
+    \
+    [H_2, hat(Z)_mu^((plus))]
+    =&
+    -2
+    (
+      cases(
+        hat(Y)_M
+        & quad (mu = -M),
+        hat(Y)_((M + mu))
+        & quad (-M + 1 <= mu <= -1),
+        hat(Y)_mu
+        & quad (1 <= mu <= M),
+      )
+    )
+    \
+    &quad +
+    1/M
+    (  
+      sum_(j in {1, dots.c, M}) (
+        -2
+        exp(
+          -
+          sqrt(-1)
+          (2 pi) / M
+          (
+            (-j)
+            +
+            mu
+          )
+        )
+        dot.op
+        hat(Y)_j
+      )
+    )
+    \
+    [H_2, hat(Y)_mu]
+    =&
+    1/M
+    (
+      cases(
+        hat(Z)_(mu)^((-))
+        & quad (mu <= -1),
+        hat(Z)_((-M + mu))^((-))
+        & quad (1 <= mu <= M-1),
+        hat(Z)_((-M))^((-))
+        & quad (mu = M),
+      )
+    )
   $
+
   #note[
     $
       H_1^((plus.minus)) &= 1/M sum_(j in {1, dots.c, M}) (
@@ -2475,6 +2551,8 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       [hat(Z)_mu^((plus.minus)), hat(Y)_nu]_(+) &= 0
       \
       [hat(Y)_mu, hat(Y)_nu]_(+) &= 2M delta^M_(mu + nu, 0) I
+      \
+      sum_(j=1)^M exp(k dot (2 pi sqrt(-1) j)/M) &= M delta^M_((k, 0))
     $
   ]
   #proof[
@@ -2788,10 +2866,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     (
       sum_(
-        j in {1, dots.c, M} \
         cases(
-          j = mu & (mu > 0),
-          j = -mu & (mu < 0)
+          j = M & quad (mu = -M),
+          j = M + mu & quad (-M + 1 <= mu <= -1),
+          j = mu & quad (1 <= mu <= M),
         )
       ) (
         exp(
@@ -2812,21 +2890,27 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         exp(
           -
           sqrt(-1)
+          (2 pi M) / M
+        )
+        dot.op
+        hat(Y)_M
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + mu)) / M
+        )
+        dot.op
+        hat(Y)_((M + mu))
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
           (2 pi mu) / M
         )
         dot.op
         hat(Y)_mu
-        &quad
-        (mu > 0),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (-mu)) / M
-        )
-        dot.op
-        hat(Y)_(-mu)
-        &quad
-        (mu < 0)
+        & quad (1 <= mu <= M),
       )
     )
     \
@@ -3107,7 +3191,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       dot.op
       (
         sum_(
-          j in {1, dots.c, M} \
           underbrace(
           cases(
             j = -mu & quad (mu <= -1),
@@ -3134,7 +3217,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       dot.op
       (
         sum_(
-          j in {1, dots.c, M} \
           cases(
             j = -mu & quad (mu <= -1),
             j = M - mu & quad (1 <= mu <= M-1),
@@ -3382,7 +3464,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         sum_(j in {1, dots.c, M}) (
           (
             -
-            2M delta^M_(mu - j, 0)
+            2M delta^M_((-j) + mu, 0)
             I_((CC^2)^(times.circle M))
           ) 
           dot.op
@@ -3395,7 +3477,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       (  
         sum_(j in {1, dots.c, M}) (
           (
-            delta^M_(mu - j, 0)
+            delta^M_((-j) + mu, 0)
             I_((CC^2)^(times.circle M))
           ) 
           dot.op
@@ -3408,25 +3490,379 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       (  
         sum_(j in {1, dots.c, M}) (
           (
-            delta^M_(mu - j, 0)
+            delta^M_((-j) + mu, 0)
             I_((CC^2)^(times.circle M))
           ) 
           dot.op
           hat(Y)_j
+        )
+      )
+      \
+      &=
+      -2
+      (  
+        sum_(
+          cases(
+            j = M & quad (mu = -M),
+            j = M + mu & quad (-M + 1 <= mu <= -1),
+            j = mu & quad (1 <= mu <= M),
+          )
+        ) (
+          hat(Y)_j
+        )
+      )
+      \
+      &=
+      -2
+      (  
+        cases(
+          hat(Y)_M
+          & quad (mu = -M),
+          hat(Y)_((M + mu))
+          & quad (-M + 1 <= mu <= -1),
+          hat(Y)_mu
+          & quad (1 <= mu <= M),
         )
       )
     $
 
-    $quad 3.2. [H_2, hat(Z)_mu^((minus))]$について、
+    $quad 3.2. [H_2, hat(Z)_mu^((plus))]$について、
 
-    (次回 1/25)
-    - $[
-      hat(Z)_(-j)^((-)),
-      hat(Z)_mu^((plus.minus))
-    ]$が計算できないため、複合異順の場合の$hat(Z)$の反交換関係を求める @anticommutator_of_hat_Z_and_hat_Y に追記
+    $
+      &1/M
+      (  
+        sum_(j in {1, dots.c, M}) (
+          (
+            -
+            [
+              hat(Z)_mu^((plus)),
+              hat(Z)_(-j)^((-))
+            ]_(+)
+          ) 
+          dot.op
+          hat(Y)_j
+        )
+      )
+      \
+      &=
+      1/M
+      (  
+        sum_(j in {1, dots.c, M}) (
+          (
+            -
+            underbrace(
+              2M delta^M_((-j) + mu, 0)
+              I_((CC^2)^(times.circle M))
+              ,
+              [hat(Z)_mu^((plus.minus)), hat(Z)_((-j))^((plus.minus))]_(+)
+            )
+            +
+            (
+              -2
+              exp(
+                -
+                sqrt(-1)
+                (2 pi) / M
+                (
+                  (-j)
+                  +
+                  mu
+                )
+              )
+              dot.op
+              2I_((CC^2)^(times.circle M))
+            )
+          )
+          dot.op
+          hat(Y)_j
+        )
+      )
+      \
+      &=
+      1/M
+      (  
+        sum_(j in {1, dots.c, M}) (
+          (
+            -
+            2M delta^M_((-j) + mu, 0)
+            dot.op
+            hat(Y)_j
+            +
+            (
+              -2
+              exp(
+                -
+                sqrt(-1)
+                (2 pi) / M
+                (
+                  (-j)
+                  +
+                  mu
+                )
+              )
+              dot.op
+              hat(Y)_j
+            )
+          )
+        )
+      )
+      \
+      &=
+      1/M
+      (  
+        sum_(
+          cases(
+            j = M & quad (mu = -M),
+            j = M + mu & quad (-M + 1 <= mu <= -1),
+            j = mu & quad (1 <= mu <= M),
+          )
+        ) (
+          -
+          2M
+          dot.op
+          hat(Y)_j
+        )
+        +
+        sum_(j in {1, dots.c, M}) (
+          -2
+          exp(
+            -
+            sqrt(-1)
+            (2 pi) / M
+            (
+              (-j)
+              +
+              mu
+            )
+          )
+          dot.op
+          hat(Y)_j
+        )
+      )
+      \
+      &=
+      -2
+      (
+        sum_(
+          cases(
+            j = M & quad (mu = -M),
+            j = M + mu & quad (-M + 1 <= mu <= -1),
+            j = mu & quad (1 <= mu <= M),
+          )
+        ) (
+          hat(Y)_j
+        )
+      )
+      +
+      1/M
+      (  
+        sum_(j in {1, dots.c, M}) (
+          -2
+          exp(
+            -
+            sqrt(-1)
+            (2 pi) / M
+            (
+              (-j)
+              +
+              mu
+            )
+          )
+          dot.op
+          hat(Y)_j
+        )
+      )
+      \
+      &=
+      -2
+      (
+        cases(
+          hat(Y)_M
+          & quad (mu = -M),
+          hat(Y)_((M + mu))
+          & quad (-M + 1 <= mu <= -1),
+          hat(Y)_mu
+          & quad (1 <= mu <= M),
+        )
+      )
+      +
+      1/M
+      (  
+        sum_(j in {1, dots.c, M}) (
+          -2
+          exp(
+            -
+            sqrt(-1)
+            (2 pi) / M
+            (
+              (-j)
+              +
+              mu
+            )
+          )
+          dot.op
+          hat(Y)_j
+        )
+      )
+      
+    $
+
+    $[H_2, hat(Y)_mu]$について、
+    
+    $
+    &[H_2, hat(Y)_mu]
+    \
+    &=
+    [
+      overbrace(
+        1/M sum_(j in {1, dots.c, M}) (
+          hat(Z)_(-j)^((-))
+          hat(Y)_j
+        ),
+        H_2
+      )
+      ,
+      hat(Y)_mu
+    ]
+    \
+    &=
+    1/M
+    (
+      (
+        sum_(j in {1, dots.c, M}) (
+          hat(Z)_(-j)^((-))
+          hat(Y)_j
+        )
+      )
+      dot.op
+      hat(Y)_mu
+      -
+      hat(Y)_mu
+      dot.op
+      (
+        sum_(j in {1, dots.c, M}) (
+          hat(Z)_(-j)^((-))
+          hat(Y)_j
+        )
+      )
+    )
+    \
+    &=
+    1/M
+    (
+      sum_(j in {1, dots.c, M}) (
+        hat(Z)_(-j)^((-))
+        hat(Y)_j
+        hat(Y)_mu
+      )
+      -
+      sum_(j in {1, dots.c, M}) (
+        hat(Y)_mu
+        hat(Z)_(-j)^((-))
+        hat(Y)_j
+      )
+    )
+    \
+    &=
+    1/M
+    (
+      sum_(j in {1, dots.c, M}) (
+        hat(Z)_(-j)^((-))
+        hat(Y)_j
+        hat(Y)_mu
+        -
+        hat(Y)_mu
+        hat(Z)_(-j)^((-))
+        hat(Y)_j
+      )
+    )
+    \
+    &=
+    1/M
+    (
+      sum_(j in {1, dots.c, M}) (
+        hat(Z)_(-j)^((-))
+        hat(Y)_j
+        hat(Y)_mu
+        +
+        hat(Z)_(-j)^((-))
+        hat(Y)_mu
+        hat(Y)_j
+      )
+    )
+    quad (because #ref(<anticommutator_of_hat_Z_and_hat_Y>))
+    \
+    &=
+    1/M
+    (
+      sum_(j in {1, dots.c, M}) (
+        hat(Z)_(-j)^((-))
+        (
+          hat(Y)_j
+          hat(Y)_mu
+          +
+          hat(Y)_mu
+          hat(Y)_j
+        )
+      )
+    )
+    \
+    &=
+    1/M
+    (
+      sum_(j in {1, dots.c, M}) (
+        hat(Z)_(-j)^((-))
+        [
+          hat(Y)_j,
+          hat(Y)_mu
+        ]_(+)
+      )
+    )
+    \
+    &=
+    1/M
+    (
+      sum_(j in {1, dots.c, M}) (
+        2M delta^M_(j + mu, 0)
+        dot.op
+        hat(Z)_(-j)^((-))
+      )
+    )
+    \
+    &=
+    1/M
+    (
+      sum_(
+        cases(
+          j = -mu & quad (mu <= -1),
+          j = M - mu & quad (1 <= mu <= M-1),
+          j = M & quad (mu = M),
+        )
+      ) (
+        hat(Z)_(-j)^((-))
+      )
+    )
+    \
+    &=
+    1/M
+    (
+      cases(
+        hat(Z)_(mu)^((-))
+        & quad (mu <= -1),
+        hat(Z)_((-M + mu))^((-))
+        & quad (1 <= mu <= M-1),
+        hat(Z)_((-M))^((-))
+        & quad (mu = M),
+      )
+    )
+  
+      
+    $
 
   ]
 ]<commutator_of_H_and_Z_Y>
+
+次回(02/15)↓ここから
 
 #claim(none)[
   $n >= 0$について、
