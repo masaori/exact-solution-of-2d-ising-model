@@ -2884,7 +2884,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           )
       )
       \
-      "次回(0213) ここの条件分岐を"sum"に反映する"
     )
     \
     &=
@@ -4151,146 +4150,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   
   
   #note[
-      $
-    [H_1^((plus.minus)), hat(Z)_mu^((plus.minus))]
-    =&
-    (
-      cases(
-        2
-        dot.op
-        exp(
-          -
-          sqrt(-1)
-          (2 pi M) / M
-        )
-        dot.op
-        hat(Y)_M
-        & quad (mu = -M),
-        2
-        dot.op
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + mu)) / M
-        )
-        dot.op
-        hat(Y)_((M + mu))
-        & quad (-M + 1 <= mu <= -1),
-        2
-        dot.op
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        dot.op
-        hat(Y)_mu
-        & quad (1 <= mu <= M),
-      )
-    )
-    \
-    [H_1^((plus.minus)), hat(Y)_mu]
-    =&
-    (
-      cases(
-        -
-        2
-        dot.op
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (-mu)) / M
-        )
-        dot.op
-        hat(Z)_(mu)^((plus.minus))
-        & quad (mu <= -1),
-        -
-        2
-        dot.op
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M - mu)) / M
-        )
-        dot.op
-        hat(Z)_((-M + mu))^((plus.minus))
-        & quad (1 <= mu <= M-1),
-        -
-        2
-        dot.op
-        exp(
-          -
-          sqrt(-1)
-          (2 pi M) / M
-        )
-        dot.op
-        hat(Z)_((-M))^((plus.minus))
-        & quad (mu = M),
-      )
-    )
-    \
-    [H_2, hat(Z)_mu^((minus))]
-    =&
-    -2
-    (  
-      cases(
-        hat(Y)_M
-        & quad (mu = -M),
-        hat(Y)_((M + mu))
-        & quad (-M + 1 <= mu <= -1),
-        hat(Y)_mu
-        & quad (1 <= mu <= M),
-      )
-    )
-    \
-    [H_2, hat(Z)_mu^((plus))]
-    =&
-    -2
-    (
-      cases(
-        hat(Y)_M
-        & quad (mu = -M),
-        hat(Y)_((M + mu))
-        & quad (-M + 1 <= mu <= -1),
-        hat(Y)_mu
-        & quad (1 <= mu <= M),
-      )
-    )
-    \
-    &quad +
-    1/M
-    (  
-      sum_(j in {1, dots.c, M}) (
-        -2
-        exp(
-          -
-          sqrt(-1)
-          (2 pi) / M
-          (
-            (-j)
-            +
-            mu
-          )
-        )
-        dot.op
-        hat(Y)_j
-      )
-    )
-    \
-    [H_2, hat(Y)_mu]
-    =&
-    1/M
-    (
-      cases(
-        hat(Z)_(mu)^((-))
-        & quad (mu <= -1),
-        hat(Z)_((-M + mu))^((-))
-        & quad (1 <= mu <= M-1),
-        hat(Z)_((-M))^((-))
-        & quad (mu = M),
-      )
-    )
-  $
+    @commutator_of_H_and_Z_Y
   ]
 
   #note[
@@ -4383,7 +4243,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           exp(
             -
             sqrt(-1)
-            (2 pi M) / M
+            (2 pi (-mu)) / M
           )
           dot.op
           hat(Y)_((-mu))
@@ -4451,8 +4311,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       )
     )
     \
-    &"次回(0220)↓ここから 交換子を添え字の範囲に合わせて展開する" 
-    \
     &=
     K_1^2
     dot.op
@@ -4466,10 +4324,18 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           (2 pi (-mu)) / M
         )
         dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Y)_((-mu))
-        ]
+        (
+          -
+          2
+          dot.op
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (-mu)) / M
+          )
+          dot.op
+          hat(Z)_((-(-mu)))^((plus.minus))
+        )
         & quad (mu = -M <=> -mu = M),
         exp(
           -
@@ -4477,10 +4343,18 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           (2 pi (M + mu)) / M
         )
         dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Y)_((M + mu))
-        ]
+        (
+          -
+          2
+          dot.op
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (M - (M + mu))) / M
+          )
+          dot.op
+          hat(Z)_((-M + (M + mu)))^((plus.minus))
+        )
         & quad (-M + 1 <= mu <= -1 <=> 1 <= M + mu <= M-1),
         exp(
           -
@@ -4488,15 +4362,1006 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           (2 pi mu) / M
         )
         dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Y)_mu
-        ]
+        (
+          cases(
+            -
+            2
+            dot.op
+            exp(
+              -
+              sqrt(-1)
+              (2 pi (M - mu)) / M
+            )
+            dot.op
+            hat(Z)_((-M + mu))^((plus.minus))
+            & quad (1 <= mu <= M-1),
+            -
+            2
+            dot.op
+            exp(
+              -
+              sqrt(-1)
+              (2 pi mu) / M
+            )
+            dot.op
+            hat(Z)_((-mu))^((plus.minus))
+            & quad (mu = M),
+          )
+        )
         & quad (1 <= mu <= M),
       )
     )
     \
+    &=
+    K_1^2
+    dot.op
+    (-1)^1
+    dot.op
+    2^2
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (-mu)) / M
+        )
+        dot.op
+        (
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (-mu)) / M
+          )
+          dot.op
+          hat(Z)_(mu)^((plus.minus))
+        )
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + mu)) / M
+        )
+        dot.op
+        (
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          dot.op
+          hat(Z)_(mu)^((plus.minus))
+        )
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        (
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (M - mu)) / M
+          )
+          dot.op
+          hat(Z)_((-M + mu))^((plus.minus))
+        )
+        & quad (1 <= mu <= M-1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        (
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          dot.op
+          hat(Z)_((-mu))^((plus.minus))
+        )
+        & quad (mu = M),
+      )
+    )
+    \
+    &=
+    K_1^2
+    dot.op
+    (-1)^1
+    dot.op
+    2^2
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (-mu)) / M
+        )
+        dot.op
+        (
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (-mu)) / M
+          )
+          dot.op
+          hat(Z)_(mu)^((plus.minus))
+        )
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + mu)) / M
+        )
+        dot.op
+        (
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          dot.op
+          hat(Z)_(mu)^((plus.minus))
+        )
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        (
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (M - mu)) / M
+          )
+          dot.op
+          hat(Z)_((-M + mu))^((plus.minus))
+        )
+        & quad (1 <= mu <= M-1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        (
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          dot.op
+          hat(Z)_((-mu))^((plus.minus))
+        )
+        & quad (mu = M),
+      )
+    )
+    \
+    &=
+    K_1^2
+    dot.op
+    (-1)^1
+    dot.op
+    2^2
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (-mu)) / M
+          -
+          sqrt(-1)
+          (2 pi (-mu)) / M
+        )
+        dot.op
+        hat(Z)_(mu)^((plus.minus))
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + mu)) / M
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        hat(Z)_(mu)^((plus.minus))
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+          -
+          sqrt(-1)
+          (2 pi (M - mu)) / M
+        )
+        dot.op
+        hat(Z)_((-M + mu))^((plus.minus))
+        & quad (1 <= mu <= M-1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        hat(Z)_((-mu))^((plus.minus))
+        & quad (mu = M),
+      )
+    )
+    \
+    &=
+    K_1^2
+    dot.op
+    (-1)^1
+    dot.op
+    2^2
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (4 pi (-mu)) / M
+        )
+        dot.op
+        hat(Z)_(mu)^((plus.minus))
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + 2 mu)) / M
+        )
+        dot.op
+        hat(Z)_(mu)^((plus.minus))
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi M) / M
+        )
+        dot.op
+        hat(Z)_((-M + mu))^((plus.minus))
+        & quad (1 <= mu <= M-1),
+        exp(
+          -
+          sqrt(-1)
+          (4 pi mu) / M
+        )
+        dot.op
+        hat(Z)_((-mu))^((plus.minus))
+        & quad (mu = M),
+      )
+    )
+    \
+    $
 
+    ↑(次回 0222) この辺ミスってそう？なので、確認する
+
+    $n = 3$
+    $
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      overbrace(
+      [
+        K_1 dot.op H_1^((plus.minus)),
+        [
+          K_1 dot.op H_1^((plus.minus)),
+          hat(Z)_mu^((plus.minus))
+        ]
+      ],
+      n = 2
+      )
+    ]
+    &=
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      K_1^2
+      dot.op
+      (-1)^1
+      dot.op
+      2^2
+      dot.op
+      (
+        cases(
+          exp(
+            -
+            sqrt(-1)
+            (4 pi (-mu)) / M
+          )
+          dot.op
+          hat(Z)_(mu)^((plus.minus))
+          & quad (mu = -M),
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (M + 2 mu)) / M
+          )
+          dot.op
+          hat(Z)_(mu)^((plus.minus))
+          & quad (-M + 1 <= mu <= -1),
+          exp(
+            -
+            sqrt(-1)
+            (2 pi M) / M
+          )
+          dot.op
+          hat(Z)_((-M + mu))^((plus.minus))
+          & quad (1 <= mu <= M-1),
+          exp(
+            -
+            sqrt(-1)
+            (4 pi mu) / M
+          )
+          dot.op
+          hat(Z)_((-mu))^((plus.minus))
+          & quad (mu = M),
+        )
+      )
+    ]
+    \
+    &=
+    K_1
+    dot.op
+    K_1^2
+    dot.op
+    (-1)^1
+    dot.op
+    2^2
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (4 pi (-mu)) / M
+        )
+        dot.op
+        [
+          H_1^((plus.minus)),
+          hat(Z)_(mu)^((plus.minus))
+        ]
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + 2 mu)) / M
+        )
+        dot.op
+        [
+          H_1^((plus.minus)),
+          hat(Z)_(mu)^((plus.minus))
+        ]
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi M) / M
+        )
+        dot.op
+        [
+          H_1^((plus.minus)),
+          hat(Z)_((-M + mu))^((plus.minus))
+        ]
+        & quad (1 <= mu <= M-1 <=> -M + 1 <= -M + mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (4 pi mu) / M
+        )
+        dot.op
+        [
+          H_1^((plus.minus)),
+          hat(Z)_((-mu))^((plus.minus))
+        ]
+        & quad (mu = M <=> -mu = -M),
+      )
+    )
+    \
+    &=
+    K_1
+    dot.op
+    K_1^2
+    dot.op
+    (-1)^1
+    dot.op
+    2^2
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (4 pi (-mu)) / M
+        )
+        dot.op
+        [
+          H_1^((plus.minus)),
+          hat(Z)_(mu)^((plus.minus))
+        ]
+        (
+          2
+          dot.op
+          (
+            cases(
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (-mu)) / M
+              )
+              dot.op
+              hat(Y)_((-mu))
+              & quad (mu = -M),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (M + mu)) / M
+              )
+              dot.op
+              hat(Y)_((M + mu))
+              & quad (-M + 1 <= mu <= -1),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi mu) / M
+              )
+              dot.op
+              hat(Y)_mu
+              & quad (1 <= mu <= M),
+            )
+          )
+        )
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + 2 mu)) / M
+        )
+        dot.op
+        [
+          H_1^((plus.minus)),
+          hat(Z)_(mu)^((plus.minus))
+        ]
+        (
+          2
+          dot.op
+          (
+            cases(
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (-mu)) / M
+              )
+              dot.op
+              hat(Y)_((-mu))
+              & quad (mu = -M),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (M + mu)) / M
+              )
+              dot.op
+              hat(Y)_((M + mu))
+              & quad (-M + 1 <= mu <= -1),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi mu) / M
+              )
+              dot.op
+              hat(Y)_mu
+              & quad (1 <= mu <= M),
+            )
+          )
+        )
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi M) / M
+        )
+        dot.op
+        [
+          H_1^((plus.minus)),
+          hat(Z)_((-M + mu))^((plus.minus))
+        ]
+        (
+          2
+          dot.op
+          (
+            cases(
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (-mu)) / M
+              )
+              dot.op
+              hat(Y)_((-mu))
+              & quad (mu = -M),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (M + mu)) / M
+              )
+              dot.op
+              hat(Y)_((M + mu))
+              & quad (-M + 1 <= mu <= -1),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi mu) / M
+              )
+              dot.op
+              hat(Y)_mu
+              & quad (1 <= mu <= M),
+            )
+          )
+        )
+        & quad (1 <= mu <= M-1 <=> -M + 1 <= -M + mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (4 pi mu) / M
+        )
+        dot.op
+        [
+          H_1^((plus.minus)),
+          hat(Z)_((-mu))^((plus.minus))
+        ]
+        (
+          2
+          dot.op
+          (
+            cases(
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (-mu)) / M
+              )
+              dot.op
+              hat(Y)_((-mu))
+              & quad (mu = -M),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (M + mu)) / M
+              )
+              dot.op
+              hat(Y)_((M + mu))
+              & quad (-M + 1 <= mu <= -1),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi mu) / M
+              )
+              dot.op
+              hat(Y)_mu
+              & quad (1 <= mu <= M),
+            )
+          )
+        )
+        & quad (mu = M <=> -mu = -M),
+      )
+    )
+    \
+    &=
+    K_1
+    dot.op
+    K_1^2
+    dot.op
+    (-1)^1
+    dot.op
+    2^2
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (4 pi (-mu)) / M
+        )
+        dot.op
+        (
+          2
+          dot.op
+          (
+            exp(
+              -
+              sqrt(-1)
+              (2 pi (-mu)) / M
+            )
+            dot.op
+            hat(Y)_((-mu))
+          )
+        )
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + 2 mu)) / M
+        )
+        dot.op
+        (
+          2
+          dot.op
+          (
+            exp(
+              -
+              sqrt(-1)
+              (2 pi (M + mu)) / M
+            )
+            dot.op
+            hat(Y)_((M + mu))
+          )
+        )
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi M) / M
+        )
+        dot.op
+        (
+          2
+          dot.op
+          (
+            exp(
+              -
+              sqrt(-1)
+              (2 pi (M + (-M + mu))) / M
+            )
+            dot.op
+            hat(Y)_((M + (-M + mu)))
+          )
+        )
+        & quad (1 <= mu <= M-1 <=> -M + 1 <= -M + mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (4 pi mu) / M
+        )
+        dot.op
+        (
+          2
+          dot.op
+          (
+            exp(
+              -
+              sqrt(-1)
+              (2 pi (-(-mu))) / M
+            )
+            dot.op
+            hat(Y)_((-(-mu)))
+          )
+        )
+        & quad (mu = M <=> -mu = -M),
+      )
+    )
+    \
+    &=
+    K_1
+    dot.op
+    K_1^2
+    dot.op
+    (-1)^1
+    dot.op
+    2^3
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (4 pi (-mu)) / M
+        )
+        dot.op
+        (
+          (
+            exp(
+              -
+              sqrt(-1)
+              (2 pi (-mu)) / M
+            )
+            dot.op
+            hat(Y)_((-mu))
+          )
+        )
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + 2 mu)) / M
+        )
+        dot.op
+        (
+          (
+            exp(
+              -
+              sqrt(-1)
+              (2 pi (M + mu)) / M
+            )
+            dot.op
+            hat(Y)_((M + mu))
+          )
+        )
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi M) / M
+        )
+        dot.op
+        (
+          (
+            exp(
+              -
+              sqrt(-1)
+              (2 pi mu) / M
+            )
+            dot.op
+            hat(Y)_(mu)
+          )
+        )
+        & quad (1 <= mu <= M-1),
+        exp(
+          -
+          sqrt(-1)
+          (4 pi mu) / M
+        )
+        dot.op
+        (
+          (
+            exp(
+              -
+              sqrt(-1)
+              (2 pi mu) / M
+            )
+            dot.op
+            hat(Y)_(mu)
+          )
+        )
+        & quad (mu = M <=> -mu = -M),
+      )
+    )
+    \
+    &=
+    K_1
+    dot.op
+    K_1^2
+    dot.op
+    (-1)^1
+    dot.op
+    2^3
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (4 pi (-mu)) / M
+          -
+          sqrt(-1)
+          (2 pi (-mu)) / M
+        )
+        dot.op
+        hat(Y)_((-mu))
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + 2 mu)) / M
+          -
+          sqrt(-1)
+          (2 pi (M + mu)) / M
+        )
+        dot.op
+        hat(Y)_((M + mu))
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi M) / M
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        hat(Y)_(mu)
+        & quad (1 <= mu <= M-1),
+        exp(
+          -
+          sqrt(-1)
+          (4 pi mu) / M
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        hat(Y)_(mu)
+        & quad (mu = M),
+      )
+    )
+    \
+    &=
+    K_1^3
+    dot.op
+    (-1)^1
+    dot.op
+    2^3
+    dot.op
+    (
+      cases(
+        exp(
+          -
+          sqrt(-1)
+          (6 pi (-mu)) / M
+        )
+        dot.op
+        hat(Y)_((-mu))
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (2 M + 3 mu)) / M
+        )
+        dot.op
+        hat(Y)_((M + mu))
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + mu)) / M
+        )
+        dot.op
+        hat(Y)_(mu)
+        & quad (1 <= mu <= M-1),
+        exp(
+          -
+          sqrt(-1)
+          (6 pi mu) / M
+        )
+        dot.op
+        hat(Y)_(mu)
+        & quad (mu = M),
+      )
+    )
+    $
+
+    $n = 4$
+    $
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      overbrace(
+        [
+          K_1 dot.op H_1^((plus.minus)),
+          [
+            K_1 dot.op H_1^((plus.minus)),
+            [
+              K_1 dot.op H_1^((plus.minus)),
+              hat(Z)_mu^((plus.minus))
+            ]
+          ]
+        ]
+        ,
+        n = 3
+      )
+    ]
+    &=
+    [
+      K_1 dot.op H_1^((plus.minus)),
+      K_1^3
+      dot.op
+      (-1)^1
+      dot.op
+      2^3
+      dot.op
+      (
+        cases(
+          exp(
+            -
+            sqrt(-1)
+            (6 pi (-mu)) / M
+          )
+          dot.op
+          hat(Y)_((-mu))
+          & quad (mu = -M),
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (2 M + 3 mu)) / M
+          )
+          dot.op
+          hat(Y)_((M + mu))
+          & quad (-M + 1 <= mu <= -1),
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (M + mu)) / M
+          )
+          dot.op
+          hat(Y)_(mu)
+          & quad (1 <= mu <= M-1),
+          exp(
+            -
+            sqrt(-1)
+            (6 pi mu) / M
+          )
+          dot.op
+          hat(Y)_(mu)
+          & quad (mu = M),
+        )
+      )
+    ]
+    \
+    &=
+    K_1
+    dot.op
+    K_1^3
+    dot.op
+    (-1)^1
+    dot.op
+    2^3
+    dot.op
+      (
+        cases(
+          exp(
+            -
+            sqrt(-1)
+            (6 pi (-mu)) / M
+          )
+          dot.op
+          [
+            H_1^((plus.minus)),
+            hat(Y)_((-mu))
+          ]
+          & quad (mu = -M <=> -mu = M),
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (2 M + 3 mu)) / M
+          )
+          dot.op
+          [
+            H_1^((plus.minus)),
+            hat(Y)_((M + mu))
+          ]
+          & quad (-M + 1 <= mu <= -1 <=> 1 <= M + mu <= M-1),
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (M + mu)) / M
+          )
+          dot.op
+          [
+            H_1^((plus.minus)),
+            hat(Y)_(mu)
+          ]
+          & quad (1 <= mu <= M-1),
+          exp(
+            -
+            sqrt(-1)
+            (6 pi mu) / M
+          )
+          dot.op
+          [
+            H_1^((plus.minus)),
+            hat(Y)_(mu)
+          ]
+          & quad (mu = M),
+        )
+      )
+    ]
+    \
     $
   ]
 
