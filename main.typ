@@ -831,7 +831,7 @@ $
       overbrace(
         minus.plus
         (
-          Y_(M)
+          Y_((M))
           Z_(1)
         ),
         because k_1 in {1, dots, M} and -k_1 equiv 0 mod M => k_1 = M
@@ -1082,15 +1082,15 @@ $
 === リー群リー環を使うノリ
 *参考) Lie群とLie環1 の 定理 5.49*
 
-#box[
-  #diagram(
-    cell-size: 15mm,
-    $
-      frak(g) edge(dif phi, ->) edge("d", exp, ->) & frak(h) edge("d", exp, ->) \
-      G edge(phi, ->) & H
-    $
-  )
-]
+// #box[
+//   #diagram(
+//     cell-size: 15mm,
+//     $
+//       frak(g) edge(dif phi, ->) edge("d", exp, ->) & frak(h) edge("d", exp, ->) \
+//       G edge(phi, ->) & H
+//     $
+//   )
+// ]
 
 $G, H:$ Lie群, 連続な準同型写像 $phi: G -> H$ について、
 - $phi$は$C^(omega)$級である。
@@ -2430,8 +2430,36 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           (2 pi mu) / M
         )
         dot.op
-        hat(Y)_mu
+        hat(Y)_((mu))
         & quad (1 <= mu <= M),
+      )
+    )
+    \
+    =&
+    2
+    dot.op
+    (
+      cases(
+        hat(Y)_((M))
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M + mu)) / M
+        )
+        dot.op
+        hat(Y)_((M + mu))
+        & quad (-M + 1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        hat(Y)_((mu))
+        & quad (1 <= mu <= M - 1),
+        hat(Y)_((M))
+        & quad (mu = M),
       )
     )
     \
@@ -2448,7 +2476,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           (2 pi (-mu)) / M
         )
         dot.op
-        hat(Z)_(mu)^((plus.minus))
+        hat(Z)_((mu))^((plus.minus))
         & quad (mu <= -1),
         exp(
           -
@@ -2465,6 +2493,35 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         )
         dot.op
         hat(Z)_((-mu))^((plus.minus))
+        & quad (mu = M),
+      )
+    )
+    \
+    =&
+    -
+    2
+    dot.op
+    (
+      cases(
+        hat(Z)_((-M))^((plus.minus))
+        & quad (mu = -M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (-mu)) / M
+        )
+        dot.op
+        hat(Z)_((mu))^((plus.minus))
+        & quad (-M+1 <= mu <= -1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (M - mu)) / M
+        )
+        dot.op
+        hat(Z)_((-M + mu))^((plus.minus))
+        & quad (1 <= mu <= M-1),
+        hat(Z)_((-M))^((plus.minus))
         & quad (mu = M),
       )
     )
@@ -2878,7 +2935,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           )
           \
           j = cases(
-            M & quad (mu = -M),
+            -mu & quad (mu = -M),
             M + mu & quad (-M + 1 <= mu <= -1),
             mu & quad (1 <= mu <= M),
           )
@@ -3222,8 +3279,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
             j = M - mu & quad (1 <= mu <= M-1),
             j = M & quad (mu = M),
           ),
-          "次回(0208) ここの条件分岐を修正したのでこの先も修正"
-
           )
         ) (
           exp(
@@ -4192,13 +4247,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     (
       cases(
-        exp(
-          -
-          sqrt(-1)
-          (2 pi M) / M
-        )
-        dot.op
-        hat(Y)_((-mu))
+        hat(Y)_((M))
         & quad (mu = -M),
         exp(
           -
@@ -4214,8 +4263,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           (2 pi mu) / M
         )
         dot.op
-        hat(Y)_mu
-        & quad (1 <= mu <= M),
+        hat(Y)_((mu))
+        & quad (1 <= mu <= M - 1),
+        hat(Y)_((M))
+        & quad (mu = M),
       )
     )
     $
@@ -4240,13 +4291,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       dot.op
       (
         cases(
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (-mu)) / M
-          )
-          dot.op
-          hat(Y)_((-mu))
+          hat(Y)_((M))
           & quad (mu = -M),
           exp(
             -
@@ -4262,8 +4307,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
             (2 pi mu) / M
           )
           dot.op
-          hat(Y)_mu
-          & quad (1 <= mu <= M),
+          hat(Y)_((mu))
+          & quad (1 <= mu <= M - 1),
+          hat(Y)_((M))
+          & quad (mu = M),
         )
       )
     ]
@@ -4275,17 +4322,11 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     (
       cases(
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (-mu)) / M
-        )
-        dot.op
         [
           H_1^((plus.minus)),
-          hat(Y)_((-mu))
+          hat(Y)_((M))
         ]
-        & quad (mu = -M <=> -mu = M),
+        & quad (mu = -M => -mu = M),
         exp(
           -
           sqrt(-1)
@@ -4296,7 +4337,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           H_1^((plus.minus)),
           hat(Y)_((M + mu))
         ]
-        & quad (-M + 1 <= mu <= -1 <=> 1 <= M + mu <= M-1),
+        & quad (-M + 1 <= mu <= -1 => 1 <= M + mu <= M - 1),
         exp(
           -
           sqrt(-1)
@@ -4305,9 +4346,14 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         dot.op
         [
           H_1^((plus.minus)),
-          hat(Y)_mu
+          hat(Y)_((mu))
         ]
-        & quad (1 <= mu <= M),
+        & quad (1 <= mu <= M - 1),
+        [
+          H_1^((plus.minus)),
+          hat(Y)_((M))
+        ]
+        & quad (mu = M),
       )
     )
     \
@@ -4318,25 +4364,169 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     (
       cases(
+        (
+          -
+          2
+          dot.op
+          (
+            cases(
+              hat(Z)_((-M))^((plus.minus))
+              & quad (M = -M),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (-M)) / M
+              )
+              dot.op
+              hat(Z)_((M))^((plus.minus))
+              & quad (-M+1 <= M <= -1),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (M - M)) / M
+              )
+              dot.op
+              hat(Z)_((-M + M))^((plus.minus))
+              & quad (1 <= M <= M-1),
+              hat(Z)_((-M))^((plus.minus))
+              & quad underbrace(
+                (M = M),
+                "これ"
+              )
+            )
+          )
+        )
+        & quad (mu = -M => -mu = M),
         exp(
           -
           sqrt(-1)
-          (2 pi (-mu)) / M
+          (2 pi (M + mu)) / M
         )
         dot.op
         (
           -
           2
           dot.op
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (-mu)) / M
+          (
+            cases(
+              hat(Z)_((-M))^((plus.minus))
+              & quad ((M + mu) = -M),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (-(M + mu))) / M
+              )
+              dot.op
+              hat(Z)_(((M + mu)))^((plus.minus))
+              & quad (-M+1 <= (M + mu) <= -1),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (M - (M + mu))) / M
+              )
+              dot.op
+              hat(Z)_((-M + (M + mu)))^((plus.minus))
+              & quad underbrace(
+                (1 <= (M + mu) <= M-1),
+                "これ"
+              ),
+              hat(Z)_((-M))^((plus.minus))
+              & quad ((M + mu) = M),
+            )
           )
-          dot.op
-          hat(Z)_((-(-mu)))^((plus.minus))
         )
-        & quad (mu = -M <=> -mu = M),
+        & quad (-M + 1 <= mu <= -1 => 1 <= (M + mu) <= M - 1),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        dot.op
+        (
+          -
+          2
+          dot.op
+          (
+            cases(
+              hat(Z)_((-M))^((plus.minus))
+              & quad ((mu) = -M),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (-(mu))) / M
+              )
+              dot.op
+              hat(Z)_(((mu)))^((plus.minus))
+              & quad (-M+1 <= (mu) <= -1),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (M - (mu))) / M
+              )
+              dot.op
+              hat(Z)_((-M + (mu)))^((plus.minus))
+              & quad underbrace(
+                (1 <= (mu) <= M-1),
+                "これ"
+              ),
+              hat(Z)_((-M))^((plus.minus))
+              & quad ((mu) = M),
+            )
+          )
+        )
+        & quad (1 <= mu <= M - 1),
+        (
+          -
+          2
+          dot.op
+          (
+            cases(
+              hat(Z)_((-M))^((plus.minus))
+              & quad (M = -M),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (-M)) / M
+              )
+              dot.op
+              hat(Z)_((M))^((plus.minus))
+              & quad (-M+1 <= M <= -1),
+              exp(
+                -
+                sqrt(-1)
+                (2 pi (M - M)) / M
+              )
+              dot.op
+              hat(Z)_((-M + M))^((plus.minus))
+              & quad (1 <= M <= M-1),
+              hat(Z)_((-M))^((plus.minus))
+              & quad underbrace(
+                (M = M),
+                "これ"
+              )
+            )
+          )
+        )
+        & quad (mu = M),
+      )
+    )
+    \
+    &=
+    K_1^2
+    dot.op
+    2
+    dot.op
+    (
+      cases(
+        (
+          -
+          2
+          dot.op
+          (
+            hat(Z)_((-M))^((plus.minus))
+          )
+        )
+        & quad (mu = -M => -mu = M),
         exp(
           -
           sqrt(-1)
@@ -4347,15 +4537,17 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           -
           2
           dot.op
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (M - (M + mu))) / M
+          (
+            exp(
+              -
+              sqrt(-1)
+              (2 pi (M - (M + mu))) / M
+            )
+            dot.op
+            hat(Z)_((-M + (M + mu)))^((plus.minus))
           )
-          dot.op
-          hat(Z)_((-M + (M + mu)))^((plus.minus))
         )
-        & quad (-M + 1 <= mu <= -1 <=> 1 <= M + mu <= M-1),
+        & quad (-M + 1 <= mu <= -1 => 1 <= (M + mu) <= M - 1),
         exp(
           -
           sqrt(-1)
@@ -4363,32 +4555,29 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         )
         dot.op
         (
-          cases(
-            -
-            2
-            dot.op
+          -
+          2
+          dot.op
+          (
             exp(
               -
               sqrt(-1)
-              (2 pi (M - mu)) / M
+              (2 pi (M - (mu))) / M
             )
             dot.op
-            hat(Z)_((-M + mu))^((plus.minus))
-            & quad (1 <= mu <= M-1),
-            -
-            2
-            dot.op
-            exp(
-              -
-              sqrt(-1)
-              (2 pi mu) / M
-            )
-            dot.op
-            hat(Z)_((-mu))^((plus.minus))
-            & quad (mu = M),
+            hat(Z)_((-M + (mu)))^((plus.minus))
           )
         )
-        & quad (1 <= mu <= M),
+        & quad (1 <= mu <= M - 1),
+        (
+          -
+          2
+          dot.op
+          (
+            hat(Z)_((-M))^((plus.minus))
+          )
+        )
+        & quad (mu = M),
       )
     )
     \
@@ -4401,10 +4590,12 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     (
       cases(
+        hat(Z)_((-M))^((plus.minus))
+        & quad (mu = -M),
         exp(
           -
           sqrt(-1)
-          (2 pi (-mu)) / M
+          (2 pi (M + mu)) / M
         )
         dot.op
         (
@@ -4414,23 +4605,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
             (2 pi (-mu)) / M
           )
           dot.op
-          hat(Z)_(mu)^((plus.minus))
-        )
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + mu)) / M
-        )
-        dot.op
-        (
-          exp(
-            -
-            sqrt(-1)
-            (2 pi mu) / M
-          )
-          dot.op
-          hat(Z)_(mu)^((plus.minus))
+          hat(Z)_((mu))^((plus.minus))
         )
         & quad (-M + 1 <= mu <= -1),
         exp(
@@ -4443,27 +4618,13 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           exp(
             -
             sqrt(-1)
-            (2 pi (M - mu)) / M
+            (2 pi (M - (mu))) / M
           )
           dot.op
-          hat(Z)_((-M + mu))^((plus.minus))
+          hat(Z)_((-M + (mu)))^((plus.minus))
         )
-        & quad (1 <= mu <= M-1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        dot.op
-        (
-          exp(
-            -
-            sqrt(-1)
-            (2 pi mu) / M
-          )
-          dot.op
-          hat(Z)_((-mu))^((plus.minus))
-        )
+        & quad (1 <= mu <= M - 1),
+        hat(Z)_((-M))^((plus.minus))
         & quad (mu = M),
       )
     )
@@ -4477,69 +4638,30 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     (
       cases(
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (-mu)) / M
-        )
-        dot.op
-        (
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (-mu)) / M
-          )
-          dot.op
-          hat(Z)_(mu)^((plus.minus))
-        )
+        hat(Z)_((-M))^((plus.minus))
         & quad (mu = -M),
         exp(
           -
           sqrt(-1)
           (2 pi (M + mu)) / M
+          -
+          sqrt(-1)
+          (2 pi (-mu)) / M
         )
-        dot.op
-        (
-          exp(
-            -
-            sqrt(-1)
-            (2 pi mu) / M
-          )
-          dot.op
-          hat(Z)_(mu)^((plus.minus))
-        )
+        hat(Z)_((mu))^((plus.minus))
         & quad (-M + 1 <= mu <= -1),
         exp(
           -
           sqrt(-1)
           (2 pi mu) / M
-        )
-        dot.op
-        (
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (M - mu)) / M
-          )
-          dot.op
-          hat(Z)_((-M + mu))^((plus.minus))
-        )
-        & quad (1 <= mu <= M-1),
-        exp(
           -
           sqrt(-1)
-          (2 pi mu) / M
+          (2 pi (M - (mu))) / M
         )
         dot.op
-        (
-          exp(
-            -
-            sqrt(-1)
-            (2 pi mu) / M
-          )
-          dot.op
-          hat(Z)_((-mu))^((plus.minus))
-        )
+        hat(Z)_((-M + (mu)))^((plus.minus))
+        & quad (1 <= mu <= M - 1),
+        hat(Z)_((-M))^((plus.minus))
         & quad (mu = M),
       )
     )
@@ -4553,77 +4675,14 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     (
       cases(
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (-mu)) / M
-          -
-          sqrt(-1)
-          (2 pi (-mu)) / M
-        )
-        dot.op
-        hat(Z)_(mu)^((plus.minus))
+        hat(Z)_((-M))^((plus.minus))
         & quad (mu = -M),
         exp(
           -
           sqrt(-1)
-          (2 pi (M + mu)) / M
-          -
-          sqrt(-1)
-          (2 pi mu) / M
+          (2 pi (M)) / M
         )
-        dot.op
-        hat(Z)_(mu)^((plus.minus))
-        & quad (-M + 1 <= mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-          -
-          sqrt(-1)
-          (2 pi (M - mu)) / M
-        )
-        dot.op
-        hat(Z)_((-M + mu))^((plus.minus))
-        & quad (1 <= mu <= M-1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        dot.op
-        hat(Z)_((-mu))^((plus.minus))
-        & quad (mu = M),
-      )
-    )
-    \
-    &=
-    K_1^2
-    dot.op
-    (-1)^1
-    dot.op
-    2^2
-    dot.op
-    (
-      cases(
-        exp(
-          -
-          sqrt(-1)
-          (4 pi (-mu)) / M
-        )
-        dot.op
-        hat(Z)_(mu)^((plus.minus))
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + 2 mu)) / M
-        )
-        dot.op
-        hat(Z)_(mu)^((plus.minus))
+        hat(Z)_((mu))^((plus.minus))
         & quad (-M + 1 <= mu <= -1),
         exp(
           -
@@ -4631,22 +4690,36 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           (2 pi M) / M
         )
         dot.op
-        hat(Z)_((-M + mu))^((plus.minus))
-        & quad (1 <= mu <= M-1),
-        exp(
-          -
-          sqrt(-1)
-          (4 pi mu) / M
-        )
-        dot.op
-        hat(Z)_((-mu))^((plus.minus))
+        hat(Z)_((-M + (mu)))^((plus.minus))
+        & quad (1 <= mu <= M - 1),
+        hat(Z)_((-M))^((plus.minus))
         & quad (mu = M),
       )
     )
     \
+    &=
+    K_1^2
+    dot.op
+    (-1)^1
+    dot.op
+    2^2
+    dot.op
+    (
+      cases(
+        hat(Z)_((-M))^((plus.minus))
+        & quad (mu = -M),
+        hat(Z)_((mu))^((plus.minus))
+        & quad (-M + 1 <= mu <= -1),
+
+        hat(Z)_((-M + (mu)))^((plus.minus))
+        & quad (1 <= mu <= M - 1),
+        hat(Z)_((-M))^((plus.minus))
+        & quad (mu = M),
+      )
+    )
     $
 
-    ↑(次回 0222) この辺ミスってそう？なので、確認する
+    次回(0301) $[H, hat(Z)][H, hat(Y)]$ の新しい表式を使って以下も修正
 
     $n = 3$
     $
