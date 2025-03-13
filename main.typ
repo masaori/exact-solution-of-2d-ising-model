@@ -149,6 +149,19 @@
 #definition([$delta^M_((mu, nu))$])[
   $$
   $
+  delta_(P) :=
+  cases(
+    1 & quad P "is True",
+    0 & quad P "is False"
+  )
+  $
+]
+
+TODO: ↑こんな感じの定義の方が読みやすく汎用性も高そうなので置き換えたい
+
+#definition([$delta^M_((mu, nu))$])[
+  $$
+  $
   delta^M_((mu, nu)) :=
   cases(
     1 & (mu equiv nu mod M),
@@ -357,7 +370,9 @@
 
 よって、
 $
-V_1^((plus.minus)) = exp(K_1 dot.op H_1^((plus.minus))), quad V_2 = exp(K_1 dot.op H_2)
+V_1^((plus.minus)) &= exp(sqrt(-1) K_1 dot.op H_1^((plus.minus)))
+\
+V_2 &= (2s_2)^(M/2)exp(sqrt(-1) K_2^* dot.op H_2)
 $
 
 #claim[$H_1^((plus.minus)), H_2$を$hat(Z),hat(Y)$で表す][
@@ -2463,6 +2478,50 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       )
     )
     \
+    &=
+    2
+    dot.op
+    (
+      exp(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+      )
+      dot.op
+      hat(Y)_((mu))
+    )
+    \
+    & quad
+    (
+      #block(
+        $
+          because & hat(Y)"の定義より、"M"ズレは値が等しくなるので、"
+          \ &
+          hat(Y)_((mu)) = hat(Y)_((M + mu)),
+          \ &
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (-M)) / M
+          )
+          dot.op
+          hat(Y)_((-M))
+          =
+          1
+          dot.op
+          hat(Y)_((M - 2M))
+          =
+          exp(
+            -
+            sqrt(-1)
+            (2 pi M) / M
+          )
+          dot.op
+          hat(Y)_((M))
+        $
+      )
+    )
+    \
     [H_1^((plus.minus)), hat(Y)_mu]
     =&
     -
@@ -2526,6 +2585,50 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       )
     )
     \
+    =&
+    -
+    2
+    dot.op
+    (
+      exp(
+        -
+        sqrt(-1)
+        (2 pi (-mu)) / M
+      )
+      dot.op
+      hat(Z)_((mu))^((plus.minus))
+    )
+    \ &
+    (
+      #block(
+        $
+          because & hat(Z)"の定義より、"M"ズレは値が等しくなるので、"
+          \ &
+          hat(Z)_((mu))^((plus.minus)) = hat(Z)_((-M + mu))^((plus.minus)),
+          \ &
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (M)) / M
+          )
+          dot.op
+          hat(Z)_((-M))^((plus.minus))
+          =
+          1
+          dot.op
+          hat(Z)_((M - 2M))^((plus.minus))
+          =
+          exp(
+            -
+            sqrt(-1)
+            (2 pi (-M)) / M
+          )
+          dot.op
+          hat(Z)_((M))^((plus.minus))
+        $
+      )
+    )
+    \
     [H_2, hat(Z)_mu^((minus))]
     =&
     -2
@@ -2538,6 +2641,15 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         hat(Y)_mu
         & quad (1 <= mu <= M),
       )
+    )
+    \
+    =&
+    -2
+    dot.op
+    hat(Y)_mu
+    \
+    & (
+      because "同様"
     )
     \
     [H_2, hat(Z)_mu^((plus))]
@@ -2574,9 +2686,35 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       )
     )
     \
+    =&
+    -2
+    dot.op
+    hat(Y)_mu
+    \
+    &quad +
+    1/M
+    (  
+      sum_(j in {1, dots.c, M}) (
+        -2
+        exp(
+          -
+          sqrt(-1)
+          (2 pi) / M
+          (
+            (-j)
+            +
+            mu
+          )
+        )
+        dot.op
+        hat(Y)_j
+      )
+    )
+    \
     [H_2, hat(Y)_mu]
     =&
-    1/M
+    2
+    dot.op
     (
       cases(
         hat(Z)_(mu)^((-))
@@ -2587,6 +2725,11 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         & quad (mu = M),
       )
     )
+    \
+    =&
+    2
+    dot.op
+    hat(Z)_(mu)^((-))
   $
 
   #note[
@@ -3910,7 +4053,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     \
     &=
-    1/M
+    2
     (
       sum_(
         cases(
@@ -3924,7 +4067,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     \
     &=
-    1/M
+    2
     (
       cases(
         hat(Z)_(mu)^((-))
@@ -3957,253 +4100,50 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     =
     cases(
-      (-1)^((n+1)/2)
+      (-1)^((n-1)/2)
       dot.op
-      (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(n)
+      (2 K_1)^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
       dot.op
       hat(Y)_mu
       & (n "is odd"),
       (-1)^(n/2)
       dot.op
-      (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(n)
+      (2 K_1)^(n)
       dot.op
       hat(Z)_mu^((plus.minus))
       & (n "is even"),
     )
   $
 
-  #note[
-    $n = 0$
-    $
-    overbrace(
-      [
-        K_1 dot.op H_1^((plus.minus)),
-        dots,
-        [K_1 dot.op H_1^((plus.minus)), hat(Z)_mu^((plus.minus))]
-        dots
-      ]
-      ,
-      0 "times"
-    )
-    =
-    hat(Z)_mu^((plus.minus))
-    $
-    $n = 1$
-    $
+  ただし$n = 0$のときは、
+  $
+  overbrace(
     [
       K_1 dot.op H_1^((plus.minus)),
-      hat(Z)_mu^((plus.minus))
+      dots,
+      [K_1 dot.op H_1^((plus.minus)), hat(Z)_mu^((plus.minus))]
+      dots
     ]
-    &=
-    K_1
-    dot.op
-    [
-      H_1^((plus.minus)),
-      hat(Z)_mu^((plus.minus))
-    ] \
-    &=
-    K_1
-    dot.op
-    2 exp(-sqrt(-1) (2 pi mu)/(M))
-    dot.op
-    hat(Y)_mu
-    \
-    &quad (because #ref(<commutator_of_H_and_Z_Y>) ) \
-    &=
-    (-1)^0
-    dot.op
-    (
-      2 K_1 exp(-sqrt(-1) (2 pi mu)/(M))
-    )^(1)
-    dot.op
-    hat(Y)_mu
-    $
+    ,
+    0 "times"
+  )
+  =
+  hat(Z)_mu^((plus.minus))
+  $
 
-    $n = 2$
-    $
-    [
-      K_1 dot.op H_1^((plus.minus)),
-      [
-        K_1 dot.op H_1^((plus.minus)),
-        hat(Z)_mu^((plus.minus))
-      ]
-    ]
-    &=
-    [
-      K_1 dot.op H_1^((plus.minus)),
-      (-1)^0
-      dot.op
-      (
-        2 K_1 exp(-sqrt(-1) (2 pi mu)/(M))
-      )^(1)
-      dot.op
-      hat(Y)_mu
-    ] \
-    &=
-    K_1
-    dot.op
-    (-1)^0
-    dot.op
-    (
-      2 K_1 exp(-sqrt(-1) (2 pi mu)/(M))
-    )^(1)
-    dot.op
-    [
-      H_1^((plus.minus)),
-      hat(Y)_mu
-    ]
-    \
-    &=
-    K_1
-    dot.op
-    (-1)^0
-    dot.op
-    (
-      2 K_1 exp(-sqrt(-1) (2 pi mu)/(M))
-    )^(1)
-    dot.op
-    (
-      -2 exp(-sqrt(-1) (2 pi mu)/(M))
-    )
-    dot.op
-    hat(Z)_mu^((plus.minus))
-    \
-    &=
-    (-1)^1
-    dot.op
-    (
-      2 K_1 exp(-sqrt(-1) (2 pi mu)/(M))
-    )^(2)
-    hat(Z)_mu^((plus.minus))
-    $
+  と定める
 
-    $n = 3$
-    $
-    [
-      K_1 dot.op H_1^((plus.minus)),
-      [
-        K_1 dot.op H_1^((plus.minus)),
-        [
-          K_1 dot.op H_1^((plus.minus)),
-          hat(Z)_mu^((plus.minus))
-        ]
-      ]
-    ]
-    &=
-    [
-      K_1 dot.op H_1^((plus.minus)),
-      (n=2)"の結果"
-    ]
-    \
-    &=
-    [
-      K_1 dot.op H_1^((plus.minus)),
-      (-1)^1
-      dot.op
-      (
-        2 K_1 exp(-sqrt(-1) (2 pi mu)/(M))
-      )^(2)
-      hat(Z)_mu^((plus.minus))
-    ]
-    \
-    &=
-    K_1
-    dot.op
-    (-1)^1
-    dot.op
-    (
-      2 K_1 exp(-sqrt(-1) (2 pi mu)/(M))
-    )^(2)
-    dot.op
-    [
-      H_1^((plus.minus)),
-      hat(Z)_mu^((plus.minus))
-    ]
-    \
-    &=
-    K_1
-    dot.op
-    (-1)^(1)
-    dot.op
-    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(2)
-    dot.op
-    2 exp(-sqrt(-1) (2 pi mu)/(M))
-    dot.op
-    hat(Y)_mu
-    \
-    &=
-    (-1)^(1)
-    dot.op
-    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(3)
-    dot.op
-    hat(Y)_mu
-    $
+  (次回0312)
 
-    $n = 4$
-    $
-    [
-      K_1 dot.op H_1^((plus.minus)),
-      [
-        K_1 dot.op H_1^((plus.minus)),
-        [
-          K_1 dot.op H_1^((plus.minus)),
-          [
-            K_1 dot.op H_1^((plus.minus)),
-            hat(Z)_mu^((plus.minus))
-          ]
-        ]
-      ]
-    ]
-    \
-    &=
-    [
-      K_1 dot.op H_1^((plus.minus)),
-      (n=3)"の結果"
-    ]
-    \
-    &=
-    [
-      K_1 dot.op H_1^((plus.minus)),
-      (-1)^(2)
-      dot.op
-      (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(3)
-      dot.op
-      hat(Y)_mu
-    ]
-    \
-    &=
-    K_1
-    dot.op
-    (-1)^(2)
-    dot.op
-    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(3)
-    dot.op
-    [
-      H_1^((plus.minus)),
-      hat(Y)_mu
-    ]
-    \
-    &=
-    K_1
-    dot.op
-    (-1)^(2)
-    dot.op
-    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(3)
-    dot.op
-    2 exp(-sqrt(-1) (2 pi mu)/(M))
-    dot.op
-    hat(Z)_mu^((plus.minus))
-    \
-    &=
-    (-1)^(2)
-    dot.op
-    (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(4)
-    dot.op
-    hat(Z)_mu^((plus.minus))
-    $
-  ]
-  
-  
+  $[H_1, hat(Y)]$について \
+  $[H_2, hat(Z)]$について \
+  $[H_2, hat(Y)]$について \
+
+  それぞれステートメントとしては書いて、同様とする
+
+
   #note[
     @commutator_of_H_and_Z_Y
   ]
@@ -4269,6 +4209,46 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         & quad (mu = M),
       )
     )
+    \
+    &=
+    K_1
+    dot.op
+    2
+    dot.op
+    (
+      exp(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+      )
+      dot.op
+      hat(Y)_((mu))
+    )
+    \
+    & quad
+    (
+      because
+      hat(Y)"の定義より、Mズレは値が等しくなるので、" hat(Y)_((mu)) = hat(Y)_((M + mu)),
+      exp(
+        -
+        sqrt(-1)
+        (2 pi (-M)) / M
+      )
+      dot.op
+      hat(Y)_((-M))
+      =
+      1
+      dot.op
+      hat(Y)_((M - 2M))
+      =
+      exp(
+        -
+        sqrt(-1)
+        (2 pi M) / M
+      )
+      dot.op
+      hat(Y)_((M))
+    )
     $
 
     $n = 2$
@@ -4290,28 +4270,13 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       2
       dot.op
       (
-        cases(
-          hat(Y)_((M))
-          & quad (mu = -M),
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (M + mu)) / M
-          )
-          dot.op
-          hat(Y)_((M + mu))
-          & quad (-M + 1 <= mu <= -1),
-          exp(
-            -
-            sqrt(-1)
-            (2 pi mu) / M
-          )
-          dot.op
-          hat(Y)_((mu))
-          & quad (1 <= mu <= M - 1),
-          hat(Y)_((M))
-          & quad (mu = M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
         )
+        dot.op
+        hat(Y)_((mu))
       )
     ]
     \
@@ -4320,403 +4285,73 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     2
     dot.op
-    (
-      cases(
-        [
-          H_1^((plus.minus)),
-          hat(Y)_((M))
-        ]
-        & quad (mu = -M => -mu = M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + mu)) / M
-        )
-        dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Y)_((M + mu))
-        ]
-        & quad (-M + 1 <= mu <= -1 => 1 <= M + mu <= M - 1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Y)_((mu))
-        ]
-        & quad (1 <= mu <= M - 1),
-        [
-          H_1^((plus.minus)),
-          hat(Y)_((M))
-        ]
-        & quad (mu = M),
-      )
+    exp(
+      -
+      sqrt(-1)
+      (2 pi mu) / M
     )
+    dot.op
+    [
+      H_1^((plus.minus)),
+      hat(Y)_((mu))
+    ]
     \
     &=
     K_1^2
     dot.op
     2
     dot.op
-    (
-      cases(
-        (
-          -
-          2
-          dot.op
-          (
-            cases(
-              hat(Z)_((-M))^((plus.minus))
-              & quad (M = -M),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (-M)) / M
-              )
-              dot.op
-              hat(Z)_((M))^((plus.minus))
-              & quad (-M+1 <= M <= -1),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (M - M)) / M
-              )
-              dot.op
-              hat(Z)_((-M + M))^((plus.minus))
-              & quad (1 <= M <= M-1),
-              hat(Z)_((-M))^((plus.minus))
-              & quad underbrace(
-                (M = M),
-                "これ"
-              )
-            )
-          )
-        )
-        & quad (mu = -M => -mu = M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + mu)) / M
-        )
-        dot.op
-        (
-          -
-          2
-          dot.op
-          (
-            cases(
-              hat(Z)_((-M))^((plus.minus))
-              & quad ((M + mu) = -M),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (-(M + mu))) / M
-              )
-              dot.op
-              hat(Z)_(((M + mu)))^((plus.minus))
-              & quad (-M+1 <= (M + mu) <= -1),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (M - (M + mu))) / M
-              )
-              dot.op
-              hat(Z)_((-M + (M + mu)))^((plus.minus))
-              & quad underbrace(
-                (1 <= (M + mu) <= M-1),
-                "これ"
-              ),
-              hat(Z)_((-M))^((plus.minus))
-              & quad ((M + mu) = M),
-            )
-          )
-        )
-        & quad (-M + 1 <= mu <= -1 => 1 <= (M + mu) <= M - 1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        dot.op
-        (
-          -
-          2
-          dot.op
-          (
-            cases(
-              hat(Z)_((-M))^((plus.minus))
-              & quad ((mu) = -M),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (-(mu))) / M
-              )
-              dot.op
-              hat(Z)_(((mu)))^((plus.minus))
-              & quad (-M+1 <= (mu) <= -1),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (M - (mu))) / M
-              )
-              dot.op
-              hat(Z)_((-M + (mu)))^((plus.minus))
-              & quad underbrace(
-                (1 <= (mu) <= M-1),
-                "これ"
-              ),
-              hat(Z)_((-M))^((plus.minus))
-              & quad ((mu) = M),
-            )
-          )
-        )
-        & quad (1 <= mu <= M - 1),
-        (
-          -
-          2
-          dot.op
-          (
-            cases(
-              hat(Z)_((-M))^((plus.minus))
-              & quad (M = -M),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (-M)) / M
-              )
-              dot.op
-              hat(Z)_((M))^((plus.minus))
-              & quad (-M+1 <= M <= -1),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (M - M)) / M
-              )
-              dot.op
-              hat(Z)_((-M + M))^((plus.minus))
-              & quad (1 <= M <= M-1),
-              hat(Z)_((-M))^((plus.minus))
-              & quad underbrace(
-                (M = M),
-                "これ"
-              )
-            )
-          )
-        )
-        & quad (mu = M),
-      )
+    exp(
+      -
+      sqrt(-1)
+      (2 pi mu) / M
     )
-    \
-    &=
-    K_1^2
-    dot.op
-    2
     dot.op
     (
-      cases(
-        (
-          -
-          2
-          dot.op
-          (
-            hat(Z)_((-M))^((plus.minus))
-          )
-        )
-        & quad (mu = -M => -mu = M),
+      -
+      2
+      dot.op
+      (
         exp(
-          -
-          sqrt(-1)
-          (2 pi (M + mu)) / M
-        )
-        dot.op
-        (
-          -
-          2
-          dot.op
-          (
-            exp(
-              -
-              sqrt(-1)
-              (2 pi (M - (M + mu))) / M
-            )
-            dot.op
-            hat(Z)_((-M + (M + mu)))^((plus.minus))
-          )
-        )
-        & quad (-M + 1 <= mu <= -1 => 1 <= (M + mu) <= M - 1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        dot.op
-        (
-          -
-          2
-          dot.op
-          (
-            exp(
-              -
-              sqrt(-1)
-              (2 pi (M - (mu))) / M
-            )
-            dot.op
-            hat(Z)_((-M + (mu)))^((plus.minus))
-          )
-        )
-        & quad (1 <= mu <= M - 1),
-        (
-          -
-          2
-          dot.op
-          (
-            hat(Z)_((-M))^((plus.minus))
-          )
-        )
-        & quad (mu = M),
-      )
-    )
-    \
-    &=
-    K_1^2
-    dot.op
-    (-1)^1
-    dot.op
-    2^2
-    dot.op
-    (
-      cases(
-        hat(Z)_((-M))^((plus.minus))
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + mu)) / M
-        )
-        dot.op
-        (
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (-mu)) / M
-          )
-          dot.op
-          hat(Z)_((mu))^((plus.minus))
-        )
-        & quad (-M + 1 <= mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        dot.op
-        (
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (M - (mu))) / M
-          )
-          dot.op
-          hat(Z)_((-M + (mu)))^((plus.minus))
-        )
-        & quad (1 <= mu <= M - 1),
-        hat(Z)_((-M))^((plus.minus))
-        & quad (mu = M),
-      )
-    )
-    \
-    &=
-    K_1^2
-    dot.op
-    (-1)^1
-    dot.op
-    2^2
-    dot.op
-    (
-      cases(
-        hat(Z)_((-M))^((plus.minus))
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + mu)) / M
           -
           sqrt(-1)
           (2 pi (-mu)) / M
         )
-        hat(Z)_((mu))^((plus.minus))
-        & quad (-M + 1 <= mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-          -
-          sqrt(-1)
-          (2 pi (M - (mu))) / M
-        )
         dot.op
-        hat(Z)_((-M + (mu)))^((plus.minus))
-        & quad (1 <= mu <= M - 1),
-        hat(Z)_((-M))^((plus.minus))
-        & quad (mu = M),
+        hat(Z)_((mu))^((plus.minus))
       )
     )
     \
     &=
     K_1^2
     dot.op
-    (-1)^1
-    dot.op
     2^2
     dot.op
-    (
-      cases(
-        hat(Z)_((-M))^((plus.minus))
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M)) / M
-        )
-        hat(Z)_((mu))^((plus.minus))
-        & quad (-M + 1 <= mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi M) / M
-        )
-        dot.op
-        hat(Z)_((-M + (mu)))^((plus.minus))
-        & quad (1 <= mu <= M - 1),
-        hat(Z)_((-M))^((plus.minus))
-        & quad (mu = M),
+    (-1)^1
+    dot.op
+    exp(
+      overbrace(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+        -
+        sqrt(-1)
+        (2 pi (-mu)) / M
+        ,
+        0
       )
     )
+    dot.op
+    hat(Z)_((mu))^((plus.minus))
     \
     &=
     K_1^2
     dot.op
-    (-1)^1
-    dot.op
     2^2
     dot.op
-    (
-      cases(
-        hat(Z)_((-M))^((plus.minus))
-        & quad (mu = -M),
-        hat(Z)_((mu))^((plus.minus))
-        & quad (-M + 1 <= mu <= -1),
-
-        hat(Z)_((-M + (mu)))^((plus.minus))
-        & quad (1 <= mu <= M - 1),
-        hat(Z)_((-M))^((plus.minus))
-        & quad (mu = M),
-      )
-    )
+    (-1)^1
+    dot.op
+    hat(Z)_((mu))^((plus.minus))
     $
 
     次回(0301) $[H, hat(Z)][H, hat(Y)]$ の新しい表式を使って以下も修正
@@ -4741,46 +4376,11 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       K_1 dot.op H_1^((plus.minus)),
       K_1^2
       dot.op
-      (-1)^1
-      dot.op
       2^2
       dot.op
-      (
-        cases(
-          exp(
-            -
-            sqrt(-1)
-            (4 pi (-mu)) / M
-          )
-          dot.op
-          hat(Z)_(mu)^((plus.minus))
-          & quad (mu = -M),
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (M + 2 mu)) / M
-          )
-          dot.op
-          hat(Z)_(mu)^((plus.minus))
-          & quad (-M + 1 <= mu <= -1),
-          exp(
-            -
-            sqrt(-1)
-            (2 pi M) / M
-          )
-          dot.op
-          hat(Z)_((-M + mu))^((plus.minus))
-          & quad (1 <= mu <= M-1),
-          exp(
-            -
-            sqrt(-1)
-            (4 pi mu) / M
-          )
-          dot.op
-          hat(Z)_((-mu))^((plus.minus))
-          & quad (mu = M),
-        )
-      )
+      (-1)^1
+      dot.op
+      hat(Z)_((mu))^((plus.minus))
     ]
     \
     &=
@@ -4788,526 +4388,52 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     K_1^2
     dot.op
+    2^2
+    dot.op
     (-1)^1
+    dot.op
+    [
+      H_1^((plus.minus)),
+      hat(Z)_((mu))^((plus.minus))
+    ]
+    \
+    &=
+    K_1
+    dot.op
+    K_1^2
     dot.op
     2^2
     dot.op
-    (
-      cases(
-        exp(
-          -
-          sqrt(-1)
-          (4 pi (-mu)) / M
-        )
-        dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Z)_(mu)^((plus.minus))
-        ]
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + 2 mu)) / M
-        )
-        dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Z)_(mu)^((plus.minus))
-        ]
-        & quad (-M + 1 <= mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi M) / M
-        )
-        dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Z)_((-M + mu))^((plus.minus))
-        ]
-        & quad (1 <= mu <= M-1 <=> -M + 1 <= -M + mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (4 pi mu) / M
-        )
-        dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Z)_((-mu))^((plus.minus))
-        ]
-        & quad (mu = M <=> -mu = -M),
-      )
-    )
-    \
-    &=
-    K_1
-    dot.op
-    K_1^2
-    dot.op
     (-1)^1
     dot.op
-    2^2
-    dot.op
     (
-      cases(
+      2
+      dot.op
+      (
         exp(
-          -
-          sqrt(-1)
-          (4 pi (-mu)) / M
-        )
-        dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Z)_(mu)^((plus.minus))
-        ]
-        (
-          2
-          dot.op
-          (
-            cases(
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (-mu)) / M
-              )
-              dot.op
-              hat(Y)_((-mu))
-              & quad (mu = -M),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (M + mu)) / M
-              )
-              dot.op
-              hat(Y)_((M + mu))
-              & quad (-M + 1 <= mu <= -1),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi mu) / M
-              )
-              dot.op
-              hat(Y)_mu
-              & quad (1 <= mu <= M),
-            )
-          )
-        )
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + 2 mu)) / M
-        )
-        dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Z)_(mu)^((plus.minus))
-        ]
-        (
-          2
-          dot.op
-          (
-            cases(
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (-mu)) / M
-              )
-              dot.op
-              hat(Y)_((-mu))
-              & quad (mu = -M),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (M + mu)) / M
-              )
-              dot.op
-              hat(Y)_((M + mu))
-              & quad (-M + 1 <= mu <= -1),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi mu) / M
-              )
-              dot.op
-              hat(Y)_mu
-              & quad (1 <= mu <= M),
-            )
-          )
-        )
-        & quad (-M + 1 <= mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi M) / M
-        )
-        dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Z)_((-M + mu))^((plus.minus))
-        ]
-        (
-          2
-          dot.op
-          (
-            cases(
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (-mu)) / M
-              )
-              dot.op
-              hat(Y)_((-mu))
-              & quad (mu = -M),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (M + mu)) / M
-              )
-              dot.op
-              hat(Y)_((M + mu))
-              & quad (-M + 1 <= mu <= -1),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi mu) / M
-              )
-              dot.op
-              hat(Y)_mu
-              & quad (1 <= mu <= M),
-            )
-          )
-        )
-        & quad (1 <= mu <= M-1 <=> -M + 1 <= -M + mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (4 pi mu) / M
-        )
-        dot.op
-        [
-          H_1^((plus.minus)),
-          hat(Z)_((-mu))^((plus.minus))
-        ]
-        (
-          2
-          dot.op
-          (
-            cases(
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (-mu)) / M
-              )
-              dot.op
-              hat(Y)_((-mu))
-              & quad (mu = -M),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi (M + mu)) / M
-              )
-              dot.op
-              hat(Y)_((M + mu))
-              & quad (-M + 1 <= mu <= -1),
-              exp(
-                -
-                sqrt(-1)
-                (2 pi mu) / M
-              )
-              dot.op
-              hat(Y)_mu
-              & quad (1 <= mu <= M),
-            )
-          )
-        )
-        & quad (mu = M <=> -mu = -M),
-      )
-    )
-    \
-    &=
-    K_1
-    dot.op
-    K_1^2
-    dot.op
-    (-1)^1
-    dot.op
-    2^2
-    dot.op
-    (
-      cases(
-        exp(
-          -
-          sqrt(-1)
-          (4 pi (-mu)) / M
-        )
-        dot.op
-        (
-          2
-          dot.op
-          (
-            exp(
-              -
-              sqrt(-1)
-              (2 pi (-mu)) / M
-            )
-            dot.op
-            hat(Y)_((-mu))
-          )
-        )
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + 2 mu)) / M
-        )
-        dot.op
-        (
-          2
-          dot.op
-          (
-            exp(
-              -
-              sqrt(-1)
-              (2 pi (M + mu)) / M
-            )
-            dot.op
-            hat(Y)_((M + mu))
-          )
-        )
-        & quad (-M + 1 <= mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi M) / M
-        )
-        dot.op
-        (
-          2
-          dot.op
-          (
-            exp(
-              -
-              sqrt(-1)
-              (2 pi (M + (-M + mu))) / M
-            )
-            dot.op
-            hat(Y)_((M + (-M + mu)))
-          )
-        )
-        & quad (1 <= mu <= M-1 <=> -M + 1 <= -M + mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (4 pi mu) / M
-        )
-        dot.op
-        (
-          2
-          dot.op
-          (
-            exp(
-              -
-              sqrt(-1)
-              (2 pi (-(-mu))) / M
-            )
-            dot.op
-            hat(Y)_((-(-mu)))
-          )
-        )
-        & quad (mu = M <=> -mu = -M),
-      )
-    )
-    \
-    &=
-    K_1
-    dot.op
-    K_1^2
-    dot.op
-    (-1)^1
-    dot.op
-    2^3
-    dot.op
-    (
-      cases(
-        exp(
-          -
-          sqrt(-1)
-          (4 pi (-mu)) / M
-        )
-        dot.op
-        (
-          (
-            exp(
-              -
-              sqrt(-1)
-              (2 pi (-mu)) / M
-            )
-            dot.op
-            hat(Y)_((-mu))
-          )
-        )
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + 2 mu)) / M
-        )
-        dot.op
-        (
-          (
-            exp(
-              -
-              sqrt(-1)
-              (2 pi (M + mu)) / M
-            )
-            dot.op
-            hat(Y)_((M + mu))
-          )
-        )
-        & quad (-M + 1 <= mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi M) / M
-        )
-        dot.op
-        (
-          (
-            exp(
-              -
-              sqrt(-1)
-              (2 pi mu) / M
-            )
-            dot.op
-            hat(Y)_(mu)
-          )
-        )
-        & quad (1 <= mu <= M-1),
-        exp(
-          -
-          sqrt(-1)
-          (4 pi mu) / M
-        )
-        dot.op
-        (
-          (
-            exp(
-              -
-              sqrt(-1)
-              (2 pi mu) / M
-            )
-            dot.op
-            hat(Y)_(mu)
-          )
-        )
-        & quad (mu = M <=> -mu = -M),
-      )
-    )
-    \
-    &=
-    K_1
-    dot.op
-    K_1^2
-    dot.op
-    (-1)^1
-    dot.op
-    2^3
-    dot.op
-    (
-      cases(
-        exp(
-          -
-          sqrt(-1)
-          (4 pi (-mu)) / M
-          -
-          sqrt(-1)
-          (2 pi (-mu)) / M
-        )
-        dot.op
-        hat(Y)_((-mu))
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + 2 mu)) / M
-          -
-          sqrt(-1)
-          (2 pi (M + mu)) / M
-        )
-        dot.op
-        hat(Y)_((M + mu))
-        & quad (-M + 1 <= mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi M) / M
           -
           sqrt(-1)
           (2 pi mu) / M
         )
         dot.op
-        hat(Y)_(mu)
-        & quad (1 <= mu <= M-1),
-        exp(
-          -
-          sqrt(-1)
-          (4 pi mu) / M
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        dot.op
-        hat(Y)_(mu)
-        & quad (mu = M),
+        hat(Y)_((mu))
       )
     )
     \
     &=
     K_1^3
     dot.op
-    (-1)^1
-    dot.op
     2^3
     dot.op
-    (
-      cases(
-        exp(
-          -
-          sqrt(-1)
-          (6 pi (-mu)) / M
-        )
-        dot.op
-        hat(Y)_((-mu))
-        & quad (mu = -M),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (2 M + 3 mu)) / M
-        )
-        dot.op
-        hat(Y)_((M + mu))
-        & quad (-M + 1 <= mu <= -1),
-        exp(
-          -
-          sqrt(-1)
-          (2 pi (M + mu)) / M
-        )
-        dot.op
-        hat(Y)_(mu)
-        & quad (1 <= mu <= M-1),
-        exp(
-          -
-          sqrt(-1)
-          (6 pi mu) / M
-        )
-        dot.op
-        hat(Y)_(mu)
-        & quad (mu = M),
-      )
+    (-1)^1
+    dot.op
+    exp(
+      -
+      sqrt(-1)
+      (2 pi mu) / M
     )
+    dot.op
+    hat(Y)_((mu))
     $
 
     $n = 4$
@@ -5334,46 +4460,17 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       K_1 dot.op H_1^((plus.minus)),
       K_1^3
       dot.op
-      (-1)^1
-      dot.op
       2^3
       dot.op
-      (
-        cases(
-          exp(
-            -
-            sqrt(-1)
-            (6 pi (-mu)) / M
-          )
-          dot.op
-          hat(Y)_((-mu))
-          & quad (mu = -M),
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (2 M + 3 mu)) / M
-          )
-          dot.op
-          hat(Y)_((M + mu))
-          & quad (-M + 1 <= mu <= -1),
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (M + mu)) / M
-          )
-          dot.op
-          hat(Y)_(mu)
-          & quad (1 <= mu <= M-1),
-          exp(
-            -
-            sqrt(-1)
-            (6 pi mu) / M
-          )
-          dot.op
-          hat(Y)_(mu)
-          & quad (mu = M),
-        )
+      (-1)^1
+      dot.op
+      exp(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
       )
+      dot.op
+      hat(Y)_((mu))
     ]
     \
     &=
@@ -5381,60 +4478,102 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     K_1^3
     dot.op
+    2^3
+    dot.op
     (-1)^1
+    dot.op
+    exp(
+      -
+      sqrt(-1)
+      (2 pi mu) / M
+    )
+    dot.op
+    [
+      H_1^((plus.minus)),
+      hat(Y)_((mu))
+    ]
+    \
+    &=
+    K_1
+    dot.op
+    K_1^3
     dot.op
     2^3
     dot.op
+    (-1)^1
+    dot.op
+    exp(
+      -
+      sqrt(-1)
+      (2 pi mu) / M
+    )
+    dot.op
+    (
+      -
+      2
+      dot.op
       (
-        cases(
-          exp(
-            -
-            sqrt(-1)
-            (6 pi (-mu)) / M
-          )
-          dot.op
-          [
-            H_1^((plus.minus)),
-            hat(Y)_((-mu))
-          ]
-          & quad (mu = -M <=> -mu = M),
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (2 M + 3 mu)) / M
-          )
-          dot.op
-          [
-            H_1^((plus.minus)),
-            hat(Y)_((M + mu))
-          ]
-          & quad (-M + 1 <= mu <= -1 <=> 1 <= M + mu <= M-1),
-          exp(
-            -
-            sqrt(-1)
-            (2 pi (M + mu)) / M
-          )
-          dot.op
-          [
-            H_1^((plus.minus)),
-            hat(Y)_(mu)
-          ]
-          & quad (1 <= mu <= M-1),
-          exp(
-            -
-            sqrt(-1)
-            (6 pi mu) / M
-          )
-          dot.op
-          [
-            H_1^((plus.minus)),
-            hat(Y)_(mu)
-          ]
-          & quad (mu = M),
+        exp(
+          -
+          sqrt(-1)
+          (2 pi (-mu)) / M
         )
+        dot.op
+        hat(Z)_((mu))^((plus.minus))
       )
-    ]
+    )
     \
+    &=
+    K_1^4
+    dot.op
+    2^4
+    dot.op
+    (-1)^2
+    dot.op
+    exp(
+      -
+      sqrt(-1)
+      (2 pi mu) / M
+    )
+    dot.op
+    exp(
+      -
+      sqrt(-1)
+      (2 pi (-mu)) / M
+    )
+    dot.op
+    hat(Z)_((mu))^((plus.minus))
+    \
+    &=
+    K_1^4
+    dot.op
+    2^4
+    dot.op
+    (-1)^2
+    dot.op
+    exp(
+      overbrace(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+        -
+        sqrt(-1)
+        (2 pi (-mu)) / M
+        ,
+        0
+      )
+    )
+    dot.op
+    hat(Z)_((mu))^((plus.minus))
+    \
+    &=
+    K_1^4
+    dot.op
+    2^4
+    dot.op
+    (-1)^2
+    dot.op
+    hat(Z)_((mu))^((plus.minus))
     $
   ]
 
@@ -5443,9 +4582,368 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]<nesting_of_commutator_of_H_and_Z>
 
+#claim($#ref(<nesting_of_commutator_of_H_and_Z>)"を使い、consh/sinhの展開係数っぽくする"$)[
+  $
+    overbrace(
+      [
+        (1/2) sqrt(-1) dot.op K_1 dot.op H_1^((plus.minus)),
+        dots,
+        [
+          (1/2) sqrt(-1) dot.op K_1 dot.op H_1^((plus.minus)),
+          hat(Z)_mu^((plus.minus))
+        ]
+        dots
+      ]
+      ,
+      n "times"
+    )
+    &=
+    cases(
+      sqrt(-1)
+      dot.op
+      K_1^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      K_1^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+  $
 
+  #proof[
+  $
+    overbrace(
+      [
+        (1/2) sqrt(-1) dot.op K_1 dot.op H_1^((plus.minus)),
+        dots,
+        [
+          (1/2) sqrt(-1) dot.op K_1 dot.op H_1^((plus.minus)),
+          hat(Z)_mu^((plus.minus))
+        ]
+        dots
+      ]
+      ,
+      n "times"
+    )
+    &=
+    cases(
+      (-1)^((n-1)/2)
+      dot.op
+      (2 (1/2) sqrt(-1) dot.op K_1)^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      (-1)^(n/2)
+      dot.op
+      (2 (1/2) sqrt(-1) dot.op K_1)^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+    \
+    &=
+    cases(
+      (-1)^((n-1)/2)
+      dot.op
+      (sqrt(-1))^n
+      dot.op
+      K_1^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      (-1)^(n/2)
+      dot.op
+      (sqrt(-1))^n
+      dot.op
+      K_1^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+    \
+    &=
+    cases(
+      (-1)^((n-1)/2)
+      dot.op
+      (-1)^(n/2)
+      dot.op
+      K_1^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      (-1)^(n/2)
+      dot.op
+      (-1)^(n/2)
+      dot.op
+      K_1^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+    \
+    &=
+    cases(
+      (-1)^(((n-1)/2 + n/2))
+      dot.op
+      K_1^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      (-1)^((n/2 + n/2))
+      dot.op
+      K_1^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+    \
+    &=
+    cases(
+      (-1)^(((2n+2)/2 + 1/2))
+      dot.op
+      K_1^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      (-1)^((n/2 + n/2))
+      dot.op
+      K_1^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+    \
+    &=
+    cases(
+      (-1)^(n+1)
+      dot.op
+      (-1)^(1/2)
+      dot.op
+      K_1^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      (-1)^(n)
+      dot.op
+      K_1^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+    \
+    &=
+    cases(
+      sqrt(-1)
+      dot.op
+      K_1^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      K_1^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+    \
+    &=
+    cases(
+      sqrt(-1)
+      dot.op
+      K_1^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      K_1^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+  $
+  ]
+]
+
+#claim("")[
+ $
+    sum_(
+      n = 0
+    )^infinity
+      (1/n!)
+      overbrace(
+      [
+        (1/2) sqrt(-1) dot.op K_1 dot.op H_1^((plus.minus)),
+        dots,
+        [
+          (1/2) sqrt(-1) dot.op K_1 dot.op H_1^((plus.minus)),
+          hat(Z)_mu^((plus.minus))
+        ]
+        dots
+      ]
+      ,
+      n "times"
+    )
+    =
+    cosh(K_1)
+    dot.op
+    hat(Z)_mu^((plus.minus))
+    +
+    sqrt(-1)
+    dot.op
+    exp(-sqrt(-1) (2 pi mu)/(M))
+    dot.op
+    sinh(K_1)
+    dot.op
+    hat(Y)_mu
+ $
+
+ (次回 0313 - 2) 以下それぞれステートメントを描く
+
+ $
+   [H_1, hat(Y)]
+ $
+ $
+   [H_2, hat(Z)]
+ $
+ $
+   [H_2, hat(Y)]
+ $
+
+ #note[
+  $
+  sinh x = x + (1/3!) x^3 + (1/5!) x^5 + (1/7!) x^7 + ... \
+  cosh x = 1 + (1/2!) x^2 + (1/4!) x^4 + (1/6!) x^6 + ...
+  $
+ ]
+
+ #proof[
+  $
+    ("左辺")
+    &=
+    (1/0!)
+    hat(Z)_mu^((plus.minus))
+    +
+    sum_(
+      n = 1
+    )^infinity
+      (1/n!)
+      (
+        cases(
+          sqrt(-1)
+          dot.op
+          K_1^(n)
+          dot.op
+          exp(-sqrt(-1) (2 pi mu)/(M))
+          dot.op
+          hat(Y)_mu
+          & (n "is odd"),
+          K_1^(n)
+          dot.op
+          hat(Z)_mu^((plus.minus))
+          & (n "is even"),
+        )
+      )
+    \
+    &=
+    sum_(
+      n >= 0 \
+      n "is even"
+    )
+    (
+      (1/n!)
+      K_1^(n)
+      dot.op
+      hat(Z)_mu^((plus.minus))
+    )
+    +
+    sum_(
+      n >= 1 \
+      n "is odd"
+    )
+    (
+      (1/n!)
+      sqrt(-1)
+      dot.op
+      K_1^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Y)_mu
+    )
+    \
+    &=
+    (
+      sum_(
+        n >= 0 \
+        n "is even"
+      )
+      (
+        (1/n!)
+        K_1^(n)
+      )
+    )
+    dot.op
+    hat(Z)_mu^((plus.minus))
+    +
+    sqrt(-1)
+    dot.op
+    exp(-sqrt(-1) (2 pi mu)/(M))
+    (
+      sum_(
+        n >= 1 \
+        n "is odd"
+      )
+      (
+        (1/n!)
+        K_1^(n)
+      )
+    )
+    dot.op
+    hat(Y)_mu
+    \
+    &=
+    cosh(K_1)
+    dot.op
+    hat(Z)_mu^((plus.minus))
+    +
+    sqrt(-1)
+    dot.op
+    exp(-sqrt(-1) (2 pi mu)/(M))
+    dot.op
+    sinh(K_1)
+    dot.op
+    hat(Y)_mu
+    \
+  $
+ ]
+]
 
 #claim("ホロノミック量子場 p142下段 1>")[
+  #note[ 
+   
+    (0313メモ) 一旦以下は受け入れる(リー環/リー群掘らないと行けなさそうで面倒)
+    $
+    exp(X) Y exp(-X) = op("Ad")_(exp(X))(Y) = exp(op("ad")_X)(Y) = e^(op("ad")_X)(Y) = Y + [X, Y] + 1/2 [X, [X, Y]] + dots
+    $
+  ]
   $
   T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))
   &=
@@ -5528,12 +5026,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   hat(Y)_mu
   \
   $
-
-  #note[  
-    $
-    exp(X) Y exp(-X) = op("Ad")_(exp(X))(Y) = exp(op("ad")_X)(Y) = e^(op("ad")_X)(Y) = Y + [X, Y] + 1/2 [X, [X, Y]] + dots
-    $
-  ]
 
   #proof[
     $T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))$について、
@@ -5619,8 +5111,16 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]<ホロノミック量子場_p142下段_1>
 
+(次回0313-3)
+- ホロノミック　付録 B の計算を続ける
+    - 付録A(Clifford群の一般論)を眺めないといけないかも
+    - 大変そうだったら色々認めて進める
+  - $T_(V)$と$V$がほぼ1:1対応している？
+    - 具体的な変換規則を知りたい
+  - 変換規則がわかれば、$T_(V)$の対角化によって$V$の対角化ができる(?)
+  - 
 
-次回(10/27)
+
 - ↑の @ホロノミック量子場_p142下段_1 のproofを続ける
 - Lie Groups, Lie Algebras, and RepresentationsのProposition 3.35.の証明の概略はたどりたい
   - 続き
