@@ -4907,24 +4907,24 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $
     overbrace(
       [
-        K_1 dot.op H_2,
+        K_2^(*) dot.op H_2,
         dots,
-        [K_1 dot.op H_2, hat(Z)_mu^((plus))]
+        [K_2^(*) dot.op H_2, hat(Z)_mu^((plus))]
         dots
       ]
       ,
       n "times"
     )
     =
-    ????
+    "メモ(0322) これは使われない"
   $
   ただし$n = 0$のときは、
   $
   overbrace(
     [
-      K_1 dot.op H_2,
+      K_2^(*) dot.op H_2,
       dots,
-      [K_1 dot.op H_2, hat(Z)_mu^((plus))]
+      [K_2^(*) dot.op H_2, hat(Z)_mu^((plus))]
       dots
     ]
     ,
@@ -4939,9 +4939,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $
     overbrace(
       [
-        K_1 dot.op H_2,
+        K_2^(*) dot.op H_2,
         dots,
-        [K_1 dot.op H_2, hat(Z)_mu^((-))]
+        [K_2^(*) dot.op H_2, hat(Z)_mu^((-))]
         dots
       ]
       ,
@@ -4949,17 +4949,15 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     =
     cases(
-      (-1)^((n-1)/2)
+      (-1)^((n+1)/2)
       dot.op
-      (2 K_1)^(n)
-      dot.op
-      exp(-sqrt(-1) (2 pi mu)/(M))
+      (2 K_2^(*))^(n)
       dot.op
       hat(Y)_mu
       & (n "is odd"),
       (-1)^(n/2)
       dot.op
-      (2 K_1)^(n)
+      (2 K_2^(*))^(n)
       dot.op
       hat(Z)_mu^((-))
       & (n "is even"),
@@ -4969,9 +4967,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $
   overbrace(
     [
-      K_1 dot.op H_2,
+      K_2^(*) dot.op H_2,
       dots,
-      [K_1 dot.op H_2, hat(Z)_mu^((-))]
+      [K_2^(*) dot.op H_2, hat(Z)_mu^((-))]
       dots
     ]
     ,
@@ -4986,9 +4984,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $
     overbrace(
       [
-        K_1 dot.op H_2,
+        K_2^(*) dot.op H_2,
         dots,
-        [K_1 dot.op H_2, hat(Y)_mu]
+        [K_2^(*) dot.op H_2, hat(Y)_mu]
         dots
       ]
       ,
@@ -4996,17 +4994,15 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     =
     cases(
-      (-1)^((n+1)/2)
+      (-1)^((n-1)/2)
       dot.op
-      (2 K_1)^(n)
+      (2 K_2^(*))^(n)
       dot.op
-      exp(-sqrt(-1) (2 pi mu)/(M))
-      dot.op
-      hat(Z)_mu^((plus))
+      hat(Z)_mu^((minus))
       & (n "is odd"),
       (-1)^(n/2)
       dot.op
-      (2 K_1)^(n)
+      (2 K_2^(*))^(n)
       dot.op
       hat(Y)_mu
       & (n "is even"),
@@ -5016,9 +5012,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $
   overbrace(
     [
-      K_1 dot.op H_2,
+      K_2^(*) dot.op H_2,
       dots,
-      [K_1 dot.op H_2, hat(Y)_mu]
+      [K_2^(*) dot.op H_2, hat(Y)_mu]
       dots
     ]
     ,
@@ -5734,9 +5730,167 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     hat(Z)_((mu))^((plus.minus))
     $
 
-    $(h_2.z^+)$
+    $(h_2.z-)$
 
     $n = 1$
+    $
+    [
+      (K_2^(*)) dot.op H_2,
+      hat(Z)_mu^((-))
+    ]
+    &=
+    (K_2^(*))
+    dot.op
+    [
+      H_2,
+      hat(Z)_mu^((-))
+    ]
+    \
+    &=
+    (K_2^(*))
+    dot.op
+    (
+      -2
+      dot.op
+      hat(Y)_mu
+    )
+    \
+    &=
+    (K_2^(*))^1
+    dot.op
+    2^1
+    dot.op
+    (-1)^1
+    dot.op
+    hat(Y)_mu
+    $
+
+    $n = 2$
+
+    $
+    [
+      (K_2^(*)) dot.op H_2,
+      overbrace(
+        [
+          (K_2^(*)) dot.op H_2,
+          hat(Z)_mu^((-))
+        ]
+        ,
+        n = 1
+      )
+    ]
+    &=
+    [
+      (K_2^(*)) dot.op H_2,
+      (K_2^(*))^1
+      dot.op
+      2^1
+      dot.op
+      (-1)^1
+      dot.op
+      hat(Y)_mu
+    ]
+    \
+    &=
+    (K_2^(*))^2
+    dot.op
+    2^1
+    dot.op
+    (-1)^1
+    dot.op
+    [
+      H_2,
+      hat(Y)_mu
+    ]
+    \
+    &=
+    (K_2^(*))^2
+    dot.op
+    2^1
+    dot.op
+    (-1)^1
+    dot.op
+    (
+      2
+      dot.op
+      hat(Z)_(mu)^((-))
+    )
+    \
+    &=
+    (K_2^(*))^2
+    dot.op
+    2^2
+    dot.op
+    (-1)^1
+    dot.op
+    hat(Z)_(mu)^((-))
+    \
+    $
+
+    $n = 3$
+
+    $
+    [
+      (K_2^(*)) dot.op H_2,
+      overbrace(
+        [
+          (K_2^(*)) dot.op H_2,
+          [
+            (K_2^(*)) dot.op H_2,
+            hat(Z)_mu^((-))
+          ]
+        ]
+        ,
+        n = 2
+      )
+    ]
+    &=
+    [
+      (K_2^(*)) dot.op H_2,
+      (K_2^(*))^2
+      dot.op
+      2^2
+      dot.op
+      (-1)^1
+      dot.op
+      hat(Z)_(mu)^((-))
+    ]
+    \
+    &=
+    (K_2^(*))^3
+    dot.op
+    2^2
+    dot.op
+    (-1)^1
+    dot.op
+    [
+      H_2,
+      hat(Z)_(mu)^((-))
+    ]
+    \
+    &=
+    (K_2^(*))^3
+    dot.op
+    2^2
+    dot.op
+    (-1)^1
+    dot.op
+    (
+      -2
+      dot.op
+      hat(Y)_mu
+    )
+    \
+    &=
+    (K_2^(*))^3
+    dot.op
+    2^3
+    dot.op
+    (-1)^2
+    dot.op
+    hat(Y)_mu
+    \
+    $
   ]
 
   #proof[
@@ -5745,6 +5899,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 ]<nesting_of_commutator_of_H_and_Z>
 
 #claim($#ref(<nesting_of_commutator_of_H_and_Z>)"を使い、consh/sinhの展開係数っぽくする"$)[
+  $(h_1.z)$
   $
     overbrace(
       [
@@ -5772,6 +5927,99 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       K_1^(n)
       dot.op
       hat(Z)_mu^((plus.minus))
+      & (n "is even"),
+    )
+  $
+
+  $(h_1.y)$
+  $
+    overbrace(
+      [
+        (1/2) sqrt(-1) dot.op K_1 dot.op H_1^((plus.minus)),
+        dots,
+        [
+          (1/2) sqrt(-1) dot.op K_1 dot.op H_1^((plus.minus)),
+          hat(Y)_mu
+        ]
+        dots
+      ]
+      ,
+      n "times"
+    )
+    &=
+    cases(
+      sqrt(-1)
+      dot.op
+      K_1^(n)
+      dot.op
+      exp(-sqrt(-1) (2 pi mu)/(M))
+      dot.op
+      hat(Z)_mu^((plus))
+      & (n "is odd"),
+      K_1^(n)
+      dot.op
+      hat(Y)_mu
+      & (n "is even"),
+    )
+  $
+
+  $(h_2.z^(minus))$
+  $
+    overbrace(
+      [
+        sqrt(-1) dot.op K_2^(*) dot.op H_2,
+        dots,
+        [
+          sqrt(-1) dot.op K_2^(*) dot.op H_2,
+          hat(Z)_mu^((-))
+        ]
+        dots
+      ]
+      ,
+      n "times"
+    )
+    &=
+    cases(
+      -
+      sqrt(-1)
+      dot.op
+      (2K_2^(*))^(n)
+      dot.op
+      hat(Y)_mu
+      & (n "is odd"),
+      (2K_2^(*))^(n)
+      dot.op
+      hat(Z)_mu^((-))
+      & (n "is even"),
+    )
+  $
+
+  $(h_2.y)$
+  $
+    overbrace(
+      [
+        sqrt(-1) dot.op K_2^(*) dot.op H_2,
+        dots,
+        [
+          sqrt(-1) dot.op K_2^(*) dot.op H_2,
+          hat(Y)_mu
+        ]
+        dots
+      ]
+      ,
+      n "times"
+    )
+    &=
+    cases(
+      sqrt(-1)
+      dot.op
+      (2K_2^(*))^(n)
+      dot.op
+      hat(Z)_mu^((-))
+      & (n "is odd"),
+      (2K_2^(*))^(n)
+      dot.op
+      hat(Y)_mu
       & (n "is even"),
     )
   $
@@ -5944,6 +6192,26 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]
 
+#claim($sinh"/"cosh"のテイラー展開"$)[
+  $
+  sinh x &= x + (1/3!) x^3 + (1/5!) x^5 + (1/7!) x^7 + ... \
+  &= sum_(
+    n >= 0 \
+    n "is odd"
+  )^infinity
+    (1/n!)
+    x^n
+  \
+  cosh x &= 1 + (1/2!) x^2 + (1/4!) x^4 + (1/6!) x^6 + ... \
+  &= sum_(
+    n >= 1 \
+    n "is even"
+  )^infinity
+    (1/n!)
+    x^n
+  $
+]
+
 #claim("")[
 
   $(h_1.z)$
@@ -6025,10 +6293,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       (1/n!)
       overbrace(
       [
-        (1/2) sqrt(-1) dot.op K_2^* dot.op H_(2),
+        sqrt(-1) dot.op K_2^* dot.op H_(2),
         dots,
         [
-          (1/2) sqrt(-1) dot.op K_2^* dot.op H_(2),
+          sqrt(-1) dot.op K_2^* dot.op H_(2),
           hat(Z)_mu^((plus))
         ]
         dots
@@ -6038,21 +6306,22 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     \
     =
-    ????
+    ("メモ(0322) これは使われない")
   $
 
   $(h_2.z^-)$
   $
+    &
     sum_(
       n = 0
     )^infinity
       (1/n!)
       overbrace(
       [
-        (1/2) sqrt(-1) dot.op K_2^* dot.op H_2,
+        sqrt(-1) dot.op K_2^* dot.op H_2,
         dots,
         [
-          (1/2) sqrt(-1) dot.op K_2^* dot.op H_2,
+          sqrt(-1) dot.op K_2^* dot.op H_2,
           hat(Z)_mu^((minus))
         ]
         dots
@@ -6061,13 +6330,13 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       n "times"
     )
     \
-    =
-    cosh(K_2^*)
+    &quad =
+    cosh(2 K_2^*)
     dot
     hat(Z)_mu^((minus))
     -
     sqrt(-1)
-    sinh(K_2^*)
+    sinh(2 K_2^*)
     dot
     hat(Y)_mu
   $
@@ -6080,10 +6349,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       (1/n!)
       overbrace(
       [
-        (1/2) sqrt(-1) dot.op K_2^* dot.op H_2,
+        sqrt(-1) dot.op K_2^* dot.op H_2,
         dots,
         [
-          (1/2) sqrt(-1) dot.op K_2^* dot.op H_2,
+          sqrt(-1) dot.op K_2^* dot.op H_2,
           hat(Y)_mu
         ]
         dots
@@ -6094,11 +6363,11 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     \
     =
     sqrt(-1)
-    sinh(K_2^*)
+    sinh(2 K_2^*)
     dot
     hat(Z)_mu^((-))
     +
-    cosh(K_2^*)
+    cosh(2 K_2^*)
     dot
     hat(Y)_mu
   $
@@ -6281,20 +6550,118 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     dot.op
     hat(Z)_mu^((plus.minus))
   $
+
+  $(h_2.z^-)$について、
+  $
+    ("左辺")
+    &=
+    (1/0!)
+    hat(Z)_mu^((minus))
+    +
+    sum_(
+      n = 1
+    )^infinity
+      (1/n!)
+      (
+        cases(
+          sqrt(-1)
+          dot.op
+          K_2^*^(n)
+          dot.op
+          hat(Z)_mu^((minus))
+          & (n "is even"),
+          sqrt(-1)
+          dot.op
+          K_2^*^(n)
+          dot.op
+          hat(Y)_mu
+          & (n "is odd"),
+        )
+      )
+    \
+    &=
+    sum_(
+      n >= 0 \
+      n "is even"
+    )
+    (
+      (1/n!)
+      K_2^*^(n)
+      dot.op
+      hat(Z)_mu^((minus))
+    )
+    +
+    sum_(
+      n >= 1 \
+      n "is odd"
+    )
+    (
+      (1/n!)
+      sqrt(-1)
+      dot.op
+      K_2^*^(n)
+      dot.op
+      hat(Y)_mu
+    )
+  $
+
  ]
+]<extract_taylor_coefficient_of_Z_Y>
+
+#claim("")[ 
+  (0313メモ) 一旦以下は受け入れる(リー環/リー群掘らないと行けなさそうで面倒)
+  $
+  exp(X) Y exp(-X)
+    &= op("Ad")_(exp(X))(Y) \
+    &= exp(op("ad")_X)(Y) \
+    &= e^(op("ad")_X)(Y) \
+    &= Y + [X, Y] + 1/2 [X, [X, Y]] + dots \
+    &= sum_(
+      n >= 0
+    )^infinity
+      (1/n!)
+      overbrace(
+      [
+        X,
+        dots,
+        [
+          X,
+          Y
+        ]
+        dots
+      ]
+      ,
+      n "times")
+    \
+    &("ただし"n=0"のとき"、
+    overbrace(
+      [
+        X,
+        dots,
+        [
+          X,
+          Y
+        ]
+        dots
+      ]
+      ,
+      n "times")"は、"X"と定める")
+  $
+]<exp_X_Y_exp_-X>
+
+#definition($"環の部分乗法群"$)[
+  環 $R = ()$ について
+
+  $R^(times) := { r"は可逆"  | r in R }$
+
+  (次回0322) この定義をちゃんとする
+]
+
+#definition($T$)[
+  (次回0322) 一般の共役変換(への変換)としてTを定める (clifford群への制限として T_g ,-> gの対応は示す)
 ]
 
 #claim("ホロノミック量子場 p142下段 1>")[
-  #note[ 
-   
-    (0313メモ) 一旦以下は受け入れる(リー環/リー群掘らないと行けなさそうで面倒)
-    $
-    exp(X) Y exp(-X) = op("Ad")_(exp(X))(Y) = exp(op("ad")_X)(Y) = e^(op("ad")_X)(Y) = Y + [X, Y] + 1/2 [X, [X, Y]] + dots
-    $
-  ]
-
-  (次回0315) z^(-)への作用のことだけ考えれば計算は進みそうなので、進める
-
   $
   T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((minus)))
   &=
@@ -6351,12 +6718,12 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   dot
   V_2^(-1) \
   &=
-  c_2^*
+  cosh(2 K_2^*)
   dot
   hat(Z)_mu^((minus))
   -
   sqrt(-1)
-  s_2^*
+  sinh(2 K_2^*)
   dot
   hat(Y)_mu
   \
@@ -6370,123 +6737,156 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   V_2^(-1) \
   &=
   sqrt(-1)
-  s_2
+  sinh(2 K_2^*)
   dot
   hat(Z)_mu^((-))
   +
-  c_2
+  cosh(2 K_2^*)
   dot
   hat(Y)_mu
   \
   $
 
   #proof[
-    $T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))$について、
+    $T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((minus)))$について、
 
     $
-    T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))
+    T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((minus)))
     &=
     (V_1^((plus.minus)))^(1/2)
     dot
-    hat(Z)_mu^((plus.minus))
+    hat(Z)_mu^((minus))
     dot
-    (V_1^((plus.minus)))^(-1/2) \
+    (V_1^((plus.minus)))^(-1/2)
+    \
     &=
-    (exp(K_1 dot.op H_1^((plus.minus))))^(1/2)
+    (exp(sqrt(-1) K_1 dot.op H_1^((plus.minus))))^(1/2)
     dot
-    hat(Z)_mu^((plus.minus))
+    hat(Z)_mu^((minus))
     dot
-    (exp(K_1 dot.op H_1^((plus.minus))))^(-1/2)\
+    (exp(sqrt(-1) K_1 dot.op H_1^((plus.minus))))^(-1/2)
+    \
     &=
-    hat(Z)_mu^((plus.minus))
-    +
-    [
-      K_1 dot.op H_1^((plus.minus)), hat(Z)_mu^((plus.minus))
-    ]
-    +
-    1/2 [
-      K_1 dot.op H_1^((plus.minus)), [
-        K_1 dot.op H_1^((plus.minus)), hat(Z)_mu^((plus.minus))
+    (exp((1/2) sqrt(-1) K_1 dot.op H_1^((plus.minus))))
+    dot
+    hat(Z)_mu^((minus))
+    dot
+    (exp(-((1/2) sqrt(-1) K_1 dot.op H_1^((plus.minus)))))
+    \
+    &=
+    sum_(
+      n >= 0
+    )^infinity
+      (1/n!)
+      overbrace(
+      [
+        (1/2) sqrt(-1) K_1 dot.op H_1^((plus.minus)),
+        dots,
+        [
+          (1/2) sqrt(-1) K_1 dot.op H_1^((plus.minus)),
+          hat(Z)_mu^((minus))
+        ]
+        dots
       ]
-    ] \
-    &quad + quad dots
-    quad (because #ref(<brianhall_exc14>) ) \
+      ,
+      n "times"
+    )
+    \
+    & quad (because #ref(<exp_X_Y_exp_-X>) )
+    \
     &=
+    cosh(K_1)
+    dot.op
     hat(Z)_mu^((plus.minus))
     +
-    (-1)^(1) (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(1)
+    sqrt(-1)
+    dot.op
+    exp(-sqrt(-1) (2 pi mu)/(M))
+    dot.op
+    sinh(K_1)
     dot.op
     hat(Y)_mu
     \
-    &quad +
-    1/2
-    dot.op
-    (-1)^(1) (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(2)
-    dot.op
-    hat(Z)_mu^((plus.minus))
-    \
-    &quad +
-    1/6
-    dot.op
-    (-1)^(2) (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(3)
-    dot.op
-    hat(Y)_mu
-    \
-    &quad +
-    dots
-    \
-    &quad quad (because #ref(<nesting_of_commutator_of_H_and_Z>) ) \
+    & quad (because #ref(<extract_taylor_coefficient_of_Z_Y>) )
+    $
+
+    $T_((V_1^((plus.minus)))^(1/2))(hat(Y))$について、
+
+    同様
+
+    $T_(V_2)(hat(Z)_mu^((minus)))$について、
+
+    $
+    T_(V_2)(hat(Z)_mu^((minus)))
+    &=
+    V_2
+    dot
+    hat(Z)_mu^((minus))
+    dot
+    V_2^(-1)
     \
     &=
     (
-      sum_(n=0 \ n "is even")^(infinity)
-        (1/n!) 
-        dot.op
-        (-1)^(n/2)
-        dot.op
-        (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(n)
+      (2s_2)^(M/2)exp(sqrt(-1) K_2^* dot.op H_2)
     )
-    dot.op
-    hat(Z)_mu^((plus.minus))
-    \
-    &quad +
+    dot
+    hat(Z)_mu^((minus))
+    dot
     (
-      sum_(n=0 \ n "is odd")^(infinity)
-        (1/n!)
-        dot.op
-        (-1)^((n+1)/2)
-        dot.op
-        (2 K_1 exp(-sqrt(-1) (2 pi mu)/(M)))^(n)
+      (2s_2)^(M/2)exp(-sqrt(-1) K_2^* dot.op H_2)
+    )^(-1)
+    \
+    &=
+    (2s_2)^(M/2)
+    dot
+    ((2s_2)^(M/2))^(-1)
+    dot
+    sum_(
+      n >= 0
+    )^infinity
+      (1/n!)
+      overbrace(
+      [
+        sqrt(-1) K_2^* dot.op H_2,
+        dots,
+        [
+          sqrt(-1) K_2^* dot.op H_2,
+          hat(Z)_mu^((minus))
+        ]
+        dots
+      ]
+      ,
+      n "times"
     )
-    dot.op
+    \
+    &=
+    cosh(2 K_2^*)
+    dot
+    hat(Z)_mu^((minus))
+    -
+    sqrt(-1)
+    sinh(2 K_2^*)
+    dot
     hat(Y)_mu
     $
+
+    $T_(V_2)(hat(Y)_mu)$について、
+
+    同様
+
+
   ]
 ]<ホロノミック量子場_p142下段_1>
 
-#claim("")[
+#definition($T_((V))$)[
+  $forall X in "Mat"(2, CC)^(times.circle M)$について
   $
-    T_((V))
-    =
-    T_((V_1^((plus.minus)))^(1/2))
-    dot.op
-    T_((V_2))
-    dot.op
-    T_((V_1^((plus.minus)))^(-1/2))
-  $
-
-  $
-    T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((plus.minus)))\
-    T_((V_2))(hat(Z)_mu^((plus)))
-  $
-
-  $
-    T_((V))
-    =
+    T_((V))(X)
+    :=
     T_((V_1^((plus.minus)))^(1/2))(
       T_((V_2))(
         T_((V_1^((plus.minus)))^(-1/2))(
-          hat(Z)_mu^((plus.minus))
+          X
         )
       )
     )
