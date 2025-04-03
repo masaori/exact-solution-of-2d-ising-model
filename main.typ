@@ -6649,16 +6649,87 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $
 ]<exp_X_Y_exp_-X>
 
-#definition($"環の部分乗法群"$)[
-  環 $R = ()$ について
+#definition("自己同型群/内部自己同型群/外部自己同型群")[
+  群$G$について、
 
-  $R^(times) := { r"は可逆"  | r in R }$
+  $
+    "Aut"(G) := { phi | phi: G -> G, phi "は群同型" } \
+  $
 
-  (次回0322) この定義をちゃんとする
+  $"Aut"(G)$を、群$G$の自己同型群と呼ぶ。
+
+  \
+
+  また、
+
+  $g in G$について、
+
+  #mapDef($phi_g$, $G$, $G$, $h$, $g h g^(-1)$, "")
+
+  と定め、
+
+  #mapDef($phi$, $G$, $"Aut"(G)$, $g$, $phi_g$, "")
+
+  と定める時、
+
+  $"Im"(phi)$を$G$の内部自己同型群と呼び、$"Inn"(G)$と書く。
+
+  \
+
+  また、
+
+  $"Aut"(G)slash"Inn"(G)$を$G$の外部自己同型群と呼び、$"Out"(G)$と書く
 ]
 
-#definition($T$)[
-  (次回0322) 一般の共役変換(への変換)としてTを定める (clifford群への制限として T_g ,-> gの対応は示す)
+#definition("自己同型群の完全列")[
+  群$G$について、
+
+  $
+    1 -> Z(G) -> G -> "Aut"(G) -> "Out"(G) -> 1
+  $
+
+  は完全列をなす
+
+  TODO: 
+  - Ker, Imの定義
+  - Z(G)の定義
+  - 完全列の定義
+
+  #proof[
+    TODO:
+  ]
+]
+
+#definition($"環の乗法群"$)[
+  環 $bold(R) = (R, +_R, dot.op_R)$ について、
+
+  $
+    bold(R)^(times) := { r "は" dot.op_R "について可逆"  | r in bold(R) }
+  $
+
+  と定める時、 $bold(R)^(times)$ は $dot.op_R$ について群をなす。
+
+  これを $bold(R)$ の乗法群と呼ぶ。
+]
+
+#definition("TODO: クリフォード群云々")[
+  - クリフォード群の定義 (2x2パウリ行列のクロネッカー積からつくる)
+  - $T_g$の定義をクリフォード群の元に狭める
+  - 多分$T$の(定数倍除いた)単射性が大事そうなので示す
+     - これはちょっと抽象的になる可能性がある(Clと行列環の同型を示す or 認める はあんまりやりたくない)ので以下から試す？
+     - 試す1. $V$を具体的な行列として書く、がゴールなので $T_((V))$からその表式を見つけられないか？
+     - 試す2. $T$の(定数倍除いた)単射性を(Clに触れずに)示す
+     - だめだったら3. Clと行列環の同型を認め、$T$の(定数倍除いた)単射性も認め、計算を先に進める
+        - あとから Clの一般論まで戻って示す
+]
+
+#definition($T_g$)[
+
+  $g in ("Mat"(2, CC)^(times.circle M))^(times)$ について、
+
+  #mapDef($T_g$, $"Mat"(2, CC)^(times.circle M)$, $"Mat"(2, CC)^(times.circle M)$, $h$, $g dot.op h dot.op g^(-1)$, "")
+
+  と定める
 ]
 
 #claim("ホロノミック量子場 p142下段 1>")[
@@ -6891,6 +6962,93 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       )
     )
   $
+]
+
+#definition($A(theta)$)[
+  
+  $theta in CC$ について $A(theta) in "Mat"(2, CC)$ を、
+
+  $
+    A(theta) := mat(
+      c_1 c_2^* - s_1 s_2^* cos theta, i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2);
+      - i e^(-i theta) s_2^* (c_1 cos theta + i sin theta - s_1 c_2), c_1 c_2^* - s_1 s_2^* cos theta;
+    )
+  $
+
+  と定める。
+]
+
+#claim($T_((V))"の"hat(Z), hat(Y)"への作用"$)[
+
+  $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
+
+  $mu in cal(M)$について、
+  
+  $
+    (T_((V))(hat(Z)_mu^((minus))), T_((V))(hat(Y)_mu))
+    =
+    (
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu
+    )
+    dot.op
+    A((2 pi mu) / M)
+  $
+
+  すなわち、
+
+  $
+    T_((V))(hat(Z)_mu^((minus)))
+    =
+    (c_1 c_2^* - s_1 s_2^* cos ((2 pi mu) / M)) dot hat(Z)_mu^((minus))
+    +
+    (- i e^(-i ((2 pi mu) / M)) s_2^* (c_1 cos ((2 pi mu) / M) + i sin ((2 pi mu) / M) - s_1 c_2)) dot hat(Y)_mu
+    \
+    T_((V))(hat(Y)_mu)
+    =
+    (i e^(i ((2 pi mu) / M)) s_2^* (c_1 cos ((2 pi mu) / M) - i sin ((2 pi mu) / M) - s_1 c_2)) dot hat(Z)_mu^((minus))
+    +
+    (c_1 c_2^* - s_1 s_2^* cos ((2 pi mu) / M)) dot hat(Y)_mu
+  $
+
+  #proof[
+
+    (z) $T_((V))(hat(Z)_mu^((minus)))$について、
+
+    $
+    T_((V))(hat(Z)_mu^((minus)))
+    &=
+    T_((V_1^((plus.minus)))^(1/2))(
+      T_((V_2))(
+        T_((V_1^((plus.minus)))^(-1/2))(
+          hat(Z)_mu^((minus))
+        )
+      )
+    )
+    \
+    &=
+    T_((V_1^((plus.minus)))^(1/2))(
+      T_((V_2))(
+        cosh(K_1)
+        dot
+        hat(Z)_mu^((minus))
+        +
+        sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1)
+        dot
+        hat(Y)_mu
+      )
+    )
+    \
+    $
+    (次回 0329)この計算を進める
+
+  ]
 ]
 
 (次回0313-3)
