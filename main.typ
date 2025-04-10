@@ -3,7 +3,7 @@
 #import "@preview/fletcher:0.5.1" as fletcher: diagram, node, edge
 #import "theorem.typ": theorem, claim, proof, definition, note, theorem_rules
 
-#set page(height: auto)
+#set page(width: auto, height: auto)
 #set block(breakable: false)
 #show: theorem_rules.with(qed-symbol: $square$)
 
@@ -90,6 +90,23 @@
     $
   ]
 ]
+
+#theorem("行列の分解")[
+  $A in "Mat"(n, CC), a, b in CC^n$
+
+  $
+    mat(
+      A a,
+      A b,
+    )
+    =
+    A
+    mat(
+      a,
+      b,
+    )
+  $
+]<mat_mult>
 
 == 2次元ising模型の分配関数
 #definition("格子サイズ")[
@@ -6854,7 +6871,22 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   dot
   hat(Y)_mu
   \
-
+  &=
+  mat(
+    hat(Z)_mu^((minus)),
+    hat(Y)_mu,
+  )
+  mat(
+    cosh(K_1);
+    sqrt(-1)
+    exp(
+      -
+      sqrt(-1)
+      (2 pi mu) / M
+    )
+    sinh(K_1);
+  )
+  \
   T_((V_1^((plus.minus)))^(1/2))(hat(Y)_mu)
   &=
   (V_1^((plus.minus)))^(1/2)
@@ -6878,6 +6910,22 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   dot
   hat(Y)_mu
   \
+  &=
+  mat(
+    hat(Z)_mu^((minus)),
+    hat(Y)_mu,
+  )
+  mat(
+    - sqrt(-1)
+    exp(
+      -
+      sqrt(-1)
+      (2 pi mu) / M
+    )
+    sinh(K_1);
+    cosh(K_1);
+  )
+  \
 
   T_(V_2)(hat(Z)_mu^((minus)))
   &=
@@ -6896,6 +6944,17 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   dot
   hat(Y)_mu
   \
+  &=
+  mat(
+    hat(Z)_mu^((minus)),
+    hat(Y)_mu,
+  )
+  mat(
+    cosh(2 K_2^*);
+    - sqrt(-1)
+    sinh(2 K_2^*);
+  )
+  \
 
   T_(V_2)(hat(Y)_mu)
   &=
@@ -6913,6 +6972,17 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   cosh(2 K_2^*)
   dot
   hat(Y)_mu
+  \
+  &=
+  mat(
+    hat(Z)_mu^((minus)),
+    hat(Y)_mu,
+  )
+  mat(
+    sqrt(-1)
+    sinh(2 K_2^*);
+    cosh(2 K_2^*);
+  )
   \
   $
 
@@ -7047,17 +7117,181 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]<ホロノミック量子場_p142下段_1>
 
+#definition(none)[
+  
+  $T_((V_1^((plus.minus)))^(1/2)) times T_((V_1^((plus.minus)))^(1/2)) : "Mat"(2, CC)^(times.circle M) times "Mat"(2, CC)^(times.circle M) -> "Mat"(2, CC)^(times.circle M) times "Mat"(2, CC)^(times.circle M) $
+
+  $T_((V_2)) times T_((V_2)) : "Mat"(2, CC)^(times.circle M) times "Mat"(2, CC)^(times.circle M) -> "Mat"(2, CC)^(times.circle M) times "Mat"(2, CC)^(times.circle M)$
+
+  を、
+
+  $forall X, Y in "Mat"(2, CC)^(times.circle M)$
+  $
+    (
+      T_((V_1^((plus.minus)))^(1/2)) times T_((V_1^((plus.minus)))^(1/2))
+    )
+    (X, Y)
+    :=
+    (
+      T_((V_1^((plus.minus)))^(1/2))(X),
+      T_((V_1^((plus.minus)))^(1/2))(Y)
+    )
+    \
+    (
+      T_((V_2)) times T_((V_2))
+    )
+    (X, Y)
+    :=
+    (
+      T_((V_2))(X),
+      T_((V_2))(Y)
+    )
+  $
+  
+  で定める
+]
+
+#claim(none)[
+  $
+    (
+      T_((V_1^((plus.minus)))^(1/2)) times T_((V_1^((plus.minus)))^(1/2))
+    )
+    (
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu
+    )
+    &=
+    mat(
+      mat(
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu,
+      )
+      mat(
+        cosh(K_1);
+        sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1);
+      ),
+      mat(
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu,
+      )
+      mat(
+        - sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1);
+        cosh(K_1);
+      )
+    )
+    \
+    &=
+    mat(
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu,
+    )
+    mat(
+      cosh(K_1),
+      - sqrt(-1)
+      exp(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+      )
+      sinh(K_1);
+      sqrt(-1)
+      exp(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+      )
+      sinh(K_1),
+      cosh(K_1);
+    )
+    \
+    (
+      T_((V_2)) times T_((V_2))
+    )
+    (
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu
+    )
+    &=
+    mat(
+      mat(
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu,
+      )
+      mat(
+        cosh(2 K_2^*);
+        - sqrt(-1)
+        sinh(2 K_2^*);
+      ),
+      mat(
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu,
+      )
+      mat(
+        sqrt(-1)
+        sinh(2 K_2^*);
+        cosh(2 K_2^*);
+      )
+    )
+    \
+    &=
+    mat(
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu,
+    )
+    mat(
+      cosh(2 K_2^*),
+      - sqrt(-1)
+      sinh(2 K_2^*);
+      sqrt(-1)
+      sinh(2 K_2^*),
+      cosh(2 K_2^*);
+    )
+  $
+]<calc_of_TxT_hatZxhatY>
+
 #claim(none)[
   $forall a, b in CC$ について、
 
   $
     T_((V_1^((plus.minus)))^(1/2))(a dot.op hat(Z)_mu^((minus)) + b dot.op hat(Y)_mu)
-    =
+    &=
     a dot.op T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((minus))) + b dot.op T_((V_1^((plus.minus)))^(1/2))(hat(Y)_mu)
     \
+    &=
+    mat(
+      T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((minus))),
+      T_((V_1^((plus.minus)))^(1/2))(hat(Y)_mu)
+    )
+    mat(
+      a;
+      b;
+    )
+    \
     T_((V_2))(a dot.op hat(Z)_mu^((minus)) + b dot.op hat(Y)_mu)
-    =
+    &=
     a dot.op T_((V_2))(hat(Z)_mu^((minus))) + b dot.op T_((V_2))(hat(Y)_mu)
+    \
+    &=
+    mat(
+      T_((V_2))(hat(Z)_mu^((minus))),
+      T_((V_2))(hat(Y)_mu)
+    )
+    mat(
+      a;
+      b;
+    )
   $
 
   #proof[
@@ -7072,7 +7306,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     :=
     T_((V_1^((plus.minus)))^(1/2))(
       T_((V_2))(
-        T_((V_1^((plus.minus)))^(-1/2))(
+        T_((V_1^((plus.minus)))^(1/2))(
           X
         )
       )
@@ -7115,16 +7349,16 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
   $
     T_((V))(hat(Z)_mu^((minus)))
-    =
-    (c_1 c_2^* - s_1 s_2^* cos ((2 pi mu) / M)) dot hat(Z)_mu^((minus))
-    +
-    (- i e^(-i ((2 pi mu) / M)) s_2^* (c_1 cos ((2 pi mu) / M) + i sin ((2 pi mu) / M) - s_1 c_2)) dot hat(Y)_mu
+    &=
+    (cosh(K_1) cosh(K_2^*) - sinh(K_1) sinh(K_2^*) cos ((2 pi mu) / M)) dot hat(Z)_mu^((minus))
+    \ & +
+    (- i e^(-i ((2 pi mu) / M)) sinh(K_2^*) (cosh(K_1) cos ((2 pi mu) / M) + i sin ((2 pi mu) / M) - sinh(K_1) cosh(K_2))) dot hat(Y)_mu
     \
     T_((V))(hat(Y)_mu)
-    =
-    (i e^(i ((2 pi mu) / M)) s_2^* (c_1 cos ((2 pi mu) / M) - i sin ((2 pi mu) / M) - s_1 c_2)) dot hat(Z)_mu^((minus))
-    +
-    (c_1 c_2^* - s_1 s_2^* cos ((2 pi mu) / M)) dot hat(Y)_mu
+    &=
+    (i e^(i ((2 pi mu) / M)) sinh(K_2^*) (cosh(K_1) cos ((2 pi mu) / M) - i sin ((2 pi mu) / M) - sinh(K_1) cosh(K_2))) dot hat(Z)_mu^((minus))
+    \ & +
+    (cosh(K_1) cosh(K_2^*) - sinh(K_1) sinh(K_2^*) cos ((2 pi mu) / M)) dot hat(Y)_mu
   $
 
   #proof[
@@ -7136,7 +7370,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     &=
     T_((V_1^((plus.minus)))^(1/2))(
       T_((V_2))(
-        T_((V_1^((plus.minus)))^(-1/2))(
+        T_((V_1^((plus.minus)))^(1/2))(
           hat(Z)_mu^((minus))
         )
       )
@@ -7163,554 +7397,502 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     \
     &=
     T_((V_1^((plus.minus)))^(1/2))(
-      cosh(K_1)
-      dot
-      T_((V_2))(hat(Z)_mu^((minus)))
-      +
-      sqrt(-1)
-      exp(
-        -
-        sqrt(-1)
-        (2 pi mu) / M
+      mat(
+        T_((V_2))(hat(Z)_mu^((minus))),
+        T_((V_2))(hat(Y)_mu)
       )
-      sinh(K_1)
-      dot
-      T_((V_2))(hat(Y)_mu)
+      mat(
+        cosh(K_1);
+        sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1);
+      )
     )
+    \ & quad
     quad (
       because #ref(<linearity_of_T>)
     )
     \
     &=
     T_((V_1^((plus.minus)))^(1/2))(
-      cosh(K_1)
-      dot
-      (
-        cosh(2 K_2^*)
-        dot
-        hat(Z)_mu^((minus))
-        -
-        sqrt(-1)
-        sinh(2 K_2^*)
-        dot
-        hat(Y)_mu
+      mat(
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu,
       )
-      \ & quad +
+      mat(
+        cosh(2 K_2^*),
+        - sqrt(-1)
+        sinh(2 K_2^*);
+        sqrt(-1)
+        sinh(2 K_2^*),
+        cosh(2 K_2^*);
+      )
+      mat(
+        cosh(K_1);
+        sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1);
+      )
+    )
+    \ & quad
+    (
+      because #ref(<calc_of_TxT_hatZxhatY>)
+    )
+    \
+    &=
+    mat(
+      T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((minus))),
+      T_((V_1^((plus.minus)))^(1/2))(hat(Y)_mu),
+    )
+    mat(
+      cosh(2 K_2^*),
+      - sqrt(-1)
+      sinh(2 K_2^*);
+      sqrt(-1)
+      sinh(2 K_2^*),
+      cosh(2 K_2^*);
+    )
+    mat(
+      cosh(K_1);
       sqrt(-1)
       exp(
         -
         sqrt(-1)
         (2 pi mu) / M
       )
-      sinh(K_1)
-      dot
-      (
+      sinh(K_1);
+    )
+    \
+    &=
+    mat(
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu,
+    )
+    mat(
+      cosh(K_1),
+      - sqrt(-1)
+      exp(
+        -
         sqrt(-1)
-        sinh(2 K_2^*)
-        dot
-        hat(Z)_mu^((-))
-        +
-        cosh(2 K_2^*)
-        dot
-        hat(Y)_mu
+        (2 pi mu) / M
+      )
+      sinh(K_1);
+      sqrt(-1)
+      exp(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+      )
+      sinh(K_1),
+      cosh(K_1);
+    )
+    \ & quad quad quad
+    mat(
+      cosh(2 K_2^*),
+      - sqrt(-1)
+      sinh(2 K_2^*);
+      sqrt(-1)
+      sinh(2 K_2^*),
+      cosh(2 K_2^*);
+    )
+    mat(
+      cosh(K_1);
+      sqrt(-1)
+      exp(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+      )
+      sinh(K_1);
+    )
+    $
+
+    $(y) T_((V))(hat(Y)_mu)$について、
+
+    $
+    T_((V))(hat(Y)_mu)
+    &=
+    T_((V_1^((plus.minus)))^(1/2))(
+      T_((V_2))(
+        T_((V_1^((plus.minus)))^(1/2))(
+          hat(Y)_mu
+        )
       )
     )
     \
     &=
     T_((V_1^((plus.minus)))^(1/2))(
-      (
-        cosh(K_1)
-        dot
-        cosh(2 K_2^*)
-        dot
+      T_((V_2))(
+        - sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1)
+        dot.op
         hat(Z)_mu^((minus))
-        -
-        cosh(K_1)
-        dot
-        sqrt(-1)
-        sinh(2 K_2^*)
-        dot
-        hat(Y)_mu
-      )
-      \ & quad +
-      (
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        dot
-        sqrt(-1)
-        sinh(2 K_2^*)
-        dot
-        hat(Z)_mu^((-))
         +
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        dot
-        cosh(2 K_2^*)
-        dot
+        cosh(K_1)
+        dot.op
         hat(Y)_mu
       )
     )
     \
     &=
     T_((V_1^((plus.minus)))^(1/2))(
-      (
-        cosh(K_1)
-        dot
-        cosh(2 K_2^*)
-        dot
-        hat(Z)_mu^((minus))
-        +
-        sqrt(-1)
+      mat(
+        T_((V_2))(hat(Z)_mu^((minus))),
+        T_((V_2))(hat(Y)_mu)
+      )
+      mat(
+        - sqrt(-1)
         exp(
           -
           sqrt(-1)
           (2 pi mu) / M
         )
-        sinh(K_1)
-        dot
-        sqrt(-1)
-        sinh(2 K_2^*)
-        dot
-        hat(Z)_mu^((-))
+        sinh(K_1);
+        cosh(K_1);
       )
-      \ & quad +
-      (
-        -
-        cosh(K_1)
-        dot
-        sqrt(-1)
-        sinh(2 K_2^*)
-        dot
-        hat(Y)_mu
-        +
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        dot
-        cosh(2 K_2^*)
-        dot
-        hat(Y)_mu
-      )
+    )
+    \ & quad
+    quad (
+      because #ref(<linearity_of_T>)
     )
     \
     &=
     T_((V_1^((plus.minus)))^(1/2))(
-      (
-        cosh(K_1)
-        dot
-        cosh(2 K_2^*)
-        +
+      mat(
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu,
+      )
+      mat(
+        cosh(2 K_2^*),
+        - sqrt(-1)
+        sinh(2 K_2^*);
         sqrt(-1)
+        sinh(2 K_2^*),
+        cosh(2 K_2^*);
+      )
+      mat(
+        - sqrt(-1)
         exp(
           -
           sqrt(-1)
           (2 pi mu) / M
         )
-        sinh(K_1)
-        dot
-        sqrt(-1)
-        sinh(2 K_2^*)
+        sinh(K_1);
+        cosh(K_1);
       )
-      dot
-      hat(Z)_mu^((-))
-      \ & quad +
-      (
-        -
-        cosh(K_1)
-        dot
-        sqrt(-1)
-        sinh(2 K_2^*)
-        +
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        dot
-        cosh(2 K_2^*)
-      )
-      dot
-      hat(Y)_mu
+    )
+    \ & quad
+    (
+      because #ref(<calc_of_TxT_hatZxhatY>)
     )
     \
     &=
-    T_((V_1^((plus.minus)))^(1/2))(
-      (
-        cosh(K_1)
-        dot
-        cosh(2 K_2^*)
+    mat(
+      T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((minus))),
+      T_((V_1^((plus.minus)))^(1/2))(hat(Y)_mu),
+    )
+    mat(
+      cosh(2 K_2^*),
+      - sqrt(-1)
+      sinh(2 K_2^*);
+      sqrt(-1)
+      sinh(2 K_2^*),
+      cosh(2 K_2^*);
+    )
+    mat(
+      - sqrt(-1)
+      exp(
         -
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        dot
-        sinh(2 K_2^*)
-      )
-      dot
-      hat(Z)_mu^((-))
-      \ & quad +
-      (
         sqrt(-1)
-        (
-          -
-          cosh(K_1)
-          dot
-          sinh(2 K_2^*)
-          +
+        (2 pi mu) / M
+      )
+      sinh(K_1);
+      cosh(K_1);
+    )
+    \
+    &=
+    mat(
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu,
+    )
+    mat(
+      cosh(K_1),
+      - sqrt(-1)
+      exp(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+      )
+      sinh(K_1);
+      sqrt(-1)
+      exp(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+      )
+      sinh(K_1),
+      cosh(K_1);
+    )
+    \ & quad quad quad
+    mat(
+      cosh(2 K_2^*),
+      - sqrt(-1)
+      sinh(2 K_2^*);
+      sqrt(-1)
+      sinh(2 K_2^*),
+      cosh(2 K_2^*);
+    )
+    mat(
+      - sqrt(-1)
+      exp(
+        -
+        sqrt(-1)
+        (2 pi mu) / M
+      )
+      sinh(K_1);
+      cosh(K_1);
+    )
+    
+    $
+
+    よって、
+
+    $
+      mat(
+        T_((V))(hat(Z)_mu^((minus))),
+        T_((V))(hat(Y)_mu)
+      )
+      &=
+      mat(
+        mat(
+          hat(Z)_mu^((minus)),
+          hat(Y)_mu,
+        )
+        mat(
+          cosh(K_1),
+          - sqrt(-1)
           exp(
             -
             sqrt(-1)
             (2 pi mu) / M
           )
-          sinh(K_1)
-          dot
-          cosh(2 K_2^*)
-        )
-        dot
-        hat(Y)_mu
-      )
-    )
-    \
-    &=
-    (
-      cosh(K_1)
-      dot
-      cosh(2 K_2^*)
-      -
-      exp(
-        -
-        sqrt(-1)
-        (2 pi mu) / M
-      )
-      sinh(K_1)
-      dot
-      sinh(2 K_2^*)
-    )
-    dot
-    T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((-)))
-    \ & quad +
-    sqrt(-1)
-    (
-      -
-      cosh(K_1)
-      dot
-      sinh(2 K_2^*)
-      +
-      exp(
-        -
-        sqrt(-1)
-        (2 pi mu) / M
-      )
-      sinh(K_1)
-      dot
-      cosh(2 K_2^*)
-    )
-    dot
-    T_((V_1^((plus.minus)))^(1/2))(hat(Y)_mu)
-    \
-    &=
-    (
-      cosh(K_1)
-      dot
-      cosh(2 K_2^*)
-      -
-      exp(
-        -
-        sqrt(-1)
-        (2 pi mu) / M
-      )
-      sinh(K_1)
-      dot
-      sinh(2 K_2^*)
-    )
-    dot
-    (
-      T_((V_1^((plus.minus)))^(1/2))(hat(Z)_mu^((-)))
-      -
-      sqrt(-1)
-      dot
-      T_((V_1^((plus.minus)))^(1/2))(hat(Y)_mu)
-    )    
-    \
-    &=
-    (
-      cosh(K_1)
-      dot
-      cosh(2 K_2^*)
-      -
-      exp(
-        -
-        sqrt(-1)
-        (2 pi mu) / M
-      )
-      sinh(K_1)
-      dot
-      sinh(2 K_2^*)
-    )
-    dot
-    (
-      \ & quad quad
-      (
-        cosh(K_1)
-        dot
-        hat(Z)_mu^((minus))
-        +
-        sqrt(-1)
-        exp(
-          -
+          sinh(K_1);
           sqrt(-1)
-          (2 pi mu) / M
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1),
+          cosh(K_1);
         )
-        sinh(K_1)
-        dot
-        hat(Y)_mu
-      )
-      \ & quad quad
-      -
-      sqrt(-1)
-      dot
-      (
-        -
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        dot.op
-        hat(Z)_mu^((minus))
-        +
-        cosh(K_1)
-        dot
-        hat(Y)_mu
-      )
-      \ & quad 
-    )
-    \
-    &=
-    (
-      cosh(K_1)
-      dot
-      cosh(2 K_2^*)
-      -
-      exp(
-        -
-        sqrt(-1)
-        (2 pi mu) / M
-      )
-      sinh(K_1)
-      dot
-      sinh(2 K_2^*)
-    )
-    dot
-    (
-      \ & quad quad
-      (
-        cosh(K_1)
-        dot
-        hat(Z)_mu^((minus))
-        -
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        dot.op
-        hat(Z)_mu^((minus))
-      )
-      \ & quad quad
-      -
-      sqrt(-1)
-      dot
-      (
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        dot
-        hat(Y)_mu
-        +
-        cosh(K_1)
-        dot
-        hat(Y)_mu
-      )
-      \ & quad 
-    )
-    \
-    &=
-    (
-      cosh(K_1)
-      dot
-      cosh(2 K_2^*)
-      -
-      exp(
-        -
-        sqrt(-1)
-        (2 pi mu) / M
-      )
-      sinh(K_1)
-      dot
-      sinh(2 K_2^*)
-    )
-    dot
-    (
-      \ & quad quad
-      (
-        cosh(K_1)
-        -
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-      )
-      dot.op
-      hat(Z)_mu^((minus))
-      \ & quad quad
-      -
-      sqrt(-1)
-      dot
-      (
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        +
-        cosh(K_1)
-      )
-      dot
-      hat(Y)_mu
-      \ & quad 
-    )
-    \
-    &=
-    (
-      cosh(K_1)
-      dot
-      cosh(2 K_2^*)
-      -
-      exp(
-        -
-        sqrt(-1)
-        (2 pi mu) / M
-      )
-      sinh(K_1)
-      dot
-      sinh(2 K_2^*)
-    )
-    dot
-    (
-      \ & quad quad
-      (
-        cosh(K_1)
-        -
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-      )
-      dot.op
-      hat(Z)_mu^((minus))
-      \ & quad quad
-      +
-      (
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        +
-        cosh(K_1)
-      )
-      dot
-      hat(Y)_mu
-      \ & quad 
-    )
-    \
-    &=
-    (
-      cosh(K_1)
-      dot
-      cosh(2 K_2^*)
-      -
-      exp(
-        -
-        sqrt(-1)
-        (2 pi mu) / M
-      )
-      sinh(K_1)
-      dot
-      sinh(2 K_2^*)
-    )
-    dot
-    (
-      \ & quad quad
-      (
-        cosh(K_1)
-        -
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-      )
-      dot.op
-      hat(Z)_mu^((minus))
-      \ & quad quad
-      +
-      (
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1)
-        +
-        cosh(K_1)
-      )
-      dot
-      hat(Y)_mu
-      \ & quad 
-    )
-    $
 
-    (次回 0405ここの計算はやる)
+        mat(
+          cosh(2 K_2^*),
+          - sqrt(-1)
+          sinh(2 K_2^*);
+          sqrt(-1)
+          sinh(2 K_2^*),
+          cosh(2 K_2^*);
+        )
+        mat(
+          cosh(K_1);
+          sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1);
+        ),
+        mat(
+          hat(Z)_mu^((minus)),
+          hat(Y)_mu,
+        )
+        mat(
+          cosh(K_1),
+          - sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1);
+          sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1),
+          cosh(K_1);
+        )
+
+        mat(
+          cosh(2 K_2^*),
+          - sqrt(-1)
+          sinh(2 K_2^*);
+          sqrt(-1)
+          sinh(2 K_2^*),
+          cosh(2 K_2^*);
+        )
+        mat(
+          - sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1);
+          cosh(K_1);
+        )
+      )
+      \
+      &=
+      mat(
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu,
+      )
+      mat(
+        mat(
+          cosh(K_1),
+          - sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1);
+          sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1),
+          cosh(K_1);
+        )
+        mat(
+          cosh(2 K_2^*),
+          - sqrt(-1)
+          sinh(2 K_2^*);
+          sqrt(-1)
+          sinh(2 K_2^*),
+          cosh(2 K_2^*);
+        )
+        mat(
+          cosh(K_1);
+          sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1);
+        ),
+        mat(
+          cosh(K_1),
+          - sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1);
+          sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1),
+          cosh(K_1);
+        )
+
+        mat(
+          cosh(2 K_2^*),
+          - sqrt(-1)
+          sinh(2 K_2^*);
+          sqrt(-1)
+          sinh(2 K_2^*),
+          cosh(2 K_2^*);
+        )
+        mat(
+          - sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1);
+          cosh(K_1);
+        )
+      )
+      \
+      &=
+      mat(
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu,
+      )
+      mat(
+        cosh(K_1),
+        - sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1);
+        sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1),
+        cosh(K_1);
+      )
+      \ & quad quad quad
+      mat(
+        cosh(2 K_2^*),
+        - sqrt(-1)
+        sinh(2 K_2^*);
+        sqrt(-1)
+        sinh(2 K_2^*),
+        cosh(2 K_2^*);
+      )
+      mat(
+        cosh(K_1),
+        - sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1);
+        sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1),
+        cosh(K_1);
+      ),
+    $
   ]
 ]
 
