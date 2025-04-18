@@ -3,7 +3,7 @@
 #import "@preview/fletcher:0.5.1" as fletcher: diagram, node, edge
 #import "theorem.typ": theorem, claim, proof, definition, note, theorem_rules
 
-#set page(width: auto, height: auto)
+#set page(width: 100cm, height: auto)
 #set block(breakable: false)
 #show: theorem_rules.with(qed-symbol: $square$)
 
@@ -7855,7 +7855,8 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           sqrt(-1)
           (2 pi mu) / M
         )
-        sinh(K_1);
+        sinh(K_1)
+        ;
         sqrt(-1)
         exp(
           -
@@ -7863,17 +7864,131 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           (2 pi mu) / M
         )
         sinh(K_1),
-        cosh(K_1);
+        cosh(K_1)
+        ;
       )
       \ & quad quad quad
       mat(
         cosh(2 K_2^*),
         - sqrt(-1)
-        sinh(2 K_2^*);
+        sinh(2 K_2^*)
+        ;
         sqrt(-1)
         sinh(2 K_2^*),
-        cosh(2 K_2^*);
+        cosh(2 K_2^*)
+        ;
       )
+      mat(
+        cosh(K_1),
+        - sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1)
+        ;
+        sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1),
+        cosh(K_1)
+        ;
+      )
+      \
+      &=
+      mat(
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu,
+      )
+      mat(
+        (
+          cosh(K_1)
+        )
+        (
+          cosh(2 K_2^*)
+        )
+        +
+        (
+          - sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1)
+        )
+        (
+          sqrt(-1)
+          sinh(2 K_2^*)
+        ),
+        (
+          cosh(K_1)
+        )
+        (
+          - sqrt(-1)
+          sinh(2 K_2^*)
+        )
+        +
+        (
+          - sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1)
+        )
+        (
+          cosh(2 K_2^*)
+        )
+        ;
+        (
+          sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1)
+        )
+        (
+          cosh(2 K_2^*)
+        )
+        +
+        (
+          cosh(K_1)
+        )
+        (
+          sqrt(-1)
+          sinh(2 K_2^*)
+        ),
+        (
+          sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1)
+        )
+        (
+          - sqrt(-1)
+          sinh(2 K_2^*)
+        )
+        +
+        (
+          cosh(K_1)
+        )
+        (
+          cosh(2 K_2^*)
+        )
+        ;
+      )
+      \ & quad quad quad
       mat(
         cosh(K_1),
         - sqrt(-1)
@@ -7892,10 +8007,192 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         sinh(K_1),
         cosh(K_1);
       )
-      "(次回 0410) ここから"
+      \
+      &=
+      mat(
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu,
+      )
+      mat(
+        (
+          (
+            cosh(K_1)
+          )
+          (
+            cosh(2 K_2^*)
+          )
+          +
+          (
+            - sqrt(-1)
+            exp(
+              -
+              sqrt(-1)
+              (2 pi mu) / M
+            )
+            sinh(K_1)
+          )
+          (
+            sqrt(-1)
+            sinh(2 K_2^*)
+          )
+        )
+        (
+          cosh(K_1)
+        )
+        +
+        (
+          (
+            cosh(K_1)
+          )
+          (
+            - sqrt(-1)
+            sinh(2 K_2^*)
+          )
+          +
+          (
+            - sqrt(-1)
+            exp(
+              -
+              sqrt(-1)
+              (2 pi mu) / M
+            )
+            sinh(K_1)
+          )
+          (
+            cosh(2 K_2^*)
+          )
+        )
+        (
+          sqrt(-1)
+          exp(
+            -
+            sqrt(-1)
+            (2 pi mu) / M
+          )
+          sinh(K_1)
+        ),
+        (
+          (
+            cosh(K_1)
+          )
+          (
+            - sqrt(-1)
+            sinh(2 K_2^*)
+          )
+          +
+          (
+            - sqrt(-1)
+            exp(
+              -
+              sqrt(-1)
+              (2 pi mu) / M
+            )
+            sinh(K_1)
+          )
+          (
+            cosh(2 K_2^*)
+          )
+        )
+        ;
+        (
+          (
+            sqrt(-1)
+            exp(
+              -
+              sqrt(-1)
+              (2 pi mu) / M
+            )
+            sinh(K_1)
+          )
+          (
+            cosh(2 K_2^*)
+          )
+          +
+          (
+            cosh(K_1)
+          )
+          (
+            sqrt(-1)
+            sinh(2 K_2^*)
+          )
+        ),
+        (
+          (
+            sqrt(-1)
+            exp(
+              -
+              sqrt(-1)
+              (2 pi mu) / M
+            )
+            sinh(K_1)
+          )
+          (
+            - sqrt(-1)
+            sinh(2 K_2^*)
+          )
+          +
+          (
+            cosh(K_1)
+          )
+          (
+            cosh(2 K_2^*)
+          )
+        )
+        ;
+      )
+      \ & quad quad quad
+      mat(
+        cosh(K_1),
+        - sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1);
+        sqrt(-1)
+        exp(
+          -
+          sqrt(-1)
+          (2 pi mu) / M
+        )
+        sinh(K_1),
+        cosh(K_1);
+      )
     $
   ]
 ]
+
+$
+https://sagecell.sagemath.org/
+これで計算頑張る
+
+Dot[
+  {
+    {Cosh[x], -i*Exp[-i*theta]*Sinh[x]},
+    {i*Exp[-i*theta]*Sinh[x], Cosh[x]}
+  },
+  {
+    {2*Cosh[y]^2 - 1,-i*(2*Sinh[y]*Cosh[y])},
+    {i*(2*Sinh[y]*Cosh[y]),2*Cosh[y]^2 - 1}
+  },
+  {
+    {Cosh[x], -i*Exp[-i*theta]*Sinh[x]},
+    {i*Exp[-i*theta]*Sinh[x], Cosh[x]}
+  }
+]
+と
+A(theta) := mat(
+  c_1 c_2^* - s_1 s_2^* cos theta, i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2);
+  - i e^(-i theta) s_2^* (c_1 cos theta + i sin theta - s_1 c_2), c_1 c_2^* - s_1 s_2^* cos theta;
+)
+
+に具体的な値を入れて計算する
+c_1, c_2, s_1, s_2はをcosh(K_1), sinh(K_1), cosh(K_2^*), sinh(K_2^*)に置き換えるときに注意
+$
+
+https://chatgpt.com/c/6800dc7b-c03c-8010-8745-e37a79d3d81f
+こんな感じでsagemath形式に変換する
 
 (次回 0403)
 P.「したがって 転送行列 の 対角化は,各 μ ごとに 4行 4列 の 行列 ス (θ″ )① ス (― =0,π (し )自 身 θ μ のと きはス )を 対角化する問題 に 帰着 された 。」これを正当化しなくても計算は進むか？

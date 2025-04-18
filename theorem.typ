@@ -30,7 +30,7 @@
     kind: "lib:theroem",
     supplement: title,
   )[#block(
-    width: 100%,
+    width: 30cm,
     breakable: false,
     fill: fill,
     inset: inset,
