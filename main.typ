@@ -329,7 +329,7 @@
 - $K_1^* := -1/2 log(tanh K_1) arrow.l.r sinh(K_1) sinh(K_1^*) = 1$
 - $K_2^* := -1/2 log(tanh K_2) arrow.l.r sinh(K_2) sinh(K_2^*) = 1$
 - $c_i := cosh 2K_i, quad s_i := sinh 2K_i,$
-- $c_i^* := cosh 2K_i^, quad s_i^ := sinh 2K_i^*$
+- $c_i^* := cosh 2K_i^*, quad s_i^* := sinh 2K_i^*$
 
 #claim([$Z_m,Y_m$は線型独立])[
   $
@@ -6068,6 +6068,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       K_1^(n)
       dot.op
       exp(-sqrt(-1) (2 pi mu)/(M))
+      \
+      "(次回 0419) expの方の符号がミスっている"
+      \
       dot.op
       hat(Z)_mu^((plus))
       & (n "is odd"),
@@ -7319,9 +7322,31 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $theta in CC$ について $A(theta) in "Mat"(2, CC)$ を、
 
   $
-    A(theta) := mat(
-      c_1 c_2^* - s_1 s_2^* cos theta, i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2);
-      - i e^(-i theta) s_2^* (c_1 cos theta + i sin theta - s_1 c_2), c_1 c_2^* - s_1 s_2^* cos theta;
+    A(theta)
+    :&=
+    mat(
+      c_1 c_2^*
+      -
+      s_1 s_2^* cos theta,
+      i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2);
+      - i e^(-i theta) s_2^* (c_1 cos theta + i sin theta - s_1 c_2),
+      c_1 c_2^*
+      -
+      s_1 s_2^* cos theta;
+    )
+    \
+    &=
+    mat(
+      cosh(2 x) cosh(2 y^(prime))
+      -
+      sinh(2 x) sinh(2 y^(prime)) cos(((2 pi mu) / M)),
+      sqrt(-1) exp(sqrt(-1) ((2 pi mu) / M))
+      sinh(2 y^(prime)) (cosh(2 x) cos(((2 pi mu) / M)) - sqrt(-1) sin(((2 pi mu) / M)) - sinh(2 x) cosh(2 y));
+      - sqrt(-1) exp(- sqrt(-1)((2 pi mu) / M))
+      sinh(2 y^(prime)) (cosh(2 x) cos(((2 pi mu) / M)) + sqrt(-1) sin(((2 pi mu) / M)) - sinh(2 x) cosh(2 y)),
+      cosh(2 x) cosh(2 y^(prime))
+      -
+      sinh(2 x) sinh(2 y^(prime)) cos(((2 pi mu) / M));
     )
   $
 
@@ -7343,22 +7368,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     dot.op
     A((2 pi mu) / M)
-  $
-
-  すなわち、
-
-  $
-    T_((V))(hat(Z)_mu^((minus)))
-    &=
-    (cosh(K_1) cosh(K_2^*) - sinh(K_1) sinh(K_2^*) cos ((2 pi mu) / M)) dot hat(Z)_mu^((minus))
-    \ & +
-    (- i e^(-i ((2 pi mu) / M)) sinh(K_2^*) (cosh(K_1) cos ((2 pi mu) / M) + i sin ((2 pi mu) / M) - sinh(K_1) cosh(K_2))) dot hat(Y)_mu
-    \
-    T_((V))(hat(Y)_mu)
-    &=
-    (i e^(i ((2 pi mu) / M)) sinh(K_2^*) (cosh(K_1) cos ((2 pi mu) / M) - i sin ((2 pi mu) / M) - sinh(K_1) cosh(K_2))) dot hat(Z)_mu^((minus))
-    \ & +
-    (cosh(K_1) cosh(K_2^*) - sinh(K_1) sinh(K_2^*) cos ((2 pi mu) / M)) dot hat(Y)_mu
   $
 
   #proof[
@@ -7867,7 +7876,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         cosh(K_1)
         ;
       )
-      \ & quad quad quad
       mat(
         cosh(2 K_2^*),
         - sqrt(-1)
@@ -8163,36 +8171,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]
 
-$
-https://sagecell.sagemath.org/
-これで計算頑張る
+(次回 0419-2)
+- ミスを治す
+- 計算が合わないので検討
 
-Dot[
-  {
-    {Cosh[x], -i*Exp[-i*theta]*Sinh[x]},
-    {i*Exp[-i*theta]*Sinh[x], Cosh[x]}
-  },
-  {
-    {2*Cosh[y]^2 - 1,-i*(2*Sinh[y]*Cosh[y])},
-    {i*(2*Sinh[y]*Cosh[y]),2*Cosh[y]^2 - 1}
-  },
-  {
-    {Cosh[x], -i*Exp[-i*theta]*Sinh[x]},
-    {i*Exp[-i*theta]*Sinh[x], Cosh[x]}
-  }
-]
-と
-A(theta) := mat(
-  c_1 c_2^* - s_1 s_2^* cos theta, i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2);
-  - i e^(-i theta) s_2^* (c_1 cos theta + i sin theta - s_1 c_2), c_1 c_2^* - s_1 s_2^* cos theta;
-)
-
-に具体的な値を入れて計算する
-c_1, c_2, s_1, s_2はをcosh(K_1), sinh(K_1), cosh(K_2^*), sinh(K_2^*)に置き換えるときに注意
-$
-
-https://chatgpt.com/c/6800dc7b-c03c-8010-8745-e37a79d3d81f
-こんな感じでsagemath形式に変換する
 
 (次回 0403)
 P.「したがって 転送行列 の 対角化は,各 μ ごとに 4行 4列 の 行列 ス (θ″ )① ス (― =0,π (し )自 身 θ μ のと きはス )を 対角化する問題 に 帰着 された 。」これを正当化しなくても計算は進むか？
