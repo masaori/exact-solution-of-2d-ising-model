@@ -3,7 +3,7 @@
 #import "@preview/fletcher:0.5.1" as fletcher: diagram, node, edge
 #import "theorem.typ": theorem, claim, proof, definition, note, theorem_rules
 
-#set page(width: 100cm, height: auto)
+#set page(width: 60cm, height: auto)
 #set block(breakable: false)
 #show: theorem_rules.with(qed-symbol: $square$)
 
@@ -2853,6 +2853,19 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       dot.op
       hat(Z)_((mu))^((plus.minus))
     )
+    \
+    =&
+    -
+    2
+    dot.op
+    (
+      exp(
+        sqrt(-1)
+        (2 pi mu) / M
+      )
+      dot.op
+      hat(Z)_((mu))^((plus.minus))
+    )
     \ &
     (
       #block(
@@ -4987,7 +5000,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       dot.op
       (2 K_1)^(n)
       dot.op
-      exp(-sqrt(-1) (2 pi mu)/(M))
+      exp(sqrt(-1) (2 pi mu)/(M))
       dot.op
       hat(Z)_mu^((plus))
       & (n "is odd"),
@@ -6390,7 +6403,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     -
     sqrt(-1)
     exp(
-      -
       sqrt(-1)
       (2 pi mu) / M
     )
@@ -6616,7 +6628,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           dot.op
           K_1^(n)
           dot.op
-          exp(-sqrt(-1) (2 pi mu)/(M))
+          exp(sqrt(-1) (2 pi mu)/(M))
           dot.op
           hat(Y)_mu
           & (n "is odd"),
@@ -6649,24 +6661,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       dot.op
       K_1^(n)
       dot.op
-      exp(-sqrt(-1) (2 pi mu)/(M))
+      exp(sqrt(-1) (2 pi mu)/(M))
       dot.op
       hat(Y)_mu
     )
-    \
-    &=
-    (
-      sum_(
-        n >= 0 \
-        n "is even"
-      )
-      (
-        (1/n!)
-        K_1^(n)
-      )
-    )
-    dot.op
-    hat(Z)_mu^((plus.minus))
   $
 
   $(h_2.z^-)$について、
@@ -6901,7 +6899,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   -
   sqrt(-1)
   exp(
-    -
     sqrt(-1)
     (2 pi mu) / M
   )
@@ -6919,7 +6916,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     hat(Y)_mu,
   )
   mat(
-    - sqrt(-1)
+    sqrt(-1)
     exp(
       -
       sqrt(-1)
@@ -7186,7 +7183,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       mat(
         - sqrt(-1)
         exp(
-          -
           sqrt(-1)
           (2 pi mu) / M
         )
@@ -7204,7 +7200,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       cosh(K_1),
       - sqrt(-1)
       exp(
-        -
         sqrt(-1)
         (2 pi mu) / M
       )
@@ -7255,8 +7250,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     mat(
       cosh(2 K_2^*),
-      - sqrt(-1)
+      sqrt(-1)
       sinh(2 K_2^*);
+      -
       sqrt(-1)
       sinh(2 K_2^*),
       cosh(2 K_2^*);
@@ -7337,16 +7333,16 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     \
     &=
     mat(
-      cosh(2 x) cosh(2 y^(prime))
+      cosh(2 K_1) cosh(2 K_2^(*))
       -
-      sinh(2 x) sinh(2 y^(prime)) cos(((2 pi mu) / M)),
+      sinh(2 K_1) sinh(2 K_2^(*)) cos(((2 pi mu) / M)),
       sqrt(-1) exp(sqrt(-1) ((2 pi mu) / M))
-      sinh(2 y^(prime)) (cosh(2 x) cos(((2 pi mu) / M)) - sqrt(-1) sin(((2 pi mu) / M)) - sinh(2 x) cosh(2 y));
+      sinh(2 K_2^(*)) (cosh(2 K_1) cos(((2 pi mu) / M)) - sqrt(-1) sin(((2 pi mu) / M)) - sinh(2 K_1) cosh(2 K_2));
       - sqrt(-1) exp(- sqrt(-1)((2 pi mu) / M))
-      sinh(2 y^(prime)) (cosh(2 x) cos(((2 pi mu) / M)) + sqrt(-1) sin(((2 pi mu) / M)) - sinh(2 x) cosh(2 y)),
-      cosh(2 x) cosh(2 y^(prime))
+      sinh(2 K_2^(*)) (cosh(2 K_1) cos(((2 pi mu) / M)) + sqrt(-1) sin(((2 pi mu) / M)) - sinh(2 K_1) cosh(2 K_2)),
+      cosh(2 K_1) cosh(2 K_2^(*))
       -
-      sinh(2 x) sinh(2 y^(prime)) cos(((2 pi mu) / M));
+      sinh(2 K_1) sinh(2 K_2^(*)) cos(((2 pi mu) / M));
     )
   $
 
@@ -7434,8 +7430,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       )
       mat(
         cosh(2 K_2^*),
-        - sqrt(-1)
+        sqrt(-1)
         sinh(2 K_2^*);
+        -
         sqrt(-1)
         sinh(2 K_2^*),
         cosh(2 K_2^*);
@@ -7463,8 +7460,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     mat(
       cosh(2 K_2^*),
-      - sqrt(-1)
+      sqrt(-1)
       sinh(2 K_2^*);
+      -
       sqrt(-1)
       sinh(2 K_2^*),
       cosh(2 K_2^*);
@@ -7487,7 +7485,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     mat(
       cosh(K_1),
-      - sqrt(-1)
+      sqrt(-1)
       exp(
         -
         sqrt(-1)
@@ -7506,8 +7504,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     \ & quad quad quad
     mat(
       cosh(2 K_2^*),
-      - sqrt(-1)
+      sqrt(-1)
       sinh(2 K_2^*);
+      -
       sqrt(-1)
       sinh(2 K_2^*),
       cosh(2 K_2^*);
@@ -7586,8 +7585,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       )
       mat(
         cosh(2 K_2^*),
-        - sqrt(-1)
+        sqrt(-1)
         sinh(2 K_2^*);
+        -
         sqrt(-1)
         sinh(2 K_2^*),
         cosh(2 K_2^*);
@@ -7615,14 +7615,15 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     mat(
       cosh(2 K_2^*),
-      - sqrt(-1)
+      sqrt(-1)
       sinh(2 K_2^*);
+      -
       sqrt(-1)
       sinh(2 K_2^*),
       cosh(2 K_2^*);
     )
     mat(
-      - sqrt(-1)
+      sqrt(-1)
       exp(
         -
         sqrt(-1)
@@ -7639,7 +7640,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
     mat(
       cosh(K_1),
-      - sqrt(-1)
+      sqrt(-1)
       exp(
         -
         sqrt(-1)
@@ -7658,14 +7659,15 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     \ & quad quad quad
     mat(
       cosh(2 K_2^*),
-      - sqrt(-1)
+      sqrt(-1)
       sinh(2 K_2^*);
+      -
       sqrt(-1)
       sinh(2 K_2^*),
       cosh(2 K_2^*);
     )
     mat(
-      - sqrt(-1)
+      sqrt(-1)
       exp(
         -
         sqrt(-1)
@@ -7692,9 +7694,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         )
         mat(
           cosh(K_1),
-          - sqrt(-1)
+          -
+          sqrt(-1)
           exp(
-            -
             sqrt(-1)
             (2 pi mu) / M
           )
@@ -7711,8 +7713,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
         mat(
           cosh(2 K_2^*),
-          - sqrt(-1)
+          sqrt(-1)
           sinh(2 K_2^*);
+          -
           sqrt(-1)
           sinh(2 K_2^*),
           cosh(2 K_2^*);
@@ -7733,9 +7736,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         )
         mat(
           cosh(K_1),
-          - sqrt(-1)
+           -
+          sqrt(-1)
           exp(
-            -
             sqrt(-1)
             (2 pi mu) / M
           )
@@ -7752,16 +7755,17 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
         mat(
           cosh(2 K_2^*),
-          - sqrt(-1)
+          sqrt(-1)
           sinh(2 K_2^*);
+          -
           sqrt(-1)
           sinh(2 K_2^*),
           cosh(2 K_2^*);
         )
         mat(
-          - sqrt(-1)
+           -
+          sqrt(-1)
           exp(
-            -
             sqrt(-1)
             (2 pi mu) / M
           )
@@ -7778,9 +7782,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       mat(
         mat(
           cosh(K_1),
-          - sqrt(-1)
+          -
+          sqrt(-1)
           exp(
-            -
             sqrt(-1)
             (2 pi mu) / M
           )
@@ -7796,8 +7800,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         )
         mat(
           cosh(2 K_2^*),
-          - sqrt(-1)
+          sqrt(-1)
           sinh(2 K_2^*);
+          -
           sqrt(-1)
           sinh(2 K_2^*),
           cosh(2 K_2^*);
@@ -7814,7 +7819,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         ),
         mat(
           cosh(K_1),
-          - sqrt(-1)
+          sqrt(-1)
           exp(
             -
             sqrt(-1)
@@ -7833,16 +7838,17 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
         mat(
           cosh(2 K_2^*),
-          - sqrt(-1)
+          sqrt(-1)
           sinh(2 K_2^*);
+          -
           sqrt(-1)
           sinh(2 K_2^*),
           cosh(2 K_2^*);
         )
         mat(
-          - sqrt(-1)
+           -
+          sqrt(-1)
           exp(
-            -
             sqrt(-1)
             (2 pi mu) / M
           )
@@ -7858,14 +7864,13 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       )
       mat(
         cosh(K_1),
-        - sqrt(-1)
+        -
+        sqrt(-1)
         exp(
-          -
           sqrt(-1)
           (2 pi mu) / M
         )
-        sinh(K_1)
-        ;
+        sinh(K_1);       
         sqrt(-1)
         exp(
           -
@@ -7878,19 +7883,18 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       )
       mat(
         cosh(2 K_2^*),
-        - sqrt(-1)
-        sinh(2 K_2^*)
-        ;
+        sqrt(-1)
+        sinh(2 K_2^*);
+        -
         sqrt(-1)
         sinh(2 K_2^*),
-        cosh(2 K_2^*)
-        ;
+        cosh(2 K_2^*);
       )
       mat(
         cosh(K_1),
-        - sqrt(-1)
+        -
+        sqrt(-1)
         exp(
-          -
           sqrt(-1)
           (2 pi mu) / M
         )
@@ -7906,274 +7910,35 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         cosh(K_1)
         ;
       )
-      \
-      &=
-      mat(
-        hat(Z)_mu^((minus)),
-        hat(Y)_mu,
-      )
-      mat(
-        (
-          cosh(K_1)
-        )
-        (
-          cosh(2 K_2^*)
-        )
-        +
-        (
-          - sqrt(-1)
-          exp(
-            -
-            sqrt(-1)
-            (2 pi mu) / M
-          )
-          sinh(K_1)
-        )
-        (
-          sqrt(-1)
-          sinh(2 K_2^*)
-        ),
-        (
-          cosh(K_1)
-        )
-        (
-          - sqrt(-1)
-          sinh(2 K_2^*)
-        )
-        +
-        (
-          - sqrt(-1)
-          exp(
-            -
-            sqrt(-1)
-            (2 pi mu) / M
-          )
-          sinh(K_1)
-        )
-        (
-          cosh(2 K_2^*)
-        )
-        ;
-        (
-          sqrt(-1)
-          exp(
-            -
-            sqrt(-1)
-            (2 pi mu) / M
-          )
-          sinh(K_1)
-        )
-        (
-          cosh(2 K_2^*)
-        )
-        +
-        (
-          cosh(K_1)
-        )
-        (
-          sqrt(-1)
-          sinh(2 K_2^*)
-        ),
-        (
-          sqrt(-1)
-          exp(
-            -
-            sqrt(-1)
-            (2 pi mu) / M
-          )
-          sinh(K_1)
-        )
-        (
-          - sqrt(-1)
-          sinh(2 K_2^*)
-        )
-        +
-        (
-          cosh(K_1)
-        )
-        (
-          cosh(2 K_2^*)
-        )
-        ;
-      )
-      \ & quad quad quad
-      mat(
-        cosh(K_1),
-        - sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1);
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1),
-        cosh(K_1);
-      )
-      \
-      &=
-      mat(
-        hat(Z)_mu^((minus)),
-        hat(Y)_mu,
-      )
-      mat(
-        (
-          (
-            cosh(K_1)
-          )
-          (
-            cosh(2 K_2^*)
-          )
-          +
-          (
-            - sqrt(-1)
-            exp(
-              -
-              sqrt(-1)
-              (2 pi mu) / M
-            )
-            sinh(K_1)
-          )
-          (
-            sqrt(-1)
-            sinh(2 K_2^*)
-          )
-        )
-        (
-          cosh(K_1)
-        )
-        +
-        (
-          (
-            cosh(K_1)
-          )
-          (
-            - sqrt(-1)
-            sinh(2 K_2^*)
-          )
-          +
-          (
-            - sqrt(-1)
-            exp(
-              -
-              sqrt(-1)
-              (2 pi mu) / M
-            )
-            sinh(K_1)
-          )
-          (
-            cosh(2 K_2^*)
-          )
-        )
-        (
-          sqrt(-1)
-          exp(
-            -
-            sqrt(-1)
-            (2 pi mu) / M
-          )
-          sinh(K_1)
-        ),
-        (
-          (
-            cosh(K_1)
-          )
-          (
-            - sqrt(-1)
-            sinh(2 K_2^*)
-          )
-          +
-          (
-            - sqrt(-1)
-            exp(
-              -
-              sqrt(-1)
-              (2 pi mu) / M
-            )
-            sinh(K_1)
-          )
-          (
-            cosh(2 K_2^*)
-          )
-        )
-        ;
-        (
-          (
-            sqrt(-1)
-            exp(
-              -
-              sqrt(-1)
-              (2 pi mu) / M
-            )
-            sinh(K_1)
-          )
-          (
-            cosh(2 K_2^*)
-          )
-          +
-          (
-            cosh(K_1)
-          )
-          (
-            sqrt(-1)
-            sinh(2 K_2^*)
-          )
-        ),
-        (
-          (
-            sqrt(-1)
-            exp(
-              -
-              sqrt(-1)
-              (2 pi mu) / M
-            )
-            sinh(K_1)
-          )
-          (
-            - sqrt(-1)
-            sinh(2 K_2^*)
-          )
-          +
-          (
-            cosh(K_1)
-          )
-          (
-            cosh(2 K_2^*)
-          )
-        )
-        ;
-      )
-      \ & quad quad quad
-      mat(
-        cosh(K_1),
-        - sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1);
-        sqrt(-1)
-        exp(
-          -
-          sqrt(-1)
-          (2 pi mu) / M
-        )
-        sinh(K_1),
-        cosh(K_1);
-      )
+      
+
+
     $
+
+    TODO: mathematicaに計算させたらステートメントは正しいことはわかったので、一旦具体の計算は飛ばす (0426)
+
   ]
 ]
 
-(次回 0419-2)
-- ミスを治す
-- 計算が合わないので検討
+#claim([$A(theta)$の対角化])[
+
+  $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
+
+  $mu in cal(M)$について、
+
+  $A((2 pi mu) / M)$の固有値は xxxx で、対応する固有ベクトルはそれぞれ hogehoge である
+
+  #proof[
+    $
+    A((2 pi mu) / M)
+    =
+    mat(
+
+    )
+    $
+    (次回 0426) 固有値/固有ベクトルを求める
+  ]
+]
 
 
 (次回 0403)
