@@ -7930,15 +7930,418 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
   #proof[
     $
-    A((2 pi mu) / M)
-    =
-    mat(
-
-    )
+      A(theta)
+      :&=
+      mat(
+        c_1 c_2^*
+        -
+        s_1 s_2^* cos theta,
+        i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2);
+        - i e^(-i theta) s_2^* (c_1 cos theta + i sin theta - s_1 c_2),
+        c_1 c_2^*
+        -
+        s_1 s_2^* cos theta;
+      )   
     $
-    (次回 0426) 固有値/固有ベクトルを求める
+
+    $gamma_1(theta) := c_1 c_2^* - s_1 s_2^* cos theta$
+    
+    $gamma_2(theta) := i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2)$
+
+    とおくと、
+
+    $
+      A(theta)
+      =
+      mat(
+        gamma_1(theta),
+        gamma_2(theta);
+        - gamma_2(-theta),
+        gamma_1(theta);
+      )
+    $
+
+    とかける。
+    
+    であるから、$A(theta)$の固有方程式は$lambda in CC$として、
+
+    $
+      abs(A(theta) - lambda I) &= 0
+    $
+
+    $
+      "(左辺)"
+      &=
+      mat(
+        delim: "|",
+        gamma_1(theta) - lambda,
+        gamma_2(theta);
+        - gamma_2(-theta),
+        gamma_1(theta) - lambda;
+      )
+      \
+      &=
+      (
+        gamma_1(theta) - lambda
+      )
+      (
+        gamma_1(theta) - lambda
+      )
+      -
+      (
+        gamma_2(theta)
+      )
+      (
+        -gamma_2(-theta)
+      )
+      \
+      &=
+      (
+        gamma_1(theta) - lambda
+      )^2
+      +
+      (
+        gamma_2(theta)
+      )^2
+      \
+      &=
+      (
+        gamma_1(theta)
+      )^2
+      -
+      2
+      lambda
+      (
+        gamma_1(theta)
+      )
+      +
+      (
+        lambda
+      )^2
+      +
+      (
+        gamma_2(theta)
+      )^2
+      \
+      &=
+      lambda^2
+      -
+      2
+      lambda
+      (
+        gamma_1(theta)
+      )
+      +
+      (
+        gamma_1(theta)
+      )^2
+      +
+      (
+        gamma_2(theta)
+      )^2
+    $
+
+    $
+      lambda^2
+      -
+      2
+      lambda
+      (
+        gamma_1(theta)
+      )
+      +
+      (
+        gamma_1(theta)
+      )^2
+      +
+      (
+        gamma_2(theta)
+      )^2
+      =
+      0
+    $
+
+    より、
+
+    $
+      lambda
+      &=
+      (
+        2
+        (
+          gamma_1(theta)
+        )
+        plus.minus
+        sqrt(
+          (
+            2
+            (
+              gamma_1(theta)
+            )
+          )^2
+          -
+          4
+          (
+            (
+              gamma_1(theta)
+            )^2
+            +
+            (
+              gamma_2(theta)
+            )^2
+          )
+        )
+      )
+      /
+      2
+      \
+      &=
+      (
+        2
+        (
+          gamma_1(theta)
+        )
+        plus.minus
+        sqrt(
+          4
+          (
+            (
+              gamma_1(theta)
+            )
+          )^2
+          -
+          4
+          (
+            (
+              gamma_1(theta)
+            )^2
+            +
+            (
+              gamma_2(theta)
+            )^2
+          )
+        )
+      )
+      /
+      2
+      \
+      &=
+      (
+        2
+        (
+          gamma_1(theta)
+        )
+        plus.minus
+        2
+        sqrt(
+          (
+            (
+              gamma_1(theta)
+            )
+          )^2
+          -
+          (
+            (
+              gamma_1(theta)
+            )^2
+            +
+            (
+              gamma_2(theta)
+            )^2
+          )
+        )
+      )
+      /
+      2
+      \
+      &=
+      (
+        gamma_1(theta)
+      )
+      plus.minus
+      sqrt(
+        (
+          gamma_1(theta)
+        )^2
+        -
+        (
+          gamma_1(theta)
+        )^2
+        -
+        (
+          gamma_2(theta)
+        )^2
+      )
+      \
+      &=
+      (
+        gamma_1(theta)
+      )
+      plus.minus
+      sqrt(
+        -
+        (
+          gamma_2(theta)
+        )^2
+      )
+      \
+      &=
+      (
+        gamma_1(theta)
+      )
+      plus.minus
+      sqrt(-1)
+      (
+        gamma_2(theta)
+      )
+    $
+
+    対応する固有ベクトルは、$v := mat(v_1; v_2) in CC^2$ として
+
+    $
+      A(theta) v &= lambda v
+      \
+      mat(
+        gamma_1(theta),
+        gamma_2(theta);
+        - gamma_2(-theta),
+        gamma_1(theta);
+      )
+      v
+      &=
+      lambda
+      v
+      \
+      mat(
+        gamma_1(theta),
+        gamma_2(theta);
+        - gamma_2(-theta),
+        gamma_1(theta);
+      )
+      v
+      &=
+      (
+        (
+          gamma_1(theta)
+        )
+        plus.minus
+        sqrt(-1)
+        (
+          gamma_2(theta)
+        )
+      )
+      v
+      \
+      mat(
+        gamma_1(theta),
+        gamma_2(theta);
+        - gamma_2(-theta),
+        gamma_1(theta);
+      )
+      mat(v_1; v_2)
+      &=
+      (
+        (
+          gamma_1(theta)
+        )
+        plus.minus
+        sqrt(-1)
+        (
+          gamma_2(theta)
+        )
+      )
+      mat(v_1; v_2)
+      \
+      I
+      dot.c
+      mat(
+        gamma_1(theta),
+        gamma_2(theta);
+        - gamma_2(-theta),
+        gamma_1(theta);
+      )
+      mat(v_1; v_2)
+      &=
+      I
+      dot.c
+      (
+        (
+          gamma_1(theta)
+        )
+        plus.minus
+        sqrt(-1)
+        (
+          gamma_2(theta)
+        )
+      )
+      mat(v_1; v_2)
+      \
+      mat(
+        gamma_1(theta),
+        gamma_2(theta);
+        - gamma_2(-theta),
+        gamma_1(theta);
+      )
+      mat(v_1; v_2)
+      &=
+      mat(
+        (
+          gamma_1(theta)
+        )
+        plus.minus
+        sqrt(-1)
+        (
+          gamma_2(theta)
+        ),
+        0;
+        0,
+        (
+          gamma_1(theta)
+        )
+        plus.minus
+        sqrt(-1)
+        (
+          gamma_2(theta)
+        )
+      )
+      mat(v_1; v_2)
+      \
+      mat(
+        gamma_1(theta)
+        -
+        (
+          gamma_1(theta)
+        )
+        plus.minus
+        sqrt(-1)
+        (
+          gamma_2(theta)
+        ),
+        gamma_2(theta);
+        - gamma_2(-theta),
+        gamma_1(theta)
+        -
+        (
+          gamma_1(theta)
+        )
+        plus.minus
+        sqrt(-1)
+        (
+          gamma_2(theta)
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+
+      \
+      "(次回0503) この連立方程式を解く"
+    $
   ]
 ]
+
+(次回 0503)
+- いまのところ、$g^prime = exp(-sum_mu gamma_mu (psi_mu^dagger psi_mu - 1/2))$ これが見つかる理由が全然わからん
 
 
 (次回 0403)
