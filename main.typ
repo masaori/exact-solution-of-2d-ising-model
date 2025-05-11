@@ -113,7 +113,7 @@
   $M, N in NN$を格子のサイズとする。
 ]
 #definition("2次元ising模型の分配関数")[
-  $Z: RR times RR -> RR$を以下のように定める。
+  $Z: RR_(>0) times RR_(>0) -> RR_(>0)$を以下のように定める。
 
   $frak(S) := "Map"({ 1, dots, M} times { 1, dots, N }, { -1, 1 })$として、
 
@@ -330,6 +330,8 @@
 - $K_2^* := -1/2 log(tanh K_2) arrow.l.r sinh(K_2) sinh(K_2^*) = 1$
 - $c_i := cosh 2K_i, quad s_i := sinh 2K_i,$
 - $c_i^* := cosh 2K_i^*, quad s_i^* := sinh 2K_i^*$
+
+$K_i, K_i^* > 0$ より、 $c_i, s_i, c_i^*, s_i^* > 0$
 
 #claim([$Z_m,Y_m$は線型独立])[
   $
@@ -7920,53 +7922,174 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]
 
+#definition([$A(theta)$の対角化の準備])[
+  $
+    gamma_1(theta) :&= c_1 c_2^* - s_1 s_2^* cos theta
+    \
+    gamma_2(theta) :&= i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2)
+  $
+
+  と定めると、
+
+  $
+    A(theta)
+    :&=
+    mat(
+      c_1 c_2^*
+      -
+      s_1 s_2^* cos theta,
+      i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2);
+      - i e^(-i theta) s_2^* (c_1 cos theta + i sin theta - s_1 c_2),
+      c_1 c_2^*
+      -
+      s_1 s_2^* cos theta;
+    )
+    \
+    &=
+    mat(
+      gamma_1(theta),
+      gamma_2(theta);
+      - gamma_2(-theta),
+      gamma_1(theta);
+    )
+  $
+
+  とかける。
+]
+
+#claim([$gamma_2(theta)$が$0$になる条件])[
+  $
+    gamma_2(theta)
+    =
+    0
+    & <=>
+    cases(
+      sin(theta) &= 0,
+      c_2 s_1 - c_1 cos(theta) &= 0,
+    )
+    \
+    & <=>
+    cases(
+      theta &= 0\, plus.minus pi\, plus.minus 2 pi\, dots,
+      c_2 s_1 &= c_1
+    )
+  $
+
+  #proof[
+
+  ]
+]<gamma_2_theta_is_0>
+
+#claim([$gamma_2(theta)$と$gamma_2(-theta)$の関係])[
+  $
+    gamma_2(-theta) = gamma_2(theta)^dagger
+  $
+
+  ゆえに、
+
+  $
+    gamma_2(theta) gamma_2(-theta) = |gamma_2(theta)|^2 > 0
+  $
+
+  #proof[]
+]<relation_of_gamma_2>
+
 #claim([$A(theta)$の対角化])[
 
   $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
 
   $mu in cal(M)$について、
 
-  $A((2 pi mu) / M)$の固有値は xxxx で、対応する固有ベクトルはそれぞれ hogehoge である
+  $theta_(mu) := (2 pi mu) / M$ とおくとき、
+
+  $A(theta_(mu))$の固有値$lambda_(mu) in RR$は
+  $
+    lambda_(mu)
+    :=
+    (
+      gamma_1(theta_(mu))
+    )
+    plus.minus
+    sqrt(
+      -
+      (
+        gamma_2(theta_(mu))
+      )
+      (
+        gamma_2(-theta_(mu))
+      )
+    )
+  $
+  
+  で、対応する固有ベクトル $v in CC^2$は
+
+  1) $mu = plus.minus M$ のとき、
+  $
+    v_(mu) "は任意のベクトル" in CC^2
+  $
+
+  2) $mu eq.not plus.minus M$ のとき、
+
+  $c in CC$ として、
+
+  $
+    v_(mu)
+    :=
+    c
+    mat(
+      plus.minus
+      sqrt(
+        -1
+      )
+      sqrt(
+        gamma_2(theta_(mu))
+        gamma_2(-theta_(mu))
+      );
+      gamma_2(-theta_(mu))
+    )
+  $
+  
+  である
 
   #proof[
     $
-      A(theta)
+      A(theta_(mu))
       :&=
       mat(
         c_1 c_2^*
         -
-        s_1 s_2^* cos theta,
-        i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2);
-        - i e^(-i theta) s_2^* (c_1 cos theta + i sin theta - s_1 c_2),
+        s_1 s_2^* cos theta_(mu),
+        i e^(i theta_(mu)) s_2^* (c_1 cos theta_(mu) - i sin theta_(mu) - s_1 c_2);
+        - i e^(-i theta_(mu)) s_2^* (c_1 cos theta_(mu) + i sin theta_(mu) - s_1 c_2),
         c_1 c_2^*
         -
-        s_1 s_2^* cos theta;
+        s_1 s_2^* cos theta_(mu);
       )   
     $
 
-    $gamma_1(theta) := c_1 c_2^* - s_1 s_2^* cos theta$
+    $gamma_1(theta_(mu)) := c_1 c_2^* - s_1 s_2^* cos theta_(mu)$
     
-    $gamma_2(theta) := i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2)$
+    $gamma_2(theta_(mu)) := i e^(i theta_(mu)) s_2^* (c_1 cos theta_(mu) - i sin theta_(mu) - s_1 c_2)$
 
     とおくと、
 
     $
-      A(theta)
+      A(theta_(mu))
       =
       mat(
-        gamma_1(theta),
-        gamma_2(theta);
-        - gamma_2(-theta),
-        gamma_1(theta);
+        gamma_1(theta_(mu)),
+        gamma_2(theta_(mu));
+        - gamma_2(-theta_(mu)),
+        gamma_1(theta_(mu));
       )
     $
 
     とかける。
     
-    であるから、$A(theta)$の固有方程式は$lambda in CC$として、
+    であるから、$A(theta_(mu))$の固有方程式は$lambda in CC$として、
 
     $
-      abs(A(theta) - lambda I) &= 0
+      abs(A(theta_(mu)) - lambda I) &= 0
     $
 
     $
@@ -7974,71 +8097,46 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       &=
       mat(
         delim: "|",
-        gamma_1(theta) - lambda,
-        gamma_2(theta);
-        - gamma_2(-theta),
-        gamma_1(theta) - lambda;
+        gamma_1(theta_(mu)) - lambda,
+        gamma_2(theta_(mu));
+        - gamma_2(-theta_(mu)),
+        gamma_1(theta_(mu)) - lambda;
       )
       \
       &=
       (
-        gamma_1(theta) - lambda
+        gamma_1(theta_(mu)) - lambda
       )
       (
-        gamma_1(theta) - lambda
+        gamma_1(theta_(mu)) - lambda
       )
       -
       (
-        gamma_2(theta)
+        gamma_2(theta_(mu))
       )
       (
-        -gamma_2(-theta)
+        -gamma_2(-theta_(mu))
       )
       \
       &=
       (
-        gamma_1(theta) - lambda
-      )^2
-      +
-      (
-        gamma_2(theta)
-      )^2
-      \
-      &=
-      (
-        gamma_1(theta)
+        gamma_1(theta_(mu))
       )^2
       -
       2
       lambda
       (
-        gamma_1(theta)
+        gamma_1(theta_(mu))
       )
       +
-      (
-        lambda
-      )^2
-      +
-      (
-        gamma_2(theta)
-      )^2
-      \
-      &=
       lambda^2
-      -
-      2
-      lambda
+      +
       (
-        gamma_1(theta)
+        gamma_2(theta_(mu))
       )
-      +
       (
-        gamma_1(theta)
-      )^2
-      +
-      (
-        gamma_2(theta)
-      )^2
+        gamma_2(-theta_(mu))
+      )
     $
 
     $
@@ -8047,16 +8145,19 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       2
       lambda
       (
-        gamma_1(theta)
+        gamma_1(theta_(mu))
       )
       +
       (
-        gamma_1(theta)
+        gamma_1(theta_(mu))
       )^2
       +
       (
-        gamma_2(theta)
-      )^2
+        gamma_2(theta_(mu))
+      )
+      (
+        gamma_2(-theta_(mu))
+      )
       =
       0
     $
@@ -8069,26 +8170,30 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       (
         2
         (
-          gamma_1(theta)
+          gamma_1(theta_(mu))
         )
         plus.minus
         sqrt(
           (
+            -
             2
             (
-              gamma_1(theta)
+              gamma_1(theta_(mu))
             )
           )^2
           -
           4
           (
             (
-              gamma_1(theta)
+              gamma_1(theta_(mu))
             )^2
             +
             (
-              gamma_2(theta)
-            )^2
+              gamma_2(theta_(mu))
+            )
+            (
+              gamma_2(-theta_(mu))
+            )
           )
         )
       )
@@ -8099,26 +8204,29 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       (
         2
         (
-          gamma_1(theta)
+          gamma_1(theta_(mu))
         )
         plus.minus
         sqrt(
           4
           (
             (
-              gamma_1(theta)
+              gamma_1(theta_(mu))
             )
           )^2
           -
           4
           (
             (
-              gamma_1(theta)
+              gamma_1(theta_(mu))
             )^2
             +
             (
-              gamma_2(theta)
-            )^2
+              gamma_2(theta_(mu))
+            )
+            (
+              gamma_2(-theta_(mu))
+            )
           )
         )
       )
@@ -8129,25 +8237,28 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       (
         2
         (
-          gamma_1(theta)
+          gamma_1(theta_(mu))
         )
         plus.minus
         2
         sqrt(
           (
             (
-              gamma_1(theta)
+              gamma_1(theta_(mu))
             )
           )^2
           -
           (
             (
-              gamma_1(theta)
+              gamma_1(theta_(mu))
             )^2
             +
             (
-              gamma_2(theta)
-            )^2
+              gamma_2(theta_(mu))
+            )
+            (
+              gamma_2(-theta_(mu))
+            )
           )
         )
       )
@@ -8156,56 +8267,30 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       \
       &=
       (
-        gamma_1(theta)
-      )
-      plus.minus
-      sqrt(
-        (
-          gamma_1(theta)
-        )^2
-        -
-        (
-          gamma_1(theta)
-        )^2
-        -
-        (
-          gamma_2(theta)
-        )^2
-      )
-      \
-      &=
-      (
-        gamma_1(theta)
+        gamma_1(theta_(mu))
       )
       plus.minus
       sqrt(
         -
         (
-          gamma_2(theta)
-        )^2
-      )
-      \
-      &=
-      (
-        gamma_1(theta)
-      )
-      plus.minus
-      sqrt(-1)
-      (
-        gamma_2(theta)
+          gamma_2(theta_(mu))
+        )
+        (
+          gamma_2(-theta_(mu))
+        )
       )
     $
 
     対応する固有ベクトルは、$v := mat(v_1; v_2) in CC^2$ として
 
     $
-      A(theta) v &= lambda v
+      A(theta_(mu)) v &= lambda v
       \
       mat(
-        gamma_1(theta),
-        gamma_2(theta);
-        - gamma_2(-theta),
-        gamma_1(theta);
+        gamma_1(theta_(mu)),
+        gamma_2(theta_(mu));
+        - gamma_2(-theta_(mu)),
+        gamma_1(theta_(mu));
       )
       v
       &=
@@ -8213,41 +8298,51 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       v
       \
       mat(
-        gamma_1(theta),
-        gamma_2(theta);
-        - gamma_2(-theta),
-        gamma_1(theta);
+        gamma_1(theta_(mu)),
+        gamma_2(theta_(mu));
+        - gamma_2(-theta_(mu)),
+        gamma_1(theta_(mu));
       )
       v
       &=
       (
         (
-          gamma_1(theta)
+          gamma_1(theta_(mu))
         )
         plus.minus
-        sqrt(-1)
-        (
-          gamma_2(theta)
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
         )
       )
       v
       \
       mat(
-        gamma_1(theta),
-        gamma_2(theta);
-        - gamma_2(-theta),
-        gamma_1(theta);
+        gamma_1(theta_(mu)),
+        gamma_2(theta_(mu));
+        - gamma_2(-theta_(mu)),
+        gamma_1(theta_(mu));
       )
       mat(v_1; v_2)
       &=
       (
         (
-          gamma_1(theta)
+          gamma_1(theta_(mu))
         )
         plus.minus
-        sqrt(-1)
-        (
-          gamma_2(theta)
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
         )
       )
       mat(v_1; v_2)
@@ -8255,10 +8350,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       I
       dot.c
       mat(
-        gamma_1(theta),
-        gamma_2(theta);
-        - gamma_2(-theta),
-        gamma_1(theta);
+        gamma_1(theta_(mu)),
+        gamma_2(theta_(mu));
+        - gamma_2(-theta_(mu)),
+        gamma_1(theta_(mu));
       )
       mat(v_1; v_2)
       &=
@@ -8266,81 +8361,593 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       dot.c
       (
         (
-          gamma_1(theta)
+          gamma_1(theta_(mu))
         )
         plus.minus
-        sqrt(-1)
-        (
-          gamma_2(theta)
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
         )
       )
       mat(v_1; v_2)
       \
       mat(
-        gamma_1(theta),
-        gamma_2(theta);
-        - gamma_2(-theta),
-        gamma_1(theta);
+        gamma_1(theta_(mu)),
+        gamma_2(theta_(mu));
+        - gamma_2(-theta_(mu)),
+        gamma_1(theta_(mu));
       )
       mat(v_1; v_2)
       &=
       mat(
         (
-          gamma_1(theta)
+          gamma_1(theta_(mu))
         )
         plus.minus
-        sqrt(-1)
-        (
-          gamma_2(theta)
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
         ),
         0;
         0,
         (
-          gamma_1(theta)
+          gamma_1(theta_(mu))
         )
         plus.minus
-        sqrt(-1)
-        (
-          gamma_2(theta)
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
         )
       )
       mat(v_1; v_2)
       \
       mat(
-        gamma_1(theta)
+        gamma_1(theta_(mu))
         -
         (
-          gamma_1(theta)
-        )
-        plus.minus
-        sqrt(-1)
-        (
-          gamma_2(theta)
+          (
+            gamma_1(theta_(mu))
+          )
+          plus.minus
+          sqrt(
+            -
+            (
+              gamma_2(theta_(mu))
+            )
+            (
+              gamma_2(-theta_(mu))
+            )
+          )
         ),
-        gamma_2(theta);
-        - gamma_2(-theta),
-        gamma_1(theta)
+        gamma_2(theta_(mu));
+        - gamma_2(-theta_(mu)),
+        gamma_1(theta_(mu))
         -
         (
-          gamma_1(theta)
-        )
-        plus.minus
-        sqrt(-1)
-        (
-          gamma_2(theta)
+          (
+            gamma_1(theta_(mu))
+          )
+          plus.minus
+          sqrt(
+            -
+            (
+              gamma_2(theta_(mu))
+            )
+            (
+              gamma_2(-theta_(mu))
+            )
+          )
         );
       )
       mat(v_1; v_2)
       &=
       0
-
       \
-      "(次回0503) この連立方程式を解く"
+      mat(
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        ),
+        gamma_2(theta_(mu));
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      quad
+      dots.c
+      (*)
+    $
+
+    1) $mu = plus.minus M$ のとき、
+
+    $
+      gamma_2(theta_(mu)) &= 0
+      \
+      gamma_2(-theta_(mu)) &= 0 quad (because #ref(<gamma_2_theta_is_0>))
+    $
+
+    $
+    $
+
+    であるから、$(*)$は、
+
+    $
+      mat(
+        0, 0;
+        0, 0;
+      )
+      mat(v_1; v_2)
+      &=
+      0
+    $
+
+    より、$v$は任意の値をとる
+
+    2) $mu eq.not plus.minus M$ のとき、
+
+    $
+      gamma_2(theta_(mu)) eq.not 0
+      \
+      gamma_2(-theta_(mu)) eq.not 0
+    $
+
+    より、
+    $sqrt(
+      -
+      (
+        gamma_2(theta_(mu))
+      )
+      (
+        gamma_2(-theta_(mu))
+      )
+    ) eq.not 0$
+    だから、
+    $(*)$は、
+    $
+      mat(
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        )
+        (
+          (gamma_2(-theta_(mu)))
+          /
+          (
+            plus.minus
+            sqrt(
+              -
+              (
+                gamma_2(theta_(mu))
+              )
+              (
+                gamma_2(-theta_(mu))
+              )
+            )
+          )
+        ),
+        gamma_2(theta_(mu))
+        (
+          (gamma_2(-theta_(mu)))
+          /
+          (
+            plus.minus
+            sqrt(
+              -
+              (
+                gamma_2(theta_(mu))
+              )
+              (
+                gamma_2(-theta_(mu))
+              )
+            )
+          )
+        )
+        ;
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      quad
+      (because "行列の基本変形")
+      \
+      mat(
+        gamma_2(-theta_(mu)),
+        (
+          (
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+          /
+          (
+            plus.minus
+            sqrt(
+              -1
+            )
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+              )
+              (
+                gamma_2(-theta_(mu))
+              )
+            )
+          )
+        )
+        ;
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      \
+      mat(
+        gamma_2(-theta_(mu)),
+        (
+          1
+          /
+          (
+            plus.minus
+            sqrt(
+              -1
+            )
+          )
+          (
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+          /
+          (
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+              )
+              (
+                gamma_2(-theta_(mu))
+              )
+            )
+          )
+        )
+        ;
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      \
+      mat(
+        gamma_2(-theta_(mu)),
+        (
+          1
+          /
+          (
+            plus.minus
+            sqrt(
+              -1
+            )
+          )
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )^2
+          )
+          /
+          (
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+              )
+              (
+                gamma_2(-theta_(mu))
+              )
+            )
+          )
+        )
+        ;
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      quad
+      (
+        because #ref(<relation_of_gamma_2>)"より、"
+        gamma_2(theta_(mu)) gamma_2(-theta_(mu))
+        >
+        0
+      )
+      \
+      mat(
+        gamma_2(-theta_(mu)),
+        (
+          1
+          /
+          (
+            plus.minus
+            sqrt(
+              -1
+            )
+          )
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )^2
+            / 
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+        )
+        ;
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      \
+      mat(
+        gamma_2(-theta_(mu)),
+        (
+          1
+          /
+          (
+            plus.minus
+            sqrt(
+              -1
+            )
+          )
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+        )
+        ;
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      \
+      mat(
+        gamma_2(-theta_(mu)),
+        (
+          sqrt(
+            -1
+          )
+          /
+          (
+            plus.minus
+            (-1)
+          )
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+        )
+        ;
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -1
+        )
+        sqrt(
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      \
+      mat(
+        gamma_2(-theta_(mu)),
+        (
+          minus.plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+        )
+        ;
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -1
+        )
+        sqrt(
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      \
+      mat(
+        gamma_2(-theta_(mu)),
+        (
+          minus.plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+        )
+        ;
+        0,
+        0;
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      quad
+      (because "行列の基本変形")
+      \
+      gamma_2(-theta_(mu))
+      v_1
+      +
+      (
+        minus.plus
+        sqrt(
+          -1
+        )
+        sqrt(
+          (
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+      )
+      v_2
+      &=
+      0
+    $
+
+    よって、$c in CC$として、
+
+    $
+      v
+      &= 
+      c
+      mat(
+        plus.minus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        );
+        gamma_2(-theta_(mu))
+      )
     $
   ]
 ]
 
-(次回 0503)
+(次回 0510)
+- 対角化まで終わった
 - いまのところ、$g^prime = exp(-sum_mu gamma_mu (psi_mu^dagger psi_mu - 1/2))$ これが見つかる理由が全然わからん
 
 
