@@ -1,0 +1,96 @@
+name: Build Typst document
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # GitHub Pagesへのデプロイに必要な権限
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Japanese fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra
+      - uses: typst-community/setup-typst@v4
+      - name: Build main document
+        run: typst compile main.typ
+      - name: Create pages directory
+        run: mkdir -p pages
+      - name: Copy PDF to pages directory
+        run: cp main.pdf pages/
+      - name: Create index.html
+        run: |
+          cat > pages/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="ja">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>2次元Ising模型の厳密解</title>
+              <style>
+                  body {
+                      font-family: Arial, sans-serif;
+                      max-width: 800px;
+                      margin: 0 auto;
+                      padding: 20px;
+                      background-color: #f5f5f5;
+                  }
+                  .container {
+                      background-color: white;
+                      padding: 30px;
+                      border-radius: 10px;
+                      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                  }
+                  h1 {
+                      color: #333;
+                      text-align: center;
+                      margin-bottom: 30px;
+                  }
+                  .pdf-link {
+                      display: block;
+                      text-align: center;
+                      background-color: #007bff;
+                      color: white;
+                      padding: 15px 30px;
+                      text-decoration: none;
+                      border-radius: 5px;
+                      font-size: 18px;
+                      margin: 20px 0;
+                      transition: background-color 0.3s;
+                  }
+                  .pdf-link:hover {
+                      background-color: #0056b3;
+                  }
+                  .description {
+                      text-align: center;
+                      color: #666;
+                      margin-top: 20px;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>2次元Ising模型の厳密解</h1>
+                  <a href="main.pdf" class="pdf-link">📄 PDFを開く</a>
+                  <div class="description">
+                      <p>このドキュメントは2次元Ising模型の厳密解について記述しています。</p>
+                      <p>Typstで作成され、GitHub Actionsで自動的にPDF化されています。</p>
+                  </div>
+              </div>
+          </body>
+          </html>
+          EOF
+      - name: Upload PDF artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-document
+          path: main.pdf
+      # GitHub Pagesへのデプロイ
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: pages
+          publish_branch: gh-pages
