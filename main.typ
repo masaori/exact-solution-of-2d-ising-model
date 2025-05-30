@@ -7971,7 +7971,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     & <=>
     cases(
       theta &= 0\, plus.minus pi\, plus.minus 2 pi\, dots,
-      c_2 s_1 &= c_1
+      c_2 s_1 &= c_1 cos(theta),
     )
   $
 
@@ -8490,18 +8490,48 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       (*)
     $
 
-    1) $mu = plus.minus M$ のとき、
+    1) $gamma_1(theta_mu) = 0 and gamma_2(theta_mu)$ のとき、
 
-    $
-      gamma_2(theta_(mu)) &= 0
-      \
-      gamma_2(-theta_(mu)) &= 0 quad (because #ref(<gamma_2_theta_is_0>))
-    $
+    TODO: このような場合が起きるK_1,K_2の組み合わせがありうるかを検討する
+    (追記)どうやら$gamma_2(theta_mu)=0$の時は常に$gamma_1(theta_mu)=1$になるっぽい↓ので、この分岐は不要そう
+    // ############################################
+    // # 1. 変数と「K₂ の制約」を設定
+    // ############################################
+    // K1 = var('K1')                        # K₁ はシンボル
+    // K2 = 1/2 * acosh(coth(2*K1))          # K₂ = ½ acosh(coth(2K₁))
 
-    $
-    $
+    // ############################################
+    // # 2. 双対結合 ( * は単なる添字 )
+    // ############################################
+    // K1_star = -1/2 * log(tanh(K1))
+    // K2_star = -1/2 * log(tanh(K2))
 
-    であるから、$(*)$は、
+    // ############################################
+    // # 3. c_i, s_i と c_i★, s_i★
+    // ############################################
+    // c1, s1       = cosh(2*K1), sinh(2*K1)
+    // c2_star      = cosh(2*K2_star)
+    // s2_star      = sinh(2*K2_star)
+
+    // ############################################
+    // # 4. θ_μ と目的の式
+    // #    条件 μ = M ⇒ θ_μ = 2π, したがって cos θ_μ = 1
+    // ############################################
+    // expr = (c1*c2_star - s1*s2_star)      # cos(2*pi) = 1 を直接代入
+
+    // ############################################
+    // # 5. 簡約・表示
+    // ############################################
+    // expr_simplified = expr.simplify_full()   # 結果は 1 になる
+    // show(expr_simplified)
+
+    // ############################################
+    // # 6. 数値テスト（任意の K₁ で 1 になるか確認）
+    // ############################################
+    // for k in (0.2, 0.7, 1.3, 100):
+    // print("K1 =", k, "→", expr_simplified.subs(K1=k).n())
+
+    $(*)$は、
 
     $
       mat(
@@ -8945,6 +8975,112 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     $
   ]
 ]
+
+#claim([$A(theta)$の対角化])[
+  $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
+
+  $mu in cal(M)$について、
+
+  $
+    P_mu
+    :=
+    mat(
+      plus
+      sqrt(
+        -1
+      )
+      sqrt(
+        gamma_2(theta_(mu))
+        gamma_2(-theta_(mu))
+      )
+      ,
+      minus
+      sqrt(
+        -1
+      )
+      sqrt(
+        gamma_2(theta_(mu))
+        gamma_2(-theta_(mu))
+      );
+      gamma_2(-theta_(mu))
+      ,
+      gamma_2(-theta_(mu))
+    )
+    \
+    D_mu
+    :=
+    mat(
+      (
+        gamma_1(theta_(mu))
+      )
+      plus
+      sqrt(
+        -
+        (
+          gamma_2(theta_(mu))
+        )
+        (
+          gamma_2(-theta_(mu))
+        )
+      ),
+      0
+      ;
+      0,
+      (
+        gamma_1(theta_(mu))
+      )
+      minus
+      sqrt(
+        -
+        (
+          gamma_2(theta_(mu))
+        )
+        (
+          gamma_2(-theta_(mu))
+        )
+      )
+    )
+  $
+
+  とおけば、
+
+  $
+    A(theta_(mu))
+    =
+    P_mu
+    ^
+    (-1)
+    D_mu
+    P_mu
+  $
+]
+
+#claim("")[
+  $
+    (
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu
+    )
+    dot.c
+    P_mu
+  $
+]
+
+(次回 0529)
+- $(
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu
+    )
+    dot.c
+    P_mu$ に $A(theta)$ を作用させる
+    - $g'$を求めるにあたっては、$A(theta)$ の作用のうち$(
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu
+    )$ への分だけわかっていればいいのでは？
+    - $P_mu$は正則なので、$(
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu
+    ) dot.c P_mu$ への作用を考えれば良いのでは？
 
 (次回 0510)
 - 対角化まで終わった
