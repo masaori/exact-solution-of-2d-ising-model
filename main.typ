@@ -7982,7 +7982,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
 #claim([$gamma_2(theta)$と$gamma_2(-theta)$の関係])[
   $
-    gamma_2(-theta) = gamma_2(theta)^dagger
+    gamma_2(-theta) = -gamma_2(theta)^dagger
   $
 
   ゆえに、
@@ -7991,7 +7991,34 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     gamma_2(theta) gamma_2(-theta) = |gamma_2(theta)|^2 > 0
   $
 
-  #proof[]
+  #proof[
+    $
+      gamma_2(-theta)
+      &=
+      i e^(i (-theta)) s_2^* (c_1 cos (-theta) - i sin (-theta) - s_1 c_2)
+      \
+      &=
+      i e^(-i theta) s_2^* (c_1 cos (theta) + i sin (theta) - s_1 c_2)
+    $
+
+    $
+      gamma_2(theta)^dagger
+      &=
+      (
+        i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2)
+      )^dagger
+      \
+      &=
+      (i)^dagger
+      (
+        e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2)
+      )
+      ^dagger
+      \
+      &=
+      - i e^(-i theta) (c_1 cos theta + i sin theta - s_1 c_2)^dagger s_2
+    $
+  ]
 ]<relation_of_gamma_2>
 
 #claim([$A(theta)$の対角化])[
@@ -8023,12 +8050,12 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   
   で、対応する固有ベクトル $v in CC^2$は
 
-  1) $mu = plus.minus M$ のとき、
+  1) $gamma_2(theta_mu) = 0$ のとき、
   $
     v_(mu) "は任意のベクトル" in CC^2
   $
 
-  2) $mu eq.not plus.minus M$ のとき、
+  2) $gamma_2(theta_mu) eq.not 0$ のとき、
 
   $c in CC$ として、
 
@@ -8490,10 +8517,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       (*)
     $
 
-    1) $gamma_1(theta_mu) = 0 and gamma_2(theta_mu)$ のとき、
+    1) $gamma_2(theta_mu) = 0$ のとき、
 
-    TODO: このような場合が起きるK_1,K_2の組み合わせがありうるかを検討する
-    (追記)どうやら$gamma_2(theta_mu)=0$の時は常に$gamma_1(theta_mu)=1$になるっぽい↓ので、この分岐は不要そう
+    // このような場合が起きるK_1,K_2の組み合わせがありうるかを検討する
+    // (追記)どうやら$gamma_2(theta_mu)=0$の時は常に$gamma_1(theta_mu)=1$になるっぽい↓ので、この分岐は不要そう
     // ############################################
     // # 1. 変数と「K₂ の制約」を設定
     // ############################################
@@ -8545,15 +8572,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
     より、$v$は任意の値をとる
 
-    2) $mu eq.not plus.minus M$ のとき、
+    (この時 $A(theta_mu)$は単位行列になっている　TODO: 証明)
 
-    $
-      gamma_2(theta_(mu)) eq.not 0
-      \
-      gamma_2(-theta_(mu)) eq.not 0
-    $
+    2) $gamma_2(theta_mu) eq.not = 0$ のとき、
 
-    より、
     $sqrt(
       -
       (
@@ -8981,6 +9003,8 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
   $mu in cal(M)$について、
 
+  $gamma_2(theta_mu) = 0$のとき、
+
   $
     P_mu
     :=
@@ -9053,34 +9077,389 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     D_mu
     P_mu
   $
+
+  $gamma_2(theta_mu) = 0$のとき、
+
+  $
+    A(theta_(mu))
+    =
+    I "(単位行列)"
+  $
+]
+
+#claim([$a(theta_mu)$])[
+  ※ホロノミック量子場付録B (B.11/B.12)の表式の検討
+
+  $gamma_2(theta_mu) eq.not 0$の時、
+
+  $
+    alpha_1 :&= tanh K_1 tanh K_2^*
+    \
+    alpha_2 :&= (tanh K_1)^(-1) tanh K_2^*
+    \
+    a(theta_mu)
+    :&=
+    sqrt(
+      (
+        (1 - alpha_1 e^(i theta))
+      )
+      /
+      (
+        (1 - alpha_1 e^(-i theta))
+      )
+      dot.c
+      (
+        (1 - alpha_2^(-1) e^(i theta))
+      )
+      /
+      (
+        (1 - alpha_2^(-1) e^(-i theta))
+      )
+    )
+  $
+
+  と定めるとき、
+
+  $
+    sqrt(-1)(a(theta_mu))^(-1)
+    =
+    (
+      sqrt(
+        -1
+      )
+      sqrt(
+        gamma_2(theta_(mu))
+        gamma_2(-theta_(mu))
+      )
+    )
+    /
+    (
+      gamma_2(-theta_(mu))
+    )
+  $
+
+  #proof[
+    $
+      (
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      /
+      (
+        gamma_2(-theta_(mu))
+      )
+      &=
+      (
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      /
+      sqrt(
+        (
+          gamma_2(-theta_(mu))
+        )
+        ^
+        2
+      )
+      \
+      &=
+      sqrt(
+        -1
+      )
+      (
+        sqrt(
+          (
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+          /
+          (
+            (
+              gamma_2(-theta_(mu))
+            )
+            ^
+            2
+          )
+        )
+      )
+      \
+      &=
+      sqrt(
+        -1
+      )
+      (
+        sqrt(
+          (
+            gamma_2(theta_(mu))
+          )
+          /
+          (
+            gamma_2(-theta_(mu))
+          )
+        )
+      )
+      \
+      &=
+      sqrt(
+        -1
+      )
+      (
+        sqrt(
+          (
+            sqrt(-1) e^(sqrt(-1) theta_(mu)) s_2^* (c_1 cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - s_1 c_2)
+          )
+          /
+          (
+            sqrt(-1) e^(-sqrt(-1) theta_mu) s_2^* (c_1 cos (theta_mu) + sqrt(-1) sin (theta_mu) - s_1 c_2)
+          )
+        )
+      )
+      \
+      &=
+      sqrt(
+        -1
+      )
+      (
+        sqrt(
+          (
+            e^(sqrt(-1) theta_(mu)) (c_1 cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - s_1 c_2)
+          )
+          /
+          (
+            e^(-sqrt(-1) theta_mu) (c_1 cos (theta_mu) + sqrt(-1) sin (theta_mu) - s_1 c_2)
+          )
+        )
+      )
+      \
+      &=
+      sqrt(
+        -1
+      )
+      (
+        sqrt(
+          (
+            e^(sqrt(-1) theta_(mu)) (cosh(2K_1) cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - sinh(2K_1) cosh(2K_2))
+          )
+          /
+          (
+            e^(-sqrt(-1) theta_mu) (cosh(2K_1) cos (theta_mu) + sqrt(-1) sin (theta_mu) - sinh(2K_1) cosh(2K_2))
+          )
+        )
+      )
+    $
+
+    $
+      a(theta_mu)
+      &=
+      sqrt(
+        (
+          (1 - alpha_1 e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - alpha_1 e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (1 - alpha_2^(-1) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - alpha_2^(-1) e^(-sqrt(-1) theta_mu))
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
+        )
+      )
+    $
+
+    より、
+
+    $
+      sqrt(-1) a(theta_mu)^(-1)
+      &=
+      sqrt(
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
+        )
+      )
+    $
+
+    以下のsagemathコードで数値的に等しいことが検証できた
+    ```python
+    # 変数とパラメータの定義
+    var('K1 K2 theta_mu')
+
+    # K1^*, K2^* の定義
+    def Kstar(K):
+        return -1/2 * log(tanh(K))
+
+    K1s = Kstar(K1)
+    K2s = Kstar(K2)
+
+    # e^{iθ_μ}
+    eiθ = exp(I*theta_mu)
+    emθ = exp(-I*theta_mu)
+
+    # --- 1つ目の式 ---
+    numer1 = eiθ*(cosh(2*K1)*cos(theta_mu) - I*sin(theta_mu) - sinh(2*K1)*cosh(2*K2))
+    denom1 = emθ*(cosh(2*K1)*cos(theta_mu) + I*sin(theta_mu) - sinh(2*K1)*cosh(2*K2))
+    expr1 = I*sqrt(numer1/denom1)
+
+    # --- 2つ目の式 ---
+    tK1 = tanh(K1)
+    tK2s = tanh(K2s)
+    inv_tK1 = 1/tK1
+
+    factor1_num = 1 - (tK1 * tK2s) * emθ
+    factor1_den = 1 - (tK1 * tK2s) * eiθ
+    factor2_num = 1 - (1/(inv_tK1 * tK2s)) * emθ
+    factor2_den = 1 - (1/(inv_tK1 * tK2s)) * eiθ
+    expr2 = sqrt((factor1_num/factor1_den) * (factor2_num/factor2_den))
+
+    # 数値代入例（任意の値、変更可）
+    K1_val = 0.7
+    K2_val = 1.2
+    theta_mu_val = 1.1
+
+    # 代入して数値計算
+    val1 = expr1.subs({K1:K1_val, K2:K2_val, theta_mu:theta_mu_val}).n()
+    val2 = expr2.subs({K1:K1_val, K2:K2_val, theta_mu:theta_mu_val}).n()
+
+    # 結果表示
+    print("expr1 =", val1)
+    print("expr2 =", val2)
+    print("差 =", abs(val1 - val2))
+    ```
+    $qed$
+  ]
 ]
 
 #claim("")[
-  $
-    (
-      hat(Z)_mu^((minus)),
-      hat(Y)_mu
-    )
-    dot.c
-    P_mu
-  $
+  $gamma_2(theta_mu) eq.not 0$のとき、
+
+  #proof[
+    $
+      (
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu
+      )
+      dot.c
+      P_mu
+      &=
+      (
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu
+      )
+      dot.c
+      mat(
+        plus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+        ,
+        minus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        );
+        gamma_2(-theta_(mu))
+        ,
+        gamma_2(-theta_(mu))
+      )
+      \
+      &=
+      (
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        hat(Z)_mu^((minus))
+        +
+        (
+          gamma_2(-theta_(mu))
+        )
+        hat(Y)_mu
+        ,
+        (
+          minus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        hat(Z)_mu^((minus))
+        +
+        (
+          gamma_2(-theta_(mu))
+        )
+        hat(Y)_mu
+      )
+    $
+  ]
 ]
 
-(次回 0529)
-- $(
-      hat(Z)_mu^((minus)),
-      hat(Y)_mu
-    )
-    dot.c
-    P_mu$ に $A(theta)$ を作用させる
-    - $g'$を求めるにあたっては、$A(theta)$ の作用のうち$(
-      hat(Z)_mu^((minus)),
-      hat(Y)_mu
-    )$ への分だけわかっていればいいのでは？
-    - $P_mu$は正則なので、$(
-      hat(Z)_mu^((minus)),
-      hat(Y)_mu
-    ) dot.c P_mu$ への作用を考えれば良いのでは？
+(次回 0531)
+- 本の表式通り$Psi$を定める($a(theta)$とかは考えなくて良い)
+- $gamma_(theta_mu)$を求める
+    - (B.13)の関係式からexpの指数としてでてくるのでは？
+- こうすると$g' = V'$が本の表式通り定義できる
+     - この時に $Psi$の係数Mが消えたりして嬉しいのでは？
+- $T_(V)$と$T_(V')$が同じことを示す (B.13/14から示せるらしい)
 
 (次回 0510)
 - 対角化まで終わった
