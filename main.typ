@@ -108,6 +108,62 @@
   $
 ]<mat_mult>
 
+#theorem("行列の組みへの作用")[
+  $A, B, C in "Mat"(n, CC)$
+  $
+    mat(
+      A B, A C
+    )
+    =
+    A mat(
+      B, C
+    )
+  $
+]
+
+#theorem("行列の共役")[
+  $A, B in "Mat"(n, CC)$, $B$は正則とする。
+
+  $T_(B): "Mat"(n, CC) -> "Mat"(n, CC)$を、
+
+  $
+    T_(B)(A) := B A B^(-1)
+  $
+
+  と定めるとき、$T_(B)$は線型写像である。
+
+  #proof[
+    $A, C in "Mat"(n, CC)$に対して、
+    $
+      T_(B)(A + C)
+      &=
+      B (A + C) B^(-1)
+      \
+      &=
+      (B A + B C) B^(-1)
+      \
+      &=
+      B A B^(-1) + B C B^(-1)
+      \
+      &=
+      T_(B)(A) + T_(B)(C)
+    $
+
+    $alpha in CC$に対して、
+    $
+      T_(B)(alpha A)
+      &=
+      B (alpha A) B^(-1)
+      \
+      &=
+      alpha (B A B^(-1))
+      \
+      &=
+      alpha T_(B)(A)
+    $
+  ]
+]<mat_conj>
+
 == 2次元ising模型の分配関数
 #definition("格子サイズ")[
   $M, N in NN$を格子のサイズとする。
@@ -7359,13 +7415,39 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   
   $
     (T_((V))(hat(Z)_mu^((minus))), T_((V))(hat(Y)_mu))
-    =
+    &=
     (
       hat(Z)_mu^((minus)),
       hat(Y)_mu
     )
     dot.op
     A((2 pi mu) / M)
+    \
+    &=
+    mat(
+      (
+        c_1 c_2^*
+        -
+        s_1 s_2^* cos ((2 pi mu) / M)
+      )
+      hat(Z)_mu^((minus))
+      +
+      (
+        - sqrt(-1) exp(-sqrt(-1) (2 pi mu) / M) s_2^* (c_1 cos ((2 pi mu) / M) + sqrt(-1) sin ((2 pi mu) / M) - s_1 c_2)
+      )
+      hat(Y)_mu,
+      (
+        sqrt(-1) exp(sqrt(-1) (2 pi mu) / M) s_2^* (c_1 cos ((2 pi mu) / M) - sqrt(-1) sin ((2 pi mu) / M) - s_1 c_2)
+      )
+      hat(Z)_mu^((minus))
+      +
+      (
+        c_1 c_2^*
+        -
+        s_1 s_2^* cos ((2 pi mu) / M)
+      )
+      hat(Y)_mu
+    )
   $
 
   #proof[
@@ -7920,7 +8002,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     TODO: mathematicaに計算させたらステートメントは正しいことはわかったので、一旦具体の計算は飛ばす (0426)
 
   ]
-]
+]<T_V_hatZ_hatY>
 
 #definition([$A(theta)$の対角化の準備])[
   $
@@ -9072,10 +9154,10 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     A(theta_(mu))
     =
     P_mu
-    ^
-    (-1)
     D_mu
     P_mu
+    ^
+    (-1)
   $
 
   $gamma_2(theta_mu) = 0$のとき、
@@ -9373,24 +9455,56 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]
 
-#claim("")[
-  $gamma_2(theta_mu) eq.not 0$のとき、
+#definition("フェルミオン", [
+  $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
 
-  #proof[
-    $
-      (
-        hat(Z)_mu^((minus)),
-        hat(Y)_mu
+  $mu in cal(M)$について、$psi_mu, psi_mu^dagger in "Mat"(2, CC)^(times.circle M)$を、
+
+  $
+    mat(
+      psi_mu^dagger,
+      psi_mu
+    )
+    :&=
+    (
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu
+    )
+    dot.c
+    P_mu
+    \
+    &=
+    (
+      hat(Z)_mu^((minus)),
+      hat(Y)_mu
+    )
+    dot.c
+    mat(
+      plus
+      sqrt(
+        -1
       )
-      dot.c
-      P_mu
-      &=
-      (
-        hat(Z)_mu^((minus)),
-        hat(Y)_mu
+      sqrt(
+        gamma_2(theta_(mu))
+        gamma_2(-theta_(mu))
       )
-      dot.c
-      mat(
+      ,
+      minus
+      sqrt(
+        -1
+      )
+      sqrt(
+        gamma_2(theta_(mu))
+        gamma_2(-theta_(mu))
+      );
+      gamma_2(-theta_(mu))
+      ,
+      gamma_2(-theta_(mu))
+    )
+    \
+    &=
+    (
+      (
         plus
         sqrt(
           -1
@@ -9399,7 +9513,15 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
           gamma_2(theta_(mu))
           gamma_2(-theta_(mu))
         )
-        ,
+      )
+      hat(Z)_mu^((minus))
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      hat(Y)_mu
+      ,
+      (
         minus
         sqrt(
           -1
@@ -9407,13 +9529,129 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         sqrt(
           gamma_2(theta_(mu))
           gamma_2(-theta_(mu))
-        );
+        )
+      )
+      hat(Z)_mu^((minus))
+      +
+      (
         gamma_2(-theta_(mu))
-        ,
-        gamma_2(-theta_(mu))
+      )
+      hat(Y)_mu
+    )
+  $
+
+  と定める
+])<def_fermi>
+
+#claim([$V$と$psi$の交換関係(B.13)])[
+  $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
+
+  $mu in cal(M)$について、
+
+  $
+    T_((V))mat(psi_mu^dagger)
+    &=
+    (
+      (
+        gamma_1(theta_(mu))
+      )
+      plus
+      sqrt(
+        -
+        (
+          gamma_2(theta_(mu))
+        )
+        (
+          gamma_2(-theta_(mu))
+        )
+      )
+    )
+    psi_mu^dagger
+    \
+    T_((V))(psi_mu)
+    &=
+    (
+      (
+        gamma_1(theta_(mu))
+      )
+      minus
+      sqrt(
+        -
+        (
+          gamma_2(theta_(mu))
+        )
+        (
+          gamma_2(-theta_(mu))
+        )
+      )
+    )
+    psi_mu
+  $
+
+  #note[
+    $
+      (
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu
+      )
+      dot.op
+      A((2 pi mu) / M)
+      &=
+      mat(
+        (
+          c_1 c_2^*
+          -
+          s_1 s_2^* cos ((2 pi mu) / M)
+        )
+        hat(Z)_mu^((minus))
+        +
+        (
+          - sqrt(-1) exp(-sqrt(-1) (2 pi mu) / M) s_2^* (c_1 cos ((2 pi mu) / M) + sqrt(-1) sin ((2 pi mu) / M) - s_1 c_2)
+        )
+        hat(Y)_mu,
+        (
+          sqrt(-1) exp(sqrt(-1) (2 pi mu) / M) s_2^* (c_1 cos ((2 pi mu) / M) - sqrt(-1) sin ((2 pi mu) / M) - s_1 c_2)
+        )
+        hat(Z)_mu^((minus))
+        +
+        (
+          c_1 c_2^*
+          -
+          s_1 s_2^* cos ((2 pi mu) / M)
+        )
+        hat(Y)_mu
+      )
+    $
+  ]
+
+  #proof[
+    $
+      mat(
+        T_((V))(psi_mu^dagger),
+        T_((V))(psi_mu)
+      )
+      &=
+      T_((V))
+      mat(
+        psi_mu^dagger,
+        psi_mu
       )
       \
       &=
+      T_((V))
+      (
+        (
+          hat(Z)_mu^((minus)),
+          hat(Y)_mu
+        )
+        dot.c
+        P_mu
+      )
+      quad
+      (because #ref(<mat_conj>)"より、" T_((V))"は線形写像")
+      \
+      &=
+      T_((V))
       (
         (
           plus
@@ -9449,14 +9687,262 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         )
         hat(Y)_mu
       )
+      \
+      &=
+      (
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        T_((V))
+        (
+          hat(Z)_mu^((minus))
+        )
+        +
+        (
+          gamma_2(-theta_(mu))
+        )
+        T_((V))
+        (
+          hat(Y)_mu
+        )
+        ,
+        (
+          minus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        T_((V))
+        (
+          hat(Z)_mu^((minus))
+        )
+        +
+        (
+          gamma_2(-theta_(mu))
+        )
+        T_((V))
+        (
+          hat(Y)_mu
+        )
+      )
+      \
+      &=
+      mat(
+        T_((V))
+        (
+          hat(Z)_mu^((minus))
+        ),
+        T_((V))
+        (
+          hat(Y)_mu
+        )
+      )
+      mat(
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        ,
+        (
+          minus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        );
+        (
+          gamma_2(-theta_(mu))
+        ),
+        (
+          gamma_2(-theta_(mu))
+        )
+      )
+      \
+      &=
+      mat(
+        hat(Z)_mu^((minus))
+        ,
+        hat(Y)_mu
+      )
+      A(theta_(mu))
+      P_mu
+      \
+      &=
+      mat(
+        hat(Z)_mu^((minus))
+        ,
+        hat(Y)_mu
+      )
+      (
+        P_mu
+        D_mu
+        P_mu
+        ^
+        (-1)
+      )
+      P_mu
+      \
+      &=
+      mat(
+        hat(Z)_mu^((minus))
+        ,
+        hat(Y)_mu
+      )
+      P_mu
+      D_mu
+      \
+      &=
+      mat(
+        psi_mu^dagger,
+        psi_mu
+      )
+      D_mu
+      \
+      &=
+      mat(
+        psi_mu^dagger,
+        psi_mu
+      )
+      mat(
+        (
+          gamma_1(theta_(mu))
+        )
+        plus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        ),
+        0
+        ;
+        0,
+        (
+          gamma_1(theta_(mu))
+        )
+        minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        )
+      )
+      \
+      &=
+      mat(
+        (
+          (
+            gamma_1(theta_(mu))
+          )
+          plus
+          sqrt(
+            -
+            (
+              gamma_2(theta_(mu))
+            )
+            (
+              gamma_2(-theta_(mu))
+            )
+          )
+        )
+        psi_mu^dagger,
+        (
+          (
+            gamma_1(theta_(mu))
+          )
+          minus
+          sqrt(
+            -
+            (
+              gamma_2(theta_(mu))
+            )
+            (
+              gamma_2(-theta_(mu))
+            )
+          )
+        )
+        psi_mu
+      )
+      \
+      qed
     $
   ]
+]
+
+#claim([$psi$の交換関係])[
+  $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
+
+  $mu, nu in cal(M)$について、
+
+  $
+    [psi_mu^dagger, psi_nu^dagger] &= 0
+    \
+    [psi_mu^dagger, psi_nu] &= delta_(mu equiv nu (mod M))
+    \
+    [psi_mu, psi_nu] &= 0
+  $
+
+  #proof[
+    TODO
+    (次回 20250612)
+  ]
+]
+
+#claim([$V'$の表式])[
+  $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
+
+  $
+    V' = exp(
+      - sum_(mu in cal(M)) gamma(theta_mu) (psi_mu^dagger psi_mu - 1/2)
+    )
+  $
 ]
 
 (次回 0531)
 - 本の表式通り$Psi$を定める($a(theta)$とかは考えなくて良い)
 - $gamma_(theta_mu)$を求める
     - (B.13)の関係式からexpの指数としてでてくるのでは？
+    - (次回 20250612) 出てこんかった
+    - $ (
+            gamma_1(theta_(mu))
+          )
+          plus
+          sqrt(
+            -
+            (
+              gamma_2(theta_(mu))
+            )
+            (
+              gamma_2(-theta_(mu))
+            )
+          )$ を愚直に計算してみる？
 - こうすると$g' = V'$が本の表式通り定義できる
      - この時に $Psi$の係数Mが消えたりして嬉しいのでは？
 - $T_(V)$と$T_(V')$が同じことを示す (B.13/14から示せるらしい)
