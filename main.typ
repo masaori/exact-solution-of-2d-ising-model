@@ -8064,7 +8064,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
 #claim([$gamma_2(theta)$と$gamma_2(-theta)$の関係])[
   $
-    gamma_2(-theta) = -gamma_2(theta)^dagger
+    gamma_2(-theta) = -overline(gamma_2(theta))
   $
 
   ゆえに、
@@ -8102,6 +8102,93 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     $
   ]
 ]<relation_of_gamma_2>
+
+#definition([$theta_mu$])[
+  $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
+
+  $mu in cal(M)$について、
+
+  $
+    theta_(mu) := (2 pi mu) / M
+  $
+  
+  と定める。
+]
+
+#claim([$gamma_2(theta_mu)$$gamma_2(-theta_mu)$])[
+  $mu in cal(M)$について、
+
+  $
+    gamma_2(theta_(mu)) gamma_2(-theta_(mu)) = ???
+  $
+
+  #proof[
+    $mu in cal(M)$について、
+
+    $
+      gamma_2(theta_(mu)) gamma_2(-theta_(mu))
+      &=
+      (
+        i e^(i (theta_mu)) s_2^* (c_1 cos (theta_mu) - i sin (theta_mu) - s_1 c_2)
+      )
+      (
+        i e^(i (-theta_mu)) s_2^* (c_1 cos (-theta_mu) - i sin (-theta_mu) - s_1 c_2)
+      )
+      \
+      &=
+      underbrace(
+        (
+          i e^(i (theta_mu))
+        )
+        (
+          i e^(i (-theta_mu))
+        )
+        ,
+        minus 1
+      )
+      (
+        s_2^* (c_1 cos (theta_mu) - i sin (theta_mu) - s_1 c_2)
+      )
+      (
+        s_2^* (c_1 cos (theta_mu) + i sin (theta_mu) - s_1 c_2)
+      )
+      quad (because cos"は偶関数, "sin"は奇関数")
+      \
+      &=
+      -
+      (
+        s_2^*
+      )
+      ^2
+      (c_1 cos (theta_mu) - i sin (theta_mu) - s_1 c_2)
+      (c_1 cos (theta_mu) + i sin (theta_mu) - s_1 c_2)
+      \
+      &=
+      -
+      (
+        s_2^*
+      )
+      ^2
+      (
+        (c_1 cos (theta_mu) - s_1 c_2)^2
+        +
+        (sin (theta_mu))^2
+      )
+      \
+      &=
+      -
+      (
+        s_2^*
+      )
+      ^2
+      (
+        (c_1 cos ((2 pi mu)/(M)) - s_1 c_2)^2
+        +
+        (sin ((2 pi mu)/(M)))^2
+      )
+    $
+  ]
+]<relation_of_gamma_2_mu>
 
 #claim([$A(theta)$の対角化])[
 
@@ -9896,22 +9983,499 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]
 
-#claim([$psi$の交換関係])[
+#claim([$psi$の反交換関係])[
   $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
 
   $mu, nu in cal(M)$について、
 
   $
-    [psi_mu^dagger, psi_nu^dagger] &= 0
+    [psi_mu^dagger, psi_nu^dagger]_(+) &= 0
     \
-    [psi_mu^dagger, psi_nu] &= delta_(mu equiv nu (mod M))
+    [psi_mu^dagger, psi_nu]_(+) &= delta_(mu equiv nu (mod M))
     \
-    [psi_mu, psi_nu] &= 0
+    [psi_mu, psi_nu]_(+) &= 0
   $
 
   #proof[
-    TODO
-    (次回 20250612)
+    $a) [psi_mu^dagger, psi_nu^dagger]_(+)$について、
+
+    $
+      [psi_mu^dagger, psi_nu^dagger]_(+)
+      &=
+      [
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        hat(Z)_mu^((minus))
+        +
+        (
+          gamma_2(-theta_(mu))
+        )
+        hat(Y)_mu
+        ,
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(nu))
+            gamma_2(-theta_(nu))
+          )
+        )
+        hat(Z)_nu^((minus))
+        +
+        (
+          gamma_2(-theta_(nu))
+        )
+        hat(Y)_nu
+      ]_(+)
+      \
+      &=
+      [
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        hat(Z)_mu^((minus))
+        ,
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(nu))
+            gamma_2(-theta_(nu))
+          )
+        )
+        hat(Z)_nu^((minus))
+        +
+        (
+          gamma_2(-theta_(nu))
+        )
+        hat(Y)_nu
+      ]_(+)
+      +
+      [
+        (
+          gamma_2(-theta_(mu))
+        )
+        hat(Y)_mu
+        ,
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(nu))
+            gamma_2(-theta_(nu))
+          )
+        )
+        hat(Z)_nu^((minus))
+        +
+        (
+          gamma_2(-theta_(nu))
+        )
+        hat(Y)_nu
+      ]_(+)
+      \
+      &=
+      [
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        hat(Z)_mu^((minus))
+        ,
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(nu))
+            gamma_2(-theta_(nu))
+          )
+        )
+        hat(Z)_nu^((minus))
+      ]_(+)
+      +
+      [
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        hat(Z)_mu^((minus))
+        ,
+        (
+          gamma_2(-theta_(nu))
+        )
+        hat(Y)_nu
+      ]_(+)
+      +
+      [
+        (
+          gamma_2(-theta_(mu))
+        )
+        hat(Y)_mu
+        ,
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(nu))
+            gamma_2(-theta_(nu))
+          )
+        )
+        hat(Z)_nu^((minus))
+      ]_(+)
+      +
+      [
+        (
+          gamma_2(-theta_(mu))
+        )
+        hat(Y)_mu
+        ,
+        (
+          gamma_2(-theta_(nu))
+        )
+        hat(Y)_nu
+      ]_(+)
+      ]_(+)
+      \
+      &=
+      (
+        plus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        plus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      [
+        hat(Z)_mu^((minus))
+        ,
+        hat(Z)_nu^((minus))
+      ]_(+)
+      +
+      (
+        plus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      [
+        hat(Z)_mu^((minus))
+        ,
+        hat(Y)_nu
+      ]_(+)
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        plus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      [
+        hat(Y)_mu
+        ,
+        hat(Z)_nu^((minus))
+      ]_(+)
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      [
+        hat(Y)_mu
+        ,
+        hat(Y)_nu
+      ]_(+)
+      \
+      &=
+      minus
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        sqrt(
+          gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      dot.op
+      (
+        2M delta^M_(mu + nu, 0) I_((CC^2)^(times.circle M))
+      )
+      +
+      (
+        plus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      dot.op
+      0
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        plus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      dot.op
+      0
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      dot.op
+      (
+        2M delta^M_(mu + nu, 0) I_((CC^2)^(times.circle M))
+      )
+      \
+      &=
+      minus
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        sqrt(
+          gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      dot.op
+      (
+        2M delta^M_(mu + nu, 0) I_((CC^2)^(times.circle M))
+      )
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      dot.op
+      (
+        2M delta^M_(mu + nu, 0) I_((CC^2)^(times.circle M))
+      )
+      \
+      &=
+      (
+        minus
+        (
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        (
+          sqrt(
+            gamma_2(theta_(nu))
+            gamma_2(-theta_(nu))
+          )
+        )
+        +
+        (
+          gamma_2(-theta_(mu))
+        )
+        (
+          gamma_2(-theta_(nu))
+        )
+      )
+      dot.op
+      (
+        2M delta^M_(mu + nu, 0) I_((CC^2)^(times.circle M))
+      )
+      \
+      &=
+      (
+        minus
+        abs(
+          gamma_2(theta_(mu))
+        )
+        abs(
+          gamma_2(theta_(nu))
+        )
+        +
+        (
+          overline(
+            gamma_2(theta_(mu))
+          )
+        )
+        (
+          overline(
+            gamma_2(theta_(nu))
+          )
+        )
+      )
+      dot.op
+      (
+        2M delta^M_(mu + nu, 0) I_((CC^2)^(times.circle M))
+      )
+    $
+
+    (次回 20250614) WIP
+
+    #note[
+      $
+        mat(
+          psi_mu^dagger,
+          psi_mu
+        )
+        :=
+        (
+          (
+            plus
+            sqrt(
+              -1
+            )
+            sqrt(
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          hat(Z)_mu^((minus))
+          +
+          (
+            gamma_2(-theta_(mu))
+          )
+          hat(Y)_mu
+          ,
+          (
+            minus
+            sqrt(
+              -1
+            )
+            sqrt(
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          hat(Z)_mu^((minus))
+          +
+          (
+            gamma_2(-theta_(mu))
+          )
+          hat(Y)_mu
+        )
+      $
+
+      $
+        [hat(Z)_mu^((plus.minus)), hat(Z)_nu^((plus.minus))]_(+) = 2M delta^M_(mu + nu, 0) I
+        quad ("複合同順")
+        \
+        [hat(Z)_mu^((plus.minus)), hat(Z)_nu^((minus.plus))]_(+) = underbrace(
+            2M delta^M_(mu + nu, 0)
+            I_((CC^2)^(times.circle M))
+            ,
+            [hat(Z)_mu^((plus.minus)), hat(Z)_nu^((plus.minus))]_(+)
+            )
+            +
+            (
+              -2
+              exp(
+                -
+                sqrt(-1)
+                (2 pi) / M
+                (
+                  mu
+                  +
+                  nu
+                )
+              )
+              dot.op
+              2I_((CC^2)^(times.circle M))
+            )
+        quad ("複合同順")
+        \
+        [hat(Z)_mu^((plus.minus)), hat(Y)_nu]_(+) = 0
+        \
+        [hat(Y)_mu, hat(Y)_nu]_(+) = 2M delta^M_(mu + nu, 0) I
+      $
+
+    ]
   ]
 ]
 
@@ -9926,23 +10490,71 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 ]
 
 (次回 0531)
-- 本の表式通り$Psi$を定める($a(theta)$とかは考えなくて良い)
 - $gamma_(theta_mu)$を求める
     - (B.13)の関係式からexpの指数としてでてくるのでは？
-    - (次回 20250612) 出てこんかった
-    - $ (
-            gamma_1(theta_(mu))
-          )
-          plus
-          sqrt(
-            -
-            (
-              gamma_2(theta_(mu))
-            )
-            (
-              gamma_2(-theta_(mu))
-            )
-          )$ を愚直に計算してみる？
+    - 出てこんかった
+    - (次回 20250614)
+      - 固有ベクトルが間違えている？ので再度チェック
+      - $v
+      &= 
+      c
+      mat(
+        plus.minus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        );
+        sqrt(
+          -1
+        )
+        gamma_2(-theta_(mu))
+      )$ こうなってくれると都合が良い
+以下の数値計算による
+```sagemath
+i = I
+
+M = 8
+mu = 1
+nu = -1
+c1 = 1.0
+c2 = 2.0
+s1 = 0.5
+s2_star = 1.0
+
+theta_mu = 2 * pi * mu / M
+theta_nu = 2 * pi * nu / M
+
+a = i * exp(i * theta_mu) * s2_star * (c1 * cos(theta_mu) - i * sin(theta_mu) - s1 * c2)
+b = i * exp(i * theta_nu) * s2_star * (c1 * cos(theta_nu) - i * sin(theta_nu) - s1 * c2)
+
+ab = a * b
+
+ab_real = ab.real()
+ab_imag = ab.imag()
+
+is_real = abs(ab_imag.n()) < 1e-10 # 許容誤差
+is_nonneg = ab_real.n() >= 0
+
+# 偏角の取得
+arg_a = arg(a)
+arg_b = arg(b)
+arg_ab = arg(a) + arg(b)
+
+print(f"a = {a.n()}")
+print(f"b = {b.n()}")
+print(f"ab = {ab.n()}")
+print(f"ab の実部: {ab_real.n()}, 虚部: {ab_imag.n()}")
+print(f"ab は実数か? {is_real}")
+print(f"ab は非負か? {is_nonneg}")
+print(f"arg(a) = {arg_a.n()}")
+print(f"arg(b) = {arg_b.n()}")
+print(f"arg_ab = {arg_ab.n()}")
+print(f"2pi = {(2 + pi).n()}")
+```
+
 - こうすると$g' = V'$が本の表式通り定義できる
      - この時に $Psi$の係数Mが消えたりして嬉しいのでは？
 - $T_(V)$と$T_(V')$が同じことを示す (B.13/14から示せるらしい)
