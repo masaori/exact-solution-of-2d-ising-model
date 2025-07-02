@@ -19,6 +19,10 @@
   $
 }
 
+$
+  CC := RR^2 に "掛け算" (a, b) dot.op (c, d) := (a c - b d, a d + b c) "を入れたもの"
+$
+
 == 計算公式
 #theorem([$cosh, sinh$の掛け算])[
   $forall a, b in RR$
@@ -164,11 +168,261 @@
   ]
 ]<mat_conj>
 
-#claim([])[
-  (次回 20250619) TODO: sqrt と 積が可換になる条件
-
-  sqrt(-a) は、a>0 なら i sqrt(a) である、より緩い条件として書けそう？
+#definition([$CC$の定義])[
+  $CC := RR^2$ に 掛け算 $(a, b) dot.op (c, d) := (a c - b d, a d + b c) "を入れたもの"$
 ]
+
+#definition([極座標表現の同値類])[
+  $RR_(>=0) times RR$ の同値関係 $~$ を $(r, theta), (r^prime, theta^prime) in RR_(>=0) times RR$ に対して、
+  $
+    (r, theta) ~ (r^prime, theta^prime)
+    attach(<=>, t:"def")
+    r = r^prime = 0 or exists n in ZZ "s.t." (theta - theta^prime) = 2n pi
+  $
+  と定める
+]
+
+#definition([$CC$の極座標表現])[
+  $CC$の (極座標表現) を、 $RR_(>=0) times RR \/ ~$ に、二項演算
+
+  #mapDef(
+    $dot.op$,
+    [$(RR_(>=0) times RR) \/ ~ times (RR_(>=0) times RR) \/ ~$],
+    $RR_(>=0) times RR \/ ~$,
+    $([(r, theta)]_(~), [(r^prime, theta^prime)]_(~))$,
+    $[(r r^prime, theta + theta^prime)]_(~)$,
+    ""
+  )
+
+  を入れたものとして定める
+]
+
+#claim([(極座標表現)の乗法群])[
+  (極座標表現) は 二項演算$dot.op$ について、モノイドをなす
+
+  $"(極座標表現)"^(times) := "(極座標表現)" \\ { [(0, 0)]_(~) }$ は、二項演算 $dot.op$ について、群をなす
+]
+
+#definition([$CC$の乗法群])[
+  $CC^(times) := CC \\ { (0, 0) }$ は 群をなす
+]
+
+#definition([$CC$の極座標表現への写像])[
+  $phi_("polar"): "(極座標表現)" -> CC$ を、以下のように定める。
+
+  $
+    phi_("polar")(r, theta) := (r cos(theta), r sin(theta))
+  $
+]
+
+#definition([極座標表現の元の表記])[
+  $[(r, theta)]_(~) in "(極座標表現)"$ を $(r, theta)$ と表記する
+
+  すなわち、
+  $
+    (r, theta) = (r, theta + 2n pi) forall n in ZZ
+  $
+  $
+    (0, theta) = (0, theta^prime) forall theta, theta^prime in RR
+  $
+]
+
+#claim([$phi_("polar")$の同型性])[
+  $(r, theta), (r^prime, theta^prime) in "(極座標表現)"$に対して、
+
+  + $phi_("polar")((r, theta) dot.op (r^prime, theta^prime)) = phi_("polar")(r, theta) dot.op phi_("polar")(r^prime, theta^prime) quad "(モノイド準同型)"$ 
+  + $phi_("polar")$は全単射
+
+  #proof[
+    1. 
+    $(r, theta), (r^prime, theta^prime) in "(極座標表現)"$に対して、
+    $
+      phi_("polar")((r, theta) dot.op (r^prime, theta^prime))
+      &=
+      phi_("polar")((r r^prime, theta + theta^prime))
+      \
+      &=
+      (r r^prime cos(theta + theta^prime), r r^prime sin(theta + theta^prime))
+    $
+
+    また、
+
+    $
+      phi_("polar")(r, theta) dot.op phi_("polar")(r^prime, theta^prime)
+      &=
+      (r cos(theta), r sin(theta)) dot.op (r^prime cos(theta^prime), r^prime sin(theta^prime))
+      \
+      &=
+      (r r^prime cos(theta) cos(theta^prime) - r r^prime sin(theta) sin(theta^prime),
+        r r^prime cos(theta) sin(theta^prime) + r r^prime sin(theta) cos(theta^prime))
+      \
+      \
+      &=
+      (r r^prime (cos(theta) cos(theta^prime) - sin(theta) sin(theta^prime)),
+        r r^prime (cos(theta) sin(theta^prime) + sin(theta) cos(theta^prime)))
+      \
+      &=
+      (r r^prime cos(theta + theta^prime), r r^prime sin(theta + theta^prime))
+    $
+
+    $qed$
+
+    2.
+
+    $phi_("cartesian") : CC -> "(極座標表現)"$を以下のように定める。
+
+    $
+      phi_("cartesian")(x, y)
+      :=
+      cases(
+        (sqrt(x^2 + y^2), arctan(y/x)) & quad (x > 0),
+        (sqrt(x^2 + y^2), arctan(y/x) + pi) & quad (x < 0, y >= 0),
+        (sqrt(x^2 + y^2), arctan(y/x) - pi) & quad (x < 0, y < 0),
+        (y, pi / 2) & quad (x = 0 and y > 0),
+        (-y, -pi / 2) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+    $
+
+    この時、
+
+    $
+      phi_("polar") o phi_("cartesian") (x, y)
+      &=
+      phi_("polar")(
+        cases(
+          (sqrt(x^2 + y^2), arctan(y/x)) & quad (x > 0),
+          (sqrt(x^2 + y^2), arctan(-y/x) + pi) & quad (x < 0, y >= 0),
+          (sqrt(x^2 + y^2), arctan(y/x) - pi) & quad (x < 0, y < 0),
+          (y, pi / 2) & quad (x = 0 and y > 0),
+          (-y, -pi / 2) & quad (x = 0 and y < 0),
+          (0, 0) & quad (x = 0 and y = 0)
+        )
+      )
+      \
+      &=
+      cases(
+        (
+          sqrt(x^2 + y^2) cos(arctan(y/x)),
+          sqrt(x^2 + y^2) sin(arctan(y/x))
+        ) & quad (x > 0, y >= 0),
+        (
+          sqrt(x^2 + y^2) cos(arctan(y/x) + pi),
+          sqrt(x^2 + y^2) sin(arctan(y/x) + pi)
+        ) & quad (x < 0, y >= 0),
+        (
+          sqrt(x^2 + y^2) cos(arctan(y/x) - pi),
+          sqrt(x^2 + y^2) sin(arctan(y/x) - pi)
+        ) & quad (x < 0, y < 0),
+        (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
+        (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+      \
+      &=
+      cases(
+        (
+          sqrt(x^2 + y^2) 1 / (sqrt(1 + (y/x)^2)),
+          sqrt(x^2 + y^2) (y/x) / (sqrt(1 + (y/x)^2))
+        ) & quad (x > 0, y >= 0),
+        (
+          sqrt(x^2 + y^2) (-1) / (sqrt(1 + (y/x)^2)),
+          sqrt(x^2 + y^2) (-(y/x)) / (sqrt(1 + (y/x)^2))
+        ) & quad (x < 0, y >= 0),
+        (
+          sqrt(x^2 + y^2) (-1) / (sqrt(1 + (y/x)^2)),
+          sqrt(x^2 + y^2) (-(y/x)) / (sqrt(1 + (y/x)^2))
+        ) & quad (x < 0, y < 0),
+        (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
+        (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+      \
+      &=
+      cases(
+        (
+          sqrt(x^2 + y^2) x / (sqrt(x^2 + x^2 (y/x)^2)),
+          sqrt(x^2 + y^2) (x (y/x)) / (sqrt(x^2 + x^2 (y/x)^2))
+        ) & quad (x > 0, y >= 0),
+        (
+          sqrt(x^2 + y^2) (-x) / (sqrt(x^2 + x^2 (y/x)^2)),
+          sqrt(x^2 + y^2) ((-x) (y/x)) / (sqrt(x^2 + x^2 (y/x)^2))
+        ) & quad (x < 0, y >= 0),
+        (
+          sqrt(x^2 + y^2) (-x) / (sqrt(x^2 + x^2 (y/x)^2)),
+          sqrt(x^2 + y^2) ((-x) (y/x)) / (sqrt(x^2 + x^2 (y/x)^2))
+        ) & quad (x < 0, y < 0),
+        (
+          0, y
+        ) & quad (x = 0 and y > 0),
+        (
+          0, y
+        ) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+      \
+      &=
+      cases(
+        (
+          sqrt(x^2 + y^2) x / (sqrt(x^2 + y^2)),
+          sqrt(x^2 + y^2) y / (sqrt(x^2 + y^2))
+        ) & quad (x > 0, y >= 0),
+        (
+          sqrt(x^2 + y^2) (-x) / (sqrt(x^2 + y^2)),
+          sqrt(x^2 + y^2) (-y) / (sqrt(x^2 + y^2))
+        ) & quad (x < 0, y >= 0),
+        (
+          sqrt(x^2 + y^2) (-x) / (sqrt(x^2 + y^2)),
+          sqrt(x^2 + y^2) (-y) / (sqrt(x^2 + y^2))
+        ) & quad (x < 0, y < 0),
+        (
+          0, y
+        ) & quad (x = 0 and y > 0),
+        (
+          0, y
+        ) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+      \
+      &=
+      cases(
+        (
+          x, y
+        ) & quad (x > 0),
+        (
+          x, -y
+        ) & quad (x < 0),
+        (
+          0, y
+        ) & quad (x = 0 and y > 0),
+        (
+          0, y
+        ) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+    $
+  ]
+]
+
+
+#definition([$CC$のsqrt])[
+  $sqrt(dot.c): CC -> CC$ を以下のように定める。
+
+  $(a, b) in CC$ について、
+  $
+    sqrt((a, b)) := (sqrt(a), b/2)
+  $
+]
+
+
+#claim([sqrt と 積が可換になる条件])[
+  TODO
+
+  #proof[
+    TODO
+  ]
+]
+
 
 (次回 20250619) ↓一旦以下までやらんくても良いかも
 #mapDef("sqrt", $CC$, $CC$, $r exp(i theta)$, $sqrt(r) exp(i theta/2)$, "")
