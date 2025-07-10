@@ -1,0 +1,1539 @@
+// セクション番号の表示
+#set heading(numbering: "1.1.")
+
+
+
+// フォントの設定（参考文献がおかしくなるので注意）
+
+// 数式番号の表示
+#set math.equation(numbering: "(1)", number-align: bottom)
+// 数式番号の参照の形式を設定
+#show ref: it => {
+  let eq = math.equation          // math.equationを変数eqに代入
+  let el = it.element            // 参照している要素をelに代入
+  if el != none and el.func() == eq {  // 参照が数式かチェック
+    // 数式参照の場合の処理
+    link(
+      el.location(),             // クリックで数式の場所に飛べるようにする
+      numbering(
+        el.numbering,            // 数式に設定された番号形式を使用
+        ..counter(eq).at(el.location())  // その場所での数式カウンターの値を取得
+      )
+    )
+  } else {
+    // 数式以外の参照はデフォルトの処理
+    it
+  }
+}
+
+
+// 定理カウンター文字列を生成する関数
+#let theorem_counter_str = (loc) => {
+  // 見出しカウンターを取得
+  let heading_counter = counter(heading)
+  // 定理カウンターを取得（"lib:theorem"という種類の図）
+  let theorem_counter = counter(figure.where(kind: "lib:theorem"))
+  // 指定位置での見出し番号を取得
+  let heading_counter_number = heading_counter.at(loc)
+  // 指定位置での定理番号を取得.3333333
+  let theorem_counter_number = theorem_counter.at(loc)
+  // 見出し番号と定理番号を結合
+  let number = heading_counter_number + theorem_counter_number
+  // "1.1"形式の番号を返す
+  return numbering("1.1", ..number)
+}
+
+// カウンター付きブロックを生成する関数
+#let block_with_counter = (
+  title,    // ブロックのタイトル（例: "定理", "補題"）
+  name,     // 定理の名前（オプション）
+  fill,     // ブロックの背景色
+  inset,    // ブロック内の余白
+  radius,   // ブロックの角の丸み
+  content,  // ブロックの内容
+) => {
+  // 見出しカウンターを取得（ここでは使用されていないようです）
+  let heading_counter = counter(heading)
+  // 定理カウンターを取得
+  let theorem_counter = counter(figure.where(kind: "lib:theorem"))
+  
+  // タイトル行を生成する内部関数
+  let title_line = () => {
+    // 現在位置での定理カウンター文字列を取得
+    let counter_str = theorem_counter_str(here())
+    let title_line
+    // 名前が指定されているかどうかで表示を分岐
+    if name == none {
+      title_line = $bold(title)$ + " " + counter_str
+    } else {
+      title_line = $bold(title)$ + " " + counter_str + " ("+ name + ") "
+    }
+    return title_line
+  }
+  
+  // 図（figure）としてブロックを返す
+  return figure(
+    kind: "lib:theorem",
+    supplement: title,
+  )[
+    // ブロックを生成
+    #block(
+      width: 100%,
+      breakable: false,
+      fill: fill,
+      inset: inset,
+      radius: radius,
+      [
+        #set text(font: ("Hiragino Kaku Gothic Pro"), lang: "ja")
+        #align(left)[
+          #context title_line()
+          #h(4pt) // タイトルと内容の間に少し水平スペースを追加
+          #content
+        ]
+      ]
+    )
+  ]
+}
+
+// #let theorem_rules(qed-symbol: $qed$, doc) = {
+//   show figure.where(kind: "lib:theorem"): it => {
+//     // 【修正】定理類が出現したときにclaimカウンターをリセット
+//     counter(figure.where(kind: "lib:claim")).update(0)
+//     it.body
+//   }
+//   set heading(numbering: "1.1.")
+//   show heading: it => {
+//     return [
+//       #context counter(figure.where(kind: "lib:theorem")).update(0)
+//       // 【新規追加】見出しが変わった時にclaimカウンターもリセット
+//       #context counter(figure.where(kind: "lib:claim")).update(0)
+//       #it
+//     ]
+//   }
+
+//   show ref: it => {
+//     if it.element == none {
+//       return it
+//     }
+//     if it.element.func() != figure {
+//       return it
+//     }
+//     if it.element.kind != "lib:theorem" {
+//       return it
+//     }
+
+//     let supplement = it.element.supplement
+//     if it.citation.supplement != none {
+//       supplement = it.citation.supplement
+//     }
+
+//     let loc = it.element.location()
+//     // 【新規追加】定理とclaimの両方に対応
+//     if it.element.kind == "lib:theorem" {
+//       return link(it.target, [#supplement #theorem_counter_str(loc)])
+//     } else if it.element.kind == "lib:claim" {
+//       return link(it.target, [#supplement #claim_counter_str(loc)])
+//     }
+//     return link(
+//       it.target,
+//       [#supplement #theorem_counter_str(loc)]
+//     )
+//   }
+//   doc
+// }
+
+// #show: theorem_rules.with(qed-symbol: $qed$)
+
+
+#let def(content, name: none) = {
+  block_with_counter(
+    "Definition",  // title
+    name,       // name (optional)
+    rgb("#F0F8FF"),  // fill (Alice Blue)
+    8pt,        // inset
+    4pt,        // radius
+    content     // content
+  )
+}
+
+#let lem(content, name: none) = {
+  block_with_counter(
+    "Lemma",  // title
+    name,       // name (optional)
+    rgb("#e0ffff"),  // fill (Alice Blue)
+    8pt,        // inset
+    4pt,        // radius
+    content     // content
+  )
+}
+
+#let prop(content, name: none) = {
+  block_with_counter(
+    "Proposition",  // title
+    name,       // name (optional)
+    rgb("#d3f9d3"),  // fill (Alice Blue)
+    8pt,        // inset
+    4pt,        // radius
+    content     // content
+  )
+}
+
+#let thm(content, name: none) = {
+  block_with_counter(
+    "Theorem",  // title
+    name,       // name (optional)
+    rgb("#ffd9d9"),  // fill (Alice Blue)
+    8pt,        // inset
+    4pt,        // radius
+    content     // content
+  )
+}
+
+#let cor(content, name: none) = {
+  block_with_counter(
+    "Corollary",  // title
+    name,       // name (optional)
+    rgb("#FFFCDB"),  // fill (Alice Blue)
+    8pt,        // inset
+    4pt,        // radius
+    content     // content
+  )
+}
+
+#let rem(content, name: none) = {
+  block_with_counter(
+    "Remark",  // title
+    name,       // name (optional)
+    rgb("#f9e3d0"),  // fill (Alice Blue)
+    8pt,        // inset
+    4pt,        // radius
+    content     // content
+  )
+}
+
+#let mot(content, name: none) = {
+  block_with_counter(
+    "Motivation",  // title
+    name,       // name (optional)
+    rgb("#FEECD2"),  // fill (Alice Blue)
+    8pt,        // inset
+    4pt,        // radius
+    content     // content
+  )
+}
+
+#let qu(content, name: none) = {
+  block_with_counter(
+    "Question",  // title
+    name,       // name (optional)
+    rgb("#fdfdc0"),  // fill (Alice Blue)
+    8pt,        // inset
+    4pt,        // radius
+    content     // content
+  )
+}
+
+#let ans(content, name: none) = {
+  block_with_counter(
+    "Answer",  // title
+    name,       // name (optional)
+    rgb("#f0fff0"),  // fill (Alice Blue)
+    8pt,        // inset
+    4pt,        // radius
+    content     // content
+  )
+}
+
+
+#let eg(content, name: none) = {
+  block_with_counter(
+    "Example",  // title
+    name,       // name (optional)
+    rgb("#fae9ff"),  // fill (Alice Blue)
+    8pt,        // inset
+    4pt,        // radius
+    content     // content
+  )
+}
+
+#let prf(body, of: none, indent: 20pt) = {
+  let proof_text = "Proof"
+  if of != none {
+    proof_text += " of " + of
+  }
+  pad(left: indent)[
+    #proof_text.
+    #h(1em)
+    #body
+    #h(0fr)
+    #box(width: 0.7em, height: 0.7em, fill: black)
+  ]
+}
+
+#let clprf(body, of: none, indent: 50pt) = {
+  let proof_text = "Proof"
+  if of != none {
+    proof_text += " of " + of
+  }
+  pad(left: indent)[
+    #proof_text.
+    #h(1em)
+    #body
+    #h(0fr)
+    #box(width: 0.7em, height: 0.7em, fill: black)
+  ]
+}
+
+
+// 【新規追加】claimカウンター文字列を生成する関数（サブ番号形式）
+#let claim_counter_str = (loc) => {
+  let heading_counter = counter(heading)
+  let theorem_counter = counter(figure.where(kind: "lib:theorem"))
+  let claim_counter = counter(figure.where(kind: "lib:claim"))
+  
+  let heading_counter_number = heading_counter.at(loc)
+  let theorem_counter_number = theorem_counter.at(loc)
+  let claim_counter_number = claim_counter.at(loc)
+  
+  // 見出し番号 + 定理番号 + claim番号を結合
+  let number = heading_counter_number + theorem_counter_number + claim_counter_number
+  // "1.1.1"形式の番号を返す
+  return numbering("1.1.1", ..number)
+}
+
+//claim関数はサブ番号形式を使用
+#let claim(content, name: none, indent: 20pt) = {
+  figure(
+    kind: "lib:claim", // 新しい種別を使用
+    supplement: "Claim",
+  )[
+    // インデント機能
+    #pad(left: indent)[
+      #block(
+        width: 100% - indent,
+        breakable: false,
+        fill: rgb("#f0f0ee"), // 薄いグレー
+        inset: 6pt,
+        radius: 3pt,
+      )[
+        #set text(font: ("Hiragino Kaku Gothic Pro"), lang: "ja")
+        #align(left)[
+          #context {
+            // サブ番号生成関数を使用
+            let counter_str = claim_counter_str(here())
+            let title_text = if name == none {
+              $bold("Claim")$ + " " + counter_str
+            } else {
+              $bold("Claim")$ + " " + counter_str + " (" + name + ")"
+            }
+            title_text
+          }
+          #h(4pt)
+          #content
+        ]
+      ]
+    ]
+  ]
+}
+
+#let theorem_rules(qed-symbol: $qed$, doc) = {
+  show figure.where(kind: "lib:theorem"): it => {
+    // 定理類が出現したときにclaimカウンターをリセット
+    counter(figure.where(kind: "lib:claim")).update(0)
+    it.body
+  }
+  // claim用のfigureも表示するように設定
+  show figure.where(kind: "lib:claim"): it => it.body
+  
+  set heading(numbering: "1.1.")
+  show heading: it => {
+    return [
+      #context counter(figure.where(kind: "lib:theorem")).update(0)
+      // 見出しが変わった時にclaimカウンターもリセット
+      #context counter(figure.where(kind: "lib:claim")).update(0)
+      #it
+    ]
+  }
+  
+  // claim専用の参照処理を追加
+  show ref: it => {
+    if it.element != none and it.element.func() == figure {
+      let loc = it.element.location()    
+    if it.element.kind == "lib:claim" {
+      return link(it.target, [Claim #claim_counter_str(loc)])
+    } else if it.element.kind == "lib:theorem" {
+      return link(it.target, [#it.element.supplement #theorem_counter_str(loc)])
+    }
+  }
+  return it
+  }  
+  doc
+}
+
+
+#show: theorem_rules.with(qed-symbol: $qed$)
+
+//定理参照
+// #set ref(supplement: it => {
+//   // デバッグ：どの条件に入っているか確認
+//   if it.func() == figure and it.kind == "lib:claim" {
+//     return return it.supplement
+//   }
+  
+//   // 定理の場合は既存の処理
+//   let headings = counter(heading)
+//   let current_heading = headings.at(it.location())
+//   return it.supplement + " [THEOREM-PATH:" + numbering("1.", ..current_heading) + "]"
+// })
+
+
+// 図用のブロック生成関数
+#let figure_with_counter = (
+  caption:none,
+  content,
+) => {
+  let theorem_counter = counter(figure.where(kind: "lib:theorem"))
+  
+  figure(
+    kind: "lib:theorem",
+    supplement: "Figure",
+    [
+      #block(
+        width: 100%,
+        breakable: false,
+        [
+          #align(center)[#content]
+          #v(8pt)
+          #align(center)[
+            Figure #context {
+              let heading_counter = counter(heading)
+              let theorem_counter = counter(figure.where(kind: "lib:theorem"))
+              let number = heading_counter.at(here()) + theorem_counter.at(here())
+              numbering("1.1", ..number)
+            }
+            #if caption != none [ #caption]  // キャプションが存在する場合のみ表示
+          ]
+        ]
+      )
+    ]
+  )
+}
+
+
+// 複数著者の処理
+#let format-authors(authors) = {
+  if type(authors) == "array" {
+    if authors.len() == 1 {
+      authors.at(0)
+    } else {
+      authors.join(", ")
+    }
+  } else if type(authors) == "string" {
+    authors
+  } else {
+    panic("Invalid type for authors. Expected array or string.")
+  }
+}
+
+// 著者と年を組み合わせる
+#let combine-authors-and-year(authors, year) = {
+  let result = format-authors(authors)
+  if year != none and year != "" {
+    result += " (" + year + ")"
+  }
+  result
+}
+
+// 項目がなかったら除去
+#let add-conditional-element(condition, element) = {
+  if condition != none and condition != "" {
+    element
+  }
+}
+
+#let references = state("references", (:))
+
+// sectionが変わったら定理番号をリセット
+#show heading: it => {
+  return [
+    #context counter(figure.where(kind: "lib:theroem")).update(0)
+    #it
+  ]
+}
+
+// 参照を追加する関数
+#let add_reference(label, main_info) = {
+  references.update(refs => {
+    refs.insert(label, main_info)
+    refs
+  })
+}
+
+// 参照を表示する関数
+#let show_reference(label) = {
+  locate(loc => {
+    let refs = references.at(loc)
+    if label in refs {
+      link(label)[#label]
+    } else {
+      [??]
+    }
+  })
+}
+
+// 参考文献リストを生成する関数
+#let generate_bibliography() = {
+  locate(loc => {
+    let refs = references.at(loc)
+    for (label, content) in refs {
+      [[#label] #content]
+      linebreak()
+    }
+  })
+}
+
+//論文の書誌情報
+#let ronbun-entry(
+  authors,
+  year: none,
+  title: none,
+  serious: none,
+  edition: none,
+  location: none,
+  publisher: none,
+) = { 
+  // 著者〜出版社まで
+  let main-parts = (
+    combine-authors-and-year(authors, year),
+    ["#title"],
+    add-conditional-element(serious, serious),
+    add-conditional-element(edition, edition),
+    add-conditional-element(location, location),
+    add-conditional-element(publisher, publisher)
+  )
+  
+  // 空でない要素のみを結合
+  let main-info = main-parts
+    .filter(p => p != none and p != "")
+    .join(", ")
+
+  // 最終的な書誌情報を返す
+  main-info + "."
+}
+// 本の書誌情報
+#let book-entry(
+  authors,
+  year: none,
+  title: none,
+  serious: none,
+  edition: none,
+  location: none,
+  publisher: none,
+) = { 
+  // 著者〜出版社まで
+  let main-parts = (
+    combine-authors-and-year(authors, year),
+    [『#title』],
+    add-conditional-element(serious, serious),
+    add-conditional-element(edition, edition),
+    add-conditional-element(location, location),
+    add-conditional-element(publisher, publisher)
+  )
+  
+  // 空でない要素のみを結合
+  let main-info = main-parts
+    .filter(p => p != none and p != "")
+    .join(", ")
+
+  // 最終的な書誌情報を返す
+  main-info + "."
+}
+
+
+// 翻訳書の書誌情報
+#let translation-entry(
+  authors,
+  year: none,
+  title: none,
+  translators: none,
+  edition: none,
+  location: none,
+  publisher: none,
+  original-authors: none,
+  original-year: none,
+  original-title: none,
+  original-edition: none,
+  original-location: none,
+  original-publisher: none
+) = { 
+  // 著者〜出版社まで
+  let main-parts = (
+    combine-authors-and-year(authors, year),
+    [『#title』],
+    if translators != none { [#format-authors(translators)訳] },
+    add-conditional-element(edition, edition),
+    add-conditional-element(location, location),
+    add-conditional-element(publisher, publisher)
+  )
+  
+  // 空でない要素のみを結合
+  let main-info = main-parts
+    .filter(p => p != none and p != "")
+    .join(", ")
+  
+  // 原著情報の処理（存在する場合）
+  if original-title != none {
+    let original-parts = (
+      [原著: #combine-authors-and-year(original-authors, original-year)],
+      add-conditional-element(original-title, original-title),
+      add-conditional-element(original-edition, original-edition),
+      add-conditional-element(original-location, original-location),
+      add-conditional-element(original-publisher, original-publisher)
+    )
+    
+    // 空でない原著情報のみを結合
+    let original_info = original-parts
+      .filter(p => p != none and p != "")
+      .join(", ")
+    
+    // 原著情報が存在する場合、メイン情報に追加
+    if original_info != "" {
+      main-info += "（" + original_info + "）"
+    }
+  }
+
+  // 最終的な書誌情報を返す
+  main-info + "."
+}
+
+
+// Define paper title and authors
+#let title = "2次元Ising modelの厳密解"
+#let authors = (
+  (
+    name: "Takeru Asaka",
+    email: "asakatakeru@gmail.com",
+    affiliation: "Graduate School of Information Sciences, Tohoku University"
+  ),
+)
+
+// Main document template
+#set document(author: authors.map(a => a.name), title: title)
+
+// Page setup
+#set page(
+  paper: "us-letter",
+  margin: (x: 2.5cm, y: 2.5cm),
+  numbering: "1",
+  header: align(right)[#title],
+)
+
+// Text setup
+#set text(
+  font: "Libertinus Serif",
+  size: 11pt,
+  hyphenate: false
+)
+
+#set par(justify: true)
+
+// Heading styles
+#show heading.where(level: 1): it => block(width: 100%)[
+  #set align(left)
+  #set text(12pt, weight: "bold")
+  #counter(heading).display()
+  #h(0.5em)
+  #it.body
+]
+
+#show heading.where(level: 2): it => block(width: 100%)[
+  #set align(left)
+  #set text(11pt, weight: "bold")
+  #counter(heading).display()
+  #h(0.5em)
+  #it.body
+]
+#set page(height: auto)
+// Title block
+#align(center)[
+  #block(width: 100%)[
+    #set align(center)
+    #set text(17pt, weight: "bold")
+    #title
+  ]
+  
+  #v(1em)
+  
+  #grid(
+    columns: authors.len(),
+    gutter: 1em,
+    ..authors.map(author => [
+      #set align(center)
+      *#author.name* \
+      #author.affiliation \
+      #link("mailto:" + author.email)
+    ])
+  )
+]
+
+
+#let GL = $"GL"(n,CC)$
+#let GL2 = $"GL"(2,CC)$
+#let SL = $"SL"(n,CC)$
+#let SL2 = $"SL"(2,RR)$
+#let PSL = $"PSL"(2,RR)$
+#let sl2 = $frak(s l )(2,RR)$
+#let M2 = $cal(M)(2,RR)$
+#let tensor = $times.circle$
+#let TSL2 =$T#h(0pt)SL2$
+#let TM2 =$T#h(0pt)M2$
+#let bs = $bold(s)$
+#let Xs = $chi_bs (RR_(>0))$
+#let Xst = $chi_bs (RR^"trop")$
+#let TS = $cal(T)(Sigma,M)$
+#let MLg =$cal(M L)_g$ 
+#let MCG =$"MCG"(Sigma,M)$
+#let A2W =$A 2^W$
+#let A2 =$A 2$
+#let SSS=$S^1_infinity$
+#let Rpos = $RR_(>0)$
+#let Zone = $ZZ_(gt.eq 1)$
+#let pm =$plus.minus$
+#let mp=$minus.plus$
+#let exi=$quad#h(-1em)^exists$
+#let exi1=$quad#h(-1em)^(exists !)$
+#let fal = $quad#h(-1em)^forall$
+#let pa=$partial$
+#let pat=$partial_"time"$
+#let pr=$"pr"$
+#let TM=$T M$
+#let to=$times.circle$
+#let grad=$"grad"$
+#let vol=$"vol"$
+#let dx=$d x$
+#let dy=$d y$
+#let dS=$d S$
+#let diag=$"diag"$
+// レット
+
+// Abstract
+#v(2em)
+#align(center)[
+  #set text(weight: "bold")
+  Abstract
+]
+#block(width: 100%)[
+  We review the exact solution of the two-dimensional Ising model.
+]
+
+
+// Table of Contents
+#v(2em)
+#align(center)[
+  #set text(weight: "bold")
+  Contents
+]
+#outline(
+  title: none,  // タイトルは上で既に表示したので none に設定
+)
+
+#show emph: it => {
+  text(blue, it.body)
+}
+
+//#set heading(numbering: n => str(n - 1))
+
+#set par(first-line-indent: 1em)
+
+#show heading: it => {
+    it
+    par(text(size: 0pt, ""))
+}
+
+#set text(font: ("Hiragino Kaku Gothic Pro"), lang: "ja")
+
+= わかりやすいパート
+
+
+= 数学的に厳密パート
+
+== 数えるということ
+集合$X={x,y,z}$の元の数が3つと「数える」のは、$Z_(gt.eq 1):={1,2,3,4,5,...}$の部分集合{1,2,3}との間に対応
+$
+  x|->1, y|->2, z|->3
+$
+を与え、${1,2,3}$より最大の元$3$を取り出すということである。対応は、$X$で異なる元は${1,2,3}$で異なる元に対応させなければならず、$X$と${1,2,3}$の片方のどの元ももう一方の元に対応してないといけない。これを厳密に定義しよう。
+
+#def()[
+  集合$X,Y$に対して、$X times Y :={(x,y) | x in X, y in Y}$と定める。$X times Y$の部分集合$Gamma$に対して
+  $
+    (x,y_1),(x,y_2)in Gamma "ならば" y_1=y_2
+  $
+  が成立するとき、$Gamma$を#emph[グラフ(graph)]と呼ぶ。グラフ$Gamma$において、各$x in X$に対して、$(x,y) in Gamma$となる$y in Y$はただ一つなので、$x$に$y$を対応させる規則と見て
+  $
+    Gamma:X->Y, x|->y
+  $
+  と表記したりもする。ただし、$(x,y) in Gamma$である。この表記をしたとき#emph[写像]という。また、$x |-> y$を省略して
+  $
+    Gamma:X->Y
+  $
+  とも書く。
+]<def_map>
+
+#eg()[
+  + $f:RR->RR, x|->x^2$は、$x$に対応する$x^2$がただ一つであり、写像である
+  + $f:RR->RR,x|-> (2"乗して"x"になるもの")$ は、$x>0$において$pm sqrt(x)$と2つ対応するし、$x<0$において対応するものが存在しないので全く写像でない。
+]<eg_map>
+さらに写像の性質を定義する。
+#def()[
+  $f:X->Y$ を写像とする。
+  + $
+  f(x_1)=f(x_2) "ならば" x_1=x_2
+  $が成り立つとき、$f$ を#emph[単射]という。
+  + $
+  "任意の"y in Y"に対して、"x in X"が存在して"f(x)=y
+  $が成り立つとき、$f$ を#emph[全射]という。
+  + $f$が単射かつ全射であるとき、$f$ が#emph[全単射]であるという。
+]
+
+#lem()[
+  全射・単射・全単射の合成はそれぞれそうなっている。
+]
+
+#prop()[
+  逆写像の存在と全単射の同値性
+]<prop_inv_bij>
+
+
+#eg()[
+  例を絵で説明
+]
+これを用いて、「数える」を定義する。
+#def()[
+  空でない集合$X$に対して、$Zone$の部分集合${1,2,3,...,n}$との間に全単射$f:X->{1,2,3,....,n}$が存在するとき、$n$を$X$の#emph[濃度（cardinality）]と呼ぶ。
+]
+#rem()[
+  濃度は、日常的な用語で言えば個数のことである。歴史的な経緯で、わかりづらい用語になってしまった。
+]
+#prop()[
+  集合$X$に対して、濃度は存在するならただ一つに定まる。すなわち全単射な$f:X->{1,2,...,m},g:X->{1,2,...,n}$が存在するとき、$m=n$である。
+]<prop_card>
+#prf(
+  of: none,
+)[
+  cf.@Saito09
+]
+
+
+
+#lem()[
+  $X,Y$ を集合とし、$f:X->Y$が全射のとき
+  $
+    f(X):={f(x)divides x in X}
+  $
+  と定めると
+  $
+    f(X)=Y
+  $
+]
+
+#prf(
+  of: none,
+)[
+  集合が等しいことの定義は、$f(X) subset Y$ かつ $f(X) supset Y$ であった。これを示す。
+  $f(x) in f(X)$ をとると $f$ の値域は $Y$ であるから $f(x) in Y$ である。$y in Y$ をとると、$f$ が全射であるから $x in X$ が存在して $f(x)=y$ である。よって $y in f(X)$ である。よって $f(X) = Y$ が示された。 
+]
+
+== 数えたものを足し上げるということ
+
+集合 $X={x_1,x_2,x_3}$、集合 $Y={y_1,y_2,y_3}$、関数 $f:X->RR$、関数 $g:Y->RR$について、$f(x_1)=g(x_1), f(x_2)=g(x_2), f(x_3)=g(x_3)$が成り立っているとき
+$
+  sum_(x in X) f(x)=sum_(y in Y) g(y)
+$
+が成り立つ。なぜなら
+$
+  sum_(x in X) f(x)=f(x_1)+f(x_2)+f(x_3)=g(x_1)+g(x_2)+g(x_3)=sum_(y in Y) g(y)
+$
+であるからである。
+
+この話を一般化しよう。
+
+
+#lem()[
+  $X,Y$ を空でない有限集合とし、$f:X->RR,g:Y->RR$を考える。$phi:X->Y$が全単射であり、任意の$x in X$に対して
+  $
+    f(x)=g(phi(x))
+  $
+  が成立するとき
+  $
+    sum_(x in X) f(x)=sum_(y in Y) g(y)
+  $
+]<lem_kazoe>
+
+（最初に述べた例については、$phi:X->Y, x_i|->y_i quad (i=1,2,3)$ であった。）
+
+#prf(
+  of: ref(<lem_kazoe>),
+)[
+  帰納法で示す。有限集合$X,Y$に対して、$phi:X->Y$,全単射が存在するとする。$f:X->RR,g:Y->RR$について、任意の$x in X$に対して
+  $
+    f(x)=g(phi(x))
+  $
+  が成立するとする。
+  このとき、@prop_card より、$X,Y$の濃度は等しいので、$n$とおく。
+
+  + n=1のとき、$X={x_1},Y={y_1}$とおくとき$phi(x_1)=y_1$となるので$
+    sum_(x in X) f(x)=f(x_1)=g(phi(x_1))=g(y_1)=sum_(y in Y) g(y)
+  $となり、示された。
+  + $n=k$について成立すると仮定し、$n=k+1$について示す。$X$の元を一つ取り$x_(k+1)$とおく。$X without {x_(k+1)}->Y without {phi(x_(k+1))}$は全単射であることが示せ$
+    &
+    sum_(x in X) f(x)=sum_(x in X without {x_(k+1)}) f(x)+f(x_(k+1))underbrace(=,"帰納法の仮定")
+    sum_(y in Y without {phi(x_(k+1))}) g(y)+g(phi(x_(k+1)))\
+    =&
+    sum_(y in Y ) g(y)
+  $よって、示された。
+]
+
+
+== 2次元Ising modelの分配関数
+（何か絵を描いて、$Z(J,J')$のモチベをはなす）
+
+$J,J' in Rpos$, $M,N in Zone$に対して
+$
+  Z(J, J',M,N) 
+  :=&
+   sum_(
+      s_(i, j) in {plus.minus 1} \
+      s_(i, N + 1 = s_i, 1) \
+      s_(M + 1, j) = s_(1, j)
+      )
+    (product_(i = 1)^M (
+    (product_(j_1 = 1)^N exp(J dot  s_(i, j_1) dot  s_(i, j_1 + 1)))
+    dot 
+    (product_(j_2 = 1)^N exp(J dot  s_(i, j_2) dot  s_(i + 1, j_2)))
+    ))\ quad
+  // =&
+  // sum_(s:{1,2,...,M+1}times{1,2,...,N+1}->{pm 1})\
+  // &quad
+  // (
+  //   product_(i = 1)^M (
+  //     (
+  //       product_(j_1 = 1)^N exp(J dot  s(i, j_1) dot  s(i, j_1 + 1)))
+  //     dot 
+  //       (product_(j_2 = 1)^N exp(J dot  s(i, j_2) dot  s(i + 1, j_2))
+  //     )
+  //   )
+  // )\
+  // \
+$
+を#emph[2次元Ising modelの分配関数]と呼ぶ。これを見やすい形にするのが最終目標である。
+$
+  cal(N)_(+1):=&{
+    mu:{1,...,N+1}->{-1,1} divides mu(N+1)=mu(1)
+  }\
+  cal(N):=&{
+    mu':{1,...,N}->{-1,1}
+  }
+$
+と定めると、
+$
+  cal(N)_(+1)->&cal(N),quad mu|->mu|_{1,2,...,N}\
+  cal(N)->&cal(N)_(+1),quad mu'|->mu "s.t. " mu(i)=cases(mu'(i) quad (i=1,2,...,N), mu'(1) quad (i=N+1))
+$
+によって、互いに逆写像となるので@prop_inv_bij より、この対応は全単射である。
+
+次に$Z(J,J',M,N)$を@lem_kazoe を用いて$cal(N)_(+1)$を使って書き換える。
+$
+  cal(S):=&{
+    (s_(i,j))_(i=1,...,M+1,space j=1,..N+1) divides s_(i,j) in {pm 1}, s_(i,N+1)=s_(i,1), s_(M+1,j)=s_(1,j)quad (fal i,j)}\
+  cal(M):=&{
+    (mu_1,...,mu_(M+1))
+    divides mu_i :in cal(N)_(+1),space mu_(M+1)=mu_1 quad (fal i)
+  }
+$
+とおく。 
+#lem()[
+  $
+    &Z(J,J',M,N)\
+    =&
+    sum_((mu_1,...,mu_(M+1)) in cal(M))
+    (product_(i = 1)^M (
+    (product_(j_1 = 1)^N exp(J dot  mu_i (j_1) dot  mu_i (j_1 + 1)))
+    dot 
+    (product_(j_2 = 1)^N exp(J dot  mu_i (j_2) dot  mu_i (j_2 + 1)))
+    ))\ quad
+  $
+]
+#prf(
+  of: none,
+)[  
+  #claim()[
+    $
+      Phi_(cal(S),cal(M)):cal(S)->cal(M),quad &(s_(i,j))_(i=1,...,M+1,space j=1,..N+1)\ &quad |->(mu_1,...,mu_(M+1)) " s.t. " mu_i (j)=s_(i,j)
+    $
+    は全単射
+  ]<cl_sm>
+  #clprf(
+    of: none,
+  )[
+    $
+      Psi_(cal(M),cal(S)):cal(M)->cal(S),quad &(mu_1,...,mu_(M+1))\ &quad |->(s_(i,j))_(i=1,...,M+1,space j=1,..N+1) " s.t. " s_(i,j)=mu_i (j)
+    $
+    と定めると違いに逆写像となっているので@prop_inv_bij より良い。
+  ]
+  $
+    f:&cal(S)->RR, quad (s_(i,j))_(i=1,...,M+1,space j=1,..N+1)
+    |->\
+    &
+      (product_(i = 1)^M (
+      (product_(j_1 = 1)^N exp(J dot  s_(i, j_1) dot  s_(i, j_1 + 1)))
+      dot 
+      (product_(j_2 = 1)^N exp(J dot  s_(i, j_2) dot  s_(i + 1, j_2)))
+      ))\
+      g:&cal(M)->RR, quad (mu_1,...,mu_(N+1))
+    |->\
+    &
+      (product_(i = 1)^M (
+      (product_(j_1 = 1)^N exp(J dot  mu_i (j_1) dot  mu_i (j_1 + 1)))
+      dot 
+      (product_(j_2 = 1)^N exp(J dot  mu_i (j_2) dot  mu_i (j_2 + 1)))
+      ))\ quad
+  $
+  と定めると$fal (s_(i,j))in cal(S)$
+  $
+    &g compose Phi_(cal(S),cal(M))((s_(i,j))_(i=1,...,M+1,space j=1,..N+1))\
+    =&
+    (product_(i = 1)^M (
+      (product_(j_1 = 1)^N exp(J dot  mu_i (j_1) dot  mu_i (j_1 + 1)))
+      dot 
+      (product_(j_2 = 1)^N exp(J dot  mu_i (j_2) dot  mu_i (j_2 + 1)))
+      ))
+  $
+  となるので@cl_sm, @lem_kazoe より
+  $
+    &Z(J,J',M,N)\
+    =&
+    sum_((mu_1,...,mu_(M+1)) in cal(M))
+      (product_(i = 1)^M (
+      (product_(j_1 = 1)^N exp(J dot  mu_i (j_1) dot  mu_i (j_1 + 1)))
+      dot 
+      (product_(j_2 = 1)^N exp(J dot  mu_i (j_2) dot  mu_i (j_2 + 1)))
+      ))\ quad
+  $
+]
+
+$s_(i,j)$は$+1,-1$の2値をとる2進数で表ししやすい値だが、我々は10進数で計算を行いたいので対応を言っておくと便利である。
+
+#prop()[
+  $
+    Phi : cal(N) -> {1, ..., 2^N },space mu |-> 1 + sum_(i = 1)^n (mu(i) + 1)/2 dot  2^(k - 1)
+  $
+  は全単射である。
+]
+
+#prf(
+  of: none,
+)[
+  以下のClaimを元に逆写像をつくる。
+  #claim()[
+    $m in {1,...,2^N}$に対して、
+    $
+      m=1+ sum_(k in K)2^(k-1)
+    $
+    となる$K : subset {1,...,N}$はただ一つ存在する。
+  ]<cl_two>
+  #clprf(
+  
+  )[
+      数学的帰納法で示す。
+  + $m=1$のとき\ $K=emptyset$が存在する。もし$K eq.not emptyset$が他に存在したと仮定し、$k_0 in K$とおくと$
+    &1+ underbrace( sum_(k in K)2^(k-1),display(gt.eq 2^(k_0-1) gt.eq 1))\
+    gt.eq& 2
+  $となるので、ただ一つ$K=emptyset$である。
+  + $m<2^N$となる$m$で成立するとき、$
+     exi1 K_m " s.t. " m=1+ sum_(k in K_m)2^(k-1)
+  $である。$K_m={1,...,N}$と仮定すると$
+    1+ sum_(k in K_m)2^(k-1)=2^N
+  $となり矛盾するので$K_m eq.not {1,...,N}$である。 $K_m$に入らない${1,...,N}$の最小の元を$k_0$とすると$
+    &m+1
+    =
+    (1+sum_(k in K_m)2^(k-1)) +1\
+    =&
+    1+underbrace((sum_(k in K_m\ k<k_0)2^(k-1))+(sum_(k in K_m\ k>k_0)2^(k-1)),k_0"を境に分けただけ")+1\
+    =&
+    1+underbrace((sum_(k =1,2,...,k_0-1)2^(k-1)),k_0"の定義より")+(sum_(k in K_m\ k>k_0)2^(k-1))+1\
+    =&
+    2^(k_0)+(sum_(k in K_m\ k>k_0)2^(k-1))+1\
+    =&
+    1+ sum_(k in {k_0} union (K_m sect {k>k_0}))2^(k-1)
+  $よって$m+1$に対して命題を満たす$K_(m+1)$が存在する。\ $K eq.not K'$について$
+    1+sum_(k in K)2^(k-1)=1+sum_(k in K')2^(k-1)
+  $<eq_K>が成立したと仮定すると $
+    exi l in K' without (K union K') " or " exi l in K without (K union K')
+  $となるので、この中で最大なものを$l^star$とすると、$l^star in K$のとき@eq_K から $
+    1+ sum_(k in K sect K'\ k>l^star)2^(k-1)
+  $を引いて $
+    ("左辺") gt.eq 2^(l^star -1)>2^(l^star -1)=sum_(k=1,...,l^star-1) gt.eq ("右辺")
+  $となるので矛盾。$l^star in K'$のときも同様。よって、$m+1$について唯一性が示された。
+  ]
+  さて
+  $
+    Psi:{1,2,.,,,.2^N}->cal(N),quad m|->mu_m " s.t. "& m"に対する" #ref(<cl_two>)"の"K"をとって"\  &quad mu_m (x):=cases(-1 quad &(x in.not K), 1 quad &(x in K))
+  $と定義すると、$mu in cal(N)$に対して
+  $
+    Psi compose Phi (mu)=Psi(1+ sum_(k=1)^N (mu(k)+1)/2 dot 2^(k-1))
+  $<eq_Psi_Phi>
+  $K_mu:={k divides mu(k)=1}$とすると
+  $
+    &1+sum_(k in K_mu)2^(k-1)=1+sum_(k in K_mu)(mu(k)+1)/2 dot 2^(k-1)+sum_(k in {1,...,N} without K_mu) (mu(k)+1)/2 dot 2^(k-1)\
+    =&
+    1+sum_(k=1)^N (mu(k)+1)/2 dot 2^(k-1)
+  $
+  となるので、$Psi$の定義と@cl_two の一意性より
+  $
+    (Psi compose Phi (mu)) (x)=cases(-1 quad &(x in.not K_mu), 1 quad &(x in K_mu))
+    =
+    mu(x)
+  $
+  すなわち
+  $
+    Psi compose Phi = id_cal(N)
+  $
+  また、$m in {1,2,...,2^N}$に対して
+  $
+    &Phi compose Psi (m)
+    =
+    Phi ( mu_m " s.t. " (mu_m (x):=cases(-1 quad &(x in.not K_m), 1 quad &(x in K_m)) " s.t. " (1+ sum_(k in K_m)2^(k-1)=m)))\
+    =&
+    1+ sum_(k=1)^N (mu_m (k)+1)/2 dot 2^(k-1)\
+    =&
+    1
+    + 
+    underbrace(sum_(k in K_m)(mu_m (k)+1)/2 dot 2^(k-1),=sum_(k in K_m) 2^(k-1))
+    +
+    underbrace(sum_(k in {1,...,N} without K_m) (mu_m (k)+1)/2 dot 2^(k-1),=0)\
+    =&
+    m
+  $
+  すなわち
+  $
+    Phi compose Psi = id_{1,...,2^N}
+  $
+  よって、互いに逆写像なので全単射である。
+]
+次にKronecker積の性質をいくつか証明して、ある行列$V_1,V_2$を定義すると$Z(J,J',M,N)$は$V_1,V_2$に関する
+traceとして書かれる。
+
+#def()[
+  $A=(a_(i , j))_(i=1,...,M_A,j=1,...,N_A), B=(b_(i,j))_(i=1,...,M_B,j=1,...,N_B)$に対して、第$((i-1)M_B+k,(j-1)N_B+l)$成分が$a_(i,j)b_(k,l)quad (i=1,...,M_A,j=1,...,N_A,k=1,...,M_B,l=1,...,N_B)$となる$M_A M_B times N_A N_B$行列を$A,B$の#emph[Kronecker積]と呼び$A to B$と表す。ブロック行列で書けば
+  $
+    A to B := mat(a_(1,1)B, dots, a_(1,N_A)B;dots.v,,dots.v; a_(M_A,1)B, dots, a_(M_A,N_A)B)
+  $
+  である。
+]<def_kro>
+
+#prop()[
+  行列$A,B,C$に対して
+  $
+    A to (B to C)=(A to B)to C
+  $
+]
+#prf(
+  of: none,
+)[
+  定義に沿って計算すれば良い。
+]
+#prop()[
+  行列$A_1,...,A_n$に対して、どの順にKronecker積をとっても同じ行列となる。
+]<prop_kro_ass>
+#prf(
+  of: none,
+)[
+  半群の結合則についての機能法で示せる。1個付け加えるのが最初か中間か最後かで場合わけ。
+]
+#prop()[
+  行列$A,B,C,D$に対して$A,C$および$B,D$は掛け算ができるサイズであるとすると
+  $
+    (A to B) dot (C to D)=(A C) to (B D)
+  $
+]<prop_to_dot>
+#prf(
+  of: none,
+)[
+  定義に沿って計算をする。
+]
+
+#prop()[
+  行列$A_1,...,A_n,B_1,...,B_n$に対して、$A_1,B_1$および$...$および$A_n,B_n$は掛け算ができるサイズであるとすると
+  $
+    (A_1 to B_1) dot (A_2 to B_2) dot ... dot (A_n to B_n)=(A_1 B_1)to dots to (A_n B_n)
+  $
+]
+#prf(
+  of: none,
+)[
+  $A_1 to (A_2 to (dots (A_(n-1)to A_n)))$と順番を定めて@prop_to_dot を用いれば良い。
+]
+
+#def()[
+  $
+    I_2:=mat(1,0;0,1),quad sigma_x:=mat(0,1;1,0),quad sigma_y:=mat(0,-sqrt(-1);sqrt(-1),0),quad sigma_z:=mat(1,0;0,-1)
+  $
+  $
+    sigma_s^((j)):=underbrace(I_2 to dots.c to I_2, j-1"個") to sigma_s to underbrace(I_2 to dots.c to I_2,N-j"個") quad (s=x.y,z, j=1,...,N)
+  $
+  と定め、さらに
+  $
+    sigma_s^(N+1):=sigma_s^(1)
+  $
+  と定める。$sigma_x,sigma_y,sigma_z$を#emph[Pauli行列]と呼ぶ。
+]<def_pauli>
+#def()[
+  $
+    V_1:=&exp(J sum_(j=1)^N sigma_z^((j))sigma_z^((j+1)))\
+    V_2:=&(2 sinh 2J')^(N/2) exp(- 1/2 log (tanh J')sum_(j=1)^N sigma_x^((j)))
+  $
+]
+
+#def()[
+  後のため、条件$P$に対して
+  $
+    delta_P:=cases(
+      1 &quad (P"を満たす"),
+      0 &quad (P"を満たさない")
+    )
+  $
+  と記号を定めておく。例えば$i,i'=1,...,N$に対して
+  $
+    delta_(i=i')=cases(
+      1 &quad (i=i'),
+      0 &quad (i eq.not i')
+    )
+  $
+  となる。
+]
+
+#prop()[
+  $mu,mu' :in cal(N)$に対し、$V_1$の$(Phi(mu),Phi(mu'))$-成分$V_(1 Phi(mu),Phi(mu'))$は
+  $
+    V_(1 Phi(mu),Phi(mu'))
+    =
+    cases(
+      product_(j=1)^N exp(J mu(j)mu(j+1)) &quad (mu=mu'),
+      0 &quad (mu eq.not mu')
+    )
+  $
+]<prop_V1>
+
+#prf(
+  of: none,
+)[
+  #claim()[
+    $M(n,CC):={CC"-成分" n times n"-行列"}$とおく。$A,B in M(n,CC)$とする。
+    $A,B$が可換であるならば
+    $
+      exp(A+B)=exp(A)exp(B)
+    $
+  ]<cl_exp_add>
+  #claim()[
+    $A_1,...,A_n:in M(n,CC)$に対して$(A_1 to dots.c to A_n)$の$(Phi(mu),Phi(mu'))$-成分は
+    $
+      (A_1 to dots.c to A_n)_(Phi(mu),Phi(mu'))
+      =
+      product_(i=1)^n (A_j)_((mu(N-j+1)+1)/2, (mu'(N+j+1)+1)/2)
+    $
+  ]<cl_to>
+  #clprf(
+    of: none,
+  )[
+    $
+      &("左辺")
+      underbrace(=,Phi"の定義")
+      (A_1 times.circle dots.c times.circle A_N)_(1 + sum_(k = 1)^N (mu(k) + 1)/2 dot  2^(k - 1), 1 + sum_(k = 1)^N (mu^prime (k) + 1)/2 dot  2^(k - 1))\
+      underbrace(=,#ref(<prop_kro_ass>))&
+      (A_1 times.circle underbrace((A_2 times.circle dots.c times.circle A_N), 2^(N-1) times 2^(N-1)"行列"))_(underbrace(1 + sum_(k = 1)^N (mu(k) + 1)/2 dot  2^(k - 1), =(mu(N) + 1)/2 dot 2^(N-1)+(1 + sum_(k = 1)^(N - 1)(mu(k) + 1)/2 dot  2^(k - 1))), underbrace(1 + sum_(k = 1)^N (mu^prime (k) + 1)/2 dot  2^(k - 1), quad=(mu'(N) + 1)/2 dot 2^(N-1)+(1 + sum_(k = 1)^(N - 1)(mu(k) + 1)/2 dot  2^(k - 1))))\
+      underbrace(=,#ref(<def_kro>))&
+      A_(1 space (mu(N) + 1)/2, 1(mu^prime (N) + 1)/2) dot  (A_2  times.circle dots.c times.circle A_N)_(1 + sum_(k = 1)^(N - 1)(mu(k) + 1)/2 dot  2^(k - 1), 1 + sum_(k = 1)^(N - 1)(mu^prime (k) + 1)/2 dot  2^(k - 1))\
+      underbrace(=,"帰納的に繰り返す")&
+      ("右辺")
+    $
+  ]
+  #claim()[
+    $d_1,...,d_n :in CC$を対角成分にもつ対角行列を$diag(d_1,...,d_n)$とかくことにする。
+    $
+      exp (D)=diag (exp(d_1),...,exp(d_n))
+    $
+  ]<cl_exp_diag>
+  #clprf(
+    of: none,
+  )[
+    $
+      &exp (D)
+      =
+      sum^infinity_(k=0) (D^k)/(k !)
+      =
+      sum^infinity_(k=0) diag(d_1^k,...,d_n^k)/(k !)
+      =
+      diag (sum^infinity_(k=0)d_1^k/(k !),...,sum^infinity_(k=0)d_n^k/(k !))\
+      =&
+      diag(exp(d_1),...,exp(d_n))
+    $
+  ]
+  以上を踏まえて
+  $
+    &V_(1 space Psi(mu), Psi(mu^prime)) 
+    = 
+    (exp(J sum_(j = 1)^N sigma_z^((j)) sigma_z^((j + 1))))_(Phi(mu), Phi(mu^prime))\
+    =&
+    (exp(J sigma^((1))_z sigma^((2))_z+J sigma^((2))_z sigma^((3))_z+dots.c+J sigma^((N))_z sigma^((1))_z))_(Phi(mu), Phi(mu^prime))
+    \
+    underbrace(=,#ref(<cl_exp_add>))&
+    (exp (J sigma_z^((1)) sigma_z^((2))) dot exp (J sigma_z^((2)) sigma_z^((3)))dots.c exp(J sigma_z^((N)) sigma_z^((1))))_(Phi(mu), Phi(mu^prime ))
+    \
+    underbrace(=,"行列の積の定義")&
+    sum_(mu_1,...,mu_(N-1)  in cal(N)) (exp (J sigma_z^((1)) sigma_z^((2))))_(Phi(mu), Phi(mu_1)) dot (exp (J sigma_z^((2)) sigma_z^((3))))_(Phi(mu_1), Phi(mu_2))\
+    &quad
+    dots.c (exp (J sigma_z^((N)) sigma_z^((1))))_(Phi(mu_(N - 1)), Phi(mu^prime ))\
+    \
+    =:&
+    (star 1)
+  $
+
+  ここで、任意の$nu,nu' in cal(N)$に対して
+  $
+    &(J sigma_z^((j) )sigma_z^((j + 1)))_(Phi(nu), Phi(nu')) \
+underbrace(=,#ref(<def_kro>))& 
+J dot  I_((nu(N) + 1)/2,(nu^prime (N) + 1)/2) dot  I_((nu(N - 1) + 1)/2,(nu^prime (N - 1) + 1)/2) dots.c  I_((nu(N - j + 2) + 1)/2,(nu^prime (N - j + 2) + 1)/2) dot  sigma_(z space (nu(N - j + 1) + 1)/2,(nu^prime (N - j + 1) + 1)/2) \
+& dot  sigma_(z (nu(N - j) + 1)/2,(nu^prime (N - j) + 1)/2) dot  I_((nu(N - j - 1) + 1)/2,(nu^prime (N - j - 1) + 1)/2) dots.c  I_((nu(1) + 1)/2,(nu^prime (1) + 1)/2) \
+underbrace(=,#ref(<def_pauli>))& 
+J dot  delta_(nu(N)= nu^prime (N)) dot  delta_(nu(N - 1)= nu^prime (N - 1)) dots.c dots.c delta_(nu(N - j + 2)=nu^prime (N - j + 2)) \
+& dot (delta_(nu(N - j + 1)= nu^prime (N - j + 1)) dot (-nu(N - j + 1))) dot (delta_(nu(N - j)= nu^prime (N - j)) dot  (-nu(N - j))) \
+& dot  delta_(nu(N - j - 1)= nu^prime (N - j - 1)) dots.c delta_(nu(1)= nu^prime (1)) \
+underbrace(=,"並べ替えただけ")& 
+J dot  delta_(nu(1)= nu^prime (1)) dots.c delta_(nu(N)=nu^prime (N)) dot  nu(N - j + 1) dot  nu(N - j)\
+=&
+J dot nu(N - j + 1) dot  nu(N - j) delta_(nu =nu')
+$
+よって、$J sigma_z^((j) )sigma_z^((j + 1))$は$(Phi(nu), Phi(nu))$-成分が$J dot nu(N - j + 1) dot  nu(N - j)$である対角行列であり（ただし、$j=N$のとき$J dot v(1)dot nu(N)$）、@cl_exp_diag より
+$
+  (exp(J sigma_z^((j) )sigma_z^((j + 1))))_(Phi(nu), Phi(nu'))=exp(J dot nu(N - j + 1) dot  nu(N - j)) delta_(nu =nu')
+$
+よって
+$
+  &(star 1)\
+  =&
+  sum_(mu_1,...,mu_(N-1)  in cal(N)) exp(J dot mu(N) dot  mu(N-1)) delta_(mu =mu_1) 
+  dot
+  exp(J dot mu_1(N - 1) dot  mu_1(N - 2)) delta_(mu_1 =mu_2) \
+  &quad
+  dots.c exp(J dot mu_(N - 2) (2) dot  mu_(N - 2) (1)) delta_(mu_(N - 2) =mu_(N - 1))
+  dot 
+  exp(J dot mu_(N - 1) (1) dot  mu_(N - 1) (N)) delta_(mu_(N - 1) =mu^prime )\
+  =&
+  exp(J dot mu(N )dot mu(N-1))dot exp(J dot mu(N-1)dot mu(N-2)) dots.c exp(J dot mu(2)dot mu(1))\
+  & quad 
+  exp(J dot mu(1)dot mu(N))
+  dot
+  delta_(mu=mu')
+  \
+  =&
+  cases(
+    product_(j=1)^N exp(J dot mu(j) dot mu(j + 1)) &quad (mu=mu'),
+    0 &quad (mu eq.not mu')
+  )
+$
+]
+
+#prop()[
+  $
+    V_(2 space Psi(mu), Psi(mu^prime))
+    =
+    product_(j=1)^N exp(J' mu(j)mu'(j))
+  $
+]<prop_V2>
+#prf(
+  of: none,
+)[
+  $
+    &V_(2 space Psi(mu), Psi(mu^prime)) = ((2 sinh 2 J^prime)^(N/2) exp(-1/2 log(tanh J^prime) sum_(j = 1)^N sigma_x^((j))))_(Phi(mu), Phi(mu^prime))\
+    underbrace(=,#ref(<cl_exp_add>))&
+    (product_(j = 1)^N (2 sinh 2 J^prime)^(1/2) exp(-1/2 log(tanh J^prime) sigma_x^((j))))_(Phi(mu), Phi(mu^prime))\
+    =&
+    (star 1)
+  $
+  #claim()[
+    $A : in M(2,CC)$に対し
+    $
+      exp(I_2 to dots.c to I_2 to A to I_2 to dots.c to I_2)_(Psi(mu), Psi(mu^prime))
+      =
+      I_2 to dots.c to I_2 to exp(A) to I_2 to dots.c to I_2
+    $
+  ]<cl_exp_I2>
+  #clprf(
+    of: none,
+  )[
+    $
+      &("左辺")
+      =
+      sum^infinity_(k=0) (I_2 to dots.c to I_2 to A to I_2 to dots.c to I_2)^k/(k !)\
+      =&
+      sum^infinity_(k=0) 1/(k !) I_2 to dots.c to I_2 to A^k to I_2 to dots.c to I_2\
+      underbrace(=,"部分列について等しいと示し、"\ "どちらも収束すると示せば収束先は等しい")&
+      I_2 to dots.c to I_2 to (sum^infinity_(k=0) A^k/(k !)) to I_2 to dots.c to I_2\
+      =&
+      I_2 to dots.c to I_2 to exp(A) to I_2 to dots.c to I_2
+    $
+  ]
+  よって
+  $
+    &(star 1)
+    =
+    (product_(j = 1)^N (2 sinh 2 J^prime)^(1/2) exp(-1/2 log(tanh J^prime) I_2 to dots.c to I_2 to underbrace(sigma_x,j"番目") to I_2 to dots.c to I_2))_(Phi(mu), Phi(mu^prime))\
+    underbrace(=,#ref(<cl_exp_I2>))&
+    (product_(j = 1)^N (2 sinh 2 J^prime)^(1/2) exp(-1/2 log(tanh J^prime))dot I_2 to dots.c to I_2 to underbrace(exp (sigma_x),j"番目") to I_2 to dots.c to I_2)_(Phi(mu), Phi(mu^prime))\
+    =&
+    ((2 sinh 2 J^prime)^(N/2) exp(-1/2 log(tanh J^prime) sigma_x)^(N/2) exp(sigma_x) to dots.c to exp(sigma_x))_(Phi(mu), Phi(mu^prime))\
+    =&
+    (((2 sinh 2 J')^(1/2)exp(-1/2 log(tanh J')sigma_x)) to dots.c to ((2 sinh 2 J')^(1/2)exp(-1/2 log(tanh J')sigma_x)))_(Phi(mu), Phi(mu^prime))\
+    =&
+    (star 2)
+  $
+  ここで
+  $
+    &exp(-1/2 log (tanh J')sigma_x)
+    =
+    sum^infinity_(k=0) ((-1/2 log (tanh J') mat(0,1;1,0))^(2k))/(k !)\
+    =&
+    mat(
+      sum^infinity_(k=0) (-1/2 log (tanh J'))^(2k)/(2k !),
+      sum^infinity_(k=0) (-1/2 log (tanh J'))^(2k + 1)/((2 k+1) !);
+      sum_(k = 0)^infinity (-1/2 log(tanh J^prime))^(2 k + 1)/((2 k + 1)!),
+      sum_(k = 0)^infinity (-1/2 log(tanh J^prime))^(2 k)/((2 k)!)
+    )\
+    =&
+    mat(
+      cosh(-1/2 log(tanh J^prime)),
+      sinh(-1/2 log(tanh J^prime));
+      sinh(-1/2 log(tanh J^prime)),
+      cosh(-1/2 log(tanh J^prime))
+    )    
+  $
+  ここで
+  $
+    cosh(-1/2 log(tanh J^(prime))) = (1/(tanh J^(prime))^(1/2) +(tanh J^(prime))^(1/2))/2
+  $
+  より
+  $
+    &(cosh (-1/2 log(tanh J')))^2
+    =
+    1/4 (1/(tanh J')+ 2 + tanh J')^2\
+    =&
+    1/4 dot 1/(e^(2 J')-e^(-2 J')) dot ((e^(J')+e^(-J'))^2 +2(e^(2 J')-e^(-2 J'))+(e^(J')-e^(-J'))^2)\
+    =&
+    1/4 dot 1/(e^(2 J')-e^(-2 J')) dot 4(e^(2J'))\
+    =&
+    (e^(2 J'))/(e^(2 J')-e^(-2 J'))
+  $ 
+  となるので
+  $
+    &(2 sinh 2J') dot (cosh (-1/2 log(tanh J')))^2
+    =&
+    (e^(2J')-e^(-2J'))
+    dot
+    e^(2 J')/(e^(2 J')-e^(-2J'))\
+    =&
+    e^(2 J')
+  $
+  よって
+  $
+    (2 sinh 2J')^(1/2) dot (cosh (-1/2 log(tanh J')))=e^(J')
+  $
+  同様にして
+  $
+    (2 sinh 2J')^(1/2) dot (sinh (-1/2 log(tanh J')))=e^(-J')
+  $
+  よって
+  $
+    &(star 2)
+    =
+    (mat(e^(J'),e^(-J');e^(-J'),e^(J')) to dots.c to mat(e^(J'),e^(-J');e^(-J'),e^(J')))_(Phi(mu),Phi(mu)) \
+    underbrace(=,#ref(<cl_to>))&
+    mat(e^(J'),e^(-J');e^(-J'),e^(J'))_((mu(N)+1)/2,(mu^prime (N)+1)/2) dots.c mat(e^(J'),e^(-J');e^(-J'),e^(J'))_((mu(1)+1)/2,(mu^prime (1)+1)/2) \
+    =&
+    product_(j=1)^N exp(J' mu(j)mu'(j))
+  $
+]
+
+#prop()[
+  $
+    Z(J, J^prime,M,N) = op("tr")((V_1 V_2)^M)
+  $
+]
+#prf(
+  of: none,
+)[
+  $
+    &Z(J,J',M,N)\
+    =&
+    sum_((mu_1,...,mu_(M+1)) in cal(M))
+      (product_(i = 1)^M (
+      (product_(j_1 = 1)^N exp(J dot  mu_i (j_1) dot  mu_i (j_1 + 1)))
+      dot 
+      (product_(j_2 = 1)^N exp(J dot  mu_i (j_2) dot  mu_i (j_2 + 1)))
+      ))\ quad
+  $
+  であった。
+  $
+    &(V_1 V_2)_(Phi (mu),Phi(mu'))
+    =
+    sum_(mu_1 in cal(N)) (V_1)_(Phi(mu),Phi(mu_1)) dot (V_2)_(Phi(mu_1),Phi(mu'))\
+    underbrace(=,#ref(<prop_V1>)\ #ref(<prop_V2>))&
+    sum_(mu_1 in cal(N)_(+1))(delta_(mu=mu_1) dot (product_(j_1 = 1)^N exp(J mu(j_1) mu_1 (j_1 + 1))) dot (product_(j_2 = 1)^N exp(J mu_1 (j_2) mu^prime (j_2)))) \
+    &= (product_(j_1 = 1)^N exp(J mu(j_1) mu(j_1 + 1))) dot (product_(j_2 = 1)^N exp(J mu(j_2) mu^prime (j_2))) \
+    &= (product_(j_1 = 1)^N exp(J mu(j_1) mu(j_1 + 1))) dot (product_(j_2 = 1)^N exp(J mu(j_2) mu^prime (j_2))) 
+  $
+  よって
+  $
+    &((V_1 V_2)^M)_(Phi(mu), Phi(mu^prime)) \
+    =&
+    sum_(mu_2,...,mu_(M) in cal(N)_(+1))
+    (product_(j_1 = 1)^N exp(J mu(j_1) mu(j_1 + 1))) dot (product_(j_2 = 1)^N exp(J mu(j_2) mu_2 (j_2))) \
+    &quad
+    dot (product_(j_1 = 1)^N exp(J mu_2 (j_1) mu_2 (j_1 + 1))) dot (product_(j_2 = 1)^N exp(J mu_2 (j_2) mu_3 (j_2)))\
+    &quad
+    #h(10em)dots.v\
+    &quad
+    dot (product_(j_1 = 1)^N exp(J mu_(M) (j_1) mu_(M) (j_1 + 1))) dot (product_(j_2 = 1)^N exp(J mu_(M) (j_2) mu' (j_2)))\
+    =&
+    sum_(mu_1,,...,mu_(M+1)&in cal(N)_(+1)\ mu_1 &= mu\ mu_(M+1)&=mu')
+    product_(i = 1)^(M)
+    ((product_(j_1 = 1)^N exp(J mu_i (j_1) mu_i (j_1 + 1))) dot (product_(j_2 = 1)^N exp(J mu_i (j_2) mu_(i + 1)(j_2))))
+  $
+  traceは$mu=mu'$について和をとるので
+  $
+    &tr ((V_1 V_2)^M)\
+    =&
+    sum_(mu_1, ... mu_(N + 1) in cal(N)_(+1) \ mu_1 = mu_(M + 1)) product_(i = 1)^M ((product_(j_1 = 1)^N exp(J mu_i (j_1) mu_i (j_1 + 1))) dot (product_(j_2 = 1)^N exp(J mu_i (j_2) mu_(i + 1)(j_2))))\
+    =&
+    sum_((mu_1,..,mu_(M+1))in cal(M)) product_(i = 1)^M ((product_(j_1 = 1)^N exp(J mu_i (j_1) mu_i (j_1 + 1))) dot (product_(j_2 = 1)^N exp(J mu_i (j_2) mu_(i + 1)(j_2))))\
+    =&
+    Z(J, J', M, N)
+  $
+]
+
+よって、$V_1,V_2$をこれから調べていけば良い。$V_1,V_2$について反交換子について良い値を持つ行列を定めていく。
+#def()[
+  $
+    Y_j:=&sigma_x^((1)) dots.c sigma_x^((j-1)) sigma_y^((j))\
+    Z_j:=&sigma_x^((1)) dots.c sigma_x^((j-1)) sigma_z^((j))\
+    epsilon:=&sigma_x^((1)) dots.c sigma_x^((N))
+  $
+  
+
+]
+
+// Main content section
+// フォントの設定（参考文献がおかしくなるので注意）
+#set text(font: ("Hiragino Kaku Gothic Pro"), lang: "ja")
+ #bibliography("Refs_Ising(自著).bib")
+
