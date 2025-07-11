@@ -23,6 +23,39 @@ $
   CC := RR^2 に "掛け算" (a, b) dot.op (c, d) := (a c - b d, a d + b c) "を入れたもの"
 $
 
+#definition([$arctan$の定義])[
+  (次回20250710) $RR^2$上の関数として三角関数 (sin / cos / arctan) を定める (斎藤先生の微積分を参照)
+  \
+  $tan$関数の制限 $tan|_{(-pi/2, pi/2)}$ の 逆関数を $arctan : RR -> (-pi/2, pi/2)$ と定義する
+]
+
+$
+  "CosArctan"(x, y) := cases(
+    1 / sqrt(1 + (y/x)^2) & quad (x > 0),
+    - 1 / sqrt(1 + (y/x)^2) & quad (x < 0),
+  )
+$
+
+#theorem(([$arctan$と傾き]))[
+  $x, y in RR, x eq.not 0$ について、
+
+  $
+    cos(arctan(y/x)) = cases(
+      1 / sqrt(1 + x) & quad (x > 0),
+      - x & quad (x < 0),
+    )
+    \
+    sin(arctan(y/x)) = cases(
+      y & quad (x > 0),
+      - y & quad (x < 0),
+    )
+  $
+
+  #proof[
+    TODO:
+  ]
+]
+
 == 計算公式
 #theorem([$cosh, sinh$の掛け算])[
   $forall a, b in RR$
@@ -207,14 +240,6 @@ $
   $CC^(times) := CC \\ { (0, 0) }$ は 群をなす
 ]
 
-#definition([$CC$の極座標表現への写像])[
-  $phi_("polar"): "(極座標表現)" -> CC$ を、以下のように定める。
-
-  $
-    phi_("polar")(r, theta) := (r cos(theta), r sin(theta))
-  $
-]
-
 #definition([極座標表現の元の表記])[
   $[(r, theta)]_(~) in "(極座標表現)"$ を $(r, theta)$ と表記する
 
@@ -224,6 +249,14 @@ $
   $
   $
     (0, theta) = (0, theta^prime) forall theta, theta^prime in RR
+  $
+]
+
+#definition([$CC$の極座標表現への写像])[
+  $phi_("polar"): "(極座標表現)" -> CC$ を、以下のように定める。
+
+  $
+    phi_("polar")(r, theta) := (r cos(theta), r sin(theta))
   $
 ]
 
@@ -275,28 +308,55 @@ $
       phi_("cartesian")(x, y)
       :=
       cases(
-        (sqrt(x^2 + y^2), arctan(y/x)) & quad (x > 0),
-        (sqrt(x^2 + y^2), arctan(y/x) + pi) & quad (x < 0, y >= 0),
-        (sqrt(x^2 + y^2), arctan(y/x) - pi) & quad (x < 0, y < 0),
-        (y, pi / 2) & quad (x = 0 and y > 0),
-        (-y, -pi / 2) & quad (x = 0 and y < 0),
-        (0, 0) & quad (x = 0 and y = 0)
+        [(sqrt(x^2 + y^2), arctan(y/x))]_(~) & quad (x > 0),
+        [(sqrt(x^2 + y^2), arctan(y/x) + pi)]_(~) & quad (x < 0, y >= 0),
+        [(sqrt(x^2 + y^2), arctan(y/x) - pi)]_(~) & quad (x < 0, y < 0),
+        [(y, pi / 2)]_(~) & quad (x = 0 and y > 0),
+        [(-y, -pi / 2)]_(~) & quad (x = 0 and y < 0),
+        [(0, 0)]_(~) & quad (x = 0 and y = 0)
       )
     $
 
     この時、
 
     $
+      x = -1/2, y = sqrt(3)/2
+      \
+      cos(pi - arctan(y/x))
+      \
+      &=
+      - cos(arctan(y/x))
+      \
+      &=
+      - cos(arctan(sqrt(3)/2 / (-1/2)))
+      \
+      &=
+      - cos(arctan(sqrt(3) / (-1)))
+      \
+      &=
+      - cos(arctan(-sqrt(3)))
+      \
+      &=
+      - cos(-pi/3)
+      \
+      &=
+      - 1 / 2
+      \
+      &=
+      x
+    $
+
+    $
       phi_("polar") o phi_("cartesian") (x, y)
       &=
       phi_("polar")(
         cases(
-          (sqrt(x^2 + y^2), arctan(y/x)) & quad (x > 0),
-          (sqrt(x^2 + y^2), arctan(-y/x) + pi) & quad (x < 0, y >= 0),
-          (sqrt(x^2 + y^2), arctan(y/x) - pi) & quad (x < 0, y < 0),
-          (y, pi / 2) & quad (x = 0 and y > 0),
-          (-y, -pi / 2) & quad (x = 0 and y < 0),
-          (0, 0) & quad (x = 0 and y = 0)
+          [(sqrt(x^2 + y^2), arctan(y/x))]_(~) & quad (x > 0),
+          [(sqrt(x^2 + y^2), arctan(y/x) + pi)]_(~) & quad (x < 0, y >= 0),
+          [(sqrt(x^2 + y^2), arctan(y/x) - pi)]_(~) & quad (x < 0, y < 0),
+          [(y, pi / 2)]_(~) & quad (x = 0 and y > 0),
+          [(-y, -pi / 2)]_(~) & quad (x = 0 and y < 0),
+          [(0, 0)]_(~) & quad (x = 0 and y = 0)
         )
       )
       \
@@ -305,7 +365,7 @@ $
         (
           sqrt(x^2 + y^2) cos(arctan(y/x)),
           sqrt(x^2 + y^2) sin(arctan(y/x))
-        ) & quad (x > 0, y >= 0),
+        ) & quad (x > 0),
         (
           sqrt(x^2 + y^2) cos(arctan(y/x) + pi),
           sqrt(x^2 + y^2) sin(arctan(y/x) + pi)
@@ -322,16 +382,16 @@ $
       &=
       cases(
         (
-          sqrt(x^2 + y^2) 1 / (sqrt(1 + (y/x)^2)),
-          sqrt(x^2 + y^2) (y/x) / (sqrt(1 + (y/x)^2))
-        ) & quad (x > 0, y >= 0),
+          sqrt(x^2 + y^2) cos(arctan(y/x)),
+          sqrt(x^2 + y^2) sin(arctan(y/x))
+        ) & quad (x > 0),
         (
-          sqrt(x^2 + y^2) (-1) / (sqrt(1 + (y/x)^2)),
-          sqrt(x^2 + y^2) (-(y/x)) / (sqrt(1 + (y/x)^2))
+          sqrt(x^2 + y^2) (-cos(arctan(y/x))),
+          sqrt(x^2 + y^2) (-sin(arctan(y/x)))
         ) & quad (x < 0, y >= 0),
         (
-          sqrt(x^2 + y^2) (-1) / (sqrt(1 + (y/x)^2)),
-          sqrt(x^2 + y^2) (-(y/x)) / (sqrt(1 + (y/x)^2))
+          sqrt(x^2 + y^2) cos(arctan(y/x) - pi),
+          sqrt(x^2 + y^2) sin(arctan(y/x) - pi)
         ) & quad (x < 0, y < 0),
         (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
         (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
@@ -341,64 +401,39 @@ $
       &=
       cases(
         (
-          sqrt(x^2 + y^2) x / (sqrt(x^2 + x^2 (y/x)^2)),
-          sqrt(x^2 + y^2) (x (y/x)) / (sqrt(x^2 + x^2 (y/x)^2))
-        ) & quad (x > 0, y >= 0),
-        (
-          sqrt(x^2 + y^2) (-x) / (sqrt(x^2 + x^2 (y/x)^2)),
-          sqrt(x^2 + y^2) ((-x) (y/x)) / (sqrt(x^2 + x^2 (y/x)^2))
-        ) & quad (x < 0, y >= 0),
-        (
-          sqrt(x^2 + y^2) (-x) / (sqrt(x^2 + x^2 (y/x)^2)),
-          sqrt(x^2 + y^2) ((-x) (y/x)) / (sqrt(x^2 + x^2 (y/x)^2))
-        ) & quad (x < 0, y < 0),
-        (
-          0, y
-        ) & quad (x = 0 and y > 0),
-        (
-          0, y
-        ) & quad (x = 0 and y < 0),
-        (0, 0) & quad (x = 0 and y = 0)
-      )
-      \
-      &=
-      cases(
-        (
-          sqrt(x^2 + y^2) x / (sqrt(x^2 + y^2)),
-          sqrt(x^2 + y^2) y / (sqrt(x^2 + y^2))
-        ) & quad (x > 0, y >= 0),
-        (
-          sqrt(x^2 + y^2) (-x) / (sqrt(x^2 + y^2)),
-          sqrt(x^2 + y^2) (-y) / (sqrt(x^2 + y^2))
-        ) & quad (x < 0, y >= 0),
-        (
-          sqrt(x^2 + y^2) (-x) / (sqrt(x^2 + y^2)),
-          sqrt(x^2 + y^2) (-y) / (sqrt(x^2 + y^2))
-        ) & quad (x < 0, y < 0),
-        (
-          0, y
-        ) & quad (x = 0 and y > 0),
-        (
-          0, y
-        ) & quad (x = 0 and y < 0),
-        (0, 0) & quad (x = 0 and y = 0)
-      )
-      \
-      &=
-      cases(
-        (
-          x, y
+          x,
+          y
         ) & quad (x > 0),
         (
-          x, -y
+          -x,
+          -y
+        ) & quad (x < 0, y >= 0),
+        (
+          -x,
+          -y
+        ) & quad (x < 0, y < 0),
+        (
+          0, y
+        ) & quad (x = 0 and y > 0),
+        (
+          0, y
+        ) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+      \
+      &=
+      cases(
+        (
+          x,
+          y
+        ) & quad (x > 0),
+        (
+          -x,
+          -y
         ) & quad (x < 0),
         (
           0, y
-        ) & quad (x = 0 and y > 0),
-        (
-          0, y
-        ) & quad (x = 0 and y < 0),
-        (0, 0) & quad (x = 0 and y = 0)
+        ) & quad (x = 0),
       )
     $
   ]
