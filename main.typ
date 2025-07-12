@@ -23,39 +23,6 @@ $
   CC := RR^2 に "掛け算" (a, b) dot.op (c, d) := (a c - b d, a d + b c) "を入れたもの"
 $
 
-#definition([$arctan$の定義])[
-  (次回20250710) $RR^2$上の関数として三角関数 (sin / cos / arctan) を定める (斎藤先生の微積分を参照)
-  \
-  $tan$関数の制限 $tan|_{(-pi/2, pi/2)}$ の 逆関数を $arctan : RR -> (-pi/2, pi/2)$ と定義する
-]
-
-$
-  "CosArctan"(x, y) := cases(
-    1 / sqrt(1 + (y/x)^2) & quad (x > 0),
-    - 1 / sqrt(1 + (y/x)^2) & quad (x < 0),
-  )
-$
-
-#theorem(([$arctan$と傾き]))[
-  $x, y in RR, x eq.not 0$ について、
-
-  $
-    cos(arctan(y/x)) = cases(
-      1 / sqrt(1 + x) & quad (x > 0),
-      - x & quad (x < 0),
-    )
-    \
-    sin(arctan(y/x)) = cases(
-      y & quad (x > 0),
-      - y & quad (x < 0),
-    )
-  $
-
-  #proof[
-    TODO:
-  ]
-]
-
 == 計算公式
 #theorem([$cosh, sinh$の掛け算])[
   $forall a, b in RR$
@@ -216,7 +183,7 @@ $
 ]
 
 #definition([$CC$の極座標表現])[
-  $CC$の (極座標表現) を、 $RR_(>=0) times RR \/ ~$ に、二項演算
+  $CC$の (極座標表現) を、 $(RR_(>=0) times RR) \/ ~$ に、二項演算
 
   #mapDef(
     $dot.op$,
@@ -258,6 +225,95 @@ $
   $
     phi_("polar")(r, theta) := (r cos(theta), r sin(theta))
   $
+]
+
+#definition([単位円])[
+  $C_("unit") := { [(x, y)]_(~) in CC | x^2 + y^2 = 1 }$
+
+  $C_("unit")$を単位円と呼ぶ。
+]
+
+#definition([円弧の定義])[
+  $P := [(x, y)]_(~), Q := [(x^(prime), y^(prime))]_(~) in C_("unit")$ について、
+
+  齋藤微積分 命題 2.1.3 (1) を満たす実数 $l(P Q)$ がただ一つ存在し、それを弧$P Q$の長さと呼ぶ。
+]
+
+#definition([$CC -> C_("unit")$])[
+  $c_("unit") : CC -> C_("unit")$ を以下のように定める。
+
+  $forall [(x, y)]_(~) in CC$ について、
+
+  以下を満たすような、$r in RR_(>0) と [(x_(c), y_(c))]_(~) in C_("unit")$ が ただ一つずつ存在する
+
+  $
+    r x_(c) = x and r y_(c) = y
+  $
+
+  これを用いて、
+
+  $
+    c_("unit")([(x, y)]_(~)) = c_("unit")(x, y) := [(x_(c), y_(c))]_(~)
+  $
+]
+
+#definition([$CC$の逆三角関数の定義])[
+  $A := [(1, 0)]_(~)$ と定める。
+
+  $y in RR, -1 <= y <= 1$ と $P := [(sqrt(1 - y^2), y)]_(~) in C_("unit")$ について、
+
+  i) $arcsin : {y in RR | -1 <= y <= 1} -> RR$ を以下のように定める。
+
+  $
+    arcsin(y) := cases(
+      l(A P) & quad (y >= 0),
+      -l(A P) & quad (y < 0)
+    )
+  $
+
+  ii) $arctan : CC -> RR$ を以下のように定める.
+
+  $y_(c) := im(c_("unit")(x, y))$
+
+  $
+    arctan([x, y]_(~)) = arctan(x, y) := arcsin(y_(c) / sqrt(1 + y_(c)^2))
+  $
+  
+  (次回20250712) このノリで定義が噛み合うか試す
+  次は sin の定義
+]
+
+#definition([$CC$の三角関数の定義])[
+  $P := [(x, y)]_(~) in CC$ について、
+
+  i) $sin : RR -> {x in RR | -1 <= x <= 1}$ を以下のように定める。
+]
+
+$
+  "CosArctan"(x, y) := cases(
+    1 / sqrt(1 + (y/x)^2) & quad (x > 0),
+    - 1 / sqrt(1 + (y/x)^2) & quad (x < 0),
+  )
+$
+
+#theorem(([$arctan$と傾き]))[
+  $x, y in RR, x eq.not 0$ について、
+
+  $
+    cos(arctan(y/x)) = cases(
+      1 / sqrt(1 + x) & quad (x > 0),
+      - x & quad (x < 0),
+    )
+    \
+    sin(arctan(y/x)) = cases(
+      y & quad (x > 0),
+      - y & quad (x < 0),
+    )
+  $
+
+  #proof[
+    TODO:
+  ]
 ]
 
 #claim([$phi_("polar")$の同型性])[
