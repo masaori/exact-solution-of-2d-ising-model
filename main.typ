@@ -172,6 +172,85 @@ $
   $CC := RR^2$ に 掛け算 $(a, b) dot.op (c, d) := (a c - b d, a d + b c) "を入れたもの"$
 ]
 
+#definition([単位円])[
+  $C_("unit") := { (x, y) in CC | x^2 + y^2 = 1 }$
+
+  $C_("unit")$を単位円と呼ぶ。
+]
+
+#definition([円弧の定義])[
+  $P := (x, y), Q := (x^(prime), y^(prime)) in C_("unit")$ について、
+
+  齋藤微積分 命題 2.1.3 (1) を満たす実数 $l(P Q)$ がただ一つ存在し、それを弧$P Q$の長さと呼ぶ。
+]
+
+#definition([$CC -> C_("unit")$])[
+  $c_("unit") : CC without {(0, 0)} -> C_("unit")$ を以下のように定める。
+
+  $forall (x, y) in CC without {(0, 0)}$ について、
+
+  以下を満たすような、$r in RR_(>0) と (x_(c), y_(c)) in C_("unit")$ が ただ一つずつ存在する
+
+  $
+    r x_(c) = x and r y_(c) = y
+  $
+
+  これを用いて、
+
+  $
+    c_("unit")(x, y) := (x_(c), y_(c))
+  $
+]
+
+#definition([$CC$の逆三角関数の定義])[
+  $A := (1, 0) in CC$ と定める。
+
+
+  i) $arcsin : {y in RR | -1 <= y <= 1} -> {theta in RR | -pi/2 <= theta <= pi/2}$ を以下のように定める。
+
+  $y in RR, 0 <= y <= 1$ について、 $P := (sqrt(1 - y^2), y) in C_("unit")$ とおき、
+
+  $
+    arcsin(y) := l(A P)
+  $
+
+  と定め、
+
+  $y in RR, -1 <= y^prime <= 0$ について、
+
+  $
+    arcsin(y^prime) := -arcsin(-y^prime)
+  $
+
+  と定める。
+
+  ii) $arctan : RR -> {theta in RR | -pi/2 <= theta <= pi/2}$ を以下のように定める.
+
+  $x in RR$ について、$-1 <= x / sqrt(1 + x^2) <= 1$ であるから、
+
+  $
+    arctan(x) := arcsin(x / sqrt(1 + x^2))
+  $
+
+  iii) $sin: { theta in RR | - pi / 2 <= theta <= pi / 2 } -> {x in RR | -1 <= x <= 1}$ を以下のように定める.
+
+  $arcsin$は${x in RR | -1 <= x <= 1}$において単調増加かつ連続(証明:齋藤命題2.1.5)であり、値域が ${x in RR | - pi / 2 <= x <= pi / 2}$ であるから、
+
+  $arcsin$の逆関数が存在し、これを$sin$と定める。
+
+  iv) $cos: { theta in RR | - pi / 2 <= theta <= pi / 2 } -> {x in RR | -1 <= x <= 1}$ を以下のように定める.
+
+  $- pi / 2 <= theta <= pi / 2$ で $-1 <= sin(theta) <= 1$ であるから、
+
+  $
+    cos(theta) := sqrt(1 - (sin(theta))^2)
+  $
+
+  と定める。
+
+  齋藤命題 2.1.9 によって、$sin, cos$は実数全体に拡張される
+]
+
 #definition([極座標表現の同値類])[
   $RR_(>=0) times RR$ の同値関係 $~$ を $(r, theta), (r^prime, theta^prime) in RR_(>=0) times RR$ に対して、
   $
@@ -227,94 +306,7 @@ $
   $
 ]
 
-#definition([単位円])[
-  $C_("unit") := { [(x, y)]_(~) in CC | x^2 + y^2 = 1 }$
-
-  $C_("unit")$を単位円と呼ぶ。
-]
-
-#definition([円弧の定義])[
-  $P := [(x, y)]_(~), Q := [(x^(prime), y^(prime))]_(~) in C_("unit")$ について、
-
-  齋藤微積分 命題 2.1.3 (1) を満たす実数 $l(P Q)$ がただ一つ存在し、それを弧$P Q$の長さと呼ぶ。
-]
-
-#definition([$CC -> C_("unit")$])[
-  $c_("unit") : CC -> C_("unit")$ を以下のように定める。
-
-  $forall [(x, y)]_(~) in CC$ について、
-
-  以下を満たすような、$r in RR_(>0) と [(x_(c), y_(c))]_(~) in C_("unit")$ が ただ一つずつ存在する
-
-  $
-    r x_(c) = x and r y_(c) = y
-  $
-
-  これを用いて、
-
-  $
-    c_("unit")([(x, y)]_(~)) = c_("unit")(x, y) := [(x_(c), y_(c))]_(~)
-  $
-]
-
-#definition([$CC$の逆三角関数の定義])[
-  $A := [(1, 0)]_(~)$ と定める。
-
-  $y in RR, -1 <= y <= 1$ と $P := [(sqrt(1 - y^2), y)]_(~) in C_("unit")$ について、
-
-  i) $arcsin : {y in RR | -1 <= y <= 1} -> RR$ を以下のように定める。
-
-  $
-    arcsin(y) := cases(
-      l(A P) & quad (y >= 0),
-      -l(A P) & quad (y < 0)
-    )
-  $
-
-  ii) $arctan : CC -> RR$ を以下のように定める.
-
-  $y_(c) := im(c_("unit")(x, y))$
-
-  $
-    arctan([x, y]_(~)) = arctan(x, y) := arcsin(y_(c) / sqrt(1 + y_(c)^2))
-  $
-  
-  (次回20250712) このノリで定義が噛み合うか試す
-  次は sin の定義
-]
-
-#definition([$CC$の三角関数の定義])[
-  $P := [(x, y)]_(~) in CC$ について、
-
-  i) $sin : RR -> {x in RR | -1 <= x <= 1}$ を以下のように定める。
-]
-
-$
-  "CosArctan"(x, y) := cases(
-    1 / sqrt(1 + (y/x)^2) & quad (x > 0),
-    - 1 / sqrt(1 + (y/x)^2) & quad (x < 0),
-  )
-$
-
-#theorem(([$arctan$と傾き]))[
-  $x, y in RR, x eq.not 0$ について、
-
-  $
-    cos(arctan(y/x)) = cases(
-      1 / sqrt(1 + x) & quad (x > 0),
-      - x & quad (x < 0),
-    )
-    \
-    sin(arctan(y/x)) = cases(
-      y & quad (x > 0),
-      - y & quad (x < 0),
-    )
-  $
-
-  #proof[
-    TODO:
-  ]
-]
+(次回20250717) cos(arctan(x)) を 定義に沿って展開する
 
 #claim([$phi_("polar")$の同型性])[
   $(r, theta), (r^prime, theta^prime) in "(極座標表現)"$に対して、
@@ -356,9 +348,34 @@ $
 
     $qed$
 
+    #note[
+
+      $(-1/2, sqrt(3)/2)$
+
+      $
+          cos(arctan(y / x) + pi)
+          &=
+          -cos(arctan(y / x))
+          \
+          &=
+          -cos(arctan((sqrt(3)/2) / (-1/2)))
+          \
+          &=
+          -cos(arctan(-sqrt(3)))
+          \
+          &=
+          -cos(-pi / 3)
+          \
+          &=
+          -1/2
+      $
+    ]
+
     2.
 
     $phi_("cartesian") : CC -> "(極座標表現)"$を以下のように定める。
+
+    作業上のわかりやすさのために、代表元が$-pi <= theta <= pi$ となるように計算を進める。
 
     $
       phi_("cartesian")(x, y)
@@ -371,35 +388,6 @@ $
         [(-y, -pi / 2)]_(~) & quad (x = 0 and y < 0),
         [(0, 0)]_(~) & quad (x = 0 and y = 0)
       )
-    $
-
-    この時、
-
-    $
-      x = -1/2, y = sqrt(3)/2
-      \
-      cos(pi - arctan(y/x))
-      \
-      &=
-      - cos(arctan(y/x))
-      \
-      &=
-      - cos(arctan(sqrt(3)/2 / (-1/2)))
-      \
-      &=
-      - cos(arctan(sqrt(3) / (-1)))
-      \
-      &=
-      - cos(arctan(-sqrt(3)))
-      \
-      &=
-      - cos(-pi/3)
-      \
-      &=
-      - 1 / 2
-      \
-      &=
-      x
     $
 
     $
@@ -446,9 +434,24 @@ $
           sqrt(x^2 + y^2) (-sin(arctan(y/x)))
         ) & quad (x < 0, y >= 0),
         (
-          sqrt(x^2 + y^2) cos(arctan(y/x) - pi),
-          sqrt(x^2 + y^2) sin(arctan(y/x) - pi)
+          sqrt(x^2 + y^2) (-cos(arctan(y/x))),
+          sqrt(x^2 + y^2) (-sin(arctan(y/x)))
         ) & quad (x < 0, y < 0),
+        (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
+        (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+      \
+      &=
+      cases(
+        (
+          sqrt(x^2 + y^2) cos(arctan(y/x)),
+          sqrt(x^2 + y^2) sin(arctan(y/x)),
+        ) & quad (x > 0),
+        (
+          - sqrt(x^2 + y^2) cos(arctan(y/x)),
+          - sqrt(x^2 + y^2) sin(arctan(y/x)),
+        ) & quad (x < 0),
         (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
         (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
         (0, 0) & quad (x = 0 and y = 0)
