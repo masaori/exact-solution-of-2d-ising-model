@@ -95,6 +95,32 @@ $
   ]
 ]
 
+#theorem([負数 $ -> sqrt("  ")$])[
+  $x in RR_(< 0)$について、
+
+  $
+    x = -sqrt((-x)^2)
+  $
+
+  #proof[
+    $
+      x < 0
+      \
+      -sqrt(a) = x "になるような" a
+      \
+      sqrt(a) = -x
+      \
+      ("自乗して"a"になる実数のうち" a > 0 "のもの") = -x
+      \
+      ("自乗して"a"になる実数のうち" a > 0 "のもの")^2 = (-x)^2
+      \
+      a = (-x)^2
+      \
+      x = -sqrt((-x)^2)
+    $
+  ]
+]<negative_number_to_sqrt>
+
 #theorem("行列の分解")[
   $A in "Mat"(n, CC), a, b in CC^n$
 
@@ -216,7 +242,7 @@ $
 
   と定め、
 
-  $y in RR, -1 <= y^prime <= 0$ について、
+  $y^prime in RR, -1 <= y^prime <= 0$ について、
 
   $
     arcsin(y^prime) := -arcsin(-y^prime)
@@ -247,8 +273,116 @@ $
   $
 
   と定める。
+]
 
-  齋藤命題 2.1.9 によって、$sin, cos$は実数全体に拡張される
+#claim([$cos(arctan(x)), sin(arctan(x))$])[
+  $x in RR$について、$-1 <= x / sqrt(1 + x^2) <= 1$であるから、
+  
+  $
+    cos(arctan(x))
+    &=
+    cos(arcsin(x / sqrt(1 + x^2)))
+    \
+    &=
+    sqrt(
+      1
+      -
+      (
+        sin(
+          arcsin(x / sqrt(1 + x^2))
+        )
+      )
+      ^2
+    )
+    \
+    &=
+    sqrt(
+      1
+      -
+      (
+        x / sqrt(1 + x^2)
+      )
+      ^2
+    )
+    \
+    &=
+    sqrt(
+      1
+      -
+      (
+        x^2 / (1 + x^2)
+      )
+    )
+    \
+    &=
+    sqrt(
+      (
+        (1 + x^2) - x^2
+      )
+      /
+      (1 + x^2)
+    )
+    \
+    &=
+    sqrt(
+      1
+      /
+      (1 + x^2)
+    )
+    \
+    &=
+    1
+    /
+    sqrt(
+      1 + x^2
+    )
+  $
+
+  $
+    sin(arctan(x))
+    &=
+    sin(arcsin(x / sqrt(1 + x^2)))
+    \
+    &=
+    x / sqrt(1 + x^2)
+  $
+]<cos_arctan_sin_arctan>
+
+
+#definition([角度表現の同値類])[
+  $RR$ の同値関係 $~_(angle)$ を $theta, theta^prime in RR$に対して、
+
+  $
+    theta ~_(angle) theta^prime
+    attach(<=>, t:"def")
+    exists n in ZZ "s.t." (theta - theta^prime) = 2n pi
+  $
+
+  と定める。
+]
+
+#definition([$RR$の角度表現])[
+  $RR$の (角度表現) を、 $RR \/ ~_(angle)$ に、
+
+  #mapDef(
+    $"和" +$,
+    $RR \/ ~_(angle) times RR \/ ~_(angle)$,
+    $RR \/ ~_(angle)$,
+    $([theta]_(~_(angle)), [theta^prime]_(~_(angle)))$,
+    $[theta + theta^prime]_(~_(angle))$,
+    ""
+  )
+
+  #mapDef(
+    $"スカラー積" dot.op_("scalar")$,
+    $RR times RR \/ ~_(angle)$,
+    $RR \/ ~_(angle)$,
+    $(a, [theta]_(~_(angle)))$,
+    $[a theta^prime]_(~_(angle))$,
+    ""
+  )
+
+  を入れたものとして定める
 ]
 
 #definition([極座標表現の同値類])[
@@ -256,7 +390,7 @@ $
   $
     (r, theta) ~ (r^prime, theta^prime)
     attach(<=>, t:"def")
-    r = r^prime = 0 or exists n in ZZ "s.t." (theta - theta^prime) = 2n pi
+    r = r^prime = 0 or exists n in ZZ "s.t." theta ~_(angle) theta^prime
   $
   と定める
 ]
@@ -298,6 +432,23 @@ $
   $
 ]
 
+#definition([極座標表現の$CC$への写像])[
+    $phi_("cartesian") : CC -> "(極座標表現)"$を以下のように定める。
+
+    $
+      phi_("cartesian")(x, y)
+      :=
+      cases(
+        [(sqrt(x^2 + y^2), arctan(y/x))]_(~) & quad (x > 0),
+        [(sqrt(x^2 + y^2), arctan(y/x) + pi)]_(~) & quad (x < 0, y >= 0),
+        [(sqrt(x^2 + y^2), arctan(y/x) - pi)]_(~) & quad (x < 0, y < 0),
+        [(y, pi / 2)]_(~) & quad (x = 0 and y > 0),
+        [(-y, -pi / 2)]_(~) & quad (x = 0 and y < 0),
+        [(0, 0)]_(~) & quad (x = 0 and y = 0)
+      )
+    $
+]
+
 #definition([$CC$の極座標表現への写像])[
   $phi_("polar"): "(極座標表現)" -> CC$ を、以下のように定める。
 
@@ -306,7 +457,27 @@ $
   $
 ]
 
-(次回20250717) cos(arctan(x)) を 定義に沿って展開する
+#definition([絶対値, 偏角])[
+  $(r, theta) in "(極座標表現)"$について、
+
+  $
+    #mapDef([絶対値 $abs(dot.c)$], "(極座標表現)", $RR_(>=0)$, $(r, theta)$, $r$, "")
+  $
+
+  $
+    #mapDef(
+      [偏角 $arg$],
+      "(極座標表現)",
+      "(角度表現)",
+      $(r, theta)$, 
+      $
+        cases(
+          [0]_(~_(angle)) & quad (r = 0),
+          [theta]_(~_(angle)) & quad (r != 0),
+        )
+      $, "")
+  $
+]
 
 #claim([$phi_("polar")$の同型性])[
   $(r, theta), (r^prime, theta^prime) in "(極座標表現)"$に対して、
@@ -353,6 +524,70 @@ $
       $(-1/2, sqrt(3)/2)$
 
       $
+        sin(arctan(y / x))
+        &=
+        sin(arctan((sqrt(3)/2) / (-1/2)))
+        \
+        &=
+        sin(arctan(-sqrt(3)))
+        \
+        &=
+        sin(arcsin(-sqrt(3) / sqrt(1 + (-sqrt(3))^2)))
+        \
+        &=
+        -sqrt(3) / sqrt(1 + (-sqrt(3))^2)
+        \
+        &=
+        -sqrt(3) / sqrt(1 + 3)
+        \
+        &=
+        -sqrt(3) / sqrt(4)
+        \
+        &=
+        -sqrt(3) / 2
+      $
+      
+      $
+        sin(arctan(y / x))
+        &=
+        sin(arcsin((y/x) / sqrt(1 + ((y/x))^2)))
+        \
+        &=
+        (y/x) / sqrt(1 + (y/x)^2)
+        \
+        &=
+        y / (x sqrt(1 + (y/x)^2))
+        \
+        &=
+        y / (-sqrt((-x)^2) sqrt(1 + (y/x)^2))
+        \
+        &=
+        y / (-sqrt(x^2) sqrt(1 + (y/x)^2))
+        \
+        &=
+        -y / (sqrt((x^2)(1 + (y/x)^2)))
+        \
+        &=
+        -y / sqrt(x^2 + y^2)
+      $
+
+      $
+        x < 0
+        \
+        -sqrt(a) = x "になるような" a
+        \
+        sqrt(a) = -x
+        \
+        ("自乗して"a"になる実数のうち" a > 0 "のもの") = -x
+        \
+        ("自乗して"a"になる実数のうち" a > 0 "のもの")^2 = (-x)^2
+        \
+        a = (-x)^2
+        \
+        x = -sqrt((-x)^2)
+      $
+
+      $
           cos(arctan(y / x) + pi)
           &=
           -cos(arctan(y / x))
@@ -364,32 +599,34 @@ $
           -cos(arctan(-sqrt(3)))
           \
           &=
-          -cos(-pi / 3)
+          -cos(arcsin(-sqrt(3) / sqrt(1 + (-sqrt(3))^2)))
+          \
+          &=
+          -sqrt(1 - (sin(arcsin(-sqrt(3) / sqrt(1 + (-sqrt(3))^2))))^2)
+          \
+          &=
+          -sqrt(1 - (-sqrt(3) / sqrt(1 + (-sqrt(3))^2))^2)
+          \
+          &=
+          -sqrt(1 - (3 / (1 + (-sqrt(3))^2)))
+          \
+          &=
+          -sqrt(1 - (3 / (1 + 3)))
+          \
+          &=
+          -sqrt(1 - (3 / 4))
+          \
+          &=
+          -sqrt(1 / 4)
           \
           &=
           -1/2
+          
+
       $
     ]
 
     2.
-
-    $phi_("cartesian") : CC -> "(極座標表現)"$を以下のように定める。
-
-    作業上のわかりやすさのために、代表元が$-pi <= theta <= pi$ となるように計算を進める。
-
-    $
-      phi_("cartesian")(x, y)
-      :=
-      cases(
-        [(sqrt(x^2 + y^2), arctan(y/x))]_(~) & quad (x > 0),
-        [(sqrt(x^2 + y^2), arctan(y/x) + pi)]_(~) & quad (x < 0, y >= 0),
-        [(sqrt(x^2 + y^2), arctan(y/x) - pi)]_(~) & quad (x < 0, y < 0),
-        [(y, pi / 2)]_(~) & quad (x = 0 and y > 0),
-        [(-y, -pi / 2)]_(~) & quad (x = 0 and y < 0),
-        [(0, 0)]_(~) & quad (x = 0 and y = 0)
-      )
-    $
-
     $
       phi_("polar") o phi_("cartesian") (x, y)
       &=
@@ -446,11 +683,11 @@ $
       cases(
         (
           sqrt(x^2 + y^2) cos(arctan(y/x)),
-          sqrt(x^2 + y^2) sin(arctan(y/x)),
+          sqrt(x^2 + y^2) sin(arctan(y/x))
         ) & quad (x > 0),
         (
           - sqrt(x^2 + y^2) cos(arctan(y/x)),
-          - sqrt(x^2 + y^2) sin(arctan(y/x)),
+          - sqrt(x^2 + y^2) sin(arctan(y/x))
         ) & quad (x < 0),
         (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
         (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
@@ -460,40 +697,125 @@ $
       &=
       cases(
         (
-          x,
-          y
+          sqrt(x^2 + y^2) 1 / sqrt(1 + (y/x)^2),
+          sqrt(x^2 + y^2) (y/x) / sqrt(1 + (y/x)^2)
         ) & quad (x > 0),
         (
-          -x,
-          -y
-        ) & quad (x < 0, y >= 0),
+          - sqrt(x^2 + y^2) 1 / sqrt(1 + (y/x)^2),
+          - sqrt(x^2 + y^2) (y/x) / sqrt(1 + (y/x)^2)
+        ) & quad (x < 0),
+        (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
+        (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      ) quad (because #ref(<cos_arctan_sin_arctan>))
+      \
+      &=
+      cases(
         (
-          -x,
-          -y
-        ) & quad (x < 0, y < 0),
+          sqrt(x^2 + y^2) x / (x sqrt(1 + (y/x)^2)),
+          sqrt(x^2 + y^2) (x (y/x)) / (x sqrt(1 + (y/x)^2))
+        ) & quad (x > 0),
         (
-          0, y
-        ) & quad (x = 0 and y > 0),
-        (
-          0, y
-        ) & quad (x = 0 and y < 0),
+          - sqrt(x^2 + y^2) x / (x sqrt(1 + (y/x)^2)),
+          - sqrt(x^2 + y^2) (x (y/x)) / (x sqrt(1 + (y/x)^2))
+        ) & quad (x < 0),
+        (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
+        (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
         (0, 0) & quad (x = 0 and y = 0)
       )
       \
       &=
       cases(
         (
-          x,
-          y
+          sqrt(x^2 + y^2) x / (sqrt(x^2) sqrt(1 + (y/x)^2)),
+          sqrt(x^2 + y^2) y / (sqrt(x^2) sqrt(1 + (y/x)^2))
         ) & quad (x > 0),
         (
-          -x,
-          -y
+          - sqrt(x^2 + y^2) x / (-sqrt((-x)^2) sqrt(1 + (y/x)^2)),
+          - sqrt(x^2 + y^2) y / (-sqrt((-x)^2) sqrt(1 + (y/x)^2))
         ) & quad (x < 0),
+        (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
+        (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      ) quad (because #ref(<negative_number_to_sqrt>))
+      \
+      &=
+      cases(
         (
-          0, y
-        ) & quad (x = 0),
+          sqrt(x^2 + y^2) x / (sqrt(x^2(1 + (y/x)^2))),
+          sqrt(x^2 + y^2) y / (sqrt(x^2(1 + (y/x)^2)))
+        ) & quad (x > 0),
+        (
+          sqrt(x^2 + y^2) x / (sqrt((-x)^2(1 + (y/x)^2))),
+          sqrt(x^2 + y^2) y / (sqrt((-x)^2(1 + (y/x)^2)))
+        ) & quad (x < 0),
+        (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
+        (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
       )
+      \
+      &=
+      cases(
+        (
+          sqrt(x^2 + y^2) x / (sqrt(x^2 + y^2)),
+          sqrt(x^2 + y^2) y / (sqrt(x^2 + y^2))
+        ) & quad (x > 0),
+        (
+          sqrt(x^2 + y^2) x / (sqrt((-x)^2 + y^2)),
+          sqrt(x^2 + y^2) y / (sqrt((-x)^2 + y^2))
+        ) & quad (x < 0),
+        (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
+        (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+      \
+      &=
+      cases(
+        (
+          sqrt(x^2 + y^2) x / (sqrt(x^2 + y^2)),
+          sqrt(x^2 + y^2) y / (sqrt(x^2 + y^2))
+        ) & quad (x > 0),
+        (
+          sqrt(x^2 + y^2) x / (sqrt(x^2 + y^2)),
+          sqrt(x^2 + y^2) y / (sqrt(x^2 + y^2))
+        ) & quad (x < 0),
+        (y cos(pi / 2), y sin(pi / 2)) & quad (x = 0 and y > 0),
+        (-y cos(-pi / 2), -y sin(-pi / 2)) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+      \
+      &=
+      cases(
+        (
+           x,
+           y
+        ) & quad (x > 0),
+        (
+           x,
+           y
+        ) & quad (x < 0),
+        (y dot.op 0, y dot.op 1) & quad (x = 0 and y > 0),
+        (-y dot.op 0, -y dot.op (-1)) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+      \
+      &=
+      cases(
+        (
+           x,
+           y
+        ) & quad (x > 0),
+        (
+           x,
+           y
+        ) & quad (x < 0),
+        (0, y) & quad (x = 0 and y > 0),
+        (0, y) & quad (x = 0 and y < 0),
+        (0, 0) & quad (x = 0 and y = 0)
+      )
+      \
+      &=
+      (x, y)
     $
   ]
 ]
@@ -502,15 +824,20 @@ $
 #definition([$CC$のsqrt])[
   $sqrt(dot.c): CC -> CC$ を以下のように定める。
 
-  $(a, b) in CC$ について、
+  $z in CC$ について、
+
   $
-    sqrt((a, b)) := (sqrt(a), b/2)
+    sqrt(z)
+    :=
+    phi_("polar")(
+      sqrt(abs(phi_("cartesian")(z))), arg(phi_("cartesian")(z)) / 2
+    )
   $
 ]
 
 
 #claim([sqrt と 積が可換になる条件])[
-  TODO
+  (次回 20250719 TODO) 
 
   #proof[
     TODO
