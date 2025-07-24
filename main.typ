@@ -433,10 +433,10 @@ $
 ]
 
 #definition([極座標表現の$CC$への写像])[
-    $phi_("cartesian") : CC -> "(極座標表現)"$を以下のように定める。
+    $phi_("polar") : CC -> "(極座標表現)"$を以下のように定める。
 
     $
-      phi_("cartesian")(x, y)
+      phi_("polar")(x, y)
       :=
       cases(
         [(sqrt(x^2 + y^2), arctan(y/x))]_(~) & quad (x > 0),
@@ -450,10 +450,10 @@ $
 ]
 
 #definition([$CC$の極座標表現への写像])[
-  $phi_("polar"): "(極座標表現)" -> CC$ を、以下のように定める。
+  $phi_("cartesian"): "(極座標表現)" -> CC$ を、以下のように定める。
 
   $
-    phi_("polar")(r, theta) := (r cos(theta), r sin(theta))
+    phi_("cartesian")(r, theta) := (r cos(theta), r sin(theta))
   $
 ]
 
@@ -479,19 +479,20 @@ $
   $
 ]
 
-#claim([$phi_("polar")$の同型性])[
+
+#claim([$phi_("cartesian")$の同型性])[
   $(r, theta), (r^prime, theta^prime) in "(極座標表現)"$に対して、
 
-  + $phi_("polar")((r, theta) dot.op (r^prime, theta^prime)) = phi_("polar")(r, theta) dot.op phi_("polar")(r^prime, theta^prime) quad "(モノイド準同型)"$ 
-  + $phi_("polar")$は全単射
+  + $phi_("cartesian")((r, theta) dot.op (r^prime, theta^prime)) = phi_("cartesian")(r, theta) dot.op phi_("cartesian")(r^prime, theta^prime) quad "(モノイド準同型)"$ 
+  + $phi_("cartesian")$は全単射
 
   #proof[
     1. 
     $(r, theta), (r^prime, theta^prime) in "(極座標表現)"$に対して、
     $
-      phi_("polar")((r, theta) dot.op (r^prime, theta^prime))
+      phi_("cartesian")((r, theta) dot.op (r^prime, theta^prime))
       &=
-      phi_("polar")((r r^prime, theta + theta^prime))
+      phi_("cartesian")((r r^prime, theta + theta^prime))
       \
       &=
       (r r^prime cos(theta + theta^prime), r r^prime sin(theta + theta^prime))
@@ -500,7 +501,7 @@ $
     また、
 
     $
-      phi_("polar")(r, theta) dot.op phi_("polar")(r^prime, theta^prime)
+      phi_("cartesian")(r, theta) dot.op phi_("cartesian")(r^prime, theta^prime)
       &=
       (r cos(theta), r sin(theta)) dot.op (r^prime cos(theta^prime), r^prime sin(theta^prime))
       \
@@ -628,9 +629,9 @@ $
 
     2.
     $
-      phi_("polar") o phi_("cartesian") (x, y)
+      phi_("cartesian") o phi_("polar") (x, y)
       &=
-      phi_("polar")(
+      phi_("cartesian")(
         cases(
           [(sqrt(x^2 + y^2), arctan(y/x))]_(~) & quad (x > 0),
           [(sqrt(x^2 + y^2), arctan(y/x) + pi)]_(~) & quad (x < 0, y >= 0),
@@ -829,15 +830,130 @@ $
   $
     sqrt(z)
     :=
-    phi_("polar")(
-      sqrt(abs(phi_("cartesian")(z))), arg(phi_("cartesian")(z)) / 2
+    phi_("cartesian")(
+      sqrt(abs(phi_("polar")(z))), arg(phi_("polar")(z)) / 2
     )
   $
 ]
 
 
 #claim([sqrt と 積が可換になる条件])[
-  (次回 20250719 TODO) 
+  #note[
+    $(x, y), (x^prime, y^prime) in CC$
+
+    $
+      phi_("polar")((x, y) (x^prime, y^prime))
+      &=
+      phi_("polar")(x, y)  phi_("polar")(x^prime, y^prime) quad (because "同型")
+      \
+      &=
+      (
+        cases(
+          [(sqrt(x^2 + y^2), arctan(y/x))]_(~) & quad (x > 0),
+          [(sqrt(x^2 + y^2), arctan(y/x) + pi)]_(~) & quad (x < 0, y >= 0),
+          [(sqrt(x^2 + y^2), arctan(y/x) - pi)]_(~) & quad (x < 0, y < 0),
+          [(y, pi / 2)]_(~) & quad (x = 0 and y > 0),
+          [(-y, -pi / 2)]_(~) & quad (x = 0 and y < 0),
+          [(0, 0)]_(~) & quad (x = 0 and y = 0)
+        )
+      )
+      (
+        cases(
+          [(sqrt(x^prime^2 + y^prime^2), arctan(y^prime/x^prime))]_(~) & quad (x^prime > 0),
+          [(sqrt(x^prime^2 + y^prime^2), arctan(y^prime/x^prime) + pi)]_(~) & quad (x^prime < 0, y^prime >= 0),
+          [(sqrt(x^prime^2 + y^prime^2), arctan(y^prime/x^prime) - pi)]_(~) & quad (x^prime < 0, y^prime < 0),
+          [(y^prime, pi / 2)]_(~) & quad (x^prime = 0 and y^prime > 0),
+          [(-y^prime, -pi / 2)]_(~) & quad (x^prime = 0 and y^prime < 0),
+          [(0, 0)]_(~) & quad (x^prime = 0 and y^prime = 0)
+        )
+      ) 
+      \
+      &=
+      (
+        cases(
+          [(sqrt(x^2 + y^2) sqrt(x^prime^2 + y^prime^2), arctan(y/x) + arctan(y^prime/x^prime))]_(~) & quad (x > 0 and x^prime > 0),
+          [(sqrt(x^2 + y^2) sqrt(x^prime^2 + y^prime^2), arctan(y/x) + arctan(y^prime/x^prime) + pi)]_(~) & quad (x < 0 and x^prime > 0, y >= 0 and y^prime >= 0),
+          [(sqrt(x^2 + y^2) sqrt(x^prime^2 + y^prime^2), arctan(y/x) + arctan(y^prime/x^prime) - pi)]_(~) & quad (x < 0 and x^prime > 0, y < 0 and y^prime < 0),
+          [(y sqrt(x^prime^2 + y^prime^2), pi / 2)]_(~) & quad (x = 0 and y > 0 and x^prime = 0 and y^prime > 0),
+          [(-y sqrt(x^prime^2 + y^prime^2), -pi / 2)]_(~) & quad (x = 0 and y < 0 and x^prime = 0 and y^prime < 0),
+          [(0, 0)]_(~) & quad (x = 0 and y = 0 and x^prime = 0 and y^prime = 0)
+
+        )
+      )
+      (次回 20250724 TODO) 
+
+    $
+
+    $
+      phi_("polar")((x, y) (x^prime, y^prime))
+      &=
+      phi_("polar")(
+        (
+          x x^prime - y y^prime,
+          x y^prime + y x^prime
+        )
+      )
+      \
+      &=
+      cases(
+        [(sqrt((x x^prime - y y^prime)^2 + (x y^prime + y x^prime)^2), arctan((x y^prime + y x^prime) / (x x^prime - y y^prime)))]_(~) & quad (x x^prime - y y^prime > 0),
+        [(sqrt((x x^prime - y y^prime)^2 + (x y^prime + y x^prime)^2), arctan((x y^prime + y x^prime) / (x x^prime - y y^prime)) + pi)]_(~) & quad (x x^prime - y y^prime < 0, x y^prime + y x^prime >= 0),
+        [(sqrt((x x^prime - y y^prime)^2 + (x y^prime + y x^prime)^2), arctan((x y^prime + y x^prime) / (x x^prime - y y^prime)) - pi)]_(~) & quad (x x^prime - y y^prime < 0, x y^prime + y x^prime < 0),
+        [(y, pi / 2)]_(~) & quad (x = 0 and y > 0),
+        [(-y, -pi / 2)]_(~) & quad (x = 0 and y < 0),
+        [(0, 0)]_(~) & quad (x = 0 and y = 0)
+      )
+    $
+
+    $
+      sqrt((x x^prime - y y^prime)^2 + (x y^prime + y x^prime)^2)
+      &=
+      sqrt(
+        (x x^prime)^2
+        - 2 (x x^prime)(y y^prime)
+        + (y y^prime)^2
+        +
+        (x y^prime)^2
+        + 2 (x y^prime)(y x^prime)
+        + (y x^prime)^2
+      )
+      \
+      &=
+      sqrt(
+        (x x^prime)^2
+        +
+        (y y^prime)^2
+        +
+        (x y^prime)^2
+        +
+        (y x^prime)^2
+      )
+
+    $
+
+    $
+      sqrt((x, y) (x^prime, y^prime))
+      &=
+      phi_("cartesian")(
+        sqrt(abs(phi_("polar")((x, y) (x^prime, y^prime)))),
+        arg(phi_("polar")((x, y) (x^prime, y^prime))) / 2
+      )
+      \
+      &=
+      phi_("cartesian")(
+        sqrt(abs(
+          phi_("polar")(
+            (
+              x x^prime - y y^prime,
+              x y^prime + y x^prime
+            )
+          )
+        )),
+        arg(phi_("polar")((x, y) (x^prime, y^prime))) / 2
+      )    
+      
+      $
+  ]
 
   #proof[
     TODO
