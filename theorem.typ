@@ -71,6 +71,15 @@
   content
 )
 
+#let remark = (content) => block_with_counter(
+  "Remark",
+  none,
+  rgb("#f0f0f0"),
+  8pt,
+  4pt,
+  content
+)
+
 #let proof = (content) => box(
   width: 100%,
   fill: rgb("#f0f0f0"),

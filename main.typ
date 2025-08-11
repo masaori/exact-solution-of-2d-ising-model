@@ -1,7 +1,7 @@
 #import "@preview/cetz:0.1.2"
 #import "@preview/commute:0.2.0": node, arr, commutative-diagram
 #import "@preview/fletcher:0.5.1" as fletcher: diagram, node, edge
-#import "theorem.typ": theorem, claim, proof, definition, note, theorem_rules
+#import "theorem.typ": theorem, claim, proof, definition, remark, note, theorem_rules
 
 #set page(width: 60cm, height: auto)
 #set block(breakable: false)
@@ -93,6 +93,27 @@ $
       )
     $
   ]
+]
+
+#definition([$sqrt("")$])[
+
+  $sqrt(dot) : RR_(>=0) -> RR_(>=0)$ を、
+
+  $x in RR_(>=0)$ について、
+
+  $y in RR_(>=0)$ で、
+  $
+    y >= 0 and y^2 = x
+  $
+
+  を満たすものがただ一つ存在する (証明略)
+
+  この$y$を用いて
+  $
+    sqrt(x) := y
+  $
+
+  として定める。
 ]
 
 #theorem([負数 $ -> sqrt("  ")$])[
@@ -358,7 +379,20 @@ $
     exists n in ZZ "s.t." (theta - theta^prime) = 2n pi
   $
 
-  と定める。
+  と定めると、商集合 $RR \/ ~_(angle)$ が定まる。
+
+  $theta in RR$ の$RR \/ ~_(angle)$における同値類を
+
+  $
+    [theta]_(~_(angle)) in RR \/ ~_(angle)
+  $
+
+  と書く。
+]
+
+#definition([])[
+  次回(20250809) 同値類から元(-pi~pi)を取り出す写像を定める
+  これを使って(角度表現)のスカラー席を定める(現在はwell-definedでない)
 ]
 
 #definition([$RR$の角度表現])[
@@ -378,7 +412,7 @@ $
     $RR times RR \/ ~_(angle)$,
     $RR \/ ~_(angle)$,
     $(a, [theta]_(~_(angle)))$,
-    $[a theta^prime]_(~_(angle))$,
+    $[a theta]_(~_(angle))$,
     ""
   )
 
@@ -390,13 +424,30 @@ $
   $
     (r, theta) ~ (r^prime, theta^prime)
     attach(<=>, t:"def")
-    r = r^prime = 0 or exists n in ZZ "s.t." theta ~_(angle) theta^prime
+    r = r^prime = 0 or (r = r^prime and theta ~_(angle) theta^prime)
   $
-  と定める
+  と定めると、商集合 $(RR_(>=0) times RR) \/ ~$ が定まる。
+
+  $(r, theta) in RR_(>=0) times RR$の $(RR_(>=0) times RR) \/ ~$ における同値類を
+
+  $
+    [(r, theta)]_(~) in (RR_(>=0) times RR) \/ ~
+  $
+
+  と書く
 ]
 
-#definition([$CC$の極座標表現])[
-  $CC$の (極座標表現) を、 $(RR_(>=0) times RR) \/ ~$ に、二項演算
+#remark[
+  $
+    [(r, theta)]_(~) = [(r, theta + 2n pi)]_(~) forall n in ZZ
+  $
+  $
+    [(0, theta)]_(~) = [(0, theta^prime)]_(~) forall theta, theta^prime in RR
+  $
+]
+
+#definition([極座標表現の演算])[
+  $(RR_(>=0) times RR) \/ ~$ に、二項演算
 
   #mapDef(
     $dot.op$,
@@ -407,7 +458,7 @@ $
     ""
   )
 
-  を入れたものとして定める
+  を入れたものを (極座標表現) と呼ぶ
 ]
 
 #claim([(極座標表現)の乗法群])[
@@ -418,18 +469,6 @@ $
 
 #definition([$CC$の乗法群])[
   $CC^(times) := CC \\ { (0, 0) }$ は 群をなす
-]
-
-#definition([極座標表現の元の表記])[
-  $[(r, theta)]_(~) in "(極座標表現)"$ を $(r, theta)$ と表記する
-
-  すなわち、
-  $
-    (r, theta) = (r, theta + 2n pi) forall n in ZZ
-  $
-  $
-    (0, theta) = (0, theta^prime) forall theta, theta^prime in RR
-  $
 ]
 
 #definition([極座標表現の$CC$への写像])[
@@ -453,60 +492,25 @@ $
   $phi_("cartesian"): "(極座標表現)" -> CC$ を、以下のように定める。
 
   $
-    phi_("cartesian")(r, theta) := (r cos(theta), r sin(theta))
+    phi_("cartesian")([(r, theta)]_(~)) := (r cos(theta), r sin(theta))
   $
 ]
 
-#definition([絶対値, 偏角])[
-  $(r, theta) in "(極座標表現)"$について、
-
-  TOOO 絶対値って言わない方がいい 記号も振り直す
-  $because$ $(r, theta) mapsto r$ は、距離の公理を満たさない(非退化でない:擬距離)、かつ、元のデカルト座標における距離とそれだけだと対応しない
-
-  偏角 は、複素数以外で使われていない用語で、絶対値との組という話がないのならば使うモチベーションもなく、別の単語にしたい。
-
-  TODO 名前直して ver. 2を考える (角度表現集合を商集合として定めるかどうかはまだ保留)
-
-  $
-    #mapDef([$abs(dot.c)_("polar")$], "(極座標表現)", $RR_(>=0)$, $(r, theta)$, $r$, "")
-  $
-
-  $
-    #mapDef(
-      [$arg_("polar")$],
-      "(極座標表現)",
-      "(角度表現)",
-      $(r, theta)$, 
-      $
-        cases(
-          [0]_(~_(angle)) & quad (r = 0),
-          [theta]_(~_(angle)) & quad (r != 0),
-        )
-      $, "")
-  $
-]
-
-#definition([])[
-  $
-    RR'
-  $
-]
-
-#definition([絶対値, 偏角 ver2])[
+#definition([第1座標, 第2座標])[
   $(r, theta) in "(極座標表現)"$について、
 
   $
-    #mapDef([絶対値 $abs(dot.c)$], "(極座標表現)", $RR_(>=0)$, $(r, theta)$, $r$, "")
+    #mapDef([第1座標 $"pr"_1$], "(極座標表現)", $RR_(>=0)$, $[(r, theta)]_(~)$, $r$, "")
   $
 
   $$
 
   $
     #mapDef(
-      [偏角 $arg$],
+      [第2座標 $"pr"_2$],
       "(極座標表現)",
       "(角度表現)",
-      $(r, theta)$, 
+      $[(r, theta)]_(~)$, 
       $
         cases(
           [0]_(~_(angle)) & quad (r = 0),
@@ -518,18 +522,18 @@ $
 
 
 #claim([$phi_("cartesian")$の同型性])[
-  $(r, theta), (r^prime, theta^prime) in "(極座標表現)"$に対して、
+  $[(r, theta)]_(~), [(r^prime, theta^prime)]_(~) in "(極座標表現)"$に対して、
 
-  + $phi_("cartesian")((r, theta) dot.op (r^prime, theta^prime)) = phi_("cartesian")(r, theta) dot.op phi_("cartesian")(r^prime, theta^prime) quad "(モノイド準同型)"$ 
+  + $phi_("cartesian")([(r, theta)]_(~) dot.op [(r^prime, theta^prime)]_(~)) = phi_("cartesian")[(r, theta)]_(~) dot.op phi_("cartesian")[(r^prime, theta^prime)]_(~) quad "(モノイド準同型)"$ 
   + $phi_("cartesian")$は全単射
 
   #proof[
     1. 
-    $(r, theta), (r^prime, theta^prime) in "(極座標表現)"$に対して、
+    $[(r, theta)]_(~), [(r^prime, theta^prime)]_(~) in "(極座標表現)"$に対して、
     $
-      phi_("cartesian")((r, theta) dot.op (r^prime, theta^prime))
+      phi_("cartesian")([(r, theta)]_(~) dot.op [(r^prime, theta^prime)]_(~))
       &=
-      phi_("cartesian")((r r^prime, theta + theta^prime))
+      phi_("cartesian")([(r r^prime, theta + theta^prime)]_(~))
       \
       &=
       (r r^prime cos(theta + theta^prime), r r^prime sin(theta + theta^prime))
@@ -538,7 +542,7 @@ $
     また、
 
     $
-      phi_("cartesian")(r, theta) dot.op phi_("cartesian")(r^prime, theta^prime)
+      phi_("cartesian")[(r, theta)]_(~) dot.op phi_("cartesian")[(r^prime, theta^prime)]_(~)
       &=
       (r cos(theta), r sin(theta)) dot.op (r^prime cos(theta^prime), r^prime sin(theta^prime))
       \
@@ -860,15 +864,19 @@ $
 
 
 #definition([$CC$のsqrt])[
-  $sqrt(dot.c): CC -> CC$ を以下のように定める。
+  $sqrt(dot.c)^(CC): CC -> CC$ を以下のように定める。
 
   $z in CC$ について、
 
   $
     sqrt(z)
     :=
-    phi_("cartesian")(
-      sqrt(abs(phi_("polar")(z))), arg(phi_("polar")(z)) / 2
+    phi_("cartesian")
+    (
+      sqrt("pr"_1(phi_("polar")(z))), 
+      "pr"_2(phi_("polar")(z))
+      /
+      2
     )
   $
 ]
