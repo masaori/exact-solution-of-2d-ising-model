@@ -19,10 +19,6 @@
   $
 }
 
-$
-  CC := RR^2 に "掛け算" (a, b) dot.op (c, d) := (a c - b d, a d + b c) "を入れたもの"
-$
-
 == 計算公式
 #theorem([$cosh, sinh$の掛け算])[
   $forall a, b in RR$
@@ -95,9 +91,11 @@ $
   ]
 ]
 
+(次回:20250821-1 ↓ $RR$用の$sqrt(dot)$を記号変える $CC$ のは添字なくす)
+
 #definition([$sqrt("")$])[
 
-  $sqrt(dot) : RR_(>=0) -> RR_(>=0)$ を、
+  $sqrt(dot)^(RR) : RR_(>=0) -> RR_(>=0)$ を、
 
   $x in RR_(>=0)$ について、
 
@@ -110,7 +108,7 @@ $
 
   この$y$を用いて
   $
-    sqrt(x) := y
+    sqrt(x)^(RR) := y
   $
 
   として定める。
@@ -390,9 +388,26 @@ $
   と書く。
 ]
 
-#definition([])[
-  次回(20250809) 同値類から元(-pi~pi)を取り出す写像を定める
-  これを使って(角度表現)のスカラー席を定める(現在はwell-definedでない)
+#definition([角度表現の切断])[
+  $s_(angle) : RR \/ ~_(angle) -> (-pi, pi]$ を以下のように定める。
+
+  $[theta]_(~_(angle)) in RR \/ ~_(angle)$ に対して、
+
+  $n in ZZ$ で、
+
+  $
+    -pi < theta - 2n pi <= pi
+  $
+
+  を満たすようなものがただ一つ存在して、(証明略)
+
+  この $n$ を用いて、
+
+  $
+    s_(angle)([theta]_(~_(angle))) := theta - 2n pi
+  $
+
+  と定める。
 ]
 
 #definition([$RR$の角度表現])[
@@ -408,15 +423,53 @@ $
   )
 
   #mapDef(
-    $"スカラー積" dot.op_("scalar")$,
+    $"実数倍" dot.op_("real")$,
     $RR times RR \/ ~_(angle)$,
     $RR \/ ~_(angle)$,
     $(a, [theta]_(~_(angle)))$,
-    $[a theta]_(~_(angle))$,
+    $[a dot.op s_(angle)([theta]_(~_(angle)))]_(~_(angle))$,
     ""
   )
 
   を入れたものとして定める
+
+  #note[
+
+    この積$dot.op_("real")$は、例えば、
+
+    $
+      1/2 dot.op_("real") (-2 dot.op_("real") [pi/2]_(~_(angle)))
+      &=
+      [1/2 dot.op s_(angle)[-2 dot.op s_(angle)([pi/2]_(~_(angle)))]_(~_(angle))]_(~_(angle))
+      \
+      &=
+        [1/2 dot.op s_(angle)[-2 dot.op pi/2]_(~_(angle))]_(~_(angle))
+      \
+      &=
+        [1/2 dot.op s_(angle)[- pi]_(~_(angle))]_(~_(angle))
+      \
+      &=
+        [1/2 dot.op pi]_(~_(angle))
+      \
+      &=
+        pi/2
+    $
+
+    $
+      (1/2 dot.op -2) dot.op_("real") [pi/2]_(~_(angle))
+      &=
+        [-1 dot.op s_(angle)([pi/2]_(~_(angle)))]_(~_(angle))
+      \
+      &=
+        [-1 dot.op pi/2]_(~_(angle))
+      \
+      &=
+        -pi/2
+    $
+
+    より、スカラー積とはならない
+
+  ]
 ]
 
 #definition([極座標表現の同値類])[
@@ -494,6 +547,18 @@ $
   $
     phi_("cartesian")([(r, theta)]_(~)) := (r cos(theta), r sin(theta))
   $
+
+  #note[
+
+    $
+      [theta]_(~_(angle)) = [theta^(prime)]_(~_(angle))
+      \
+      &=> exists n in ZZ "s.t." (theta - theta^prime) = 2n pi
+      \
+      &=> cos(theta) = cos(theta^prime) and sin(theta) = sin(theta^prime)
+    $
+
+  ]
 ]
 
 #definition([第1座標, 第2座標])[
@@ -869,146 +934,319 @@ $
   $z in CC$ について、
 
   $
-    sqrt(z)
+    sqrt(z)^(CC)
     :=
     phi_("cartesian")
     (
-      sqrt("pr"_1(phi_("polar")(z))), 
-      "pr"_2(phi_("polar")(z))
-      /
-      2
+      [
+        sqrt("pr"_1(phi_("polar")(z))), 
+        1/2 dot.op_("real") "pr"_2(phi_("polar")(z))
+      ]_(~)
     )
   $
 ]
 
 
 #claim([sqrt と 積が可換になる条件])[
-  #note[
-    $(x, y), (x^prime, y^prime) in CC$
-
-    $
-      phi_("polar")((x, y) (x^prime, y^prime))
-      &=
-      phi_("polar")(x, y)  phi_("polar")(x^prime, y^prime) quad (because "同型")
-      \
-      &=
-      (
-        cases(
-          [(sqrt(x^2 + y^2), arctan(y/x))]_(~) & quad (x > 0),
-          [(sqrt(x^2 + y^2), arctan(y/x) + pi)]_(~) & quad (x < 0, y >= 0),
-          [(sqrt(x^2 + y^2), arctan(y/x) - pi)]_(~) & quad (x < 0, y < 0),
-          [(y, pi / 2)]_(~) & quad (x = 0 and y > 0),
-          [(-y, -pi / 2)]_(~) & quad (x = 0 and y < 0),
-          [(0, 0)]_(~) & quad (x = 0 and y = 0)
-        )
-      )
-      (
-        cases(
-          [(sqrt(x^prime^2 + y^prime^2), arctan(y^prime/x^prime))]_(~) & quad (x^prime > 0),
-          [(sqrt(x^prime^2 + y^prime^2), arctan(y^prime/x^prime) + pi)]_(~) & quad (x^prime < 0, y^prime >= 0),
-          [(sqrt(x^prime^2 + y^prime^2), arctan(y^prime/x^prime) - pi)]_(~) & quad (x^prime < 0, y^prime < 0),
-          [(y^prime, pi / 2)]_(~) & quad (x^prime = 0 and y^prime > 0),
-          [(-y^prime, -pi / 2)]_(~) & quad (x^prime = 0 and y^prime < 0),
-          [(0, 0)]_(~) & quad (x^prime = 0 and y^prime = 0)
-        )
-      ) 
-      \
-      &=
-      (
-        cases(
-          [(sqrt(x^2 + y^2) sqrt(x^prime^2 + y^prime^2), arctan(y/x) + arctan(y^prime/x^prime))]_(~) & quad (x > 0 and x^prime > 0),
-          [(sqrt(x^2 + y^2) sqrt(x^prime^2 + y^prime^2), arctan(y/x) + arctan(y^prime/x^prime) + pi)]_(~) & quad (x < 0 and x^prime > 0, y >= 0 and y^prime >= 0),
-          [(sqrt(x^2 + y^2) sqrt(x^prime^2 + y^prime^2), arctan(y/x) + arctan(y^prime/x^prime) - pi)]_(~) & quad (x < 0 and x^prime > 0, y < 0 and y^prime < 0),
-          [(y sqrt(x^prime^2 + y^prime^2), pi / 2)]_(~) & quad (x = 0 and y > 0 and x^prime = 0 and y^prime > 0),
-          [(-y sqrt(x^prime^2 + y^prime^2), -pi / 2)]_(~) & quad (x = 0 and y < 0 and x^prime = 0 and y^prime < 0),
-          [(0, 0)]_(~) & quad (x = 0 and y = 0 and x^prime = 0 and y^prime = 0)
-
-        )
-      )
-    $
-
-    $
-      phi_("polar")((x, y) (x^prime, y^prime))
-      &=
-      phi_("polar")(
-        (
-          x x^prime - y y^prime,
-          x y^prime + y x^prime
-        )
-      )
-      \
-      &=
-      cases(
-        [(sqrt((x x^prime - y y^prime)^2 + (x y^prime + y x^prime)^2), arctan((x y^prime + y x^prime) / (x x^prime - y y^prime)))]_(~) & quad (x x^prime - y y^prime > 0),
-        [(sqrt((x x^prime - y y^prime)^2 + (x y^prime + y x^prime)^2), arctan((x y^prime + y x^prime) / (x x^prime - y y^prime)) + pi)]_(~) & quad (x x^prime - y y^prime < 0, x y^prime + y x^prime >= 0),
-        [(sqrt((x x^prime - y y^prime)^2 + (x y^prime + y x^prime)^2), arctan((x y^prime + y x^prime) / (x x^prime - y y^prime)) - pi)]_(~) & quad (x x^prime - y y^prime < 0, x y^prime + y x^prime < 0),
-        [(y, pi / 2)]_(~) & quad (x = 0 and y > 0),
-        [(-y, -pi / 2)]_(~) & quad (x = 0 and y < 0),
-        [(0, 0)]_(~) & quad (x = 0 and y = 0)
-      )
-    $
-
-    $
-      sqrt((x x^prime - y y^prime)^2 + (x y^prime + y x^prime)^2)
-      &=
-      sqrt(
-        (x x^prime)^2
-        - 2 (x x^prime)(y y^prime)
-        + (y y^prime)^2
-        +
-        (x y^prime)^2
-        + 2 (x y^prime)(y x^prime)
-        + (y x^prime)^2
-      )
-      \
-      &=
-      sqrt(
-        (x x^prime)^2
-        +
-        (y y^prime)^2
-        +
-        (x y^prime)^2
-        +
-        (y x^prime)^2
-      )
-
-    $
-
-    $
-      sqrt((x, y) (x^prime, y^prime))
-      &=
-      phi_("cartesian")(
-        sqrt(abs(phi_("polar")((x, y) (x^prime, y^prime)))),
-        arg(phi_("polar")((x, y) (x^prime, y^prime))) / 2
-      )
-      \
-      &=
-      phi_("cartesian")(
-        sqrt(abs(
-          phi_("polar")(
-            (
-              x x^prime - y y^prime,
-              x y^prime + y x^prime
-            )
-          )
-        )),
-        arg(phi_("polar")((x, y) (x^prime, y^prime))) / 2
-      )    
-      
-      $
-  ]
+  $
+    sqrt(z_1 z_2)^(CC) = sqrt(z_1)^(CC) sqrt(z_2)^(CC)
+    <=>
+    (r_1 = 0 or r_2 = 0)
+    or
+    -pi < theta_1 + theta_2 <= pi
+  $
 
   #proof[
-    TODO
+    $z_1, z_2 in CC$ について、
+
+    $r_1, r_2 in RR_(>=0), theta_1, theta_2 in (-pi, pi]$ で
+
+    $phi_("polar")(z_1) = [(r_1, theta_1)]_(~), phi_("polar")(z_2) = [(r_2, theta_2)]_(~)$
+
+    を満たすものが存在して、
+
+    $
+      sqrt(z_1 z_2)^(CC)
+      &=
+      phi_("cartesian")
+      (
+        [(
+          sqrt("pr"_1(phi_("polar")(z_1 z_2))), 
+          1/2 dot.op_("real") "pr"_2(phi_("polar")(z_1 z_2))
+        )]_(~)
+      )
+      \
+      &=
+      phi_("cartesian")
+      (
+        [(
+          sqrt("pr"_1(phi_("polar")(z_1) phi_("polar")(z_2))), 
+          1/2 dot.op_("real") "pr"_2(phi_("polar")(z_1) phi_("polar")(z_2)))
+        )]_(~)
+      )
+      quad
+      (because phi_("polar")"の同型性")
+      \
+      &=
+      phi_("cartesian")
+      (
+        [(
+          sqrt("pr"_1([(r_1, theta_1)]_(~) [(r_2, theta_2)]_(~))), 
+          1/2 dot.op_("real") "pr"_2([(r_1, theta_1)]_(~) [(r_2, theta_2)]_(~))
+        )]_(~)
+      )
+      \
+      &=
+      phi_("cartesian")
+      (
+        [(
+          sqrt("pr"_1([(r_1 r_2, theta_1 + theta_2)]_(~))), 
+          1/2 dot.op_("real") "pr"_2([(r_1 r_2, theta_1 + theta_2)]_(~))
+        )]_(~)
+      )
+      \
+      &=
+      phi_("cartesian")
+      (
+        [(
+          sqrt(r_1 r_2), 
+          1/2 dot.op_("real") (theta_1 + theta_2)
+        )]_(~)
+      )
+      \
+      &=
+      phi_("cartesian")
+      (
+        [(
+          sqrt(r_1 r_2), 
+          [
+            1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle)))
+          ]_(~_(angle))
+        )]_(~)
+      )
+      \
+      &=
+      (
+        sqrt(r_1 r_2) cos(1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle)))),
+        sqrt(r_1 r_2) sin(1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle))))
+      )
+    $
+
+    $
+      sqrt(z_1)^(CC) sqrt(z_2)^(CC)
+      &=
+      phi_("cartesian")
+      (
+        [(
+          sqrt("pr"_1(phi_("polar")(z_1))), 
+          1/2 dot.op_("real") "pr"_2(phi_("polar")(z_1))
+        )]_(~)
+      )
+      phi_("cartesian")
+      (
+        [(
+          sqrt("pr"_1(phi_("polar")(z_2))), 
+          1/2 dot.op_("real") "pr"_2(phi_("polar")(z_2))
+        )]_(~)
+      )
+      \
+      &=
+      phi_("cartesian")
+      (
+        [(
+          sqrt("pr"_1([(r_1, theta_1)]_(~))), 
+          1/2 dot.op_("real") "pr"_2([(r_1, theta_1)]_(~))
+        )]_(~)
+      )
+      phi_("cartesian")
+      (
+        [(
+          sqrt("pr"_1([(r_2, theta_2)]_(~))), 
+          1/2 dot.op_("real") "pr"_2([(r_2, theta_2)]_(~))
+        )]_(~)
+      )
+      \
+      &=
+      phi_("cartesian")
+      (
+        [(
+          sqrt(r_1), 
+          1/2 dot.op_("real") [theta_1]_(~_(angle))
+        )]_(~)
+      )
+      phi_("cartesian")
+      (
+        [(
+          sqrt(r_2), 
+          1/2 dot.op_("real") [theta_2]_(~_(angle))
+        )]_(~)
+      )
+      \
+      &=
+      phi_("cartesian")
+      (
+        [(
+          sqrt(r_1),
+          [1/2 dot.op s_(angle)(theta_1)]_(~_(angle))
+        )]_(~)
+      )
+      phi_("cartesian")
+      (
+        [(
+          sqrt(r_2), 
+          [1/2 dot.op s_(angle)(theta_2)]_(~_(angle))
+        )]_(~)
+      )
+      \
+      &=
+      (
+        sqrt(r_1) cos(1/2 dot.op s_(angle)(theta_1)),
+        sqrt(r_1) sin(1/2 dot.op s_(angle)(theta_1))
+      )
+      (
+        sqrt(r_2) cos(1/2 dot.op s_(angle)(theta_2)),
+        sqrt(r_2) sin(1/2 dot.op s_(angle)(theta_2))
+      )
+      \
+      &=
+      (
+        sqrt(r_1) cos(1/2 dot.op theta_1),
+        sqrt(r_1) sin(1/2 dot.op theta_1)
+      )
+      (
+        sqrt(r_2) cos(1/2 dot.op theta_2),
+        sqrt(r_2) sin(1/2 dot.op theta_2)
+      )
+      quad (because theta_1, theta_2 in (-pi, pi])
+      \
+      &=
+      //   CC := RR^2 に "掛け算" (a, b) dot.op (c, d) := (a c - b d, a d + b c) "を入れたもの"
+      (
+        sqrt(r_1) cos(1/2 dot.op theta_1) sqrt(r_2) cos(1/2 dot.op theta_2)
+        -
+        sqrt(r_1) sin(1/2 dot.op theta_1) sqrt(r_2) sin(1/2 dot.op theta_2)
+        ,
+        sqrt(r_1) cos(1/2 dot.op theta_1) sqrt(r_2) sin(1/2 dot.op theta_2)
+        +
+        sqrt(r_1) sin(1/2 dot.op theta_1) sqrt(r_2) cos(1/2 dot.op theta_2)
+      )
+      \
+      &=
+      (
+        sqrt(r_1) sqrt(r_2)
+        (
+          cos(1/2 dot.op theta_1) cos(1/2 dot.op theta_2)
+          -
+          sin(1/2 dot.op theta_1) sin(1/2 dot.op theta_2)
+        )
+        ,
+        sqrt(r_1) sqrt(r_2)
+        (
+          cos(1/2 dot.op theta_1) sin(1/2 dot.op theta_2)
+          +
+          sin(1/2 dot.op theta_1) cos(1/2 dot.op theta_2)
+        )
+      )
+      \
+      &=
+      (
+        sqrt(r_1 r_2)
+        cos(1/2 dot.op theta_1 + 1/2 dot.op theta_2)
+        ,
+        sqrt(r_1 r_2)
+        sin(1/2 dot.op theta_1 + 1/2 dot.op theta_2)
+      )
+    $
+
+    よって、$sqrt(z_1 z_2)^(CC) = sqrt(z_1)^(CC) sqrt(z_2)^(CC)$ となる必要十分条件は
+    
+    i. $r_1 = 0 or r_2 = 0$ のときは、常に成り立つ
+
+    ii. $r_1 eq.not 0 and r_2 eq.not 0$ のとき
+    $
+      &cos(1/2 dot.op (theta_1 + theta_2)) = cos(1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle))))
+      and
+      sin(1/2 dot.op (theta_1 + theta_2)) = sin(1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle))))
+      \
+      <=>quad&
+      exists n in ZZ quad 1/2 dot.op (theta_1 + theta_2) = 1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle))) + 2 pi n
+      \
+      <=>quad&
+      exists n in ZZ quad theta_1 + theta_2 = s_(angle)([theta_1 + theta_2]_(~_(angle))) + 4 pi n quad
+      quad dots.c quad 
+      (*)
+    $
+
+    ここで、 $m in ZZ$ で、
+
+    $
+      -pi < theta_1 + theta_2 - 2m pi <= pi
+    $
+
+    を満たすようなものがただ一つ存在して、この $m$ を用いて、
+
+    $
+      (*)
+      <=>quad&
+      exists n in ZZ quad theta_1 + theta_2 = theta_1 + theta_2 - 2m pi + 4 pi n quad
+      \
+      <=>quad&
+      exists n in ZZ quad 0 = - 2m pi + 4 pi n
+      \
+      <=>quad&
+      exists n in ZZ quad 0 = (- 2m + 4n) pi
+      \
+      <=>quad&
+      exists n in ZZ quad m = 2n
+      \
+      <=>quad&
+      m"は偶数"
+    $
+
+    よって、$theta_1 + theta_2 in (-2 pi, 2 pi]$ かつ $-pi - (theta_1 + theta_2) < - 2m pi <= pi - (theta_1 + theta_2)$ であるから
+
+    a. $theta_1 + theta_2 in (-2 pi, -pi)$ のとき、
+
+    $
+      pi < -2m pi < 2 pi
+      <=>
+      -1 < m < -1/2
+    $
+
+    よって、これを満たす偶数$m$は存在しない
+
+    b. $theta_1 + theta_2 in [-pi, pi]$ のとき、
+
+    $
+      0 <= -2m pi <=0
+    $
+
+    よって、$m = 0$
+
+    c. $theta_1 + theta_2 in (pi, 2 pi]$ のとき、
+
+    $
+      - 2pi < -2m pi <= -pi
+      <=>
+      1/2 < m <= 1
+    $
+
+    よって、これを満たす偶数$m$は存在しない
+
+    以上より、
+
+    $
+      sqrt(z_1 z_2)^(CC) = sqrt(z_1)^(CC) sqrt(z_2)^(CC)
+      <=>
+      (r_1 = 0 or r_2 = 0)
+      or
+      -pi < theta_1 + theta_2 <= pi
+    $
+
+    $qed$
   ]
 ]
 
-
-(次回 20250619) ↓一旦以下までやらんくても良いかも
-#mapDef("sqrt", $CC$, $CC$, $r exp(i theta)$, $sqrt(r) exp(i theta/2)$, "")
-
-
-$sqrt(-1) = exp((pi i)/2)$
 
 == 2次元ising模型の分配関数
 #definition("格子サイズ")[
@@ -8852,9 +9090,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
 #definition([$A(theta)$の対角化の準備])[
   $
-    gamma_1(theta) :&= c_1 c_2^* - s_1 s_2^* cos theta
+    gamma_1(theta) :&= c_1 c_2^* - s_1 s_2^* cos theta in RR
     \
-    gamma_2(theta) :&= i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2)
+    gamma_2(theta) :&= i e^(i theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2) in CC
   $
 
   と定めると、
@@ -9035,6 +9273,8 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     $
   ]
 ]<relation_of_gamma_2_mu>
+
+(次回:20250821-2 ↓ $CC$用の$sqrt(dot)$を使って一行ずつ確かめる)
 
 #claim([$A(theta)$の対角化])[
 
