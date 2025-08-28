@@ -212,11 +212,22 @@
 ]<mat_conj>
 
 #definition([$CC$の定義])[
-  $CC := RR^2$ に 掛け算 $(a, b) dot.op (c, d) := (a c - b d, a d + b c) "を入れたもの"$
+  $CC := RR^2$ に、以下の演算を入れたもの
+  
+  積 $(a, b) dot.op (c, d) := (a c - b d, a d + b c)$
 ]
 
+#definition([$-1$倍])[
+  $z in CC$ について、
+  
+  $
+    -z := (-1) dot.op z
+  $
+]
+
+
 #definition([$CC$の実部/虚部])[
-  $x, y in RR, (x, y) in RR$について、
+  $x, y in RR, (x, y) in CC$について、
 
   #mapDef(
     $Re$, 
@@ -409,7 +420,7 @@
 ]
 
 #definition([角度表現の切断])[
-  $s_(angle) : RR \/ ~_(angle) -> (-pi, pi]$ を以下のように定める。
+  $s_((-pi, pi]) : RR \/ ~_(angle) -> (-pi, pi]$ を以下のように定める。
 
   $[theta]_(~_(angle)) in RR \/ ~_(angle)$ に対して、
 
@@ -424,7 +435,7 @@
   この $n$ を用いて、
 
   $
-    s_(angle)([theta]_(~_(angle))) := theta - 2n pi
+    s_((-pi, pi])([theta]_(~_(angle))) := theta - 2n pi
   $
 
   と定める。
@@ -447,7 +458,7 @@
     $RR times RR \/ ~_(angle)$,
     $RR \/ ~_(angle)$,
     $(a, [theta]_(~_(angle)))$,
-    $[a dot.op s_(angle)([theta]_(~_(angle)))]_(~_(angle))$,
+    $[a dot.op s_((-pi, pi])([theta]_(~_(angle)))]_(~_(angle))$,
     ""
   )
 
@@ -460,13 +471,13 @@
     $
       1/2 dot.op_("real") (-2 dot.op_("real") [pi/2]_(~_(angle)))
       &=
-      [1/2 dot.op s_(angle)[-2 dot.op s_(angle)([pi/2]_(~_(angle)))]_(~_(angle))]_(~_(angle))
+      [1/2 dot.op s_((-pi, pi])[-2 dot.op s_((-pi, pi])([pi/2]_(~_(angle)))]_(~_(angle))]_(~_(angle))
       \
       &=
-        [1/2 dot.op s_(angle)[-2 dot.op pi/2]_(~_(angle))]_(~_(angle))
+        [1/2 dot.op s_((-pi, pi])[-2 dot.op pi/2]_(~_(angle))]_(~_(angle))
       \
       &=
-        [1/2 dot.op s_(angle)[- pi]_(~_(angle))]_(~_(angle))
+        [1/2 dot.op s_((-pi, pi])[- pi]_(~_(angle))]_(~_(angle))
       \
       &=
         [1/2 dot.op pi]_(~_(angle))
@@ -478,7 +489,7 @@
     $
       (1/2 dot.op -2) dot.op_("real") [pi/2]_(~_(angle))
       &=
-        [-1 dot.op s_(angle)([pi/2]_(~_(angle)))]_(~_(angle))
+        [-1 dot.op s_((-pi, pi])([pi/2]_(~_(angle)))]_(~_(angle))
       \
       &=
         [-1 dot.op pi/2]_(~_(angle))
@@ -970,7 +981,25 @@
   $
 ]
 
-(次回20250823: ↓のdefの型があっていなかったので修正。$[(,)]$の2校目は、(角度表現)ではなく$RR$。$s_(angle)()$が必要？)
+#definition([絶対値, 偏角])[
+  $z in CC$ について、
+
+  $|dot|: CC -> RR_(>=0)$ を
+
+  $
+    |z| := "pr"_1(phi_("polar")(z))
+  $
+
+  と定め、zの絶対値と呼ぶ
+
+  $arg^((-pi, pi]): CC -> RR$ を
+
+  $
+    arg^((-pi, pi])(z) := s_((-pi, pi])("pr"_2(phi_("polar")(z)))
+  $
+
+  と定め、zの偏角と呼ぶ
+]
 
 #definition([$CC$のsqrt])[
   $sqrt(dot.c): CC -> CC$ を以下のように定める。
@@ -984,7 +1013,7 @@
     (
       [(
         sqrt("pr"_1(phi_("polar")(z)))^(RR_(>=0)), 
-        1/2 dot.op s_(angle)("pr"_2(phi_("polar")(z)))
+        1/2 dot.op s_((-pi, pi])("pr"_2(phi_("polar")(z)))
       )]_(~)
     )
   $
@@ -1008,7 +1037,7 @@
     (
       [
         sqrt(r)^(RR_(>=0)), 
-        1/2 dot.op s_(angle)([theta]_(~_(angle)))
+        1/2 dot.op s_((-pi, pi])([theta]_(~_(angle)))
       ]_(~)
     )
     \
@@ -1071,7 +1100,7 @@
       (
         [(
           sqrt("pr"_1(phi_("polar")(z_1 z_2)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2(phi_("polar")(z_1 z_2)))
+          1/2 dot.op s_((-pi, pi])("pr"_2(phi_("polar")(z_1 z_2)))
         )]_(~)
       )
       \
@@ -1080,7 +1109,7 @@
       (
         [(
           sqrt("pr"_1(phi_("polar")(z_1) phi_("polar")(z_2)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2(phi_("polar")(z_1) phi_("polar")(z_2)))
+          1/2 dot.op s_((-pi, pi])("pr"_2(phi_("polar")(z_1) phi_("polar")(z_2)))
         )]_(~)
       )
       quad
@@ -1091,7 +1120,7 @@
       (
         [(
           sqrt("pr"_1([(r_1, theta_1)]_(~) [(r_2, theta_2)]_(~)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2([(r_1, theta_1)]_(~) [(r_2, theta_2)]_(~)))
+          1/2 dot.op s_((-pi, pi])("pr"_2([(r_1, theta_1)]_(~) [(r_2, theta_2)]_(~)))
         )]_(~)
       )
       \
@@ -1100,7 +1129,7 @@
       (
         [(
           sqrt("pr"_1([(r_1 r_2, theta_1 + theta_2)]_(~)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2([(r_1 r_2, theta_1 + theta_2)]_(~)))
+          1/2 dot.op s_((-pi, pi])("pr"_2([(r_1 r_2, theta_1 + theta_2)]_(~)))
         )]_(~)
       )
       \
@@ -1109,14 +1138,14 @@
       (
         [(
           sqrt(r_1 r_2)^(RR_(>=0)), 
-          1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle)))
+          1/2 dot.op s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
         )]_(~)
       )
       \
       &=
       (
-        sqrt(r_1 r_2)^(RR_(>=0)) cos(1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle)))),
-        sqrt(r_1 r_2)^(RR_(>=0)) sin(1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle))))
+        sqrt(r_1 r_2)^(RR_(>=0)) cos(1/2 dot.op s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))),
+        sqrt(r_1 r_2)^(RR_(>=0)) sin(1/2 dot.op s_((-pi, pi])([theta_1 + theta_2]_(~_(angle))))
       )
     $
 
@@ -1127,14 +1156,14 @@
       (
         [(
           sqrt("pr"_1(phi_("polar")(z_1)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2(phi_("polar")(z_1)))
+          1/2 dot.op s_((-pi, pi])("pr"_2(phi_("polar")(z_1)))
         )]_(~)
       )
       phi_("cartesian")
       (
         [(
           sqrt("pr"_1(phi_("polar")(z_2)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2(phi_("polar")(z_2)))
+          1/2 dot.op s_((-pi, pi])("pr"_2(phi_("polar")(z_2)))
         )]_(~)
       )
       \
@@ -1143,14 +1172,14 @@
       (
         [(
           sqrt("pr"_1([(r_1, theta_1)]_(~)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2([(r_1, theta_1)]_(~)))
+          1/2 dot.op s_((-pi, pi])("pr"_2([(r_1, theta_1)]_(~)))
         )]_(~)
       )
       phi_("cartesian")
       (
         [(
           sqrt("pr"_1([(r_2, theta_2)]_(~)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2([(r_2, theta_2)]_(~)))
+          1/2 dot.op s_((-pi, pi])("pr"_2([(r_2, theta_2)]_(~)))
         )]_(~)
       )
       \
@@ -1159,61 +1188,61 @@
       (
         [(
           sqrt(r_1)^(RR_(>=0)), 
-          1/2 dot.op s_(angle)([theta_1]_(~_(angle)))
+          1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle)))
         )]_(~)
       )
       phi_("cartesian")
       (
         [(
           sqrt(r_2)^(RR_(>=0)), 
-          1/2 dot.op s_(angle)([theta_2]_(~_(angle)))
+          1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle)))
         )]_(~)
       )
       \
       &=
       (
-        sqrt(r_1)^(RR_(>=0)) cos(1/2 dot.op s_(angle)([theta_1]_(~_(angle)))),
-        sqrt(r_1)^(RR_(>=0)) sin(1/2 dot.op s_(angle)([theta_1]_(~_(angle))))
+        sqrt(r_1)^(RR_(>=0)) cos(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle)))),
+        sqrt(r_1)^(RR_(>=0)) sin(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))))
       )
       (
-        sqrt(r_2)^(RR_(>=0)) cos(1/2 dot.op s_(angle)([theta_2]_(~_(angle)))),
-        sqrt(r_2)^(RR_(>=0)) sin(1/2 dot.op s_(angle)([theta_2]_(~_(angle))))
+        sqrt(r_2)^(RR_(>=0)) cos(1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle)))),
+        sqrt(r_2)^(RR_(>=0)) sin(1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle))))
       )
       \
       &=
       //   CC := RR^2 に "掛け算" (a, b) dot.op (c, d) := (a c - b d, a d + b c) "を入れたもの"–
       (
-        sqrt(r_1)^(RR_(>=0)) cos(1/2 dot.op s_(angle)([theta_1]_(~_(angle))))
-          sqrt(r_2)^(RR_(>=0)) cos(1/2 dot.op s_(angle)([theta_2]_(~_(angle))))
+        sqrt(r_1)^(RR_(>=0)) cos(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))))
+          sqrt(r_2)^(RR_(>=0)) cos(1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle))))
         -
-        sqrt(r_1)^(RR_(>=0)) sin(1/2 dot.op s_(angle)([theta_1]_(~_(angle))))
-          sqrt(r_2)^(RR_(>=0)) sin(1/2 dot.op s_(angle)([theta_2]_(~_(angle)))),
+        sqrt(r_1)^(RR_(>=0)) sin(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))))
+          sqrt(r_2)^(RR_(>=0)) sin(1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle)))),
         \
-        &quad quad sqrt(r_1)^(RR_(>=0)) cos(1/2 dot.op s_(angle)([theta_1]_(~_(angle))))
-          sqrt(r_2)^(RR_(>=0)) sin(1/2 dot.op s_(angle)([theta_2]_(~_(angle))))
+        &quad quad sqrt(r_1)^(RR_(>=0)) cos(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))))
+          sqrt(r_2)^(RR_(>=0)) sin(1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle))))
         +
-        sqrt(r_1)^(RR_(>=0)) sin(1/2 dot.op s_(angle)([theta_1]_(~_(angle))))
-          sqrt(r_2)^(RR_(>=0)) cos(1/2 dot.op s_(angle)([theta_2]_(~_(angle))))
+        sqrt(r_1)^(RR_(>=0)) sin(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))))
+          sqrt(r_2)^(RR_(>=0)) cos(1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle))))
       )
       \
       &=
       (
         sqrt(r_1)^(RR_(>=0)) sqrt(r_2)^(RR_(>=0))
         (
-          cos(1/2 dot.op s_(angle)([theta_1]_(~_(angle))))
-          cos(1/2 dot.op s_(angle)([theta_2]_(~_(angle))))
+          cos(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))))
+          cos(1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle))))
           -
-          sin(1/2 dot.op s_(angle)([theta_1]_(~_(angle))))
-          sin(1/2 dot.op s_(angle)([theta_2]_(~_(angle))))
+          sin(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))))
+          sin(1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle))))
         ),
         \
         &quad quad sqrt(r_1)^(RR_(>=0)) sqrt(r_2)^(RR_(>=0))
         (
-          cos(1/2 dot.op s_(angle)([theta_1]_(~_(angle))))
-          sin(1/2 dot.op s_(angle)([theta_2]_(~_(angle))))
+          cos(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))))
+          sin(1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle))))
           +
-          sin(1/2 dot.op s_(angle)([theta_1]_(~_(angle))))
-          cos(1/2 dot.op s_(angle)([theta_2]_(~_(angle))))
+          sin(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))))
+          cos(1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle))))
         )
       )
       \
@@ -1221,22 +1250,22 @@
       (
         sqrt(r_1)^(RR_(>=0)) sqrt(r_2)^(RR_(>=0))
         (
-          cos(1/2 dot.op s_(angle)([theta_1]_(~_(angle))) + 1/2 dot.op s_(angle)([theta_2]_(~_(angle))))
+          cos(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))) + 1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle))))
         ),
         \
         &quad quad sqrt(r_1)^(RR_(>=0)) sqrt(r_2)^(RR_(>=0))
         (
-          cos(1/2 dot.op s_(angle)([theta_1]_(~_(angle))) + 1/2 dot.op s_(angle)([theta_2]_(~_(angle))))
+          cos(1/2 dot.op s_((-pi, pi])([theta_1]_(~_(angle))) + 1/2 dot.op s_((-pi, pi])([theta_2]_(~_(angle))))
         )
       )
       \
       &=
       (
         sqrt(r_1 r_2)^(RR_(>=0))
-        cos(1/2 dot.op (s_(angle)([theta_1]_(~_(angle))) + s_(angle)([theta_2]_(~_(angle)))))
+        cos(1/2 dot.op (s_((-pi, pi])([theta_1]_(~_(angle))) + s_((-pi, pi])([theta_2]_(~_(angle)))))
         ,
         sqrt(r_1 r_2)^(RR_(>=0))
-        sin(1/2 dot.op (s_(angle)([theta_1]_(~_(angle))) + s_(angle)([theta_2]_(~_(angle)))))
+        sin(1/2 dot.op (s_((-pi, pi])([theta_1]_(~_(angle))) + s_((-pi, pi])([theta_2]_(~_(angle)))))
       )
     $
 
@@ -1264,7 +1293,7 @@
     このとき、
 
     $
-      cos(1/2 dot.op (s_(angle)([theta_1]_(~_(angle))) + s_(angle)([theta_2]_(~_(angle)))))
+      cos(1/2 dot.op (s_((-pi, pi])([theta_1]_(~_(angle))) + s_((-pi, pi])([theta_2]_(~_(angle)))))
       &=
       cos(1/2 dot.op (theta_1 - 2m_1 pi + theta_2 - 2m_2 pi))
       \
@@ -1278,6 +1307,23 @@
       )
     $
 
+    同様に
+
+    $
+      sin(1/2 dot.op (s_((-pi, pi])([theta_1]_(~_(angle))) + s_((-pi, pi])([theta_2]_(~_(angle)))))
+      &=
+      sin(1/2 dot.op (theta_1 - 2m_1 pi + theta_2 - 2m_2 pi))
+      \
+      &=
+      sin((theta_1 + theta_2)/2 - (m_1 + m_2) pi)
+      \
+      &=
+      cases(
+        sin((theta_1 + theta_2)/2) & quad (m_1 + m_2"は偶数"),
+        -sin((theta_1 + theta_2)/2) & quad (m_1 + m_2"は奇数")
+      )
+    $
+
     また、
 
     $
@@ -1286,41 +1332,145 @@
 
     であるから、
 
+    
     ii.a $-2pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= -pi$ のとき、
 
     $
-      -pi < theta_1 + theta_2 - (2m_1 + 2m_2 - 1) pi <= 0
+      0 < theta_1 + theta_2 - (2m_1 + 2m_2 - 2) pi <= pi
+      \
+      0 < theta_1 + theta_2 - 2(m_1 + m_2 - 1) pi <= pi
     $
 
     より、
 
     $
-      cos(1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle))))
+      cos(1/2 dot.op s_((-pi, pi])([theta_1 + theta_2]_(~_(angle))))
       &=
-      cos(1/2 dot.op (theta_1 + theta_2 - (2m_1 + 2m_2 - 1) pi))
+      cos(1/2 dot.op (theta_1 + theta_2 - 2(m_1 + m_2 - 1) pi))
       \
       &=
-      cos((theta_1 + theta_2)/2 - (m_1 + m_2 - 1/2) pi)
+      cos((theta_1 + theta_2)/2 - (m_1 + m_2 - 1) pi)
       \
       &=
       cases(
-        cos(1/2 dot.op (theta_1 + theta_2)) & quad (m"は偶数"),
-        -cos(1/2 dot.op (theta_1 + theta_2)) & quad (m"は奇数")
+        cos((theta_1 + theta_2)/2) & quad (m_1 + m_2 - 1"は偶数"),
+        -cos((theta_1 + theta_2)/2) & quad (m_1 + m_2 - 1"は奇数")
+      )
+      \
+      &=
+      cases(
+        -cos((theta_1 + theta_2)/2) & quad (m_1 + m_2"は偶数"),
+        cos((theta_1 + theta_2)/2) & quad (m_1 + m_2"は奇数")
       )
     $
 
     同様に
 
     $
-      sin(1/2 dot.op s_(angle)([theta_1 + theta_2]_(~_(angle))))
+      sin(1/2 dot.op s_((-pi, pi])([theta_1 + theta_2]_(~_(angle))))
       &=
-      sin(1/2 dot.op (theta_1 + theta_2 - 2m pi))
+      sin(1/2 (theta_1 + theta_2 - 2(m_1 + m_2 - 1) pi))
       \
       &=
-      sin(1/2 dot.op (theta_1 + theta_2) - m pi)
+      sin((theta_1 + theta_2)/2 - (m_1 + m_2 - 1) pi)
       \
       &=
-      sin(1/2 dot.op (theta_1 + theta_2))
+      cases(
+        sin((theta_1 + theta_2)/2) & quad (m_1 + m_2 - 1"は偶数"),
+        -sin((theta_1 + theta_2)/2) & quad (m_1 + m_2 - 1"は奇数")
+      )
+      \
+      &=
+      cases(
+        -sin((theta_1 + theta_2)/2) & quad (m_1 + m_2"は偶数"),
+        sin((theta_1 + theta_2)/2) & quad (m_1 + m_2"は奇数")
+      )
+    $
+
+ii.b $-pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= pi$ のとき、
+
+    $
+      cos(1/2 dot.op s_((-pi, pi])([theta_1 + theta_2]_(~_(angle))))
+      &=
+      cos(1/2 dot.op (theta_1 + theta_2 - 2(m_1 + m_2) pi))
+      \
+      &=
+      cos((theta_1 + theta_2)/2 - (m_1 + m_2) pi)
+      \
+      &=
+      cases(
+        cos((theta_1 + theta_2)/2) & quad (m_1 + m_2"は偶数"),
+        -cos((theta_1 + theta_2)/2) & quad (m_1 + m_2"は奇数")
+      )
+    $
+
+    同様に
+
+    $
+      sin(1/2 dot.op s_((-pi, pi])([theta_1 + theta_2]_(~_(angle))))
+      &=
+      sin(1/2 dot.op (theta_1 + theta_2 - 2(m_1 + m_2) pi))
+      \
+      &=
+      sin((theta_1 + theta_2)/2 - (m_1 + m_2) pi)
+      \
+      &=
+      cases(
+        sin((theta_1 + theta_2)/2) & quad (m_1 + m_2"は偶数"),
+        -sin((theta_1 + theta_2)/2) & quad (m_1 + m_2"は奇数")
+      )
+    $
+
+ii.c $pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= 2pi$ のとき、
+
+    $
+      -pi < theta_1 + theta_2 - 2(m_1 + m_2 + 1) pi <= 0
+    $
+
+    より、
+
+    $
+      cos(1/2 dot.op s_((-pi, pi])([theta_1 + theta_2]_(~_(angle))))
+      &=
+      cos(1/2 dot.op (theta_1 + theta_2 - 2(m_1 + m_2 + 1) pi))
+      \
+      &=
+      cos((theta_1 + theta_2)/2 - (m_1 + m_2 + 1) pi)
+      \
+      &=
+      cases(
+        cos((theta_1 + theta_2)/2) & quad (m_1 + m_2 + 1"は偶数"),
+        -cos((theta_1 + theta_2)/2) & quad (m_1 + m_2 + 1"は奇数")
+      )
+      \
+      &=
+      cases(
+        -cos((theta_1 + theta_2)/2) & quad (m_1 + m_2"は偶数"),
+        cos((theta_1 + theta_2)/2) & quad (m_1 + m_2"は奇数")
+      )
+    $
+
+    同様に
+  
+    $
+      sin(1/2 dot.op s_((-pi, pi])([theta_1 + theta_2]_(~_(angle))))
+      &=
+      sin(1/2 dot.op (theta_1 + theta_2 - 2(m_1 + m_2 + 1) pi))
+      \
+      &=
+      sin((theta_1 + theta_2)/2 - (m_1 + m_2 + 1) pi)
+      \
+      &=
+      cases(
+        sin((theta_1 + theta_2)/2) & quad (m_1 + m_2 + 1"は偶数"),
+        -sin((theta_1 + theta_2)/2) & quad (m_1 + m_2 + 1"は奇数")
+      )
+      \
+      &=
+      cases(
+        -sin((theta_1 + theta_2)/2) & quad (m_1 + m_2"は偶数"),
+        sin((theta_1 + theta_2)/2) & quad (m_1 + m_2"は奇数")
+      )
     $
 
     よって、
@@ -1329,20 +1479,25 @@
       sqrt(z_1 z_2)
       &=
       cases(
-        sqrt(z_1) sqrt(z_2) & quad ((r_1 = 0 or r_2 = 0) or exists m in ZZ "s.t." m "は偶数", -pi < theta_1 + theta_2 - 2m pi <= pi),
-        (-Re(sqrt(z_1) sqrt(z_2)), Im(sqrt(z_1) sqrt(z_2))) & quad ((r_1 = 0 or r_2 = 0) or exists m in ZZ "s.t." m "は奇数", -pi < theta_1 + theta_2 - 2m pi <= pi),
+        -sqrt(z_1) sqrt(z_2) & quad (exists m in ZZ "s.t." -2pi < theta_1 + theta_2 - 2m pi <= -pi),
+        sqrt(z_1) sqrt(z_2) & quad ((r_1 = 0 or r_2 = 0) or exists m in ZZ "s.t." -pi < theta_1 + theta_2 - 2m pi <= pi),
+        -sqrt(z_1) sqrt(z_2) & quad (exists m in ZZ "s.t." pi < theta_1 + theta_2 - 2m pi <= 2pi),
       )
     $
 
     $qed$
   ]
-]
+]<condition_of_commutativity_of_sqrt_and_product>
 
 #remark()[
   $z_1, z_2 in CC$について、
 
   $
-    -pi < arg(z_1 z_2) <= pi => sqrt(z_1 z_2) = sqrt(z_1) sqrt(z_2)
+    -2pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= -pi => sqrt(z_1 z_2) = -sqrt(z_1) sqrt(z_2)
+    \
+    -pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= pi => sqrt(z_1 z_2) = sqrt(z_1) sqrt(z_2)
+    \
+    pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= 2pi => sqrt(z_1 z_2) = -sqrt(z_1) sqrt(z_2)
   $
 ]
 
@@ -1351,12 +1506,18 @@
 
   $r in RR_(>0), theta in RR$を用いて、
 
-  $phi_("polar")(z) = [(r, theta)]_(~)$ となるとき、
+  $phi_("polar")(z) = [(r, theta)]_(~)$
+  
+  $n in ZZ$ を用いて、
+
+  $-pi < theta - 2n pi <= pi$
+  
+  となるとき、
 
   $
-    sqrt(1 / z) = cases(
-      1 / sqrt(z) & quad (exists m in ZZ "s.t." m "は偶数", -pi < -theta - 2m pi <= pi),
-      (-Re(1 / sqrt(z)), Im(1 / sqrt(z))) & quad (exists m in ZZ "s.t." m "は奇数", -pi < -theta - 2m pi <= pi),
+    sqrt(1/z) = cases(
+      1/sqrt(z) & quad (-pi < theta - 2n pi < pi),
+      -(1/sqrt(z)) & quad (theta = (2n + 1) pi),
     )
   $
 
@@ -1372,346 +1533,113 @@
 
     $-pi < theta - 2n pi <= pi$ とする。
 
+    このとき、
+
     $
-      sqrt(1 / z)
+      arg^((-pi, pi])(z) = theta - 2n pi
+    $
+
+    また、
+
+    $
+      phi_("polar")(1 / z)
       &=
-      phi_("cartesian")
-      (
-        [(
-          sqrt("pr"_1(phi_("polar")(1 / z)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2(phi_("polar")(1 / z)))
-        )]_(~)
-      )
+      phi_("polar")(z^(-1))
       \
       &=
-      phi_("cartesian")
-      (
-        [(
-          sqrt("pr"_1(phi_("polar")(z^(-1))))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2(phi_("polar")(z^(-1))))
-        )]_(~)
-      )
+      ([(r, theta)]_(~))^(-1) quad (because phi_("polar")"の同型性")
       \
       &=
-      phi_("cartesian")
-      (
-        [(
-          sqrt("pr"_1((phi_("polar")(z))^(-1)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2((phi_("polar")(z))^(-1)))
-        )]_(~)
-      )
+      [(1/r, -theta)]_(~)
+    $
+
+    より、
+
+    $
+      arg^((-pi, pi])(1 / z)
+      &=
+      s_((-pi, pi])("pr"_2(phi_("polar")(1 / z)))
       \
       &=
-      phi_("cartesian")
-      (
-        [(
-          sqrt("pr"_1(([(r, theta)]_(~))^(-1)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2(([(r, theta)]_(~))^(-1)))
-        )]_(~)
-      )
+      s_((-pi, pi])([-theta]_(~_(angle)))
       \
       &=
-      phi_("cartesian")
-      (
-        [(
-          sqrt("pr"_1([(1 / r, -theta)]_(~)))^(RR_(>=0)), 
-          1/2 dot.op s_(angle)("pr"_2([(1 / r, -theta)]_(~)))
-        )]_(~)
-      )
-      \
-      &=
-      phi_("cartesian")
-      (
-        [(
-          sqrt(1 / r)^(RR_(>=0)), 
-          1/2 dot.op s_(angle)([-theta]_(~_(angle)))
-        )]_(~)
-      )
-      \
-      &=
-      phi_("cartesian")
-      (
-        [(
-          sqrt(1 / r)^(RR_(>=0)), 
-          [1/2 dot.op (
-            cases(
-              -theta -2(-n)pi & quad (-pi < -theta - 2(-n)pi),
-              pi & quad (-theta - 2(-n)pi = -pi)
-            )
-          )]_(~_(angle))
-        )]_(~)
+      cases(
+        -theta - 2(-n)pi &quad (-pi < theta - 2n pi < pi), 
+        pi &quad (theta - 2n pi = pi),
       )
       quad
       (
-        because
-        -pi < theta - 2n pi <= pi <=> -pi <= -theta - 2(-n) pi < pi
+        because -pi < theta - 2n pi <= pi <=> -pi <= -theta - 2(-n) pi < pi
       )
-      \
-      &=
-      phi_("cartesian")
-      (
-        [(
-          sqrt(1 / r)^(RR_(>=0)), 
-          [
-            cases(
-              -theta/2 + n pi & quad (theta < (2n + 1)pi),
-              pi/2 & quad (theta = (2n + 1)pi)
-            )
-          ]_(~_(angle))
-        )]_(~)
-      )
-      \
-      &=
-      cases(
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            [
-              -theta/2 + n pi
-            ]_(~_(angle))
-          ]_(~)
-        )
-        &quad (theta < (2n + 1)pi),
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            [
-              pi/2
-            ]_(~_(angle))
-          ]_(~)
-        )
-        & quad (theta = (2n + 1)pi)
-      )
-      \
-      &=
-      cases(
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            [
-              1/2
-              dot.op
-              (-theta + 2n pi)
-            ]_(~_(angle))
-          ]_(~)
-        )
-        &quad (theta < (2n + 1)pi),
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            [
-              1/2
-              dot.op
-              pi
-            ]_(~_(angle))
-          ]_(~)
-        )
-        & quad (theta = (2n + 1)pi)
-      )
-      \
-      &=
-      cases(
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            [
-              1/2
-              dot.op
-              (-theta - 2 (-n) pi)
-            ]_(~_(angle))
-          ]_(~)
-        )
-        &quad (theta < (2n + 1)pi),
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            [
-              1/2
-              dot.op
-              (pi - 2 dot.op 0 pi)
-            ]_(~_(angle))
-          ]_(~)
-        )
-        & quad (theta = (2n + 1)pi)
-      )
-      \
-      &=
-      cases(
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            [
-              1/2
-              dot.op
-              (-theta - 2 (-n) pi)
-            ]_(~_(angle))
-          ]_(~)
-        )
-        &quad (theta < (2n + 1)pi),
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            [
-              1/2
-              dot.op
-              (pi - 2 dot.op 0 pi)
-            ]_(~_(angle))
-          ]_(~)
-        )
-        & quad (theta = (2n + 1)pi)
-      )
-      \
-      &=
-      cases(
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            [
-              1/2
-              dot.op
-              s_(angle)([-theta + 2n pi]_(~_(angle)))
-            ]_(~_(angle))
-          ]_(~)
-        )
-        &quad (theta < (2n + 1)pi),
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            [
-              1/2
-              dot.op
-              s_(angle)([pi]_(~_(angle)))
-            ]_(~_(angle))
-          ]_(~)
-        )
-        & quad (theta = (2n + 1)pi)
-      )
-      quad
-      (
-        because
-        #block[
-          #align(left + horizon)[
-          $-pi < theta - 2n pi <= pi and theta < (2n + 1)pi <=> -pi < -theta + 2n pi < pi$
-          
-          $-pi < pi <= pi$
+    $
 
-          より
-          ]
+    だから、
 
-        ]
+    $
+      arg^((-pi, pi])(z) + arg^((-pi, pi])(1 / z)
+      &=
+      cases(
+        theta - 2n pi + (-theta - 2(-n)pi) &quad (-pi < theta - 2n pi < pi), 
+        theta - 2n pi + pi &quad (theta - 2n pi = pi),
       )
       \
       &=
       cases(
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            1/2
-            dot.op_("real")
-            [
-              -theta + 2n pi
-            ]_(~_(angle))
-          ]_(~)
-        )
-        &quad (theta < (2n + 1)pi),
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            1/2
-            dot.op_("real")
-            [
-              pi              
-            ]_(~_(angle))
-          ]_(~)
-        )
-        & quad (theta = (2n + 1)pi)
+        - 2n pi + (2n pi) &quad (-pi < theta - 2n pi < pi), 
+        pi + pi &quad (theta - 2n pi = pi),
       )
       \
       &=
       cases(
-        phi_("cartesian")(
-          [
-            sqrt(
-              "pr"_1(
-                [(
-                  1 / r,
-                  1/2
-                  dot.op_("real")
-                  [
-                    -theta + 2n pi
-                  ]_(~_(angle))
-                )]_(~)
-              )
-            )^(RR_(>=0)), 
-            "pr"_2(
-              [(
-                1 / r,
-                1/2
-                dot.op_("real")
-                [
-                  -theta + 2n pi
-                ]_(~_(angle))
-              )]_(~)
-            )
-          ]_(~)
-        )
-        &quad (theta < (2n + 1)pi),
-        phi_("cartesian")(
-          [
-            sqrt(1 / r)^(RR_(>=0)), 
-            1/2
-            dot.op_("real")
-            [
-              pi              
-            ]_(~_(angle))
-          ]_(~)
-        )
-        & quad (theta = (2n + 1)pi)
+        0 &quad (-pi < theta - 2n pi < pi), 
+        2pi &quad (theta - 2n pi = pi <=> theta = (2n + 1) pi),
       )
-      // \
-      // &=
-      // phi_("cartesian")
-      // (
-      //   [
-      //     sqrt(1 / r)^(RR_(>=0)), 
-      //     cases(
-      //       -theta/2 + n pi & quad (theta < (2n + 1)pi),
-      //       pi/2 & quad (theta = (2n + 1)pi)
-      //     )
-      //   ]_(~)
-      // )
-      // quad
-      // (
-      //   because
-      //   #block[
-      //     #align(left + horizon)[
-      //     $-pi < theta - 2n pi <= pi <=> (2n - 1)pi < theta <= (2n + 1)pi$
-          
-      //     より、
-          
-      //     $-(2n + 1)pi/2 + n pi <= -theta/2  + n pi < -(2n - 1)pi/2 + n pi$
-          
-      //     $(-(2n + 1)pi + 2n pi)/2 <= -theta/2  + n pi < (-(2n - 1)pi + 2n pi)/2$
-          
-      //     $-pi < (- pi)/2 <= -theta/2  + n pi < (pi)/2 <= pi$
-      //     ]
+    $
 
-      //   ]
-      // )
-      // \
-      // &=
-      // phi_("cartesian")
-      // (
-      //   [
-      //     sqrt(1 / r)^(RR_(>=0)), 
-      //     cases(
-      //       -theta/2 + n pi & quad (theta < (2n + 1)pi),
-      //       pi/2 & quad (theta = (2n + 1)pi)
-      //     )
-      //   ]_(~)
-      // )
+    $
+      sqrt(z) dot.op sqrt(1 / z)
+      &=
+      cases(
+        sqrt(z dot.op 1/z) & quad (-pi < theta - 2n pi < pi),
+        -sqrt(z dot.op 1/z) & quad (theta = (2n + 1) pi),
+      )
+      \
+      &=
+      cases(
+        sqrt(1) & quad (-pi < theta - 2n pi < pi),
+        -sqrt(1) & quad (theta = (2n + 1) pi),
+      )
+      \
+      &=
+      cases(
+        1 & quad (-pi < theta - 2n pi < pi),
+        -1 & quad (theta = (2n + 1) pi),
+      )
+    $
+
+    以上から
+
+    $
+      sqrt(1/z) = cases(
+        1/sqrt(z) & quad (-pi < theta - 2n pi < pi),
+        -(1/sqrt(z)) & quad (theta = (2n + 1) pi),
+      )
     $
   ]
+]<inverse_of_sqrt_cc>
+
+#remark[
+  
+  $z in CC^(times)$ について、
+
+  $
+    sqrt(1/z) = cases(
+        1/sqrt(z) & quad (-pi < arg^( (-pi, pi])(z) < pi <=> z in.not RR_(<0)),
+        -(1/sqrt(z)) & quad (arg^( (-pi, pi])(z) = pi <=> z in RR_(<0)),
+
+    )
+  $
 ]
 
 
@@ -9593,7 +9521,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
 #claim([$gamma_1(theta), gamma_2(theta)$の偏角])[
   $
-      arg(gamma_1(theta))
+    arg(gamma_1(theta))
     =
     cases(
       0 & quad (cos(theta) <= (c_1 c_2^*) / (s_1 s_2^*)),
@@ -9645,28 +9573,28 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     $
       gamma_2(-theta)
       &=
-      sqrt(-1) e^(sqrt(-1) (-theta)) s_2^* (c_1 cos (-theta) - i sin (-theta) - s_1 c_2)
+      sqrt(-1) e^(sqrt(-1) (-theta)) s_2^* (c_1 cos (-theta) - sqrt(-1) sin (-theta) - s_1 c_2)
       \
       &=
-      sqrt(-1) e^(-sqrt(-1) theta) s_2^* (c_1 cos (theta) + i sin (theta) - s_1 c_2)
+      sqrt(-1) e^(-sqrt(-1) theta) s_2^* (c_1 cos (theta) + sqrt(-1) sin (theta) - s_1 c_2)
     $
 
     $
       gamma_2(theta)^dagger
       &=
       (
-        sqrt(-1) e^(sqrt(-1) theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2)
+        sqrt(-1) e^(sqrt(-1) theta) s_2^* (c_1 cos theta - sqrt(-1) sin theta - s_1 c_2)
       )^dagger
       \
       &=
       (sqrt(-1))^dagger
       (
-        e^(sqrt(-1) theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2)
+        e^(sqrt(-1) theta) s_2^* (c_1 cos theta - sqrt(-1) sin theta - s_1 c_2)
       )
       ^dagger
       \
       &=
-      - sqrt(-1) e^(-sqrt(-1) theta) (c_1 cos theta + i sin theta - s_1 c_2)^dagger s_2
+      - sqrt(-1) e^(-sqrt(-1) theta) (c_1 cos theta + sqrt(-1) sin theta - s_1 c_2)^dagger s_2
     $
   ]
 ]<relation_of_gamma_2>
@@ -9687,7 +9615,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $mu in cal(M)$について、
 
   $
-    arg(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) = pi
+    arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) = pi
   $
 
   #proof[
@@ -9777,7 +9705,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       < 0
     $
   ]
-]<relation_of_gamma_2_mu>
+]<arg_of_gamma_2_mu>
 
 (次回:20250821-2 ↓ $CC$用の$sqrt(dot)$を使って一行ずつ確かめる)
 
@@ -10663,52 +10591,86 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         gamma_2(-theta_(mu)),
         (
           plus.minus
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )^2
-            / 
-            (
-              -
+          (
+            sqrt(
               (
                 gamma_2(theta_(mu))
-              )
+                gamma_2(-theta_(mu))
+              )^2
+            )
+          )
+          dot.op
+          (
+            -
+            sqrt(
+              1
+              /
               (
+                -
+                (
+                  gamma_2(theta_(mu))
+                )
+                (
+                  gamma_2(-theta_(mu))
+                )
+              )
+            )
+          )
+        )
+        ;
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
+      )
+      mat(v_1; v_2)
+      &=
+      0
+      \
+      mat(
+        gamma_2(-theta_(mu)),
+        plus.minus
+        (
+          -
+          (
+            sqrt(
+              (
+                gamma_2(theta_(mu))
                 gamma_2(-theta_(mu))
               )
             )
           )
-        )
-        ;
-        - gamma_2(-theta_(mu)),
-        plus.minus
-        sqrt(
-          -
+          dot.op
           (
-            gamma_2(theta_(mu))
-          )
-          (
-            gamma_2(-theta_(mu))
-          )
-        );
-      )
-      mat(v_1; v_2)
-      &=
-      0
-      \
-      mat(
-        gamma_2(-theta_(mu)),
-        (
-          plus.minus
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+                gamma_2(-theta_(mu))
+              )
             )
-            / 
-            (
-              -1
+          )
+          dot.op
+          (
+            -
+            sqrt(
+              1
+              /
+              (
+                -
+                (
+                  gamma_2(theta_(mu))
+                )
+                (
+                  gamma_2(-theta_(mu))
+                )
+              )
             )
           )
         )
@@ -10724,152 +10686,285 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
             gamma_2(-theta_(mu))
           )
         );
-      )
-      mat(v_1; v_2)
-      &=
-      0
-      \
-      mat(
-        gamma_2(-theta_(mu)),
-        (
-          plus.minus
-          sqrt(
-            1/(-1)
-          )
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-        )
-        ;
-        - gamma_2(-theta_(mu)),
-        plus.minus
-        sqrt(
-          -
-          (
-            gamma_2(theta_(mu))
-          )
-          (
-            gamma_2(-theta_(mu))
-          )
-        );
-      )
-      mat(v_1; v_2)
-      &=
-      0
-      \
-      mat(
-        gamma_2(-theta_(mu)),
-        (
-          sqrt(
-            -1
-          )
-          /
-          (
-            plus.minus
-            (-1)
-          )
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-        )
-        ;
-        - gamma_2(-theta_(mu)),
-        plus.minus
-        sqrt(
-          -1
-        )
-        sqrt(
-          (
-            gamma_2(theta_(mu))
-          )
-          (
-            gamma_2(-theta_(mu))
-          )
-        );
-      )
-      mat(v_1; v_2)
-      &=
-      0
-      \
-      mat(
-        gamma_2(-theta_(mu)),
-        (
-          minus.plus
-          sqrt(
-            -1
-          )
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-        )
-        ;
-        - gamma_2(-theta_(mu)),
-        plus.minus
-        sqrt(
-          -1
-        )
-        sqrt(
-          (
-            gamma_2(theta_(mu))
-          )
-          (
-            gamma_2(-theta_(mu))
-          )
-        );
-      )
-      mat(v_1; v_2)
-      &=
-      0
-      \
-      mat(
-        gamma_2(-theta_(mu)),
-        (
-          minus.plus
-          sqrt(
-            -1
-          )
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-        )
-        ;
-        0,
-        0;
       )
       mat(v_1; v_2)
       &=
       0
       quad
-      (because "行列の基本変形")
-      \
-      gamma_2(-theta_(mu))
-      v_1
-      +
       (
-        minus.plus
-        sqrt(
-          -1
-        )
-        sqrt(
+        because #ref(<condition_of_commutativity_of_sqrt_and_product>) "かつ" #ref(<arg_of_gamma_2_mu>) "のため"
+      )
+      \
+      (次回20250828: ↓ここから計算。sqrtの展開 mergeを慎重に)
+      \
+      mat(
+        gamma_2(-theta_(mu)),
+        plus.minus
+        (
+          -
           (
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+                gamma_2(-theta_(mu))
+              )
+            )
+          )
+          dot.op
+          (
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+                gamma_2(-theta_(mu))
+              )
+            )
+          )
+          dot.op
+          (
+            -
+            sqrt(
+              1
+              /
+              (
+                -
+                (
+                  gamma_2(theta_(mu))
+                )
+                (
+                  gamma_2(-theta_(mu))
+                )
+              )
+            )
           )
         )
+        ;
+        - gamma_2(-theta_(mu)),
+        plus.minus
+        sqrt(
+          -
+          (
+            gamma_2(theta_(mu))
+          )
+          (
+            gamma_2(-theta_(mu))
+          )
+        );
       )
-      v_2
+      mat(v_1; v_2)
       &=
       0
+      // \
+      // mat(
+      //   gamma_2(-theta_(mu)),
+      //   (
+      //     plus.minus
+      //     sqrt(
+      //       (
+      //         gamma_2(theta_(mu))
+      //         gamma_2(-theta_(mu))
+      //       )^2
+      //       / 
+      //       (
+      //         -
+      //         (
+      //           gamma_2(theta_(mu))
+      //         )
+      //         (
+      //           gamma_2(-theta_(mu))
+      //         )
+      //       )
+      //     )
+      //   )
+      //   ;
+      //   - gamma_2(-theta_(mu)),
+      //   plus.minus
+      //   sqrt(
+      //     -
+      //     (
+      //       gamma_2(theta_(mu))
+      //     )
+      //     (
+      //       gamma_2(-theta_(mu))
+      //     )
+      //   );
+      // )
+      // mat(v_1; v_2)
+      // &=
+      // 0
+      // \
+      // mat(
+      //   gamma_2(-theta_(mu)),
+      //   (
+      //     plus.minus
+      //     sqrt(
+      //       (
+      //         gamma_2(theta_(mu))
+      //         gamma_2(-theta_(mu))
+      //       )
+      //       / 
+      //       (
+      //         -1
+      //       )
+      //     )
+      //   )
+      //   ;
+      //   - gamma_2(-theta_(mu)),
+      //   plus.minus
+      //   sqrt(
+      //     -
+      //     (
+      //       gamma_2(theta_(mu))
+      //     )
+      //     (
+      //       gamma_2(-theta_(mu))
+      //     )
+      //   );
+      // )
+      // mat(v_1; v_2)
+      // &=
+      // 0
+      // \
+      // mat(
+      //   gamma_2(-theta_(mu)),
+      //   (
+      //     plus.minus
+      //     sqrt(
+      //       1/(-1)
+      //     )
+      //     sqrt(
+      //       gamma_2(theta_(mu))
+      //       gamma_2(-theta_(mu))
+      //     )
+      //   )
+      //   ;
+      //   - gamma_2(-theta_(mu)),
+      //   plus.minus
+      //   sqrt(
+      //     -
+      //     (
+      //       gamma_2(theta_(mu))
+      //     )
+      //     (
+      //       gamma_2(-theta_(mu))
+      //     )
+      //   );
+      // )
+      // mat(v_1; v_2)
+      // &=
+      // 0
+      // \
+      // mat(
+      //   gamma_2(-theta_(mu)),
+      //   (
+      //     sqrt(
+      //       -1
+      //     )
+      //     /
+      //     (
+      //       plus.minus
+      //       (-1)
+      //     )
+      //     sqrt(
+      //       (
+      //         gamma_2(theta_(mu))
+      //         gamma_2(-theta_(mu))
+      //       )
+      //     )
+      //   )
+      //   ;
+      //   - gamma_2(-theta_(mu)),
+      //   plus.minus
+      //   sqrt(
+      //     -1
+      //   )
+      //   sqrt(
+      //     (
+      //       gamma_2(theta_(mu))
+      //     )
+      //     (
+      //       gamma_2(-theta_(mu))
+      //     )
+      //   );
+      // )
+      // mat(v_1; v_2)
+      // &=
+      // 0
+      // \
+      // mat(
+      //   gamma_2(-theta_(mu)),
+      //   (
+      //     minus.plus
+      //     sqrt(
+      //       -1
+      //     )
+      //     sqrt(
+      //       (
+      //         gamma_2(theta_(mu))
+      //         gamma_2(-theta_(mu))
+      //       )
+      //     )
+      //   )
+      //   ;
+      //   - gamma_2(-theta_(mu)),
+      //   plus.minus
+      //   sqrt(
+      //     -1
+      //   )
+      //   sqrt(
+      //     (
+      //       gamma_2(theta_(mu))
+      //     )
+      //     (
+      //       gamma_2(-theta_(mu))
+      //     )
+      //   );
+      // )
+      // mat(v_1; v_2)
+      // &=
+      // 0
+      // \
+      // mat(
+      //   gamma_2(-theta_(mu)),
+      //   (
+      //     minus.plus
+      //     sqrt(
+      //       -1
+      //     )
+      //     sqrt(
+      //       (
+      //         gamma_2(theta_(mu))
+      //         gamma_2(-theta_(mu))
+      //       )
+      //     )
+      //   )
+      //   ;
+      //   0,
+      //   0;
+      // )
+      // mat(v_1; v_2)
+      // &=
+      // 0
+      // quad
+      // (because "行列の基本変形")
+      // \
+      // gamma_2(-theta_(mu))
+      // v_1
+      // +
+      // (
+      //   minus.plus
+      //   sqrt(
+      //     -1
+      //   )
+      //   sqrt(
+      //     (
+      //       gamma_2(theta_(mu))
+      //       gamma_2(-theta_(mu))
+      //     )
+      //   )
+      // )
+      // v_2
+      // &=
+      // 0
     $
 
     よって、$c in CC$として、
