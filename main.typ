@@ -1729,7 +1729,7 @@ ii.c $pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= 2pi$ のとき、
   $
     sqrt(1/z) = cases(
       1/sqrt(z) & quad (-pi < theta - 2n pi < pi),
-      -(1/sqrt(z)) & quad (theta = (2n + 1) pi),
+      -(1/sqrt(z)) & quad (theta - 2n pi = pi),
     )
   $
 
@@ -9700,7 +9700,7 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $
     gamma_1(theta) :&= c_1 c_2^* - s_1 s_2^* cos theta in RR
     \
-    gamma_2(theta) :&= sqrt(-1) e^(sqrt(-1) theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2) in CC
+    gamma_2(theta) :&= sqrt(-1) e^(sqrt(-1) theta) s_2^* (c_1 cos theta - sqrt(-1) sin theta - s_1 c_2) in CC
   $
 
   と定めると、
@@ -9712,8 +9712,8 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       c_1 c_2^*
       -
       s_1 s_2^* cos theta,
-      sqrt(-1) e^(sqrt(-1) theta) s_2^* (c_1 cos theta - i sin theta - s_1 c_2);
-      - sqrt(-1) e^(-sqrt(-1) theta) s_2^* (c_1 cos theta + i sin theta - s_1 c_2),
+      sqrt(-1) e^(sqrt(-1) theta) s_2^* (c_1 cos theta - sqrt(-1) sin theta - s_1 c_2);
+      - sqrt(-1) e^(-sqrt(-1) theta) s_2^* (c_1 cos theta + sqrt(-1) sin theta - s_1 c_2),
       c_1 c_2^*
       -
       s_1 s_2^* cos theta;
@@ -9772,16 +9772,18 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
 #claim([$gamma_2(theta)$と$gamma_2(-theta)$の関係])[
 
-  (TODO: この定理、型が怪しい)
-
   $
     gamma_2(-theta) = -overline(gamma_2(theta))
   $
 
   ゆえに、
-
   $
-    gamma_2(theta) gamma_2(-theta) = |gamma_2(theta)|^2 > 0
+    gamma_2(theta) gamma_2(-theta)
+    &= 
+    gamma_2(theta) (-overline(gamma_2(theta)))
+    \
+    &=
+    - |gamma_2(theta)|^2
   $
 
   #proof[
@@ -9795,21 +9797,40 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     $
 
     $
-      gamma_2(theta)^dagger
+      overline(gamma_2(theta))
       &=
-      (
+      overline((
         sqrt(-1) e^(sqrt(-1) theta) s_2^* (c_1 cos theta - sqrt(-1) sin theta - s_1 c_2)
-      )^dagger
+      ))
       \
       &=
-      (sqrt(-1))^dagger
+      (overline(sqrt(-1)))
+      (overline(
+        e^(sqrt(-1) theta)
+      ))
+      (overline(
+        s_2^*
+      ))
+      (overline(
+        c_1 cos theta - sqrt(-1) sin theta - s_1 c_2
+      ))
+      \
+      &=
+      (-sqrt(-1))
+      (e^(-sqrt(-1) theta))
+      (s_2^*)
+      (c_1 cos theta + sqrt(-1) sin theta - s_1 c_2)
+      \
+      &=
+      -
       (
-        e^(sqrt(-1) theta) s_2^* (c_1 cos theta - sqrt(-1) sin theta - s_1 c_2)
+        sqrt(-1) e^(-sqrt(-1) theta) s_2^* (c_1 cos theta + sqrt(-1) sin theta - s_1 c_2)
       )
-      ^dagger
       \
       &=
-      - sqrt(-1) e^(-sqrt(-1) theta) (c_1 cos theta + sqrt(-1) sin theta - s_1 c_2)^dagger s_2
+      -gamma_2(-theta)
+      \
+      qed
     $
   ]
 ]<relation_of_gamma_2>
@@ -9824,6 +9845,295 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $
   
   と定める。
+]
+
+#claim([$gamma_2(theta_mu), gamma_2(-theta_mu)$の$arg$])[
+  
+  $mu in cal(M)$ について、
+
+  $
+    arg^((-pi, pi])(gamma_2(theta_(mu))) &= ?? \
+    arg^((-pi, pi])(gamma_2(-theta_(mu))) &= ??
+  $
+
+  #proof[
+    $mu in cal(M)$ について、
+
+    $
+      gamma_2(theta_(mu))
+      &=
+      sqrt(-1) e^(sqrt(-1) theta_(mu)) s_2^* (c_1 cos theta_(mu) - sqrt(-1) sin theta_(mu) - s_1 c_2)
+      \
+      &=
+      sqrt(-1)
+      s_2^*
+      (
+        cos theta_(mu) + sqrt(-1) sin theta_(mu)
+      )
+      (
+        c_1 cos theta_(mu) - sqrt(-1) sin theta_(mu) - s_1 c_2
+      )
+      \
+      &=
+      sqrt(-1)
+      s_2^*
+      (
+        cos theta_(mu)
+        dot.op
+        (
+          c_1 cos theta_(mu) - sqrt(-1) sin theta_(mu) - s_1 c_2
+        )
+        +
+        sqrt(-1) sin theta_(mu)
+        dot.op
+        (
+          c_1 cos theta_(mu) - sqrt(-1) sin theta_(mu) - s_1 c_2
+        )
+      )
+      \
+      &=
+      sqrt(-1)
+      s_2^*
+      (
+        cos theta_(mu)
+        dot.op
+        c_1 cos theta_(mu)
+        +
+        cos theta_(mu)
+        dot.op
+        (
+          - sqrt(-1) sin theta_(mu)
+        )
+        +
+        cos theta_(mu)
+        dot.op
+        (
+          - s_1 c_2
+        )
+        +
+        sqrt(-1) sin theta_(mu)
+        dot.op
+        c_1 cos theta_(mu)
+        +
+        sqrt(-1) sin theta_(mu)
+        dot.op
+        (
+          - sqrt(-1) sin theta_(mu)
+        )
+        +
+        sqrt(-1) sin theta_(mu)
+        dot.op
+        (
+          - s_1 c_2
+        )
+      )
+      \
+      &=
+      sqrt(-1)
+      s_2^*
+      (
+        c_1
+        cos theta_(mu)
+        cos theta_(mu)
+        +
+        sqrt(-1)
+        (
+          -
+          cos theta_(mu)
+          sin theta_(mu)
+        )
+        +
+        s_1 c_2
+        (
+          -
+          cos theta_(mu)
+        )
+        +
+        sqrt(-1)
+        c_1
+        sin theta_(mu)
+        cos theta_(mu)
+        +
+        sqrt(-1) (- sqrt(-1))
+        sin theta_(mu)
+        sin theta_(mu)
+        +
+        sqrt(-1)
+        (
+          -
+          s_1 c_2
+          sin theta_(mu)
+        )
+      )
+      \
+      &=
+      sqrt(-1)
+      s_2^*
+      (
+        c_1
+        cos theta_(mu)
+        cos theta_(mu)
+        +
+        s_1 c_2
+        (
+          -
+          cos theta_(mu)
+        )
+        +
+        sin theta_(mu)
+        sin theta_(mu)
+        +
+        sqrt(-1)
+        (
+          -
+          cos theta_(mu)
+          sin theta_(mu)
+        )
+        +
+        sqrt(-1)
+        c_1
+        sin theta_(mu)
+        cos theta_(mu)
+        +
+        sqrt(-1)
+        (
+          -
+          s_1 c_2
+          sin theta_(mu)
+        )
+      )
+      \
+      &=
+      sqrt(-1)
+      s_2^*
+      (
+        c_1
+        cos theta_(mu)
+        cos theta_(mu)
+        +
+        s_1 c_2
+        (
+          -
+          cos theta_(mu)
+        )
+        +
+        sin theta_(mu)
+        sin theta_(mu)
+        +
+        sqrt(-1)
+        (
+          -
+          cos theta_(mu)
+          sin theta_(mu)
+          +
+          c_1
+          sin theta_(mu)
+          cos theta_(mu)
+          -
+          s_1 c_2
+          sin theta_(mu)
+        )
+      )
+      \
+      &=
+      s_2^* sqrt(-1)
+      (
+        c_1
+        cos theta_(mu)
+        cos theta_(mu)
+        +
+        s_1 c_2
+        (
+          -
+          cos theta_(mu)
+        )
+        +
+        sin theta_(mu)
+        sin theta_(mu)
+      )
+      +
+      s_2^*
+      sqrt(-1) sqrt(-1)
+      (
+        -
+        cos theta_(mu)
+        sin theta_(mu)
+        +
+        c_1
+        sin theta_(mu)
+        cos theta_(mu)
+        -
+        s_1 c_2
+        sin theta_(mu)
+      )
+      \
+      &=
+      s_2^* sqrt(-1)
+      (
+        c_1
+        cos theta_(mu)
+        cos theta_(mu)
+        +
+        s_1 c_2
+        (
+          -
+          cos theta_(mu)
+        )
+        +
+        sin theta_(mu)
+        sin theta_(mu)
+      )
+      -
+      s_2^*
+      (
+        -
+        cos theta_(mu)
+        sin theta_(mu)
+        +
+        c_1
+        sin theta_(mu)
+        cos theta_(mu)
+        -
+        s_1 c_2
+        sin theta_(mu)
+      )
+    $
+
+    よって、
+
+    $
+      Re(gamma_2(theta_(mu)))
+      &=
+      -
+      s_2^*
+      (
+        -
+        cos theta_(mu)
+        sin theta_(mu)
+        +
+        c_1
+        sin theta_(mu)
+        cos theta_(mu)
+        -
+        s_1 c_2
+        sin theta_(mu)
+      )
+      \
+      &=
+      s_2^*
+      (
+        cos theta_(mu)
+        sin theta_(mu)
+        -
+        c_1
+        sin theta_(mu)
+        cos theta_(mu)
+        +
+        s_1 c_2
+        sin theta_(mu)
+      )
+    $
+  ]
 ]
 
 #claim([$gamma_2(theta_mu)$$gamma_2(-theta_mu)$])[
@@ -11133,7 +11443,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   $
 
   #proof[
-    (次回202050830 : ここのチェックから)
     $
       (
         sqrt(
@@ -11167,6 +11476,8 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         2
       )
       \
+      "(次回20250906)" gamma_2(theta_(mu)) "が 右半面、左半面、負の実数で場合分けする。どこかで符号がひっくり返って辻褄が合いそう"
+      \
       &=
       sqrt(
         -1
@@ -11177,6 +11488,32 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
             gamma_2(theta_(mu))
             gamma_2(-theta_(mu))
           )
+        )
+        sqrt(
+          1
+          /
+          (
+            (
+              gamma_2(-theta_(mu))
+            )
+            ^
+            2
+          )
+        )
+      )
+      \
+      &=
+      sqrt(
+        -1
+      )
+      (
+        sqrt(
+          (
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+          dot.op
+          1
           /
           (
             (
