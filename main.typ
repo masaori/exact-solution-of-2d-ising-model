@@ -1027,6 +1027,106 @@
   と定め、zの偏角と呼ぶ
 ]
 
+#claim(none)[
+
+  $z_1, z_2 in CC$ について、
+
+  $r_1, r_2 in RR_(>=0), theta_1, theta_2 in RR$ を用いて、
+
+  $phi_("polar")(z_1) = [(r_1, theta_1)]_(~), phi_("polar")(z_2) = [(r_2, theta_2)]_(~)$ とする
+
+  このとき、$-pi < theta_1 + theta_2 - 2n pi <= pi$ を満たす $n in ZZ$ が存在して、
+  $
+    arg^((-pi, pi])(z_1 z_2) = theta_1 + theta_2 - 2n pi
+  $
+
+  #proof[
+
+    $-pi < theta_1 + theta_2 - 2n pi <= pi$ を満たす $n in ZZ$ が存在して、
+
+    $
+      arg^((-pi, pi])(z_1 z_2)
+      &=
+      s_((-pi, pi])("pr"_2(phi_("polar")(z_1 z_2)))
+      \
+      &=
+      s_((-pi, pi])("pr"_2(phi_("polar")(z_1) phi_("polar")(z_2)))
+      quad
+      (because phi_("polar")"の同型性")
+      \
+      &=
+      s_((-pi, pi])("pr"_2([(r_1, theta_1)]_(~) [(r_2, theta_2)]_(~)))
+      \
+      &=
+      s_((-pi, pi])("pr"_2([(r_1 r_2, theta_1 + theta_2)]_(~)))
+      \
+      &=
+      s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
+      \
+      &=
+      theta_1 + theta_2 - 2n pi
+      
+    $
+  ]
+]
+
+#claim(none)[
+
+  $z_1, z_2 in CC$ について、
+
+  $r_1, r_2 in RR_(>=0), theta_1, theta_2 in RR$ を用いて、
+
+  $phi_("polar")(z_1) = [(r_1, theta_1)]_(~), phi_("polar")(z_2) = [(r_2, theta_2)]_(~)$ として、
+
+  $
+    arg^((-pi, pi])(z_1 z_2) = pi
+  $
+
+  だとする。
+
+  このとき、
+  $
+    cases(
+      
+    )
+  $
+
+  #proof[
+    $-pi < theta_1 + theta_2 - 2n pi <= pi$ を満たす $n in ZZ$ が存在して、
+
+    $
+      theta_1 + theta_2 - 2n pi &= pi
+      \
+      theta_2 &= pi + 2n pi - theta_1
+      \
+      theta_2 &= (2n + 1) pi - theta_1
+    $
+
+    また、$-pi < theta_1 - 2 n_1 pi <= pi$ を満たす $n_1 in ZZ$ が存在するので、
+
+    $
+      -pi + 2 n_1 pi < theta_1 <= pi + 2 n_1 pi
+      \
+      -(pi + 2 n_1 pi) <= -theta_1 < -(-pi + 2 n_1 pi)
+      \
+      (2n + 1)pi - (2 n_1 + 1) pi <= (2n + 1)pi - theta_1 < (2n + 1)pi - (2 n_1 - 1) pi
+      \
+      (2n - 2 n_1)pi <= (2n + 1)pi - theta_1 < (2n - 2 n_1 + 1)pi
+
+    $
+
+    より、
+
+    $
+      2(n - n_1) pi <= theta_2 < (2(n - n_1) + 1) pi
+    $
+
+    (次回20250911 : miroにメモあり $n-n_1 = n_2$ ($z_1$が上半面) $n-n_1 = n_2+1$ ($z_1$が下半面)という条件分岐になりそうなことがわかった)
+    (↓の可換性の証明でやったように、n_1, n_2を定めて、足して nの範囲がどうなるか、でやると機械的にいけるかも)
+    であるから、
+  ]
+]
+
 #definition([$CC$のsqrt])[
   $sqrt(dot.c): CC -> CC$ を以下のように定める。
 
@@ -1699,7 +1799,7 @@ ii.c $pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= 2pi$ のとき、
   ]
 
   $sqrt(z) sqrt(z) = z$ より、$qed$
-]
+]<square_of_sqrt>
 
 #remark[
   $z in CC$について、$Re(z) < 0, Im(z) = 0$ のとき、
@@ -11458,25 +11558,102 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
         gamma_2(-theta_(mu))
       )
       &=
-      (
+      cases(
+        (
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        /
+        (
+          sqrt(
+            (
+              gamma_2(-theta_(mu))
+            )
+            ^
+            2
+          )
+        )
+        quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+        (
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        /
+        (
+          -
+          sqrt(
+            (
+              gamma_2(-theta_(mu))
+            )
+            ^
+            2
+          )
+        )
+        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+      quad
+      (because #ref(<square_of_sqrt>))
+      \
+      &=
+      cases(
         sqrt(
           -1
         )
-        sqrt(
-          gamma_2(theta_(mu))
-          gamma_2(-theta_(mu))
-        )
-      )
-      /
-      sqrt(
         (
-          gamma_2(-theta_(mu))
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          sqrt(
+            1
+            /
+            (
+              (
+                gamma_2(-theta_(mu))
+              )
+              ^
+              2
+            )
+          )
         )
-        ^
-        2
+        quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+        -
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          sqrt(
+            1
+            /
+            (
+              (
+                gamma_2(-theta_(mu))
+              )
+              ^
+              2
+            )
+          )
+        )
+        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
       )
-      \
-      "(次回20250906)" gamma_2(theta_(mu)) "が 右半面、左半面、負の実数で場合分けする。どこかで符号がひっくり返って辻褄が合いそう"
       \
       &=
       sqrt(
