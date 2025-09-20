@@ -1074,7 +1074,7 @@
 
   $z_1, z_2 in CC$ について、
 
-  $r_1, r_2 in RR_(>=0), theta_1, theta_2 in RR$ を用いて、
+  $r_1, r_2 in RR_(>=0), r_1 eq.not 0 and r_2 eq.not 0, theta_1, theta_2 in RR$ を用いて、
 
   $phi_("polar")(z_1) = [(r_1, theta_1)]_(~), phi_("polar")(z_2) = [(r_2, theta_2)]_(~)$ として、
 
@@ -1087,45 +1087,165 @@
   このとき、
   $
     cases(
-      
+      arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) = -pi & quad (exists m in ZZ "s.t." -2pi < theta_1 + theta_2 - 2m pi <= -pi),
+      arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) = pi & quad ((r_1 = 0 or r_2 = 0) or exists m in ZZ "s.t." -pi < theta_1 + theta_2 - 2m pi <= pi),
+      ("このような" z_1, z_2 "は存在しない") & quad (exists m in ZZ "s.t." pi < theta_1 + theta_2 - 2m pi <= 2pi),
     )
   $
 
   #proof[
-    $-pi < theta_1 + theta_2 - 2n pi <= pi$ を満たす $n in ZZ$ が存在して、
+
+    $phi_("polar")$ の同型性 から、
 
     $
-      theta_1 + theta_2 - 2n pi &= pi
+      arg^((-pi, pi])(z_1)
+      &=
+      s_((-pi, pi])("pr"_2(phi_("polar")(z_1)))
       \
-      theta_2 &= pi + 2n pi - theta_1
+      &=
+      s_((-pi, pi])("pr"_2([(r_1, theta_1)]_(~)))
       \
-      theta_2 &= (2n + 1) pi - theta_1
-    $
-
-    また、$-pi < theta_1 - 2 n_1 pi <= pi$ を満たす $n_1 in ZZ$ が存在するので、
-
-    $
-      -pi + 2 n_1 pi < theta_1 <= pi + 2 n_1 pi
+      &=
+      s_((-pi, pi])([theta_1]_(~_(angle)))
       \
-      -(pi + 2 n_1 pi) <= -theta_1 < -(-pi + 2 n_1 pi)
+      &=
+      theta_1 - 2n_1 pi
+    $
+
+    $
+      arg^((-pi, pi])(z_2)
+      &=
+      s_((-pi, pi])("pr"_2(phi_("polar")(z_2)))
       \
-      (2n + 1)pi - (2 n_1 + 1) pi <= (2n + 1)pi - theta_1 < (2n + 1)pi - (2 n_1 - 1) pi
+      &=
+      s_((-pi, pi])("pr"_2([(r_2, theta_2)]_(~)))
       \
-      (2n - 2 n_1)pi <= (2n + 1)pi - theta_1 < (2n - 2 n_1 + 1)pi
-
+      &=
+      s_((-pi, pi])([theta_2]_(~_(angle)))
+      \
+      &=
+      theta_2 - 2n_2 pi
     $
 
-    より、
+    $
+      arg^((-pi, pi])(z_1 z_2)
+      &=
+      s_((-pi, pi])("pr"_2(phi_("polar")(z_1 dot.op z_2)))
+      \
+      &=
+      s_((-pi, pi])("pr"_2(phi_("polar")(z_1) dot.op phi_("polar")(z_2)))
+      \
+      &=
+      s_((-pi, pi])("pr"_2([(r_1, theta_1)]_(~) dot.op [(r_2, theta_2)]_(~)))
+      \
+      &=
+      s_((-pi, pi])("pr"_2([(r_1 r_2, theta_1 + theta_2)]_(~)))
+      \
+      &=
+      s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
+    $
+
+    また、$-pi < theta_1 - 2n_1 pi <= pi$ を満たす $n_1 in ZZ$ と、 $-pi < theta_1 + theta_2 - 2n_2 pi <= pi$ を満たす $n_2 in ZZ$ が存在して、
 
     $
-      2(n - n_1) pi <= theta_2 < (2(n - n_1) + 1) pi
+      theta_1 + theta_2 - 2(n_1 + n_2) pi
+      &=
+      theta_1 -2n_1 pi + theta_2 - 2n_2 pi
+      \
+      &=
+      arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2)
     $
 
-    (次回20250911 : miroにメモあり $n-n_1 = n_2$ ($z_1$が上半面) $n-n_1 = n_2+1$ ($z_1$が下半面)という条件分岐になりそうなことがわかった)
-    (↓の可換性の証明でやったように、n_1, n_2を定めて、足して nの範囲がどうなるか、でやると機械的にいけるかも)
-    であるから、
+    #enum(numbering: "a)")[
+      $-2pi < theta_1 + theta_2 - 2(n_1 + n_2) pi <= -pi$ のとき、
+
+      $
+        0 < theta_1 + theta_2 - 2(n_1 + n_2 - 1) pi <= pi
+      $
+
+      であるから、
+
+      $
+        s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
+        =
+        theta_1 + theta_2 - 2(n_1 + n_2 - 1) pi
+      $
+
+      よって、
+
+      $
+        theta_1 + theta_2 - 2(n_1 + n_2 - 1) pi &= pi
+        \
+        theta_1 -2n_1 pi + theta_2 - 2n_2 pi + 2pi &= pi
+        \
+        arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) + 2pi &= pi
+        \
+        arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) &= - pi
+      $
+    ][
+      $-pi < theta_1 + theta_2 - 2(n_1 + n_2) pi <= pi$ のとき、
+
+      より、
+
+      $
+        s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
+        =
+        theta_1 + theta_2 - 2(n_1 + n_2) pi
+      $
+
+      よって、
+
+      $
+        theta_1 + theta_2 - 2(n_1 + n_2) pi &= pi
+        \
+        theta_1 -2n_1 pi + theta_2 - 2n_2 pi &= pi
+        \
+        arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) &= pi
+      $
+      
+    ][
+      $pi < theta_1 + theta_2 - 2(n_1 + n_2) pi <= 2pi$ のとき、
+
+      $
+        -pi < theta_1 + theta_2 - 2(n_1 + n_2 + 1) pi <= 0
+      $
+
+      であるから、
+
+      $
+        s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
+        =
+        theta_1 + theta_2 - 2(n_1 + n_2 + 1) pi
+      $
+
+      よって、
+
+      $
+        theta_1 + theta_2 - 2(n_1 + n_2 + 1) pi &= pi
+        \
+        theta_1 -2n_1 pi + theta_2 - 2n_2 pi - 2pi &= pi
+        \
+        arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) - 2pi &= pi
+        \
+        arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) &= 3 pi
+      $
+
+      $-pi < arg^((-pi, pi])(z_1), arg^((-pi, pi])(z_2) <= pi$ であるから、このような $z_1, z_2$ は存在しない。
+    ]
+
+    以上から、$arg^((-pi, pi])(z_1 z_2) = pi$ であるとき、 $arg^((-pi, pi])(z_1), arg^((-pi, pi])(z_2) = pi$ の間には以下の関係式が成立する。
+
+    $
+      cases(
+        arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) = -pi & quad (exists m in ZZ "s.t." -2pi < theta_1 + theta_2 - 2m pi <= -pi),
+        arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) = pi & quad ((r_1 = 0 or r_2 = 0) or exists m in ZZ "s.t." -pi < theta_1 + theta_2 - 2m pi <= pi),
+        ("このような" z_1, z_2 "は存在しない") & quad (exists m in ZZ "s.t." pi < theta_1 + theta_2 - 2m pi <= 2pi),
+      )
+    $
+
+    $qed$
   ]
-]
+]<range_of_args_of_multiple_of_complex_numbers>
 
 #definition([$CC$のsqrt])[
   $sqrt(dot.c): CC -> CC$ を以下のように定める。
@@ -10332,7 +10452,8 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]<arg_of_gamma_2_mu>
 
-(次回:20250821-2 ↓ $CC$用の$sqrt(dot)$を使って一行ずつ確かめる)
+(次回:20250920-2: $gamma_2(theta_(mu))$と$gamma_2(-theta_(mu))$の偏角の関係をClaimにする)
+(次回:20250920-3: $gamma_2(theta_(mu))$の定義において、偏角の代表元は取れるのか？考える($theta_(mu)$には範囲があるが2周している)
 
 #claim([$A(theta)$の対角化])[
 
@@ -11541,6 +11662,9 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
       gamma_2(-theta_(mu))
     )
   $
+
+  (次回20250920)
+  - $gamma_2(theta_(mu)) = [(r_1, theta_1)], gamma_2(-theta_(mu)) = [(r_2, theta_2)]$ としたとき、場合分けとして $exists m in ZZ "s.t." -2pi < theta_1 + theta_2 - 2m pi <= -pi$ 的な話がある #ref(<range_of_args_of_multiple_of_complex_numbers>) を参照
 
   #proof[
     $
