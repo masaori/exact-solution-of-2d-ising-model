@@ -1247,6 +1247,70 @@
   ]
 ]<range_of_args_of_multiple_of_complex_numbers>
 
+#claim([$CC$の自乗の$arg$])[
+  $z in CC$について、
+
+  $r in RR_(>=0), theta in RR$ を用いて
+
+  $phi_("polar")(z) = [(r, theta)]_(~)$ であるとき、
+
+  $
+    arg^((-pi, pi])(z^2)
+    =
+    cases(
+      2 arg^((-pi, pi])(z) + 2pi & quad (exists n in ZZ "s.t." -pi < theta - 2n pi <= -pi/2),
+      2 arg^((-pi, pi])(z) & quad (exists n in ZZ "s.t." -pi/2 < theta - 2n pi <= pi/2),
+      2 arg^((-pi, pi])(z) - 2pi & quad (exists n in ZZ "s.t." pi/2 < theta - 2n pi <= pi),
+    )
+  $
+
+  #proof[
+    $z in CC$ について、
+
+    $r in RR_(>=0), theta in RR$ を用いて
+
+    $phi_("polar")(z) = [(r, theta)]_(~)$ であるとき、
+
+    $-pi < theta - 2n_1 pi <= pi$ を満たす $n_1 in ZZ$ と $-pi < 2theta - 2n_2 pi <= pi$ を満たす $n_2 in ZZ$ が存在して、
+
+    $m in ZZ$ を用いて、 $n_1 = n_2 + m$ と書ける。
+
+    このとき、 $-pi < theta - 2 (n_2 + m) pi <= pi$ であるから、
+
+    (TODO: $m$の範囲を $theta$で表す)
+
+    また、
+
+    $arg^((-pi, pi])(z) = theta - 2n_1 pi$ であり、
+
+
+    $
+      arg^((-pi, pi])(z^2)
+      &=
+      s_((-pi, pi])("pr"_2(phi_("polar")(z^2)))
+      \
+      &=
+      s_((-pi, pi])("pr"_2(phi_("polar")(z) phi_("polar")(z)))
+      quad
+      (because phi_("polar")"の同型性")
+      \
+      &=
+      s_((-pi, pi])("pr"_2([(r, theta)]_(~) [(r, theta)]_(~)))
+      \
+      &=
+      s_((-pi, pi])("pr"_2([(r^2, 2 theta)]_(~)))
+      \
+      &=
+      s_((-pi, pi])([2 theta]_(~_(angle)))
+      \
+      &=
+      2 theta - 2n_2 pi
+    $
+
+    (TODO: $m$が$theta$によって、$-1,0,1$になるはず)
+  ]
+]<range_of_args_of_square_of_complex_numbers>
+
 #definition([$CC$のsqrt])[
   $sqrt(dot.c): CC -> CC$ を以下のように定める。
 
@@ -1936,20 +2000,10 @@ ii.c $pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= 2pi$ のとき、
 #claim([$CC$の逆数の$sqrt(dot)$])[
   $z in CC, z eq.not 0$について、
 
-  $r in RR_(>0), theta in RR$を用いて、
-
-  $phi_("polar")(z) = [(r, theta)]_(~)$
-  
-  $n in ZZ$ を用いて、
-
-  $-pi < theta - 2n pi <= pi$
-  
-  となるとき、
-
   $
     sqrt(1/z) = cases(
-      1/sqrt(z) & quad (-pi < theta - 2n pi < pi),
-      -(1/sqrt(z)) & quad (theta - 2n pi = pi),
+      1/sqrt(z) & quad (-pi < arg^((-pi, pi])(z) < pi),
+      -(1/sqrt(z)) & quad (arg^((-pi, pi])(z) = pi),
     )
   $
 
@@ -9916,145 +9970,6 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]<T_V_hatZ_hatY>
 
-#definition([$A(theta)$の対角化の準備])[
-  $
-    gamma_1(theta) :&= c_1 c_2^* - s_1 s_2^* cos theta in RR
-    \
-    gamma_2(theta) :&= sqrt(-1) e^(sqrt(-1) theta) s_2^* (c_1 cos theta - sqrt(-1) sin theta - s_1 c_2) in CC
-  $
-
-  と定めると、
-
-  $
-    A(theta)
-    :&=
-    mat(
-      c_1 c_2^*
-      -
-      s_1 s_2^* cos theta,
-      sqrt(-1) e^(sqrt(-1) theta) s_2^* (c_1 cos theta - sqrt(-1) sin theta - s_1 c_2);
-      - sqrt(-1) e^(-sqrt(-1) theta) s_2^* (c_1 cos theta + sqrt(-1) sin theta - s_1 c_2),
-      c_1 c_2^*
-      -
-      s_1 s_2^* cos theta;
-    )
-    \
-    &=
-    mat(
-      gamma_1(theta),
-      gamma_2(theta);
-      - gamma_2(-theta),
-      gamma_1(theta);
-    )
-  $
-
-  とかける。
-]
-
-#claim([$gamma_1(theta), gamma_2(theta)$の偏角])[
-  $
-    arg(gamma_1(theta))
-    =
-    cases(
-      0 & quad (cos(theta) <= (c_1 c_2^*) / (s_1 s_2^*)),
-      pi & quad ("otherwise")
-    )
-  $
-
-  $
-    arg(gamma_2(theta))
-
-  $
-]
-
-#claim([$gamma_2(theta)$が$0$になる条件])[
-  $
-    gamma_2(theta)
-    =
-    0
-    & <=>
-    cases(
-      sin(theta) &= 0,
-      c_2 s_1 - c_1 cos(theta) &= 0,
-    )
-    \
-    & <=>
-    cases(
-      theta &= 0\, plus.minus pi\, plus.minus 2 pi\, dots,
-      c_2 s_1 &= c_1 cos(theta),
-    )
-  $
-
-  #proof[
-
-  ]
-]<gamma_2_theta_is_0>
-
-#claim([$gamma_2(theta)$と$gamma_2(-theta)$の関係])[
-
-  $
-    gamma_2(-theta) = -overline(gamma_2(theta))
-  $
-
-  ゆえに、
-  $
-    gamma_2(theta) gamma_2(-theta)
-    &= 
-    gamma_2(theta) (-overline(gamma_2(theta)))
-    \
-    &=
-    - |gamma_2(theta)|^2
-  $
-
-  #proof[
-    $
-      gamma_2(-theta)
-      &=
-      sqrt(-1) e^(sqrt(-1) (-theta)) s_2^* (c_1 cos (-theta) - sqrt(-1) sin (-theta) - s_1 c_2)
-      \
-      &=
-      sqrt(-1) e^(-sqrt(-1) theta) s_2^* (c_1 cos (theta) + sqrt(-1) sin (theta) - s_1 c_2)
-    $
-
-    $
-      overline(gamma_2(theta))
-      &=
-      overline((
-        sqrt(-1) e^(sqrt(-1) theta) s_2^* (c_1 cos theta - sqrt(-1) sin theta - s_1 c_2)
-      ))
-      \
-      &=
-      (overline(sqrt(-1)))
-      (overline(
-        e^(sqrt(-1) theta)
-      ))
-      (overline(
-        s_2^*
-      ))
-      (overline(
-        c_1 cos theta - sqrt(-1) sin theta - s_1 c_2
-      ))
-      \
-      &=
-      (-sqrt(-1))
-      (e^(-sqrt(-1) theta))
-      (s_2^*)
-      (c_1 cos theta + sqrt(-1) sin theta - s_1 c_2)
-      \
-      &=
-      -
-      (
-        sqrt(-1) e^(-sqrt(-1) theta) s_2^* (c_1 cos theta + sqrt(-1) sin theta - s_1 c_2)
-      )
-      \
-      &=
-      -gamma_2(-theta)
-      \
-      qed
-    $
-  ]
-]<relation_of_gamma_2>
-
 #definition([$theta_mu$])[
   $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
 
@@ -10067,294 +9982,154 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   と定める。
 ]
 
-#claim([$gamma_2(theta_mu), gamma_2(-theta_mu)$の$arg$])[
-  
-  $mu in cal(M)$ について、
+$gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る方法
+
+#definition([$A(theta)$の対角化の準備])[
+  $mu in cal(M)$について、
 
   $
-    arg^((-pi, pi])(gamma_2(theta_(mu))) &= ?? \
-    arg^((-pi, pi])(gamma_2(-theta_(mu))) &= ??
+    gamma_1(theta_mu) :&= c_1 c_2^* - s_1 s_2^* cos theta_mu in RR
+    \
+    gamma_2(theta_mu) :&= sqrt(-1) e^(sqrt(-1) theta_mu) s_2^* (c_1 cos theta_mu - sqrt(-1) sin theta_mu - s_1 c_2) in CC
+  $
+
+  と定めると、
+
+  $
+    A(theta_mu)
+    :&=
+    mat(
+      c_1 c_2^*
+      -
+      s_1 s_2^* cos theta_mu,
+      sqrt(-1) e^(sqrt(-1) theta_mu) s_2^* (c_1 cos theta_mu - sqrt(-1) sin theta_mu - s_1 c_2);
+      - sqrt(-1) e^(-sqrt(-1) theta_mu) s_2^* (c_1 cos theta_mu + sqrt(-1) sin theta_mu - s_1 c_2),
+      c_1 c_2^*
+      -
+      s_1 s_2^* cos theta_mu;
+    )
+    \
+    &=
+    mat(
+      gamma_1(theta_mu),
+      gamma_2(theta_mu);
+      - gamma_2(-theta_mu),
+      gamma_1(theta_mu);
+    )
+  $
+
+  とかける。
+]
+
+#claim([$gamma_1(theta), gamma_2(theta)$の偏角])[
+  $mu in cal(M)$ について、
+  
+  $
+    arg(gamma_1(theta_mu))
+    =
+    cases(
+      0 & quad (cos(theta_mu) <= (c_1 c_2^*) / (s_1 s_2^*)),
+      pi & quad ("otherwise")
+    )
+  $
+]
+
+#claim([$gamma_2(theta)$が$0$になる条件])[
+  $mu in cal(M)$について、
+  
+  $
+    gamma_2(theta_mu)
+    =
+    0
+    & <=>
+    cases(
+      sin(theta_mu) &= 0,
+      c_2 s_1 - c_1 cos(theta_mu) &= 0,
+    )
+    \
+    & <=>
+    cases(
+      theta_mu &= 0\, plus.minus pi\, plus.minus 2 pi\, dots,
+      c_2 s_1 &= c_1 cos(theta_mu),
+    )
+    \
+    & <=>
+    cases(
+      mu &= plus.minus M, 
+      c_2 s_1 &= c_1 cos(theta_mu),
+    )
   $
 
   #proof[
-    $mu in cal(M)$ について、
 
+  ]
+]<gamma_2_theta_is_0>
+
+#claim([$gamma_2(theta)$と$gamma_2(-theta)$の関係])[
+  $mu in cal(M)$について、
+
+  $
+    gamma_2(-theta_mu) = -overline(gamma_2(theta_mu))
+  $
+
+  ゆえに、
+  $
+    gamma_2(theta_mu) gamma_2(-theta_mu)
+    &= 
+    gamma_2(theta_mu) (-overline(gamma_2(theta_mu)))
+    \
+    &=
+    - |gamma_2(theta_mu)|^2
+  $
+
+  #proof[
     $
-      gamma_2(theta_(mu))
+      gamma_2(-theta_mu)
       &=
-      sqrt(-1) e^(sqrt(-1) theta_(mu)) s_2^* (c_1 cos theta_(mu) - sqrt(-1) sin theta_(mu) - s_1 c_2)
+      sqrt(-1) e^(sqrt(-1) (-theta_mu)) s_2^* (c_1 cos (-theta_mu) - sqrt(-1) sin (-theta_mu) - s_1 c_2)
       \
       &=
-      sqrt(-1)
-      s_2^*
-      (
-        cos theta_(mu) + sqrt(-1) sin theta_(mu)
-      )
-      (
-        c_1 cos theta_(mu) - sqrt(-1) sin theta_(mu) - s_1 c_2
-      )
-      \
-      &=
-      sqrt(-1)
-      s_2^*
-      (
-        cos theta_(mu)
-        dot.op
-        (
-          c_1 cos theta_(mu) - sqrt(-1) sin theta_(mu) - s_1 c_2
-        )
-        +
-        sqrt(-1) sin theta_(mu)
-        dot.op
-        (
-          c_1 cos theta_(mu) - sqrt(-1) sin theta_(mu) - s_1 c_2
-        )
-      )
-      \
-      &=
-      sqrt(-1)
-      s_2^*
-      (
-        cos theta_(mu)
-        dot.op
-        c_1 cos theta_(mu)
-        +
-        cos theta_(mu)
-        dot.op
-        (
-          - sqrt(-1) sin theta_(mu)
-        )
-        +
-        cos theta_(mu)
-        dot.op
-        (
-          - s_1 c_2
-        )
-        +
-        sqrt(-1) sin theta_(mu)
-        dot.op
-        c_1 cos theta_(mu)
-        +
-        sqrt(-1) sin theta_(mu)
-        dot.op
-        (
-          - sqrt(-1) sin theta_(mu)
-        )
-        +
-        sqrt(-1) sin theta_(mu)
-        dot.op
-        (
-          - s_1 c_2
-        )
-      )
-      \
-      &=
-      sqrt(-1)
-      s_2^*
-      (
-        c_1
-        cos theta_(mu)
-        cos theta_(mu)
-        +
-        sqrt(-1)
-        (
-          -
-          cos theta_(mu)
-          sin theta_(mu)
-        )
-        +
-        s_1 c_2
-        (
-          -
-          cos theta_(mu)
-        )
-        +
-        sqrt(-1)
-        c_1
-        sin theta_(mu)
-        cos theta_(mu)
-        +
-        sqrt(-1) (- sqrt(-1))
-        sin theta_(mu)
-        sin theta_(mu)
-        +
-        sqrt(-1)
-        (
-          -
-          s_1 c_2
-          sin theta_(mu)
-        )
-      )
-      \
-      &=
-      sqrt(-1)
-      s_2^*
-      (
-        c_1
-        cos theta_(mu)
-        cos theta_(mu)
-        +
-        s_1 c_2
-        (
-          -
-          cos theta_(mu)
-        )
-        +
-        sin theta_(mu)
-        sin theta_(mu)
-        +
-        sqrt(-1)
-        (
-          -
-          cos theta_(mu)
-          sin theta_(mu)
-        )
-        +
-        sqrt(-1)
-        c_1
-        sin theta_(mu)
-        cos theta_(mu)
-        +
-        sqrt(-1)
-        (
-          -
-          s_1 c_2
-          sin theta_(mu)
-        )
-      )
-      \
-      &=
-      sqrt(-1)
-      s_2^*
-      (
-        c_1
-        cos theta_(mu)
-        cos theta_(mu)
-        +
-        s_1 c_2
-        (
-          -
-          cos theta_(mu)
-        )
-        +
-        sin theta_(mu)
-        sin theta_(mu)
-        +
-        sqrt(-1)
-        (
-          -
-          cos theta_(mu)
-          sin theta_(mu)
-          +
-          c_1
-          sin theta_(mu)
-          cos theta_(mu)
-          -
-          s_1 c_2
-          sin theta_(mu)
-        )
-      )
-      \
-      &=
-      s_2^* sqrt(-1)
-      (
-        c_1
-        cos theta_(mu)
-        cos theta_(mu)
-        +
-        s_1 c_2
-        (
-          -
-          cos theta_(mu)
-        )
-        +
-        sin theta_(mu)
-        sin theta_(mu)
-      )
-      +
-      s_2^*
-      sqrt(-1) sqrt(-1)
-      (
-        -
-        cos theta_(mu)
-        sin theta_(mu)
-        +
-        c_1
-        sin theta_(mu)
-        cos theta_(mu)
-        -
-        s_1 c_2
-        sin theta_(mu)
-      )
-      \
-      &=
-      s_2^* sqrt(-1)
-      (
-        c_1
-        cos theta_(mu)
-        cos theta_(mu)
-        +
-        s_1 c_2
-        (
-          -
-          cos theta_(mu)
-        )
-        +
-        sin theta_(mu)
-        sin theta_(mu)
-      )
-      -
-      s_2^*
-      (
-        -
-        cos theta_(mu)
-        sin theta_(mu)
-        +
-        c_1
-        sin theta_(mu)
-        cos theta_(mu)
-        -
-        s_1 c_2
-        sin theta_(mu)
-      )
+      sqrt(-1) e^(-sqrt(-1) theta_mu) s_2^* (c_1 cos (theta_mu) + sqrt(-1) sin (theta_mu) - s_1 c_2)
     $
 
-    よって、
-
     $
-      Re(gamma_2(theta_(mu)))
+      overline(gamma_2(theta_mu))
+      &=
+      overline((
+        sqrt(-1) e^(sqrt(-1) theta_mu) s_2^* (c_1 cos theta_mu - sqrt(-1) sin theta_mu - s_1 c_2)
+      ))
+      \
+      &=
+      (overline(sqrt(-1)))
+      (overline(
+        e^(sqrt(-1) theta_mu)
+      ))
+      (overline(
+        s_2^*
+      ))
+      (overline(
+        c_1 cos theta_mu - sqrt(-1) sin theta_mu - s_1 c_2
+      ))
+      \
+      &=
+      (-sqrt(-1))
+      (e^(-sqrt(-1) theta_mu))
+      (s_2^*)
+      (c_1 cos theta_mu + sqrt(-1) sin theta_mu - s_1 c_2)
+      \
       &=
       -
-      s_2^*
       (
-        -
-        cos theta_(mu)
-        sin theta_(mu)
-        +
-        c_1
-        sin theta_(mu)
-        cos theta_(mu)
-        -
-        s_1 c_2
-        sin theta_(mu)
+        sqrt(-1) e^(-sqrt(-1) theta_mu) s_2^* (c_1 cos theta_mu + sqrt(-1) sin theta_mu - s_1 c_2)
       )
       \
       &=
-      s_2^*
-      (
-        cos theta_(mu)
-        sin theta_(mu)
-        -
-        c_1
-        sin theta_(mu)
-        cos theta_(mu)
-        +
-        s_1 c_2
-        sin theta_(mu)
-      )
+      -gamma_2(-theta_mu)
+      \
+      qed
     $
   ]
-]
+]<relation_of_gamma_2>
 
 #claim([$gamma_2(theta_mu)$$gamma_2(-theta_mu)$])[
   $mu in cal(M)$について、
@@ -10452,8 +10227,30 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
   ]
 ]<arg_of_gamma_2_mu>
 
-(次回:20250920-2: $gamma_2(theta_(mu))$と$gamma_2(-theta_(mu))$の偏角の関係をClaimにする)
-(次回:20250920-3: $gamma_2(theta_(mu))$の定義において、偏角の代表元は取れるのか？考える($theta_(mu)$には範囲があるが2周している)
+#claim([$gamma_2(theta_mu), gamma_2(-theta_mu)$の$arg$])[
+  
+  $mu in cal(M)$ について、
+
+  $r_plus, r_minus in RR_(>=0), theta_plus, theta_minus in RR$ として、
+
+  $gamma_2(theta_(mu)) = [(r_plus, theta_plus)], gamma_2(-theta_(mu)) = [(r_minus, theta_minus)]$  とするとき、
+
+  $
+    arg^((-pi, pi])(gamma_2(theta_(mu))) + arg^((-pi, pi])(gamma_2(-theta_(mu)))
+    =
+    cases(
+      - pi & quad (exists m in ZZ "s.t." -2pi < theta_plus + theta_minus - 2m pi <= -pi),
+      pi & quad ((r_plus = 0 or r_minus = 0) or exists m in ZZ "s.t." -pi < theta_plus + theta_minus - 2m pi <= pi),
+    )
+  $
+
+  #proof[
+    #ref(<arg_of_gamma_2_mu>) と、
+    #ref(<range_of_args_of_multiple_of_complex_numbers>)より
+
+    $qed$
+  ]
+]
 
 #claim([$A(theta)$の対角化])[
 
@@ -11663,10 +11460,231 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
     )
   $
 
-  (次回20250920)
-  - $gamma_2(theta_(mu)) = [(r_1, theta_1)], gamma_2(-theta_(mu)) = [(r_2, theta_2)]$ としたとき、場合分けとして $exists m in ZZ "s.t." -2pi < theta_1 + theta_2 - 2m pi <= -pi$ 的な話がある #ref(<range_of_args_of_multiple_of_complex_numbers>) を参照
-
   #proof[
+    $mu in cal(M)$ について、
+
+    $r_plus, r_minus in RR_(>=0), theta_plus, theta_minus in RR$ として、
+
+    $gamma_2(theta_(mu)) = [(r_plus, theta_plus)], gamma_2(-theta_(mu)) = [(r_minus, theta_minus)]$  とするとき、
+
+    $
+      arg^((-pi, pi])((gamma_2(-theta_(mu)))^2)
+      =
+      cases(
+        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (exists n in ZZ "s.t." -pi < theta_minus - 2n pi = arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
+        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (exists n in ZZ "s.t." -pi/2 < theta_minus - 2n pi = arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (exists n in ZZ "s.t." pi/2 < theta_minus - 2n pi = arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+      quad
+      (because #ref(<range_of_args_of_square_of_complex_numbers>))
+    $
+
+    より、
+
+    $
+      cases(
+        -2pi + 2pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= -pi + 2pi quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
+        -pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= pi quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+        pi - 2pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= 2pi - 2pi quad & (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+      \
+      cases(
+        0 < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= pi quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
+        -pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= pi quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+        -pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= 0 quad & (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+      \
+      cases(
+        arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) = pi quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+        -pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) < pi quad & ("otherwise"),
+      )
+    $
+
+    が成り立つ。
+
+    #enum(numbering: "i)")[
+      $exists m in ZZ "s.t." -2pi < theta_plus + theta_minus - 2m pi <= -pi$ の場合
+      
+      $
+        arg^((-pi, pi])(gamma_2(theta_(mu))) + arg^((-pi, pi])(gamma_2(-theta_(mu)))
+        =
+        - pi
+      $
+
+      である。
+      
+      $
+        (
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        /
+        (
+          gamma_2(-theta_(mu))
+        )
+        &=
+        cases(
+          (
+            sqrt(
+              -1
+            )
+            sqrt(
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          /
+          (
+            sqrt(
+              (
+                gamma_2(-theta_(mu))
+              )
+              ^
+              2
+            )
+          )
+          quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+          (
+            sqrt(
+              -1
+            )
+            sqrt(
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          /
+          (
+            -
+            sqrt(
+              (
+                gamma_2(-theta_(mu))
+              )
+              ^
+              2
+            )
+          )
+          quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        )
+        quad
+        (because #ref(<square_of_sqrt>))
+        \
+        &=
+        cases(
+          sqrt(
+            -1
+          )
+          (
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+                gamma_2(-theta_(mu))
+              )
+            )
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+          quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+          sqrt(
+            -1
+          )
+          (
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+                gamma_2(-theta_(mu))
+              )
+            )
+            (
+              -
+              sqrt(
+                1
+                /
+                (
+                  (
+                    gamma_2(-theta_(mu))
+                  )
+                  ^
+                  2
+                )
+              )
+            )
+          )
+          quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = pi/2),
+          -
+          sqrt(
+            -1
+          )
+          (
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+                gamma_2(-theta_(mu))
+              )
+            )
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+          quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+          -
+          sqrt(
+            -1
+          )
+          (
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+                gamma_2(-theta_(mu))
+              )
+            )
+            (
+              -
+              sqrt(
+                1
+                /
+                (
+                  (
+                    gamma_2(-theta_(mu))
+                  )
+                  ^
+                  2
+                )
+              )
+            )
+          )
+          quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2),
+        )
+        \
+        &= (次回: 20251004 上記をまとめる)
+        &= (次回: 20251004 次のステップで根号をまとめるので、逆数のargをclaimにする)
+      $
+    ][
+
+    ]
+
     $
       (
         sqrt(
