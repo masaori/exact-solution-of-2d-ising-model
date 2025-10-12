@@ -579,7 +579,7 @@
   $[(r, theta)]_(~), r eq.not 0$について、逆元 $([(r, theta)]_(~))^(-1)$ は、
 
   $
-    [(r, theta)]_(~))^(-1) = [(1 / r, -theta)]_(~)
+    ([(r, theta)]_(~))^(-1) = [(1 / r, -theta)]_(~)
   $
 
   #proof[TODO]
@@ -601,6 +601,12 @@
 
 #claim([$CC$は体])[
   $CC$ は体をなす
+
+  #proof[TODO]
+]
+
+#claim([極座標表現は体])[
+  (極座標表現)は体をなす
 
   #proof[TODO]
 ]
@@ -643,6 +649,8 @@
 ]
 
 #claim([$phi_("cartesian")$の同型性])[
+  (TODO: 体として同型であることを示した方が良い)
+
   $[(r, theta)]_(~), [(r^prime, theta^prime)]_(~) in "(極座標表現)"$に対して、
 
   + $phi_("cartesian")([(r, theta)]_(~) dot.op [(r^prime, theta^prime)]_(~)) = phi_("cartesian")[(r, theta)]_(~) dot.op phi_("cartesian")[(r^prime, theta^prime)]_(~) quad "(モノイド準同型)"$ 
@@ -1310,6 +1318,93 @@
     (TODO: $m$が$theta$によって、$-1,0,1$になるはず)
   ]
 ]<range_of_args_of_square_of_complex_numbers>
+
+#claim([$CC$の逆数の$arg$])[
+  $z in CC$について、
+
+  $r in RR_(>=0), theta in RR$ を用いて
+
+  $phi_("polar")(z) = [(r, theta)]_(~)$ であるとき、
+
+  $
+    arg^((-pi, pi])(1/z)
+    =
+    arg^((-pi, pi])(z^(-1))
+    =
+    cases(
+      -arg^((-pi, pi])(z) & quad (-pi < arg^((-pi, pi])(z) < pi),
+      pi & quad (arg^((-pi, pi])(z) = pi),
+    )
+  $
+
+  #proof[
+    $z in CC$ について、
+
+    $r in RR_(>=0), theta in RR$ を用いて
+
+    $phi_("polar")(z) = [(r, theta)]_(~)$ であるとき、
+
+    $-pi < theta - 2n pi <= pi$ を満たす $n in ZZ$ が存在して、
+
+    $-pi <= -theta - 2 (-n) pi < pi$ であり、
+
+    $
+      -pi = -theta - 2 (-n) pi 
+      &<=>
+      -pi +2pi = -theta - 2 (-n) pi + 2pi
+      \
+      &<=>
+      pi = -theta - 2 (-n - 1) pi
+    $
+
+    であるから、
+
+    $
+      arg^((-pi, pi])(z^(-1))
+      &=
+      s_((-pi, pi])("pr"_2(phi_("polar")(z^(-1))))
+      \
+      &=
+      s_((-pi, pi])("pr"_2((phi_("polar")(z))^(-1)))
+      quad
+      (because phi_("polar")"の同型性")
+      \
+      &=
+      s_((-pi, pi])("pr"_2(([(r, theta)]_(~))^(-1)))
+      \
+      &=
+      s_((-pi, pi])("pr"_2([(1/r, -theta)]_(~)))
+      \
+      &=
+      s_((-pi, pi])([-theta]_(~_(angle)))
+      \
+      &=
+      cases(
+        -theta - 2 (-n) pi & quad (-pi < theta - 2n pi < pi),
+        -theta - 2 (-n - 1) pi & quad (theta - 2n pi = pi),
+      )
+      \
+      &=
+      cases(
+        -theta - 2 (-n) pi & quad (-pi < theta - 2n pi < pi),
+        -theta - 2 (-n) pi + 2pi & quad (theta - 2n pi = pi),
+      )
+      \
+      &=
+      cases(
+        -(theta - 2n pi) & quad (-pi < theta - 2n pi < pi),
+        -(theta - 2n pi) + 2pi & quad (theta - 2n pi = pi),
+      )
+      \
+      &=
+      cases(
+        -arg^((-pi, pi])(z) & quad (-pi < theta - 2n pi < pi),
+        pi & quad (theta - 2n pi = pi),
+      )
+    $
+    $qed$
+  ]
+]<range_of_args_of_reciprocal_of_complex_numbers>
 
 #definition([$CC$のsqrt])[
   $sqrt(dot.c): CC -> CC$ を以下のように定める。
@@ -8750,6 +8845,8 @@ TODO: 一旦 $e^(X) Y e^(-X) = e^("ad"(X))(Y)$ (@brianhall_3.35) の証明は後
 
 #claim("")[ 
   (0313メモ) 一旦以下は受け入れる(リー環/リー群掘らないと行けなさそうで面倒)
+
+  (1011メモ) と思ったけど、行列の級数の計算をきっちりやればリー環/リー群まで行かなくてもできそう
   $
   exp(X) Y exp(-X)
     &= op("Ad")_(exp(X))(Y) \
@@ -11678,8 +11775,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2),
         )
         \
-        &= (次回: 20251004 上記をまとめる)
-        &= (次回: 20251004 次のステップで根号をまとめるので、逆数のargをclaimにする)
+        ("次回" 20251011 #ref(<range_of_args_of_reciprocal_of_complex_numbers>) "計算続ける")
       $
     ][
 
