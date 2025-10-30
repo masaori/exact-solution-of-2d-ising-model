@@ -1266,9 +1266,9 @@
     arg^((-pi, pi])(z^2)
     =
     cases(
-      2 arg^((-pi, pi])(z) + 2pi & quad (exists n in ZZ "s.t." -pi < theta - 2n pi <= -pi/2),
-      2 arg^((-pi, pi])(z) & quad (exists n in ZZ "s.t." -pi/2 < theta - 2n pi <= pi/2),
-      2 arg^((-pi, pi])(z) - 2pi & quad (exists n in ZZ "s.t." pi/2 < theta - 2n pi <= pi),
+      2 arg^((-pi, pi])(z) + 2pi & quad (exists n in ZZ "s.t." -pi < theta - 2n pi <= -pi/2 <=> -pi < arg^((-pi, pi])(z) <= -pi/2),
+      2 arg^((-pi, pi])(z) & quad (exists n in ZZ "s.t." -pi/2 < theta - 2n pi <= pi/2 <=> -pi/2 < arg^((-pi, pi])(z) <= pi/2),
+      2 arg^((-pi, pi])(z) - 2pi & quad (exists n in ZZ "s.t." pi/2 < theta - 2n pi <= pi <=> pi/2 < arg^((-pi, pi])(z) < pi),
     )
   $
 
@@ -1406,6 +1406,51 @@
   ]
 ]<range_of_args_of_reciprocal_of_complex_numbers>
 
+#note[
+  $arg$計算のコツ：
+
+  $phi_("polar")(z_1) = [(r_1, theta_1)]_(~), phi_("polar")(z_2) = [(r_2, theta_2)]_(~)$
+
+  で、
+
+  $arg^((-pi, pi])(z_1), arg^((-pi, pi])(z_2)$ の範囲や値がわかっていて、$z_1, z_2$ の和や積の $arg$ について考えたいときは
+
+  一度、以下の表現に直してから計算すると機械的に進むことがある。
+
+  $
+    exists n_1 in ZZ "s.t." -pi < theta_1 - 2n_1 pi <= pi,
+    \
+    exists n_2 in ZZ "s.t." -pi < theta_2 - 2n_2 pi <= pi
+  $
+
+  例: $arg^((-pi, pi])(z_1 z_2)$ について考えるときは、
+  $
+    arg^((-pi, pi])(z_1 z_2)
+    &=
+    s_((-pi, pi])("pr"_2(phi_("polar")(z_1 z_2)))
+    \
+    &=
+    s_((-pi, pi])("pr"_2(phi_("polar")(z_1) phi_("polar")(z_2)))
+    \
+    &=
+    s_((-pi, pi])("pr"_2([(r_1, theta_1)]_(~) [(r_2, theta_2)]_(~)))
+    \
+    &=
+    s_((-pi, pi])("pr"_2([(r_1 r_2, theta_1 + theta_2)]_(~)))
+    \
+    &=
+    s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
+  $
+
+  みたいなところまで辿り着ければ、上記不等式を変形するなりして、
+
+  $
+    ? < theta_1 + theta_2 - 2(n_1 + n_2) pi <= ?
+  $
+
+  このような不等式から、$s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))$ の値の範囲を考えることができる(はず)
+]
+
 #definition([$CC$のsqrt])[
   $sqrt(dot.c): CC -> CC$ を以下のように定める。
 
@@ -1482,11 +1527,11 @@
 
   $
     sqrt(z_1 z_2)
-    &=
+    =
     cases(
-      -sqrt(z_1) sqrt(z_2) & quad (exists m in ZZ "s.t." -2pi < theta_1 + theta_2 - 2m pi <= -pi),
-      sqrt(z_1) sqrt(z_2) & quad ((r_1 = 0 or r_2 = 0) or exists m in ZZ "s.t." -pi < theta_1 + theta_2 - 2m pi <= pi),
-      -sqrt(z_1) sqrt(z_2) & quad (exists m in ZZ "s.t." pi < theta_1 + theta_2 - 2m pi <= 2pi),
+      -sqrt(z_1) sqrt(z_2) &quad (-2pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= -pi),
+      sqrt(z_1) sqrt(z_2) &quad (-pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= pi),
+      -sqrt(z_1) sqrt(z_2) &quad (pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= 2pi),
     )
   $
 
@@ -1885,27 +1930,15 @@ ii.c $pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= 2pi$ のとき、
       sqrt(z_1 z_2)
       &=
       cases(
-        -sqrt(z_1) sqrt(z_2) & quad (exists m in ZZ "s.t." -2pi < theta_1 + theta_2 - 2m pi <= -pi),
-        sqrt(z_1) sqrt(z_2) & quad ((r_1 = 0 or r_2 = 0) or exists m in ZZ "s.t." -pi < theta_1 + theta_2 - 2m pi <= pi),
-        -sqrt(z_1) sqrt(z_2) & quad (exists m in ZZ "s.t." pi < theta_1 + theta_2 - 2m pi <= 2pi),
+        -sqrt(z_1) sqrt(z_2) & quad (exists m_1, m_2 in ZZ "s.t." -2pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= -pi <=> -2pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= -pi),
+        sqrt(z_1) sqrt(z_2) & quad ((r_1 = 0 or r_2 = 0) or exists m_1, m_2 in ZZ "s.t." -pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= pi <=> -pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= pi),
+        -sqrt(z_1) sqrt(z_2) & quad (exists m_1, m_2 in ZZ "s.t." pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= 2pi <=> pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= 2pi),
       )
     $
 
     $qed$
   ]
 ]<condition_of_commutativity_of_sqrt_and_product>
-
-#remark()[
-  $z_1, z_2 in CC$について、
-
-  $
-    sqrt(z_1 z_2) = cases(
-      -sqrt(z_1) sqrt(z_2) &quad (-2pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= -pi),
-      sqrt(z_1) sqrt(z_2) &quad (-pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= pi),
-      -sqrt(z_1) sqrt(z_2) &quad (pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= 2pi),
-    ) 
-  $
-]
 
 #claim([sqrt の2乗は元に戻る])[
   $z in CC$ について、
@@ -11520,19 +11553,19 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
     :&=
     sqrt(
       (
-        (1 - alpha_1 e^(i theta))
+        (1 - alpha_1 e^(sqrt(-1) theta_mu))
       )
       /
       (
-        (1 - alpha_1 e^(-i theta))
+        (1 - alpha_1 e^(-sqrt(-1) theta_mu))
       )
       dot.c
       (
-        (1 - alpha_2^(-1) e^(i theta))
+        (1 - alpha_2^(-1) e^(sqrt(-1) theta_mu))
       )
       /
       (
-        (1 - alpha_2^(-1) e^(-i theta))
+        (1 - alpha_2^(-1) e^(-sqrt(-1) theta_mu))
       )
     )
   $
@@ -11568,9 +11601,9 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
       arg^((-pi, pi])((gamma_2(-theta_(mu)))^2)
       =
       cases(
-        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (exists n in ZZ "s.t." -pi < theta_minus - 2n pi = arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
-        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (exists n in ZZ "s.t." -pi/2 < theta_minus - 2n pi = arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
-        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (exists n in ZZ "s.t." pi/2 < theta_minus - 2n pi = arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (exists n in ZZ "s.t." -pi < theta_minus - 2n pi <= -pi/2 <=> -pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
+        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (exists n in ZZ "s.t." -pi/2 < theta_minus - 2n pi <= pi/2 <=> -pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (exists n in ZZ "s.t." pi/2 < theta_minus - 2n pi <= pi <=> pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
       )
       quad
       (because #ref(<range_of_args_of_square_of_complex_numbers>))
@@ -11599,45 +11632,210 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
 
     が成り立つ。
 
-    #enum(numbering: "i)")[
-      $exists m in ZZ "s.t." -2pi < theta_plus + theta_minus - 2m pi <= -pi$ の場合
-      
-      $
-        arg^((-pi, pi])(gamma_2(theta_(mu))) + arg^((-pi, pi])(gamma_2(-theta_(mu)))
-        =
-        - pi
-      $
+    また、$#ref(<arg_of_gamma_2_mu>)$ より、
 
-      である。
-      
-      $
-        (
-          sqrt(
-            -1
+    $
+      arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) = pi
+    $
+
+
+    $#ref(<range_of_args_of_reciprocal_of_complex_numbers>)$ より、
+
+    $
+      arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2))
+      &=
+      cases(
+        -arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) & quad (-pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) < pi),
+        pi & quad (arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) = pi),
+      )
+      \
+      &=
+      cases(
+        -arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) eq.not -pi/2 \, pi/2),
+        pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+      )
+      \
+      &=
+      cases(
+        -(
+          cases(
+            2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
+            2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+            2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
           )
-          sqrt(
+        )
+        & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) eq.not -pi/2 \, pi/2),
+        pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+      )
+      \
+      &=
+      cases(
+        cases(
+          -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
+          -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+          -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        )
+        & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) eq.not -pi/2 \, pi/2),
+        pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+      )
+      \
+      &=
+      cases(
+        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
+        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+      )
+    $
+
+    であるので、 
+
+    $
+      arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu)))
+      +
+      arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2))
+      &=
+      pi
+      +
+      cases(
+        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
+        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+      )
+      \
+      &=
+      cases(
+        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - pi & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
+        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + pi & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 3pi & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        2pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+      )
+    $
+
+    これと、
+
+    $
+      -pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2
+      &<=>
+      -2pi < 2 arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi
+      \
+      &<=>
+      pi <= -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) < 2pi
+      \
+      &<=>
+      0 <= -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - pi < pi
+    $
+    $
+      -pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0 
+      &<=>
+      -pi < 2 arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0
+      \
+      &<=>
+      0 <= -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi
+      \
+      &<=>
+      pi < -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + pi <= 2pi
+    $
+    $
+      0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2
+      &<=>
+      0 < 2 arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi
+      \
+      &<=>
+      -pi < -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) < 0
+      \
+      &<=>
+      0 < -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + pi < pi
+    $
+    $
+      pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi
+      &<=>
+      pi < 2 arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 2pi
+      \
+      &<=>
+      -2pi < -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi <= -pi
+      \
+      &<=>
+      pi < -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 3pi <= 2pi
+    $
+
+    から、
+
+    $
+      cases(
+        0 <= arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) < pi
+        & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
+        pi < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) <= 2pi
+        & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
+        0 < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) < pi
+        & quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        pi < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) <= 2pi
+        & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) = 2pi
+        & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+      )
+      \
+      cases(
+        0 <= arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) < pi
+        & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or 0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        pi < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) <= 2pi
+        & quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+    $
+
+    $#ref(<condition_of_commutativity_of_sqrt_and_product>)$ より、
+
+#note[
+  $
+    
+    sqrt(z_1 z_2)
+    &=
+    cases(
+      -sqrt(z_1) sqrt(z_2) &quad (-2pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= -pi),
+      sqrt(z_1) sqrt(z_2) &quad (-pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= pi),
+      -sqrt(z_1) sqrt(z_2) &quad (pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= 2pi),
+    )
+    \
+    sqrt(z_1) sqrt(z_2)
+    &=
+    cases(
+      -sqrt(z_1 z_2) &quad (-2pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= -pi),
+      sqrt(z_1 z_2) &quad (-pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= pi),
+      -sqrt(z_1 z_2) &quad (pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= 2pi),
+    )
+  $
+]
+
+    $
+      sqrt(
+        (
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      sqrt(
+        1
+        /
+        (
+          (
+            gamma_2(-theta_(mu))
+          )
+          ^
+          2
+        )
+      )
+      &=
+      cases(
+        sqrt(
+          (
             gamma_2(theta_(mu))
             gamma_2(-theta_(mu))
           )
-        )
-        /
-        (
-          gamma_2(-theta_(mu))
-        )
-        &=
-        cases(
           (
-            sqrt(
-              -1
-            )
-            sqrt(
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          /
-          (
-            sqrt(
+            1
+            /
+            (
               (
                 gamma_2(-theta_(mu))
               )
@@ -11645,20 +11843,17 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
               2
             )
           )
-          quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+        )
+        &quad (0 < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) < pi),
+        -sqrt(
           (
-            sqrt(
-              -1
-            )
-            sqrt(
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
           )
-          /
           (
-            -
-            sqrt(
+            1
+            /
+            (
               (
                 gamma_2(-theta_(mu))
               )
@@ -11666,120 +11861,28 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
               2
             )
           )
-          quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
         )
-        quad
-        (because #ref(<square_of_sqrt>))
-        \
-        &=
-        cases(
-          sqrt(
-            -1
-          )
-          (
-            sqrt(
-              (
-                gamma_2(theta_(mu))
-                gamma_2(-theta_(mu))
-              )
-            )
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-          quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-          sqrt(
-            -1
-          )
-          (
-            sqrt(
-              (
-                gamma_2(theta_(mu))
-                gamma_2(-theta_(mu))
-              )
-            )
-            (
-              -
-              sqrt(
-                1
-                /
-                (
-                  (
-                    gamma_2(-theta_(mu))
-                  )
-                  ^
-                  2
-                )
-              )
-            )
-          )
-          quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = pi/2),
-          -
-          sqrt(
-            -1
-          )
-          (
-            sqrt(
-              (
-                gamma_2(theta_(mu))
-                gamma_2(-theta_(mu))
-              )
-            )
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-          quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-          -
-          sqrt(
-            -1
-          )
-          (
-            sqrt(
-              (
-                gamma_2(theta_(mu))
-                gamma_2(-theta_(mu))
-              )
-            )
-            (
-              -
-              sqrt(
-                1
-                /
-                (
-                  (
-                    gamma_2(-theta_(mu))
-                  )
-                  ^
-                  2
-                )
-              )
-            )
-          )
-          quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2),
+        &quad (pi < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) <= 2pi),
+      )
+      \
+      &=
+      cases(
+        sqrt(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
         )
-        \
-        ("次回" 20251011 #ref(<range_of_args_of_reciprocal_of_complex_numbers>) "計算続ける")
-      $
-    ][
+        &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or 0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        -sqrt(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
+        )
+        &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+    $
 
-    ]
+    以上より、
 
     $
       (
@@ -11866,7 +11969,33 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
             )
           )
         )
-        quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+        quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          (
+            -
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+        )
+        quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = pi/2),
         -
         sqrt(
           -1
@@ -11890,185 +12019,705 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
             )
           )
         )
-        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        -
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          (
+            -
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+        )
+        quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2),
       )
       \
       &=
-      sqrt(
-        -1
-      )
-      (
+      cases(
         sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
           (
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+        )
+        quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        -
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          (
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+        )
+        quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = pi/2),
+        -
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          (
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+        )
+        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          (
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+        )
+        quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2),
+      )
+      \
+      &=
+      cases(
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          (
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+        )
+        quad & (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        -
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          sqrt(
+            1
+            /
+            (
+              (
+                gamma_2(-theta_(mu))
+              )
+              ^
+              2
+            )
+          )
+        )
+        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+      \
+      &=
+      cases(
+        sqrt(
+          -1
+        )
+        (
+          cases(
+            sqrt(
+              (gamma_2(theta_(mu)))
+              /
+              (gamma_2(-theta_(mu)))
+            )
+            &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or 0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+            -sqrt(
+              (gamma_2(theta_(mu)))
+              /
+              (gamma_2(-theta_(mu)))
+            )
+            &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+          )
+        )
+        quad & (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        -
+        sqrt(
+          -1
+        )
+        (
+          cases(
+            sqrt(
+              (gamma_2(theta_(mu)))
+              /
+              (gamma_2(-theta_(mu)))
+            )
+            &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or 0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+            -sqrt(
+              (gamma_2(theta_(mu)))
+              /
+              (gamma_2(-theta_(mu)))
+            )
+            &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+          )
+        )
+        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+      \
+      &=
+      cases(
+        sqrt(
+          -1
+        )
+        (
+          cases(
+            sqrt(
+              (gamma_2(theta_(mu)))
+              /
+              (gamma_2(-theta_(mu)))
+            )
+            &quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+            -sqrt(
+              (gamma_2(theta_(mu)))
+              /
+              (gamma_2(-theta_(mu)))
+            )
+            &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
+          )
+        )
+        quad & (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        -
+        sqrt(
+          -1
+        )
+        (
+          cases(
+            sqrt(
+              (gamma_2(theta_(mu)))
+              /
+              (gamma_2(-theta_(mu)))
+            )
+            &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
+            -sqrt(
+              (gamma_2(theta_(mu)))
+              /
+              (gamma_2(-theta_(mu)))
+            )
+            &quad (pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+          )
+        )
+        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+      \
+      &=
+      cases(
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (gamma_2(theta_(mu)))
+            /
+            (gamma_2(-theta_(mu)))
+          )
+        )
+        &quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        sqrt(
+          -1
+        )
+        (
+          -sqrt(
+            (gamma_2(theta_(mu)))
+            /
+            (gamma_2(-theta_(mu)))
+          )
+        )
+        &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
+        -
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (gamma_2(theta_(mu)))
+            /
+            (gamma_2(-theta_(mu)))
+          )
+        )
+        &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
+        -
+        sqrt(
+          -1
+        )
+        (
+          -sqrt(
+            (gamma_2(theta_(mu)))
+            /
+            (gamma_2(-theta_(mu)))
+          )
+        )
+        &quad (pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+      \
+      &=
+      cases(
+        -
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (gamma_2(theta_(mu)))
+            /
+            (gamma_2(-theta_(mu)))
+          )
+        )
+        &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
+        -
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (gamma_2(theta_(mu)))
+            /
+            (gamma_2(-theta_(mu)))
+          )
+        )
+        &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (gamma_2(theta_(mu)))
+            /
+            (gamma_2(-theta_(mu)))
+          )
+        )
+        &quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (gamma_2(theta_(mu)))
+            /
+            (gamma_2(-theta_(mu)))
+          )
+        )
+        &quad (pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+      \
+      &=
+      cases(
+        -
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (gamma_2(theta_(mu)))
+            /
+            (gamma_2(-theta_(mu)))
+          )
+        )
+        &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (gamma_2(theta_(mu)))
+            /
+            (gamma_2(-theta_(mu)))
+          )
+        )
+        &quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      )
+    $
+
+    (次回20251025: 左辺を変形続ける。↓ sagemath ではあってるっぽいので、 $sqrt(-1) a(theta_mu)^(-1)$ の符号も$arg$の範囲で変化してくれると嬉しい)
+
+    #note[
+      $
+        (
+          sqrt(
+            -1
+          )
+          sqrt(
             gamma_2(theta_(mu))
             gamma_2(-theta_(mu))
           )
         )
-        sqrt(
-          1
+        /
+        (
+          gamma_2(-theta_(mu))
+        )
+        &=
+        cases(
+          (
+            sqrt(
+              -1
+            )
+            sqrt(
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
           /
           (
+            sqrt(
+              (
+                gamma_2(-theta_(mu))
+              )
+              ^
+              2
+            )
+          )
+          quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+          (
+            sqrt(
+              -1
+            )
+            sqrt(
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          /
+          (
+            -
+            sqrt(
+              (
+                gamma_2(-theta_(mu))
+              )
+              ^
+              2
+            )
+          )
+          quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        )
+        quad
+        (because #ref(<square_of_sqrt>))
+        \
+        &=
+        cases(
+          sqrt(
+            -1
+          )
+          (
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+                gamma_2(-theta_(mu))
+              )
+            )
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+          quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
+          -
+          sqrt(
+            -1
+          )
+          (
+            sqrt(
+              (
+                gamma_2(theta_(mu))
+                gamma_2(-theta_(mu))
+              )
+            )
+            sqrt(
+              1
+              /
+              (
+                (
+                  gamma_2(-theta_(mu))
+                )
+                ^
+                2
+              )
+            )
+          )
+          quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        )
+        \
+        &=
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+          )
+          sqrt(
+            1
+            /
+            (
+              (
+                gamma_2(-theta_(mu))
+              )
+              ^
+              2
+            )
+          )
+        )
+        \
+        &=
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+              gamma_2(-theta_(mu))
+            )
+            dot.op
+            1
+            /
+            (
+              (
+                gamma_2(-theta_(mu))
+              )
+              ^
+              2
+            )
+          )
+        )
+        \
+        &=
+        sqrt(
+          -1
+        )
+        (
+          sqrt(
+            (
+              gamma_2(theta_(mu))
+            )
+            /
             (
               gamma_2(-theta_(mu))
             )
-            ^
-            2
           )
         )
-      )
-      \
-      &=
-      sqrt(
-        -1
-      )
-      (
+        \
+        &=
         sqrt(
-          (
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-          dot.op
-          1
-          /
-          (
+          -1
+        )
+        (
+          sqrt(
             (
-              gamma_2(-theta_(mu))
+              sqrt(-1) e^(sqrt(-1) theta_(mu)) s_2^* (c_1 cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - s_1 c_2)
             )
-            ^
-            2
+            /
+            (
+              sqrt(-1) e^(-sqrt(-1) theta_mu) s_2^* (c_1 cos (theta_mu) + sqrt(-1) sin (theta_mu) - s_1 c_2)
+            )
           )
         )
-      )
-      \
-      &=
-      sqrt(
-        -1
-      )
-      (
+        \
+        &=
         sqrt(
-          (
-            gamma_2(theta_(mu))
-          )
-          /
-          (
-            gamma_2(-theta_(mu))
+          -1
+        )
+        (
+          sqrt(
+            (
+              e^(sqrt(-1) theta_(mu)) (c_1 cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - s_1 c_2)
+            )
+            /
+            (
+              e^(-sqrt(-1) theta_mu) (c_1 cos (theta_mu) + sqrt(-1) sin (theta_mu) - s_1 c_2)
+            )
           )
         )
-      )
-      \
-      &=
-      sqrt(
-        -1
-      )
-      (
+        \
+        &=
         sqrt(
-          (
-            sqrt(-1) e^(sqrt(-1) theta_(mu)) s_2^* (c_1 cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - s_1 c_2)
-          )
-          /
-          (
-            sqrt(-1) e^(-sqrt(-1) theta_mu) s_2^* (c_1 cos (theta_mu) + sqrt(-1) sin (theta_mu) - s_1 c_2)
+          -1
+        )
+        (
+          sqrt(
+            (
+              e^(sqrt(-1) theta_(mu)) (cosh(2K_1) cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - sinh(2K_1) cosh(2K_2))
+            )
+            /
+            (
+              e^(-sqrt(-1) theta_mu) (cosh(2K_1) cos (theta_mu) + sqrt(-1) sin (theta_mu) - sinh(2K_1) cosh(2K_2))
+            )
           )
         )
-      )
-      \
-      &=
-      sqrt(
-        -1
-      )
-      (
-        sqrt(
-          (
-            e^(sqrt(-1) theta_(mu)) (c_1 cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - s_1 c_2)
-          )
-          /
-          (
-            e^(-sqrt(-1) theta_mu) (c_1 cos (theta_mu) + sqrt(-1) sin (theta_mu) - s_1 c_2)
-          )
-        )
-      )
-      \
-      &=
-      sqrt(
-        -1
-      )
-      (
-        sqrt(
-          (
-            e^(sqrt(-1) theta_(mu)) (cosh(2K_1) cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - sinh(2K_1) cosh(2K_2))
-          )
-          /
-          (
-            e^(-sqrt(-1) theta_mu) (cosh(2K_1) cos (theta_mu) + sqrt(-1) sin (theta_mu) - sinh(2K_1) cosh(2K_2))
-          )
-        )
-      )
-    $
+      $
 
-    $
-      a(theta_mu)
-      &=
-      sqrt(
-        (
-          (1 - alpha_1 e^(sqrt(-1) theta_mu))
+      $
+        a(theta_mu)
+        &=
+        sqrt(
+          (
+            (1 - alpha_1 e^(sqrt(-1) theta_mu))
+          )
+          /
+          (
+            (1 - alpha_1 e^(-sqrt(-1) theta_mu))
+          )
+          dot.c
+          (
+            (1 - alpha_2^(-1) e^(sqrt(-1) theta_mu))
+          )
+          /
+          (
+            (1 - alpha_2^(-1) e^(-sqrt(-1) theta_mu))
+          )
         )
-        /
-        (
-          (1 - alpha_1 e^(-sqrt(-1) theta_mu))
+        \
+        &=
+        sqrt(
+          (
+            (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
+          )
+          /
+          (
+            (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
+          )
+          dot.c
+          (
+            (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
+          )
+          /
+          (
+            (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
+          )
         )
-        dot.c
-        (
-          (1 - alpha_2^(-1) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - alpha_2^(-1) e^(-sqrt(-1) theta_mu))
-        )
-      )
-      \
-      &=
-      sqrt(
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
-        )
-      )
-    $
+      $
 
-    より、
+      より、
 
-    $
-      sqrt(-1) a(theta_mu)^(-1)
-      &=
-      sqrt(
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
+      $
+        sqrt(-1) a(theta_mu)^(-1)
+        &=
+        sqrt(
+          (
+            (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
+          )
+          /
+          (
+            (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
+          )
+          dot.c
+          (
+            (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
+          )
+          /
+          (
+            (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
+          )
         )
-        /
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
-        )
-      )
-    $
+      $
+    ]
 
     以下のsagemathコードで数値的に等しいことが検証できた
     ```python
