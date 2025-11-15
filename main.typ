@@ -12426,9 +12426,820 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
       )
     $
 
-    (次回20251025: 左辺を変形続ける。↓ sagemath ではあってるっぽいので、 $sqrt(-1) a(theta_mu)^(-1)$ の符号も$arg$の範囲で変化してくれると嬉しい)
+    ここで、
+
+    $
+      sqrt(
+        (gamma_2(theta_(mu)))
+        /
+        (gamma_2(-theta_(mu)))
+      )
+      &=
+      sqrt(
+        (
+          sqrt(-1) e^(sqrt(-1) theta_(mu)) s_2^* (c_1 cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - s_1 c_2)
+        )
+        /
+        (
+          sqrt(-1) e^(-sqrt(-1) theta_(mu)) s_2^* (c_1 cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - s_1 c_2)
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          sqrt(-1) e^(sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
+        )
+        /
+        (
+          sqrt(-1) e^(-sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
+        )
+      )
+      \
+      "(次回:20251108)" cosh(2 K_2) = 1 + 2 (sinh(K_2))^2 = 1 + 2 (sinh(K_2^*))^(-2) "を使用して続きを計算。"
+      \
+      &=
+      sqrt(
+        (
+          e^(sqrt(-1) theta_(mu))
+          (
+            (e^(2 K_1) + e^(-2 K_1))/2
+            (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))/2
+            -
+            sqrt(-1)
+            (e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))/(2 sqrt(-1))
+            -
+            (e^(2 K_1) - e^(-2 K_1))/2
+            (e^(2 K_2) + e^(-2 K_2))/2
+          )
+        )
+        /
+        (
+          e^(-sqrt(-1) theta_(mu))
+          (
+            (e^(2 K_1) + e^(-2 K_1))/2
+            (e^(-sqrt(-1) theta_(mu)) + e^(sqrt(-1) theta_(mu)))/2
+            -
+            sqrt(-1)
+            (e^(-sqrt(-1) theta_(mu)) - e^(sqrt(-1) theta_(mu)))/(2 sqrt(-1))
+            -
+            (e^(2 K_1) - e^(-2 K_1))/2
+            (e^(2 K_2) + e^(-2 K_2))/2
+          )
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          e^(sqrt(-1) theta_(mu))
+          (
+            (e^(2 K_1) + e^(-2 K_1))
+            (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))
+            -
+            (e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))
+            -
+            (e^(2 K_1) - e^(-2 K_1))
+            (e^(2 K_2) + e^(-2 K_2))
+          )
+        )
+        /
+        (
+          e^(-sqrt(-1) theta_(mu))
+          (
+            (e^(2 K_1) + e^(-2 K_1))
+            (e^(-sqrt(-1) theta_(mu)) + e^(sqrt(-1) theta_(mu)))
+            -
+            (e^(-sqrt(-1) theta_(mu)) - e^(sqrt(-1) theta_(mu)))
+            -
+            (e^(2 K_1) - e^(-2 K_1))
+            (e^(2 K_2) + e^(-2 K_2))
+          )
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          e^(sqrt(-1) theta_(mu))
+          (
+            (e^(2 K_1) + e^(-2 K_1))
+            e^(sqrt(-1) theta_(mu))
+            +
+            (e^(2 K_1) + e^(-2 K_1))
+            e^(-sqrt(-1) theta_(mu))
+            -
+            e^(sqrt(-1) theta_(mu))
+            +
+            e^(-sqrt(-1) theta_(mu))
+            -
+            (e^(2 K_1) - e^(-2 K_1))
+            (e^(2 K_2) + e^(-2 K_2))
+          )
+        )
+        /
+        (
+          e^(-sqrt(-1) theta_(mu))
+          (
+            (e^(2 K_1) + e^(-2 K_1))
+            e^(-sqrt(-1) theta_(mu))
+            +
+            (e^(2 K_1) + e^(-2 K_1))
+            e^(sqrt(-1) theta_(mu))
+            -
+            e^(-sqrt(-1) theta_(mu))
+            +
+            e^(sqrt(-1) theta_(mu))
+            -
+            (e^(2 K_1) - e^(-2 K_1))
+            (e^(2 K_2) + e^(-2 K_2))
+          )
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (e^(2 K_1) + e^(-2 K_1))
+          e^(2 sqrt(-1) theta_(mu))
+          +
+          (e^(2 K_1) + e^(-2 K_1))
+          -
+          e^(2sqrt(-1) theta_(mu))
+          +
+          1
+          -
+          (e^(2 K_1) - e^(-2 K_1))
+          (e^(2 K_2) + e^(-2 K_2))
+          e^(sqrt(-1) theta_(mu))
+        )
+        /
+        (
+          (e^(2 K_1) + e^(-2 K_1))
+          e^(-2sqrt(-1) theta_(mu))
+          +
+          (e^(2 K_1) + e^(-2 K_1))
+          -
+          e^(-2sqrt(-1) theta_(mu))
+          +
+          1
+          -
+          (e^(2 K_1) - e^(-2 K_1))
+          (e^(2 K_2) + e^(-2 K_2))
+          e^(-sqrt(-1) theta_(mu))
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (
+            e^(2 K_1)
+            +
+            e^(-2 K_1)
+            +
+            1
+          )
+          -
+          (e^(2 K_1) - e^(-2 K_1))
+          (e^(2 K_2) + e^(-2 K_2))
+          e^(sqrt(-1) theta_(mu))
+          +
+          (
+            e^(2 K_1)
+            +
+            e^(-2 K_1)
+            -
+            1
+          )
+          e^(2 sqrt(-1) theta_(mu))
+        )
+        /
+        (
+          
+          (
+            e^(2 K_1)
+            +
+            e^(-2 K_1)
+            +
+            1
+          )
+          -
+          (e^(2 K_1) - e^(-2 K_1))
+          (e^(2 K_2) + e^(-2 K_2))
+          e^(-sqrt(-1) theta_(mu))
+          +
+          (
+            e^(2 K_1)
+            +
+            e^(-2 K_1)
+            -
+            1
+          )
+          e^(-2sqrt(-1) theta_(mu))
+        )
+      )
+    $
+
+
+    また、
+
+    $
+      a(theta_mu)
+      &=
+      sqrt(
+        (
+          (1 - alpha_1 e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - alpha_1 e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (1 - alpha_2^(-1) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - alpha_2^(-1) e^(-sqrt(-1) theta_mu))
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (1 - (tanh K_1 (tanh K_2^*)^(-1)) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - (tanh K_1 (tanh K_2^*)^(-1)) e^(-sqrt(-1) theta_mu))
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (tanh K_2^* - (tanh K_1) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (tanh K_2^* - (tanh K_1) e^(-sqrt(-1) theta_mu))
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (tanh K_2^* - (tanh K_1) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (tanh K_2^* - (tanh K_1) e^(-sqrt(-1) theta_mu))
+        )
+      )
+      quad dots.c quad (*)
+      // \
+      // &=
+      // sqrt(
+      //   (
+      //     (1 - ((e^(K_1) - e^(-K_1))/(e^(K_1) + e^(-K_1)) (e^(K_2^*) - e^(-K_2^*))/(e^(K_2^*) + e^(K_2^*))) e^(sqrt(-1) theta_mu))
+      //   )
+      //   /
+      //   (
+      //     (1 - ((e^(K_1) - e^(-K_1))/(e^(K_1) + e^(-K_1)) (e^(K_2^*) - e^(-K_2^*))/(e^(K_2^*) + e^(K_2^*))) e^(-sqrt(-1) theta_mu))
+      //   )
+      //   dot.c
+      //   (
+      //     ((e^(K_2^*) - e^(-K_2^*))/(e^(K_2^*) + e^(K_2^*)) - (e^(K_1) - e^(-K_1))/(e^(K_1) + e^(-K_1)) e^(sqrt(-1) theta_mu))
+      //   )
+      //   /
+      //   (
+      //     ((e^(K_2^*) - e^(-K_2^*))/(e^(K_2^*) + e^(K_2^*)) - (e^(K_1) - e^(-K_1))/(e^(K_1) + e^(-K_1)) e^(-sqrt(-1) theta_mu))
+      //   )
+      // )
+      // \
+      // &=
+      // sqrt(
+      //   (
+      //     (e^(K_1) + e^(-K_1))
+      //     (e^(K_2^*) + e^(-K_2^*))
+      //     -
+      //     (e^(K_1) - e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //     e^(sqrt(-1) theta_mu)
+      //   )
+      //   /
+      //   (
+      //     (e^(K_1) + e^(-K_1))
+      //     (e^(K_2^*) + e^(-K_2^*))
+      //     -
+      //     (e^(K_1) - e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //     e^(-sqrt(-1) theta_mu)
+      //   )
+      //   dot.c
+      //   (
+      //     (e^(K_1) + e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //     -
+      //     (e^(K_1) - e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //     e^(sqrt(-1) theta_mu)
+      //   )
+      //   /
+      //   (
+      //     (e^(K_1) + e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //     -
+      //     (e^(K_1) - e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //     e^(-sqrt(-1) theta_mu)
+      //   )
+      // )
+      // \
+      // &=
+      // sqrt(
+      //   (
+      //     (e^(K_1) + e^(-K_1))
+      //     (e^(K_2^*) + e^(-K_2^*))
+      //     e^(sqrt(-1) theta_mu)
+      //     -
+      //     (e^(K_1) - e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //     e^(2 sqrt(-1) theta_mu)
+      //   )
+      //   /
+      //   (
+      //     (e^(K_1) + e^(-K_1))
+      //     (e^(K_2^*) + e^(-K_2^*))
+      //     e^(sqrt(-1) theta_mu)
+      //     -
+      //     (e^(K_1) - e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //   )
+      //   dot.c
+      //   (
+      //     (e^(K_1) + e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //     e^(sqrt(-1) theta_mu)
+      //     -
+      //     (e^(K_1) - e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //     e^(2 sqrt(-1) theta_mu)
+      //   )
+      //   /
+      //   (
+      //     (e^(K_1) + e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //     e^(sqrt(-1) theta_mu)
+      //     -
+      //     (e^(K_1) - e^(-K_1))
+      //     (e^(K_2^*) - e^(-K_2^*))
+      //   )
+      // )
+    $
+
+    ここで、
+
+    $
+      K_2^* :&= -1/2 log(tanh K_2)
+      \
+      K_2^* &= -1/2 log(tanh K_2)
+      \
+      -2 K_2^* &= log(tanh K_2)
+      \
+      e^(-2 K_2^*) &= tanh K_2
+      \
+      e^(K_2^*) &= (tanh K_2)^(-1/2)
+      \
+      e^(-K_2^*) &= (tanh K_2)^(1/2)
+    $
+
+    より、
+    $
+      tanh(K_2^*) &= (e^(K_2^*) - e^(-K_2^*)) / (e^(K_2^*) + e^(-K_2^*)) \
+      \
+      &=
+      ((tanh K_2)^(-1/2) - (tanh K_2)^(1/2)) / ((tanh K_2)^(-1/2) + (tanh K_2)^(1/2))
+      \
+      &=
+      (
+        (tanh K_2)^(1/2) ((tanh K_2)^(-1/2) - (tanh K_2)^(1/2))
+      )
+      /
+      (
+        (tanh K_2)^(1/2) ((tanh K_2)^(-1/2) + (tanh K_2)^(1/2))
+      )
+      \
+      &=
+      (
+        1 - tanh K_2
+      )
+      /
+      (
+        1 + tanh K_2
+      )
+      \
+      &=
+      (
+        1 - (e^(K_2) - e^(-K_2))/(e^(K_2) + e^(-K_2))
+      )
+      /
+      (
+        1 + (e^(K_2) - e^(-K_2))/(e^(K_2) + e^(-K_2))
+      )
+      \
+      &=
+      (
+        (e^(K_2) + e^(-K_2)) (1 - (e^(K_2) - e^(-K_2))/(e^(K_2) + e^(-K_2)))
+      )
+      /
+      (
+        (e^(K_2) + e^(-K_2)) (1 + (e^(K_2) - e^(-K_2))/(e^(K_2) + e^(-K_2)))
+      )
+      \
+      &=
+      (
+        (e^(K_2) + e^(-K_2)) - (e^(K_2) - e^(-K_2))
+      )
+      /
+      (
+        (e^(K_2) + e^(-K_2)) + (e^(K_2) - e^(-K_2))
+      )
+      \
+      &=
+      (
+        2 e^(-K_2)
+      )
+      /
+      (
+        2 e^(K_2)
+      )
+      \
+      &=
+      (e^(-K_2))/(e^(K_2))
+      \
+      &=
+      e^(-2 K_2)
+    $
+
+    これと、
+
+    $
+      tanh(K_1) &= (e^(K_1) - e^(-K_1)) / (e^(K_1) + e^(-K_1))
+      \
+      &=
+      (
+        e^(K_1) (e^(K_1) - e^(-K_1))
+      )
+      /
+      (
+        e^(K_1) (e^(K_1) + e^(-K_1))
+      )
+      \
+      &=
+      (e^(2 K_1) - 1)/(e^(2 K_1) + 1)
+    $
+
+
+    を用いて
+
+    $
+      (*)
+      &=
+      sqrt(
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (tanh K_2^* - (tanh K_1) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (tanh K_2^* - (tanh K_1) e^(-sqrt(-1) theta_mu))
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (1 - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1) e^(-2 K_2)) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (1 - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1) e^(-2 K_2)) e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(-sqrt(-1) theta_mu))
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (e^(2 K_1) + 1) (1 - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1) e^(-2 K_2)) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (e^(2 K_1) + 1) (1 - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1) e^(-2 K_2)) e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          (e^(2 K_1) + 1) (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          (e^(2 K_1) + 1) (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(-sqrt(-1) theta_mu))
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          ((e^(2 K_1) + 1) - ((e^(2 K_1) - 1) e^(-2 K_2)) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          ((e^(2 K_1) + 1) - ((e^(2 K_1) - 1) e^(-2 K_2)) e^(-sqrt(-1) theta_mu))
+        )
+        dot.c
+        (
+          ((e^(2 K_1) + 1) e^(-2 K_2) - (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu))
+        )
+        /
+        (
+          ((e^(2 K_1) + 1) e^(-2 K_2) - (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu))
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (e^(2 K_1) + 1) - (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(sqrt(-1) theta_mu)
+        )
+        /
+        (
+          (e^(2 K_1) + 1) - (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(-sqrt(-1) theta_mu)
+        )
+        dot.c
+        (
+          e^(2 K_1) e^(-2 K_2) + e^(-2 K_2) - (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
+        )
+        /
+        (
+          e^(2 K_1) e^(-2 K_2) + e^(-2 K_2) - (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (
+            (e^(2 K_1) + 1)
+            -
+            (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(sqrt(-1) theta_mu)
+          )
+          dot.c
+          (
+            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
+            -
+            (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
+          )
+        )
+        /
+        (
+          (
+            (e^(2 K_1) + 1)
+            -
+            (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(-sqrt(-1) theta_mu)
+          )
+          dot.c
+          (
+            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
+            -
+            (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
+          )
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (e^(2 K_1) + 1)
+          dot.c
+          (
+            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
+            -
+            (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
+          )
+          -
+          (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(sqrt(-1) theta_mu)
+          dot.c
+          (
+            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
+            -
+            (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
+          )
+        )
+        /
+        (
+          (e^(2 K_1) + 1)
+          dot.c
+          (
+            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
+            -
+            (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
+          )
+          -
+          (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(-sqrt(-1) theta_mu)
+          dot.c
+          (
+            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
+            -
+            (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
+          )
+        )
+      )
+      \
+      &=
+      sqrt(
+        (
+          (e^(2 K_1) + 1)
+          dot.c
+          (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
+          +
+          (e^(2 K_1) + 1)
+          dot.c
+          
+            -
+            (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
+          )
+
+          -
+
+          (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(sqrt(-1) theta_mu)
+          dot.c
+          (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
+          +
+          (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(sqrt(-1) theta_mu)
+          dot.c
+          (
+            -
+            (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
+          )
+        )
+        /
+        (
+          (e^(2 K_1) + 1)
+          dot.c
+          (
+            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
+            -
+            (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
+          )
+          -
+          (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(-sqrt(-1) theta_mu)
+          dot.c
+          (
+            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
+            -
+            (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
+          )
+        )
+      )
+      \
+      "次回20251115続き分母を展開"
+    $
 
     #note[
+      $
+        K_2^* := -1/2 log(tanh K_2) arrow.l.r sinh(K_2) sinh(K_2^*) = 1
+      $
+
+      $
+        K_2^* &= -1/2 log(tanh K_2)
+        \
+        -2 K_2^* &= log(tanh K_2)
+        \
+        e^(-2 K_2^*) &= tanh K_2
+        \
+        e^(K_2^*) &= (tanh K_2)^(-1/2)
+        \
+        e^(-K_2^*) &= (tanh K_2)^(1/2)
+      $
+
+      $
+        tanh(K_2^*) &= (e^(K_2^*) - e^(-K_2^*)) / (e^(K_2^*) + e^(-K_2^*)) \
+        \
+        &=
+        ((tanh K_2)^(-1/2) - (tanh K_2)^(1/2)) / ((tanh K_2)^(-1/2) + (tanh K_2)^(1/2)) \
+      $
+
+      より、
+
+      $
+        cosh(2 K_2)
+        &=
+        (cosh(K_2))^2 + (sinh(K_2))^2
+        \
+        &=
+        (1 + (sinh(K_2))^2) + (sinh(K_2))^2
+        \
+        &=
+        1 + 2 (sinh(K_2^*))^(-2)
+      $
+
+      x in RR
+      $
+        e^x = 2(cosh(x) + sinh(x))
+      $
+
+      y in RR
+      $
+        e^(sqrt(-1) y) &= cos(y) + sqrt(-1) sin(y) \
+        e^(-sqrt(-1) y)
+        &= cos(-y) + sqrt(-1) sin(-y)
+        \
+        &= cos(y) - sqrt(-1) sin(y)
+      $
+
+      より、
+
+      $
+        cos(y) = (e^(sqrt(-1) y) + e^(-sqrt(-1) y)) / 2 \
+        sin(y) = (e^(sqrt(-1) y) - e^(-sqrt(-1) y)) / (2 sqrt(-1))
+      $
+
+      z in CC
+      $
+        sinh(z) = -sqrt(-1) sin(sqrt(-1) z) \
+        cosh(z) = cos(sqrt(-1) z) \
+      $
+
+      x in RR
+      $
+        sinh(2x) = 2 sinh(x) cosh(x) \
+        cosh(2x) = (cosh(x))^2 + (sinh(x))^2 \
+
+        (cosh(x))^2 - (sinh(x))^2 = 1 \
+        (cosh(x))^2 = 1 + (sinh(x))^2 \
+        (sinh(x))^2 = (cosh(x))^2 - 1
+      $
+
+
       $
         (
           sqrt(
