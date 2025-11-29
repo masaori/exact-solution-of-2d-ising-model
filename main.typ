@@ -2257,6 +2257,37 @@ ii.c $pi < theta_1 + theta_2 - 2(m_1 + m_2) pi <= 2pi$ のとき、
 ]
 
 
+#claim([$CC$の$sqrt(dot)$の逆数])[
+  $z in CC$について、
+
+  $
+    (sqrt(z))^(-1)
+    =
+    1/sqrt(z)
+    =
+    cases(
+      sqrt(1/z) & quad (-pi < arg^((-pi, pi])(z) < pi),
+      -(sqrt(1/z)) & quad (arg^((-pi, pi])(z) = pi),
+    )
+  $
+
+  #proof[
+    #ref(<inverse_of_sqrt_cc>)より。
+  ]
+
+]<sqrt_cc_of_inverse>
+
+#remark[
+  $z in CC^(times)$ について、
+
+  $
+    (sqrt(z))^(-1) = cases(
+        sqrt(1/z) & quad (-pi < arg^( (-pi, pi])(z) < pi <=> z in.not RR_(<0)),
+        -(sqrt(1/z)) & quad (arg^( (-pi, pi])(z) = pi <=> z in RR_(<0)),
+    )
+  $
+]
+
 
 == 2次元ising模型の分配関数
 #definition("格子サイズ")[
@@ -12472,8 +12503,6 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
         )
         /
-        次回202051122 ここまであってるが、結果が間違っているっぽい
-        Sagemath で検証を続ける
         (
           e^(-sqrt(-1) theta_(mu))
           (
@@ -12488,7 +12517,6 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
         )
       )
-      \
       &=
       sqrt(
         (
@@ -12643,6 +12671,8 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
 
 
     また、
+
+次回202251129: a(theta_mu)の逆数と比較せねばならないので #ref(<sqrt_cc_of_inverse>)を使って計算する
 
     $
       a(theta_mu)
