@@ -1,3 +1,4 @@
+
 #import "@preview/cetz:0.1.2"
 #import "@preview/commute:0.2.0": node, arr, commutative-diagram
 #import "@preview/fletcher:0.5.1" as fletcher: diagram, node, edge
@@ -11482,7 +11483,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
 
   $mu in cal(M)$について、
 
-  $gamma_2(theta_mu) = 0$のとき、
+  $gamma_2(theta_mu) eq.not 0$のとき、
 
   $
     P_mu
@@ -12475,6 +12476,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           sqrt(-1) e^(-sqrt(-1) theta_(mu)) s_2^* (c_1 cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - s_1 c_2)
         )
       )
+      quad dots.c quad (R.1)
       \
       &=
       sqrt(
@@ -12486,6 +12488,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           sqrt(-1) e^(-sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
         )
       )
+      quad dots.c quad (R.2)
       \
       &=
       sqrt(
@@ -12517,6 +12520,8 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
         )
       )
+      quad dots.c quad (R.3)
+      \
       &=
       sqrt(
         (
@@ -12545,6 +12550,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
         )
       )
+      quad dots.c quad (R.4)
       \
       &=
       sqrt(
@@ -12584,6 +12590,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
         )
       )
+      quad dots.c quad (R.5)
       \
       &=
       sqrt(
@@ -12617,6 +12624,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           e^(-sqrt(-1) theta_(mu))
         )
       )
+      quad dots.c quad (R.6)
       \
       &=
       sqrt(
@@ -12667,7 +12675,60 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           e^(-2sqrt(-1) theta_(mu))
         )
       )
+      quad dots.c quad (R.7)
     $
+
+    #note[
+      sqrtの中の逆数
+      $
+        (
+          (
+            e^(2 K_1)
+            +
+            e^(-2 K_1)
+            +
+            1
+          )
+          -
+          (e^(2 K_1) - e^(-2 K_1))
+          (e^(2 K_2) + e^(-2 K_2))
+          e^(-sqrt(-1) theta_(mu))
+          +
+          (
+            e^(2 K_1)
+            +
+            e^(-2 K_1)
+            -
+            1
+          )
+          e^(-2sqrt(-1) theta_(mu))
+        )
+        /
+        (
+          (
+            e^(2 K_1)
+            +
+            e^(-2 K_1)
+            +
+            1
+          )
+          -
+          (e^(2 K_1) - e^(-2 K_1))
+          (e^(2 K_2) + e^(-2 K_2))
+          e^(sqrt(-1) theta_(mu))
+          +
+          (
+            e^(2 K_1)
+            +
+            e^(-2 K_1)
+            -
+            1
+          )
+          e^(2 sqrt(-1) theta_(mu))
+        )
+        
+      $
+    ]
 
 
     また、
@@ -12694,6 +12755,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           (1 - alpha_2^(-1) e^(-sqrt(-1) theta_mu))
         )
       )
+      quad dots.c quad (L.1)
       \
       &=
       sqrt(
@@ -12713,6 +12775,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
         )
       )
+      quad dots.c quad (L.2)
       \
       &=
       sqrt(
@@ -12732,6 +12795,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           (1 - (tanh K_1 (tanh K_2^*)^(-1)) e^(-sqrt(-1) theta_mu))
         )
       )
+      quad dots.c quad (L.3)
       \
       &=
       sqrt(
@@ -12751,6 +12815,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           (tanh K_2^* - (tanh K_1) e^(-sqrt(-1) theta_mu))
         )
       )
+      quad dots.c quad (L.4)
       \
       &=
       sqrt(
@@ -12770,7 +12835,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           (tanh K_2^* - (tanh K_1) e^(-sqrt(-1) theta_mu))
         )
       )
-      quad dots.c quad (*)
+      quad dots.c quad (L.5)
       // \
       // &=
       // sqrt(
@@ -12978,7 +13043,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
     を用いて
 
     $
-      (*)
+      (L.5)
       &=
       sqrt(
         (
@@ -12997,6 +13062,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           (tanh K_2^* - (tanh K_1) e^(-sqrt(-1) theta_mu))
         )
       )
+      quad dots.c quad (L.6)
       \
       &=
       sqrt(
@@ -13016,6 +13082,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(-sqrt(-1) theta_mu))
         )
       )
+      quad dots.c quad (L.7)
       \
       &=
       sqrt(
@@ -13035,6 +13102,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           (e^(2 K_1) + 1) (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(-sqrt(-1) theta_mu))
         )
       )
+      quad dots.c quad (L.8)
       \
       &=
       sqrt(
@@ -13054,6 +13122,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           ((e^(2 K_1) + 1) e^(-2 K_2) - (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu))
         )
       )
+      quad dots.c quad (L.9)
       \
       &=
       sqrt(
@@ -13073,6 +13142,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           e^(2 K_1) e^(-2 K_2) + e^(-2 K_2) - (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
         )
       )
+      quad dots.c quad (L.10)
       \
       &=
       sqrt(
@@ -13104,6 +13174,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
         )
       )
+      quad dots.c quad (L.11)
       \
       &=
       sqrt(
@@ -13143,6 +13214,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
         )
       )
+      quad dots.c quad (L.12)
       \
       &=
       sqrt(
@@ -13182,6 +13254,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
         )
       )
+      quad dots.c quad (L.13)
       \
       &=
       sqrt(
@@ -13213,6 +13286,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
         )
       )
+      quad dots.c quad (L.14)
       \
       &=
       sqrt(
@@ -13236,6 +13310,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu) e^(-sqrt(-1) theta_mu)
         )
       )
+      quad dots.c quad (L.15)
       \
       &=
       sqrt(
@@ -13265,6 +13340,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(-2 sqrt(-1) theta_mu)
         )
       )
+      quad dots.c quad (L.16)
       \
       &=
       sqrt(
@@ -13294,38 +13370,48 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(-2 sqrt(-1) theta_mu)
         )
       )
-      \
-      &=
-      sqrt(
-        (
-          (
-            e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-            -
-            (
-              (e^(2 K_1) - 1) (e^(2 K_1) + 1) 
-              +
-              e^(-2 K_2) e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1)
-            )
-            e^(sqrt(-1) theta_mu)
-            +
-            e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(2 sqrt(-1) theta_mu)
-          )
-        )
-        /
-        (
-          e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (
-            (e^(2 K_1) - 1) (e^(2 K_1) + 1)
-            +
-            e^(-2 K_2) e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1)
-          )
-          e^(-sqrt(-1) theta_mu)
-          +
-          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(-2 sqrt(-1) theta_mu)
-        )
-      )
+      quad dots.c quad (L.17)
     $
+
+次回 20251206
+- $R.1$と$L.2$をsagemath比較したところ、逆数取らない方が一致していた
+  - 本が間違っているのかもしれない
+- なので方針として
+  - ホロノミック量子場の$gamma(theta_mu)$を$gamma_1(theta_mu)$,$gamma_2(theta_mu)$,$a(theta_mu)$を使って表す
+  - (B.13)が成り立つことを示す
+    - (B.11)(B.12)を書き直す
+    - (B.13)は$T_g$の$Psi, Psi^(dagger)$への作用を表している
+    - また、$Psi, Psi^(dagger)$ は $"Mat"(CC, 2~M)$を【多分】張る <= 示す <= $Z^(hat)$, $Y^(hat)$の線型結合なので、$Z^(hat)$, $Y^(hat)$が張っていていて、潰れてなければOK <= 示す
+    - よって $T_(g^(prime))$ の $Psi, Psi^(dagger)$への作用を調べて、(B.13)と同じになることを示す
+
+#note[
+  比較結果
+  各式
+  - $sqrt$の中身を比較
+  - R.x は逆数、 L.x は元の式を比較
+  $
+    #align(center)[#table(columns: (auto, auto, auto, auto, auto, auto, auto, auto),
+      [], [$(R.1)^(-1)$], [$(R.2)^(-1)$], [$(R.3)^(-1)$], [$(R.4)^(-1)$], [$(R.5)^(-1)$], [$(R.6)^(-1)$], [$(R.7)^(-1)$],
+      [$L.1$], [], [], [], [], [], [], [],
+      [$L.2$], [], [], [], [], [], [], [],
+      [$L.3$], [], [], [], [], [], [], [],
+      [$L.4$], [], [], [], [], [], [], [],
+      [$L.5$], [], [], [], [], [], [], [],
+      [$L.6$], [], [], [], [], [], [], [],
+      [$L.7$], [], [], [], [], [], [], [],
+      [$L.8$], [], [], [], [], [], [], [],
+      [$L.9$], [], [], [], [], [], [], [],
+      [$L.10$], [], [], [], [], [], [], [],
+      [$L.11$], [], [], [], [], [], [], [],
+      [$L.12$], [], [], [], [], [], [], [],
+      [$L.13$], [], [], [], [], [], [], [],
+      [$L.14$], [], [], [], [], [], [], [],
+      [$L.15$], [], [], [], [], [], [], [],
+      [$L.16$], [], [], [], [], [], [], [],
+      [$L.17$], [], [], [], [], [], [], []
+    )]
+  $
+]
 
     #note[
       $
