@@ -11605,12 +11605,9 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
   と定めるとき、
 
   $
-    sqrt(-1)(a(theta_mu))^(-1)
+    a(theta_mu)
     =
     (
-      sqrt(
-        -1
-      )
       sqrt(
         gamma_2(theta_(mu))
         gamma_2(-theta_(mu))
@@ -12733,8 +12730,6 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
 
     また、
 
-次回202251129: a(theta_mu)の逆数と比較せねばならないので #ref(<sqrt_cc_of_inverse>)を使って計算する
-
     $
       a(theta_mu)
       &=
@@ -13388,10 +13383,9 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
   比較結果
   各式
   - $sqrt$の中身を比較
-  - R.x は逆数、 L.x は元の式を比較
   $
     #align(center)[#table(columns: (auto, auto, auto, auto, auto, auto, auto, auto),
-      [], [$(R.1)^(-1)$], [$(R.2)^(-1)$], [$(R.3)^(-1)$], [$(R.4)^(-1)$], [$(R.5)^(-1)$], [$(R.6)^(-1)$], [$(R.7)^(-1)$],
+      [], [$R.1$], [$R.2$], [$R.3$], [$R.4$], [$R.5$], [$R.6$], [$R.7$],
       [$L.1$], [], [], [], [], [], [], [],
       [$L.2$], [], [], [], [], [], [], [],
       [$L.3$], [], [], [], [], [], [], [],

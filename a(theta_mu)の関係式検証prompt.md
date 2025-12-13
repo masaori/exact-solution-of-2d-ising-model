@@ -168,28 +168,28 @@ if all_ok:
 
 # 式1 (typist)
         (
-          sqrt(-1) e^(sqrt(-1) theta_(mu)) s_2^* (c_1 cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - s_1 c_2)
+          sqrt(-1) e^(sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
         )
         /
         (
-          sqrt(-1) e^(-sqrt(-1) theta_(mu)) s_2^* (c_1 cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - s_1 c_2)
+          sqrt(-1) e^(-sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
         )
-      quad dots.c quad (R.1)
+      quad dots.c quad (R.2)
 
 # 式2 (typist)
         (
-          (1 - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1) e^(-2 K_2)) e^(sqrt(-1) theta_mu))
+          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
         )
         /
         (
-          (1 - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1) e^(-2 K_2)) e^(-sqrt(-1) theta_mu))
+          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
         )
         dot.c
         (
-          (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(sqrt(-1) theta_mu))
+          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
         )
         /
         (
-          (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(-sqrt(-1) theta_mu))
+          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
         )
-      quad dots.c quad (L.7)
+      quad dots.c quad (L.2)
