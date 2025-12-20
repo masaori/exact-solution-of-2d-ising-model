@@ -17,6 +17,8 @@ s_1_star = sinh(2*K1_star)
 c_1_star = cosh(2*K1_star)
 s_2_star = sinh(2*K2_star)
 c_2_star = cosh(2*K2_star)
+alpha_1 = tanh(K1) * tanh(K2_star)
+alpha_2 = tanh(K2_star) / tanh(K1)
 
 # ---------------------------------------------------------
 # 式1の定義（新しい式1）
@@ -167,29 +169,83 @@ if all_ok:
 ```
 
 # 式1 (typist)
-        (
-          sqrt(-1) e^(sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
-        )
-        /
-        (
-          sqrt(-1) e^(-sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
-        )
-      quad dots.c quad (R.2)
+```
+
+    (
+
+      sqrt(-1) e^(sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
+
+    )
+
+    /
+
+    (
+
+      sqrt(-1) e^(-sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
+
+    )
+
+  quad dots.c quad (R.2)
+
+```
 
 # 式2 (typist)
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
-        )
-      quad dots.c quad (L.2)
+```
+
+    (
+
+      e^(sqrt(-1) theta_(mu))
+
+      (
+
+        (e^(2 K_1) + e^(-2 K_1))/2
+
+        (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))/2
+
+        -
+
+        sqrt(-1)
+
+        (e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))/(2 sqrt(-1))
+
+        -
+
+        (e^(2 K_1) - e^(-2 K_1))/2
+
+        (e^(2 K_2) + e^(-2 K_2))/2
+
+      )
+
+    )
+
+    /
+
+    (
+
+      e^(-sqrt(-1) theta_(mu))
+
+      (
+
+        (e^(2 K_1) + e^(-2 K_1))/2
+
+        (e^(-sqrt(-1) theta_(mu)) + e^(sqrt(-1) theta_(mu)))/2
+
+        -
+
+        sqrt(-1)
+
+        (e^(-sqrt(-1) theta_(mu)) - e^(sqrt(-1) theta_(mu)))/(2 sqrt(-1))
+
+        -
+
+        (e^(2 K_1) - e^(-2 K_1))/2
+
+        (e^(2 K_2) + e^(-2 K_2))/2
+
+      )
+
+    )
+
+  quad dots.c quad (R.3)
+
+```
