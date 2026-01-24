@@ -1042,11 +1042,23 @@
 
   $r_1, r_2 in RR_(>=0), theta_1, theta_2 in RR$ を用いて、
 
-  $phi_("polar")(z_1) = [(r_1, theta_1)]_(~), phi_("polar")(z_2) = [(r_2, theta_2)]_(~)$ とする
+  $phi_("polar")(z_1) = [(r_1, theta_1)]_(~), phi_("polar")(z_2) = [(r_2, theta_2)]_(~)$ とすると、
 
-  このとき、$-pi < theta_1 + theta_2 - 2n pi <= pi$ を満たす $n in ZZ$ が存在して、
+  $-pi < theta_1 - 2n_1 pi <= pi, -pi < theta_2 - 2n_2 pi <= pi$ を満たす $n_1, n_2 in ZZ$ が存在して、
+
+  $arg^((-pi, pi])(z_1) = theta_1 - 2n_1 pi, arg^((-pi, pi])(z_2) = theta_2 - 2n_2 pi$
+
+  と書ける。
+
+  このとき、
   $
     arg^((-pi, pi])(z_1 z_2) = theta_1 + theta_2 - 2n pi
+    =
+    cases(
+      arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) - pi & quad (0 < theta_1 + theta_2 - 2 (n_1 + n_2 - 1) pi <= pi),
+      arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) & quad (- pi < theta_1 + theta_2 - 2 (n_1 + n_2) pi <= pi),
+      arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) + pi & quad (- pi < theta_1 + theta_2 - 2 (n_1 + n_2 + 1) pi <= 0),
+    )
   $
 
   #proof[
@@ -1071,13 +1083,85 @@
       \
       &=
       s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
+    $
+
+    a. $0 < theta_1 + theta_2 - 2 (n_1 + n_2) pi + 2 pi <= pi$ の時、
+    $0 < theta_1 + theta_2 - 2 (n_1 + n_2 - 1) pi <= pi$ だから、
+    $
+      s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
+      &=
+      theta_1 + theta_2 - 2 (n_1 + n_2 - 1) pi
       \
       &=
-      theta_1 + theta_2 - 2n pi
-      
+      arg^((-pi, pi])(z_1) + 2n_1 pi + arg^((-pi, pi])(z_2) + 2n_2 pi + 2 pi - 2 (n_1 + n_2 - 1) pi
+      \
+      &=
+      arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) - pi
+    $
+    
+    b. $- pi < theta_1 + theta_2 - 2 (n_1 + n_2) pi <= pi$ の時、
+    $- pi < theta_1 + theta_2 - 2 (n_1 + n_2) pi <= pi$ だから,
+    $
+      s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
+      &=
+      theta_1 + theta_2 - 2 (n_1 + n_2) pi
+      \
+      &=
+      arg^((-pi, pi])(z_1) + 2n_1 pi + arg^((-pi, pi])(z_2) + 2n_2 pi - 2 (n_1 + n_2) pi
+      \
+      &=
+      arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2)
+    $
+
+    c. $- pi < theta_1 + theta_2 - 2 (n_1 + n_2) pi - 2 pi <= 0$ の時、
+    $- pi < theta_1 + theta_2 - 2 (n_1 + n_2 + 1) pi <= 0$ だから,
+    $
+      s_((-pi, pi])([theta_1 + theta_2]_(~_(angle)))
+      &=
+      theta_1 + theta_2 - 2 (n_1 + n_2 + 1) pi
+      \
+      &=
+      arg^((-pi, pi])(z_1) + 2n_1 pi + arg^((-pi, pi])(z_2) + 2n_2 pi - 2 (n_1 + n_2 + 1) pi
+      \
+      &=
+      arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) + pi
     $
   ]
-]
+]<arg_of_product_of_complex_numbers>
+
+#claim(none)[
+
+  $z_1, z_2 in CC$ について、
+
+  $r_1, r_2 in RR_(>=0), theta_1, theta_2 in RR$ を用いて、
+
+  $phi_("polar")(z_1) = [(r_1, theta_1)]_(~), phi_("polar")(z_2) = [(r_2, theta_2)]_(~)$ とすると、
+
+  $-pi < theta_1 - 2n_1 pi <= pi, -pi < theta_2 - 2n_2 pi <= pi$ を満たす $n_1, n_2 in ZZ$ が存在して、
+
+  $arg^((-pi, pi])(z_1) = theta_1 - 2n_1 pi, arg^((-pi, pi])(z_2) = theta_2 - 2n_2 pi$
+
+  と書ける。
+
+  このとき、
+  $
+    arg^((-pi, pi])(z_1 / z_2) = theta_1 - theta_2 - 2n pi
+    =
+    cases(
+      arg^((-pi, pi])(z_1) - arg^((-pi, pi])(z_2) - pi & quad (???),
+      arg^((-pi, pi])(z_1) - arg^((-pi, pi])(z_2) & quad (???),
+      arg^((-pi, pi])(z_1) - arg^((-pi, pi])(z_2) + pi & quad (???),
+    )
+  $
+
+  TODO: 20260124 条件を調べて埋める。proofは同様に、で良い
+  これが終わったら、フェルミオンの検証に戻る
+  $gamma_2(theta_mu)$の分枝を決める必要がある
+
+  #proof[
+
+  ]
+]<arg_of_quotient_of_complex_numbers>
 
 #claim(none)[
 
@@ -10414,6 +10498,47 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
   ]
 ]
 
+#claim([$(gamma_2(theta_mu)) / (gamma_2(-theta_mu))$の$arg$])[
+  #note[
+      $
+    arg^((-pi, pi])(1/z)
+    =
+    arg^((-pi, pi])(z^(-1))
+    =
+    cases(
+      -arg^((-pi, pi])(z) & quad (-pi < arg^((-pi, pi])(z) < pi),
+      pi & quad (arg^((-pi, pi])(z) = pi),
+    )
+    // <range_of_args_of_reciprocal_of_complex_numbers>
+  $
+     $z_1, z_2 in CC$ について、
+
+  $r_1, r_2 in RR_(>=0), theta_1, theta_2 in RR$ を用いて、
+
+  $phi_("polar")(z_1) = [(r_1, theta_1)]_(~), phi_("polar")(z_2) = [(r_2, theta_2)]_(~)$ とする
+
+  このとき、$-pi < theta_1 + theta_2 - 2n pi <= pi$ を満たす $n in ZZ$ が存在して、
+  $
+    arg^((-pi, pi])(z_1 z_2) = theta_1 + theta_2 - 2n pi
+  $
+    
+// <arg_of_product_of_complex_numbers>
+
+
+  ]
+  $mu in cal(M)$について、
+
+  $
+    arg^((-pi, pi])(
+      (gamma_2(theta_mu)) / (gamma_2(-theta_mu))
+    ) = ???
+  $
+
+  $
+    
+  $
+]
+
 #claim([$A(theta)$の対角化])[
 
   $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
@@ -11606,19 +11731,45 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
 
   $
     a(theta_mu)
-    =
-    (
-      sqrt(
-        gamma_2(theta_(mu))
-        gamma_2(-theta_(mu))
-      )
+    &=
+    sqrt(
+      (gamma_2(theta_(mu)))
+      /
+      (gamma_2(-theta_(mu)))
     )
-    /
-    (
-      gamma_2(-theta_(mu))
+    \
+    &=
+    cases(
+      -
+      (
+        (
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        /
+        (
+          gamma_2(-theta_(mu))
+        )
+      )
+      &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
+      (
+        (
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        /
+        (
+          gamma_2(-theta_(mu))
+        )
+      )
+      &quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
     )
   $
-
+  
   #proof[
     $mu in cal(M)$ について、
 
@@ -12527,7 +12678,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
             (e^(2 K_1) + e^(-2 K_1))
             (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))
             -
-            2(e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu))) <= ここが間違っていた
+            2(e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))
             -
             (e^(2 K_1) - e^(-2 K_1))
             (e^(2 K_2) + e^(-2 K_2))
@@ -12540,7 +12691,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
             (e^(2 K_1) + e^(-2 K_1))
             (e^(-sqrt(-1) theta_(mu)) + e^(sqrt(-1) theta_(mu)))
             -
-            2(e^(-sqrt(-1) theta_(mu)) - e^(sqrt(-1) theta_(mu))) <= ここが間違っていた
+            2(e^(-sqrt(-1) theta_(mu)) - e^(sqrt(-1) theta_(mu)))
             -
             (e^(2 K_1) - e^(-2 K_1))
             (e^(2 K_2) + e^(-2 K_2))
@@ -12548,8 +12699,6 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
         )
       )
       quad dots.c quad (R.4)
-
-      次回(20251220)ここから計算やり直し 
       \
       &=
       sqrt(
@@ -12562,8 +12711,10 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
             (e^(2 K_1) + e^(-2 K_1))
             e^(-sqrt(-1) theta_(mu))
             -
+            2
             e^(sqrt(-1) theta_(mu))
             +
+            2
             e^(-sqrt(-1) theta_(mu))
             -
             (e^(2 K_1) - e^(-2 K_1))
@@ -12580,8 +12731,10 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
             (e^(2 K_1) + e^(-2 K_1))
             e^(sqrt(-1) theta_(mu))
             -
+            2
             e^(-sqrt(-1) theta_(mu))
             +
+            2
             e^(sqrt(-1) theta_(mu))
             -
             (e^(2 K_1) - e^(-2 K_1))
@@ -12594,14 +12747,67 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
       &=
       sqrt(
         (
+          (
+            (e^(2 K_1) + e^(-2 K_1))
+            e^(sqrt(-1) theta_(mu))
+            e^(sqrt(-1) theta_(mu))
+            +
+            (e^(2 K_1) + e^(-2 K_1))
+            e^(-sqrt(-1) theta_(mu))
+            e^(sqrt(-1) theta_(mu))
+            -
+            2
+            e^(sqrt(-1) theta_(mu))
+            e^(sqrt(-1) theta_(mu))
+            +
+            2
+            e^(-sqrt(-1) theta_(mu))
+            e^(sqrt(-1) theta_(mu))
+            -
+            (e^(2 K_1) - e^(-2 K_1))
+            (e^(2 K_2) + e^(-2 K_2))
+            e^(sqrt(-1) theta_(mu))
+          )
+        )
+        /
+        (
+          (
+            (e^(2 K_1) + e^(-2 K_1))
+            e^(-sqrt(-1) theta_(mu))
+            e^(-sqrt(-1) theta_(mu))
+            +
+            (e^(2 K_1) + e^(-2 K_1))
+            e^(sqrt(-1) theta_(mu))
+            e^(-sqrt(-1) theta_(mu))
+            -
+            2
+            e^(-sqrt(-1) theta_(mu))
+            e^(-sqrt(-1) theta_(mu))
+            +
+            2
+            e^(sqrt(-1) theta_(mu))
+            e^(-sqrt(-1) theta_(mu))
+            -
+            (e^(2 K_1) - e^(-2 K_1))
+            (e^(2 K_2) + e^(-2 K_2))
+            e^(-sqrt(-1) theta_(mu))
+          )
+        )
+      )
+      quad dots.c quad (R.6)
+      \
+      &=
+      sqrt(
+        (
           (e^(2 K_1) + e^(-2 K_1))
           e^(2 sqrt(-1) theta_(mu))
           +
           (e^(2 K_1) + e^(-2 K_1))
           -
-          e^(2sqrt(-1) theta_(mu))
+          2
+          e^(2 sqrt(-1) theta_(mu))
           +
-          1
+          2
           -
           (e^(2 K_1) - e^(-2 K_1))
           (e^(2 K_2) + e^(-2 K_2))
@@ -12610,20 +12816,21 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
         /
         (
           (e^(2 K_1) + e^(-2 K_1))
-          e^(-2sqrt(-1) theta_(mu))
+          e^(-2 sqrt(-1) theta_(mu))
           +
           (e^(2 K_1) + e^(-2 K_1))
           -
-          e^(-2sqrt(-1) theta_(mu))
+          2
+          e^(-2 sqrt(-1) theta_(mu))
           +
-          1
+          2
           -
           (e^(2 K_1) - e^(-2 K_1))
           (e^(2 K_2) + e^(-2 K_2))
           e^(-sqrt(-1) theta_(mu))
         )
       )
-      quad dots.c quad (R.6)
+      quad dots.c quad (R.7)
       \
       &=
       sqrt(
@@ -12632,9 +12839,10 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
             e^(2 K_1)
             +
             e^(-2 K_1)
-            +
-            1
+            -
+            2
           )
+          e^(2 sqrt(-1) theta_(mu))
           -
           (e^(2 K_1) - e^(-2 K_1))
           (e^(2 K_2) + e^(-2 K_2))
@@ -12644,21 +12852,20 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
             e^(2 K_1)
             +
             e^(-2 K_1)
-            -
-            1
+            +
+            2
           )
-          e^(2 sqrt(-1) theta_(mu))
         )
         /
         (
-          
           (
             e^(2 K_1)
             +
             e^(-2 K_1)
-            +
-            1
+            -
+            2
           )
+          e^(-2 sqrt(-1) theta_(mu))
           -
           (e^(2 K_1) - e^(-2 K_1))
           (e^(2 K_2) + e^(-2 K_2))
@@ -12668,67 +12875,13 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
             e^(2 K_1)
             +
             e^(-2 K_1)
-            -
-            1
+            +
+            2
           )
-          e^(-2sqrt(-1) theta_(mu))
         )
       )
-      quad dots.c quad (R.7)
+      quad dots.c quad (R.8)
     $
-
-    #note[
-      sqrtの中の逆数
-      $
-        (
-          (
-            e^(2 K_1)
-            +
-            e^(-2 K_1)
-            +
-            1
-          )
-          -
-          (e^(2 K_1) - e^(-2 K_1))
-          (e^(2 K_2) + e^(-2 K_2))
-          e^(-sqrt(-1) theta_(mu))
-          +
-          (
-            e^(2 K_1)
-            +
-            e^(-2 K_1)
-            -
-            1
-          )
-          e^(-2sqrt(-1) theta_(mu))
-        )
-        /
-        (
-          (
-            e^(2 K_1)
-            +
-            e^(-2 K_1)
-            +
-            1
-          )
-          -
-          (e^(2 K_1) - e^(-2 K_1))
-          (e^(2 K_2) + e^(-2 K_2))
-          e^(sqrt(-1) theta_(mu))
-          +
-          (
-            e^(2 K_1)
-            +
-            e^(-2 K_1)
-            -
-            1
-          )
-          e^(2 sqrt(-1) theta_(mu))
-        )
-        
-      $
-    ]
-
 
     また、
 
@@ -13351,7 +13504,8 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
           e^(sqrt(-1) theta_mu)
           +
-          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(2 sqrt(-1) theta_mu)
+          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(2 sqrt(-1) theta_mu)
         )
         /
         (
@@ -13364,71 +13518,298 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
           )
           e^(-sqrt(-1) theta_mu)
           +
-          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(-2 sqrt(-1) theta_mu)
+          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(-2 sqrt(-1) theta_mu)
         )
       )
       quad dots.c quad (L.17)
+      \
+      &=
+      sqrt(
+        (          
+          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
+          -
+          (
+            e^(2 K_2)
+            (e^(2 K_1) - 1) (e^(2 K_1) + 1) 
+            +
+            e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1)
+          )
+          e^(sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(2 sqrt(-1) theta_mu)
+        )
+        /
+        (
+          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
+          -
+          (
+            e^(2 K_2)
+            (e^(2 K_1) - 1) (e^(2 K_1) + 1)
+            +
+            e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1)
+          )
+          e^(-sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(-2 sqrt(-1) theta_mu)
+        )
+      )
+      quad dots.c quad (L.18)
+      \
+      &=
+      sqrt(
+        (          
+          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          (e^(2 K_1) + 1) (e^(2 K_1) - 1) 
+          e^(sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(2 sqrt(-1) theta_mu)
+        )
+        /
+        (
+          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          (e^(2 K_1) + 1) (e^(2 K_1) - 1)
+          e^(-sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(-2 sqrt(-1) theta_mu)
+        )
+      )
+      quad dots.c quad (L.19)
+      \
+      &=
+      sqrt(
+        (          
+          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          ((e^(2 K_1))^2 - 1)
+          e^(sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(2 sqrt(-1) theta_mu)
+        )
+        /
+        (
+          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          ((e^(2 K_1))^2 - 1)
+          e^(-sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(-2 sqrt(-1) theta_mu)
+        )
+      )
+      quad dots.c quad (L.20)
+      \
+      &=
+      sqrt(
+        (          
+          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(2 sqrt(-1) theta_mu)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          ((e^(2 K_1))^2 - 1)
+          e^(sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
+        )
+        /
+        (
+          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(-2 sqrt(-1) theta_mu)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          ((e^(2 K_1))^2 - 1)
+          e^(-sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
+        )
+      )
+      quad dots.c quad (L.21)
+      \
+      &=
+      sqrt(
+        (          
+          e^(-2 K_1) (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(2 sqrt(-1) theta_mu)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          (e^(2 K_1) - e^(-2 K_1))
+          e^(sqrt(-1) theta_mu)
+          +
+          e^(-2 K_1)
+          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
+        )
+        /
+        (
+          e^(-2 K_1)
+          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
+          e^(-2 sqrt(-1) theta_mu)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          (e^(2 K_1) - e^(-2 K_1))
+          e^(-sqrt(-1) theta_mu)
+          +
+          e^(-2 K_1)
+          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
+        )
+      )
+      quad dots.c quad (L.22)
+      \
+      &=
+      sqrt(
+        (          
+          e^(-2 K_1)
+          ((e^(2 K_1))^2 - 2 e^(2 K_1) + 1)
+          e^(2 sqrt(-1) theta_mu)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          (e^(2 K_1) - e^(-2 K_1))
+          e^(sqrt(-1) theta_mu)
+          +
+          e^(-2 K_1)
+          ((e^(2 K_1))^2 + 2 e^(2 K_1) + 1)
+        )
+        /
+        (
+          e^(-2 K_1)
+          ((e^(2 K_1))^2 - 2 e^(2 K_1) + 1)
+          e^(-2 sqrt(-1) theta_mu)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          (e^(2 K_1) - e^(-2 K_1))
+          e^(-sqrt(-1) theta_mu)
+          +
+          e^(-2 K_1)
+          ((e^(2 K_1))^2 + 2 e^(2 K_1) + 1)
+        )
+      )
+      quad dots.c quad (L.23)
+      \
+      &=
+      sqrt(
+        (          
+          (e^(2 K_1) - 2 + e^(-2 K_1))
+          e^(2 sqrt(-1) theta_mu)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          (e^(2 K_1) - e^(-2 K_1))
+          e^(sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) + 2 + e^(-2 K_1))
+        )
+        /
+        (
+          (e^(2 K_1) - 2 + e^(-2 K_1))
+          e^(-2 sqrt(-1) theta_mu)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          (e^(2 K_1) - e^(-2 K_1))
+          e^(-sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) + 2 + e^(-2 K_1))
+        )
+      )
+      quad dots.c quad (L.23)
+      \
+      &=
+      sqrt(
+        (          
+          (e^(2 K_1) + e^(-2 K_1) - 2)
+          e^(2 sqrt(-1) theta_mu)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          (e^(2 K_1) - e^(-2 K_1))
+          e^(sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) + e^(-2 K_1) + 2)
+        )
+        /
+        (
+          (e^(2 K_1) + e^(-2 K_1) - 2)
+          e^(-2 sqrt(-1) theta_mu)
+          -
+          (e^(2 K_2) + e^(-2 K_2))
+          (e^(2 K_1) - e^(-2 K_1))
+          e^(-sqrt(-1) theta_mu)
+          +
+          (e^(2 K_1) + e^(-2 K_1) + 2)
+        )
+      )
+      quad dots.c quad (L.24)
     $
 
-次回 20251206
-- $R.1$と$L.2$をsagemath比較したところ、逆数取らない方が一致していた
-  - 本が間違っているのかもしれない
-- なので方針として
-  - ホロノミック量子場の$gamma(theta_mu)$を$gamma_1(theta_mu)$,$gamma_2(theta_mu)$,$a(theta_mu)$を使って表す
-  - (B.13)が成り立つことを示す
-    - (B.11)(B.12)を書き直す
-    - (B.13)は$T_g$の$Psi, Psi^(dagger)$への作用を表している
-    - また、$Psi, Psi^(dagger)$ は $"Mat"(CC, 2~M)$を【多分】張る <= 示す <= $Z^(hat)$, $Y^(hat)$の線型結合なので、$Z^(hat)$, $Y^(hat)$が張っていていて、潰れてなければOK <= 示す
-    - よって $T_(g^(prime))$ の $Psi, Psi^(dagger)$への作用を調べて、(B.13)と同じになることを示す
+    よって、
 
-#note[
-  比較結果
-  各式
-  - $sqrt$の中身を比較
-  $
-    #align(center)[#table(columns: (auto, auto),
-      [], [$R.1$],
-      [$L.1$], [o],
-    )]
-    
-  $
+    $
+      sqrt(
+        (gamma_2(theta_(mu)))
+        /
+        (gamma_2(-theta_(mu)))
+      )
+      =
+      a(theta_mu)
+    $
 
-  $
-    #align(center)[#table(columns: (auto, auto, auto, auto, auto, auto, auto, auto),
-      [], [$R.1$], [$R.2$], [$R.3$], [$R.4$], [$R.5$], [$R.6$], [$R.7$],
-      [$R.1$], [x], [o], [x], [x], [x], [x], [x],
-      [$R.2$], [], [x], [], [x], [x], [x], [x],
-      [$R.3$], [x], [], [x], [], [x], [x], [x],
-      [$R.4$], [x], [x], [], [x], [], [x], [x],
-      [$R.5$], [x], [x], [x], [], [x], [], [x],
-      [$R.6$], [x], [x], [x], [x], [], [x], [],
-      [$R.7$], [x], [x], [x], [x], [x], [], [x]
-    )]
-  $
+    さらに、
 
+    #note[
+      $
+    (sqrt(z))^(-1)
+    =
+    1/sqrt(z)
+    =
+    cases(
+      sqrt(1/z) & quad (-pi < arg^((-pi, pi])(z) < pi),
+      -(sqrt(1/z)) & quad (arg^((-pi, pi])(z) = pi),
+    )
   $
-    #align(center)[#table(columns: (auto,) * 18,
-      [], [$L.1$], [$L.2$], [$L.3$], [$L.4$], [$L.5$], [$L.6$], [$L.7$], [$L.8$], [$L.9$], [$L.10$], [$L.11$], [$L.12$], [$L.13$], [$L.14$], [$L.15$], [$L.16$], [$L.17$],
-      [$L.1$], [x], [], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x],
-      [$L.2$], [], [x], [], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x],
-      [$L.3$], [x], [], [x], [], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x],
-      [$L.4$], [x], [x], [], [x], [], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x],
-      [$L.5$], [x], [x], [x], [], [x], [], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x],
-      [$L.6$], [x], [x], [x], [x], [], [x], [], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x],
-      [$L.7$], [x], [x], [x], [x], [x], [], [x], [], [x], [x], [x], [x], [x], [x], [x], [x], [x],
-      [$L.8$], [x], [x], [x], [x], [x], [x], [], [x], [], [x], [x], [x], [x], [x], [x], [x], [x],
-      [$L.9$], [x], [x], [x], [x], [x], [x], [x], [], [x], [], [x], [x], [x], [x], [x], [x], [x],
-      [$L.10$], [x], [x], [x], [x], [x], [x], [x], [x], [], [x], [], [x], [x], [x], [x], [x], [x],
-      [$L.11$], [x], [x], [x], [x], [x], [x], [x], [x], [x], [], [x], [], [x], [x], [x], [x], [x],
-      [$L.12$], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [], [x], [], [x], [x], [x], [x],
-      [$L.13$], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [], [x], [], [x], [x], [x],
-      [$L.14$], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [], [x], [], [x], [x],
-      [$L.15$], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [], [x], [], [x],
-      [$L.16$], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [], [x], [],
-      [$L.17$], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [x], [], [x]
-    )]
-  $
-]
+    ]
+
+    $
+      (
+        sqrt(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
+        )
+      )^(-1)
+      =
+      cases(
+        sqrt(
+          (gamma_2(-theta_(mu)))
+          /
+          (gamma_2(theta_(mu)))
+        ) & quad (-pi < arg^((-pi, pi])(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
+        ) < pi),
+        -(
+          sqrt(
+            (gamma_2(-theta_(mu)))
+            /
+            (gamma_2(theta_(mu)))
+          )
+        ) & quad (arg^((-pi, pi])(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
+        ) = pi),
+      )
+      quad (because #ref(<square_of_sqrt>))
+    $
+
+    $qed$
 
     #note[
       $
@@ -13844,7 +14225,7 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
     ```
     $qed$
   ]
-]
+]<equation_of_a_theta_mu>
 
 #definition("フェルミオン", [
   $cal(M) := {-M, dots, -2, -1, 1, 2, dots, M}$ とする。
@@ -13929,9 +14310,113 @@ $gamma_2(theta_mu)$を$[r, theta]$と表すときに、代表元$theta$を撮る
       )
       hat(Y)_mu
     )
+    \
+    &=
+    (
+      hat(Z)_mu^((minus))
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      /
+      (
+        plus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      hat(Y)_mu
+      ,
+      hat(Z)_mu^((minus))
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      /
+      (
+        minus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      hat(Y)_mu
+    )
+    \
+    &=
+    (
+      hat(Z)_mu^((minus))
+      minus
+      sqrt(
+        -1
+      )
+      (
+        gamma_2(-theta_(mu))
+      )
+      /
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      hat(Y)_mu
+      ,
+      hat(Z)_mu^((minus))
+      +
+      sqrt(
+        -1
+      )
+      (
+        gamma_2(-theta_(mu))
+      )
+      /
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      hat(Y)_mu
+    )
   $
 
   と定める
+
+  #note[
+    #ref(<equation_of_a_theta_mu>) より、上記のフェルミオンの定義は
+    $
+      psi_mu^dagger
+      :=
+      hat(Y)_mu
+      +
+      sqrt(-1)
+      a(theta_mu)
+      hat(Z)_mu^((minus))
+      \
+      psi_mu
+      :=
+      hat(Y)_mu
+      -
+      sqrt(-1)
+      a(theta_mu)
+      hat(Z)_mu^((minus))
+    $
+
+    のようにも書ける。
+    
+    これは、ホロノミック量子場 付録B 式(B.11)(B.12) の定義とは
+    - 定数倍を除いて一致する
+    - $a(theta_mu)$が逆数になっている
+    という違いがある。
+  ]
 ])<def_fermi>
 
 #claim([$V$と$psi$の交換関係(B.13)])[
