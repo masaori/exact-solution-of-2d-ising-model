@@ -18,7 +18,7 @@
     (
       [
         sqrt(r)^(RR_(>=0)), 
-        1/2 dot.op s_((-pi, pi])([theta]_(~_(angle)))
+        1/2 dot.op s_([0, 2pi))([theta]_(~_(angle)))
       ]_(~)
     )
     \
