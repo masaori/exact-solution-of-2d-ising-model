@@ -12,7 +12,7 @@
     (
       [(
         sqrt("pr"_1(phi_("polar")(z)))^(RR_(>=0)), 
-        1/2 dot.op s_((-pi, pi])("pr"_2(phi_("polar")(z)))
+        1/2 dot.op s_([0, 2pi))("pr"_2(phi_("polar")(z)))
       )]_(~)
     )
   $

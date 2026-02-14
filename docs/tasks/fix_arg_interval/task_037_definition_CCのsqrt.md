@@ -1,6 +1,6 @@
 # Task: 037_definition_CCのsqrt_複素数の平方根の定義.typ の修正
 
-ステータス：未完了
+ステータス：完了
 
 ## 対象ファイル
 `parts/000_計算公式/037_definition_CCのsqrt_複素数の平方根の定義.typ`

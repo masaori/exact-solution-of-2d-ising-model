@@ -23,10 +23,10 @@
 
   と定め、zの絶対値と呼ぶ
 
-  $arg^((-pi, pi]): CC -> RR$ を
+  $arg^([0, 2pi)): CC -> RR$ を
 
   $
-    arg^((-pi, pi])(z) := s_((-pi, pi])("pr"_2(phi_("polar")(z)))
+    arg^([0, 2pi))(z) := s_([0, 2pi))("pr"_2(phi_("polar")(z)))
   $
 
   と定め、zの偏角と呼ぶ
