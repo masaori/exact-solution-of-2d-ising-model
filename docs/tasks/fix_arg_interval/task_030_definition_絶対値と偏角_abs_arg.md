@@ -1,6 +1,6 @@
 # Task: 030_definition_絶対値と偏角_abs_arg.typ の修正
 
-ステータス：未完了
+ステータス：完了
 
 ## 対象ファイル
 `parts/000_計算公式/030_definition_絶対値と偏角_abs_arg.typ`
