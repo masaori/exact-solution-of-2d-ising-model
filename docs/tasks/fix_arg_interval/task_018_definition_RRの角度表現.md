@@ -1,6 +1,6 @@
 # Task: 018_definition_RRの角度表現.typ の修正
 
-ステータス：未完了
+ステータス：完了
 
 ## 対象ファイル
 `parts/000_計算公式/018_definition_RRの角度表現.typ`
