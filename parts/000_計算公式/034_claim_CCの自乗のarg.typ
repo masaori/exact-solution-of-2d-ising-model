@@ -8,12 +8,11 @@
   $phi_("polar")(z) = [(r, theta)]_(~)$ であるとき、
 
   $
-    arg^((-pi, pi])(z^2)
+    arg^([0, 2pi))(z^2)
     =
     cases(
-      2 arg^((-pi, pi])(z) + 2pi & quad (exists n in ZZ "s.t." -pi < theta - 2n pi <= -pi/2 <=> -pi < arg^((-pi, pi])(z) <= -pi/2),
-      2 arg^((-pi, pi])(z) & quad (exists n in ZZ "s.t." -pi/2 < theta - 2n pi <= pi/2 <=> -pi/2 < arg^((-pi, pi])(z) <= pi/2),
-      2 arg^((-pi, pi])(z) - 2pi & quad (exists n in ZZ "s.t." pi/2 < theta - 2n pi <= pi <=> pi/2 < arg^((-pi, pi])(z) < pi),
+      2 arg^([0, 2pi))(z) & quad (0 <= theta - 2n pi < pi <=> 0 <= arg^([0, 2pi))(z) < pi),
+      2 arg^([0, 2pi))(z) - 2pi & quad (pi <= theta - 2n pi < 2pi <=> pi <= arg^([0, 2pi))(z) < 2pi),
     )
   $
 
@@ -24,42 +23,66 @@
 
     $phi_("polar")(z) = [(r, theta)]_(~)$ であるとき、
 
-    $-pi < theta - 2n_1 pi <= pi$ を満たす $n_1 in ZZ$ と $-pi < 2theta - 2n_2 pi <= pi$ を満たす $n_2 in ZZ$ が存在して、
+    $0 <= theta - 2n_1 pi < 2pi$ を満たす $n_1 in ZZ$ が存在して、
 
-    $m in ZZ$ を用いて、 $n_1 = n_2 + m$ と書ける。
-
-    このとき、 $-pi < theta - 2 (n_2 + m) pi <= pi$ であるから、
-
-    (TODO: $m$の範囲を $theta$で表す)
+    $arg^([0, 2pi))(z) = theta - 2n_1 pi$ である。
 
     また、
 
-    $arg^((-pi, pi])(z) = theta - 2n_1 pi$ であり、
-
-
     $
-      arg^((-pi, pi])(z^2)
+      arg^([0, 2pi))(z^2)
       &=
-      s_((-pi, pi])("pr"_2(phi_("polar")(z^2)))
+      s_([0, 2pi))("pr"_2(phi_("polar")(z^2)))
       \
       &=
-      s_((-pi, pi])("pr"_2(phi_("polar")(z) phi_("polar")(z)))
+      s_([0, 2pi))("pr"_2(phi_("polar")(z) phi_("polar")(z)))
       quad
       (because phi_("polar")"の同型性")
       \
       &=
-      s_((-pi, pi])("pr"_2([(r, theta)]_(~) [(r, theta)]_(~)))
+      s_([0, 2pi))("pr"_2([(r, theta)]_(~) [(r, theta)]_(~)))
       \
       &=
-      s_((-pi, pi])("pr"_2([(r^2, 2 theta)]_(~)))
+      s_([0, 2pi))("pr"_2([(r^2, 2 theta)]_(~)))
       \
       &=
-      s_((-pi, pi])([2 theta]_(~_(angle)))
-      \
-      &=
-      2 theta - 2n_2 pi
+      s_([0, 2pi))([2 theta]_(~_(angle)))
     $
 
-    (TODO: $m$が$theta$によって、$-1,0,1$になるはず)
+    ここで、$0 <= theta - 2n_1 pi < 2pi$ より、$0 <= 2(theta - 2n_1 pi) < 4pi$ すなわち $0 <= 2theta - 4n_1 pi < 4pi$ である。
+
+    以下のケースに分けて考える。
+
+    a. $0 <= theta - 2n_1 pi < pi$ の時、
+    $0 <= 2(theta - 2n_1 pi) < 2pi$ すなわち $0 <= 2theta - 4n_1 pi < 2pi$ だから、
+    $
+      s_([0, 2pi))([2 theta]_(~_(angle)))
+      &=
+      2 theta - 4n_1 pi
+      \
+      &=
+      2 (theta - 2n_1 pi)
+      \
+      &=
+      2 arg^([0, 2pi))(z)
+    $
+
+    b. $pi <= theta - 2n_1 pi < 2pi$ の時、
+    $2pi <= 2(theta - 2n_1 pi) < 4pi$ すなわち $2pi <= 2theta - 4n_1 pi < 4pi$ だから、
+    $0 <= 2theta - 4n_1 pi - 2pi = 2theta - 2(2n_1 + 1) pi < 2pi$ より、
+    $
+      s_([0, 2pi))([2 theta]_(~_(angle)))
+      &=
+      2 theta - 2(2n_1 + 1) pi
+      \
+      &=
+      2 theta - 4n_1 pi - 2pi
+      \
+      &=
+      2 (theta - 2n_1 pi) - 2pi
+      \
+      &=
+      2 arg^([0, 2pi))(z) - 2pi
+    $
   ]
 ]<range_of_args_of_square_of_complex_numbers>
