@@ -1,6 +1,6 @@
 # Task: 023_claim_gamma2_theta_muの積のarg.typ の修正
 
-ステータス：未完了
+ステータス：完了
 
 ## 対象ファイル
 `parts/008_T_V1_hatZとhatZ_hatYの関係/023_claim_gamma2_theta_muの積のarg.typ`
