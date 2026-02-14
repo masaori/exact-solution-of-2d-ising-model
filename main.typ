@@ -53,7 +53,7 @@
 #include "parts/000_計算公式/029_definition_第1座標と第2座標_pr1_pr2.typ"
 #include "parts/000_計算公式/030_definition_絶対値と偏角_abs_arg.typ"
 #include "parts/000_計算公式/031_claim_複素数の積のarg.typ"
-#include "parts/000_計算公式/032_claim_複素数の商のarg_TODO条件未定.typ"
+#include "parts/000_計算公式/032_claim_複素数の商のarg.typ"
 #include "parts/000_計算公式/033_claim_複素数の積のargがpiのときのarg同士の関係.typ"
 #include "parts/000_計算公式/034_claim_CCの自乗のarg.typ"
 #include "parts/000_計算公式/035_claim_CCの逆数のarg.typ"
