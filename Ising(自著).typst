@@ -684,7 +684,7 @@
 #let PSL = $"PSL"(2,RR)$
 #let sl2 = $frak(s l )(2,RR)$
 #let M2 = $cal(M)(2,RR)$
-#let tensor = $times.circle$
+#let tensor = $times.o$
 #let TSL2 =$T#h(0pt)SL2$
 #let TM2 =$T#h(0pt)M2$
 #let bs = $bold(s)$
@@ -707,7 +707,7 @@
 #let pat=$partial_"time"$
 #let pr=$"pr"$
 #let TM=$T M$
-#let to=$times.circle$
+#let to=$times.o$
 #let grad=$"grad"$
 #let vol=$"vol"$
 #let dx=$d x$
@@ -1249,11 +1249,11 @@ traceとして書かれる。
     $
       &("左辺")
       underbrace(=,Phi"の定義")
-      (A_1 times.circle dots.c times.circle A_N)_(1 + sum_(k = 1)^N (mu(k) + 1)/2 dot  2^(k - 1), 1 + sum_(k = 1)^N (mu^prime (k) + 1)/2 dot  2^(k - 1))\
+      (A_1 times.o dots.c times.o A_N)_(1 + sum_(k = 1)^N (mu(k) + 1)/2 dot  2^(k - 1), 1 + sum_(k = 1)^N (mu^prime (k) + 1)/2 dot  2^(k - 1))\
       underbrace(=,#ref(<prop_kro_ass>))&
-      (A_1 times.circle underbrace((A_2 times.circle dots.c times.circle A_N), 2^(N-1) times 2^(N-1)"行列"))_(underbrace(1 + sum_(k = 1)^N (mu(k) + 1)/2 dot  2^(k - 1), =(mu(N) + 1)/2 dot 2^(N-1)+(1 + sum_(k = 1)^(N - 1)(mu(k) + 1)/2 dot  2^(k - 1))), underbrace(1 + sum_(k = 1)^N (mu^prime (k) + 1)/2 dot  2^(k - 1), quad=(mu'(N) + 1)/2 dot 2^(N-1)+(1 + sum_(k = 1)^(N - 1)(mu(k) + 1)/2 dot  2^(k - 1))))\
+      (A_1 times.o underbrace((A_2 times.o dots.c times.o A_N), 2^(N-1) times 2^(N-1)"行列"))_(underbrace(1 + sum_(k = 1)^N (mu(k) + 1)/2 dot  2^(k - 1), =(mu(N) + 1)/2 dot 2^(N-1)+(1 + sum_(k = 1)^(N - 1)(mu(k) + 1)/2 dot  2^(k - 1))), underbrace(1 + sum_(k = 1)^N (mu^prime (k) + 1)/2 dot  2^(k - 1), quad=(mu'(N) + 1)/2 dot 2^(N-1)+(1 + sum_(k = 1)^(N - 1)(mu(k) + 1)/2 dot  2^(k - 1))))\
       underbrace(=,#ref(<def_kro>))&
-      A_(1 space (mu(N) + 1)/2, 1(mu^prime (N) + 1)/2) dot  (A_2  times.circle dots.c times.circle A_N)_(1 + sum_(k = 1)^(N - 1)(mu(k) + 1)/2 dot  2^(k - 1), 1 + sum_(k = 1)^(N - 1)(mu^prime (k) + 1)/2 dot  2^(k - 1))\
+      A_(1 space (mu(N) + 1)/2, 1(mu^prime (N) + 1)/2) dot  (A_2  times.o dots.c times.o A_N)_(1 + sum_(k = 1)^(N - 1)(mu(k) + 1)/2 dot  2^(k - 1), 1 + sum_(k = 1)^(N - 1)(mu^prime (k) + 1)/2 dot  2^(k - 1))\
       underbrace(=,"帰納的に繰り返す")&
       ("右辺")
     $
