@@ -3,7 +3,7 @@
   $mu in cal(M)$について、
 
   $
-    arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) = pi
+    arg^([0, 2pi))(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) = pi
   $
 
   #proof[
