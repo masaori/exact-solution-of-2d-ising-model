@@ -29,7 +29,7 @@
     $RR times RR \/ ~_(angle)$,
     $RR \/ ~_(angle)$,
     $(a, [theta]_(~_(angle)))$,
-    $[a dot.op s_((-pi, pi])([theta]_(~_(angle)))]_(~_(angle))$,
+    $[a dot.op s_([0, 2pi))([theta]_(~_(angle)))]_(~_(angle))$,
     ""
   )
 
@@ -42,13 +42,13 @@
     $
       1/2 dot.op_("real") (-2 dot.op_("real") [pi/2]_(~_(angle)))
       &=
-      [1/2 dot.op s_((-pi, pi])[-2 dot.op s_((-pi, pi])([pi/2]_(~_(angle)))]_(~_(angle))]_(~_(angle))
+      [1/2 dot.op s_([0, 2pi))[-2 dot.op s_([0, 2pi))([pi/2]_(~_(angle)))]_(~_(angle))]_(~_(angle))
       \
       &=
-        [1/2 dot.op s_((-pi, pi])[-2 dot.op pi/2]_(~_(angle))]_(~_(angle))
+        [1/2 dot.op s_([0, 2pi))[-2 dot.op pi/2]_(~_(angle))]_(~_(angle))
       \
       &=
-        [1/2 dot.op s_((-pi, pi])[- pi]_(~_(angle))]_(~_(angle))
+        [1/2 dot.op s_([0, 2pi))[- pi]_(~_(angle))]_(~_(angle))
       \
       &=
         [1/2 dot.op pi]_(~_(angle))
@@ -60,7 +60,7 @@
     $
       (1/2 dot.op -2) dot.op_("real") [pi/2]_(~_(angle))
       &=
-        [-1 dot.op s_((-pi, pi])([pi/2]_(~_(angle)))]_(~_(angle))
+        [-1 dot.op s_([0, 2pi))([pi/2]_(~_(angle)))]_(~_(angle))
       \
       &=
         [-1 dot.op pi/2]_(~_(angle))
