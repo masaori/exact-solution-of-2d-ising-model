@@ -9,7 +9,7 @@
 
   $n in ZZ$ を用いて、
 
-  $-pi < theta - 2n pi <= pi (<=> (2n - 1)pi < theta <= (2n + 1)pi)$ であるとき、
+  $0 <= theta - 2n pi < 2pi (<=> 2n pi <= theta < (2n + 1) dot 2pi)$ であるとき、
 
   $
     sqrt(z)
