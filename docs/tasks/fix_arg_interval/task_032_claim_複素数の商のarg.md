@@ -1,9 +1,9 @@
-# Task: 032_claim_複素数の商のarg_TODO条件未定.typ の修正
+# Task: 032_claim_複素数の商のarg.typ の修正
 
-ステータス：未完了
+ステータス：完了
 
 ## 対象ファイル
-`parts/000_計算公式/032_claim_複素数の商のarg_TODO条件未定.typ`
+`parts/000_計算公式/032_claim_複素数の商のarg.typ`
 
 ## 変更概要
 `arg^((-pi, pi])` と `s_((-pi, pi])` を `arg^([0, 2pi))` と `s_([0, 2pi))` に変更する。
