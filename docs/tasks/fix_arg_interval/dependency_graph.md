@@ -54,7 +54,7 @@ Level 5 (最後に修正):
 | タスク | ファイル |
 |--------|----------|
 | task_031 | 031_claim_複素数の積のarg.typ（コメントアウト削除のみ） |
-| task_032 | 032_claim_複素数の商のarg_TODO条件未定.typ |
+| task_032 | 032_claim_複素数の商のarg.typ |
 | task_033 | 033_claim_複素数の積のargがpiのときのarg同士の関係.typ |
 | task_034 | 034_claim_CCの自乗のarg.typ |
 | task_035 | 035_claim_CCの逆数のarg.typ |
