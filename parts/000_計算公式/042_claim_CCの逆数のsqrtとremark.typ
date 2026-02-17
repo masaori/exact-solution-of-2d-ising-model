@@ -5,8 +5,8 @@
 
   $
     sqrt(1/z) = cases(
-      1/sqrt(z) & quad (-pi < arg^((-pi, pi])(z) < pi),
-      -(1/sqrt(z)) & quad (arg^((-pi, pi])(z) = pi),
+      1/sqrt(z) & quad (arg^([0, 2pi))(z) = 0),
+      -(1/sqrt(z)) & quad (0 < arg^([0, 2pi))(z) < 2pi),
     )
   $
 
@@ -20,12 +20,12 @@
 
     また、$n in ZZ$ を用いて、
 
-    $-pi < theta - 2n pi <= pi$ とする。
+    $0 <= theta - 2n pi < 2pi$ とする。
 
     このとき、
 
     $
-      arg^((-pi, pi])(z) = theta - 2n pi
+      arg^([0, 2pi))(z) = theta - 2n pi
     $
 
     また、
@@ -42,47 +42,49 @@
       [(1/r, -theta)]_(~)
     $
 
-    より、
+    より、$-2pi < -theta + 2n pi <= 0$ であり、
 
     $
-      arg^((-pi, pi])(1 / z)
+      arg^([0, 2pi))(1 / z)
       &=
-      s_((-pi, pi])("pr"_2(phi_("polar")(1 / z)))
+      s_([0, 2pi))("pr"_2(phi_("polar")(1 / z)))
       \
       &=
-      s_((-pi, pi])([-theta]_(~_(angle)))
+      s_([0, 2pi))([-theta]_(~_(angle)))
       \
       &=
       cases(
-        -theta - 2(-n)pi &quad (-pi < theta - 2n pi < pi), 
-        pi &quad (theta - 2n pi = pi),
+        -theta - 2(-n)pi &quad (theta - 2n pi = 0),
+        -theta - 2(-n - 1)pi &quad (0 < theta - 2n pi < 2pi),
       )
-      quad
-      (
-        because -pi < theta - 2n pi <= pi <=> -pi <= -theta - 2(-n) pi < pi
+      \
+      &=
+      cases(
+        -(theta - 2n pi) &quad (theta - 2n pi = 0),
+        -(theta - 2n pi) + 2pi &quad (0 < theta - 2n pi < 2pi),
+      )
+      \
+      &=
+      cases(
+        0 &quad (theta - 2n pi = 0),
+        2pi - (theta - 2n pi) &quad (0 < theta - 2n pi < 2pi),
       )
     $
 
     だから、
 
     $
-      arg^((-pi, pi])(z) + arg^((-pi, pi])(1 / z)
+      arg^([0, 2pi))(z) + arg^([0, 2pi))(1 / z)
       &=
       cases(
-        theta - 2n pi + (-theta - 2(-n)pi) &quad (-pi < theta - 2n pi < pi), 
-        theta - 2n pi + pi &quad (theta - 2n pi = pi),
+        0 + 0 &quad (theta - 2n pi = 0),
+        (theta - 2n pi) + (2pi - (theta - 2n pi)) &quad (0 < theta - 2n pi < 2pi),
       )
       \
       &=
       cases(
-        - 2n pi + (2n pi) &quad (-pi < theta - 2n pi < pi), 
-        pi + pi &quad (theta - 2n pi = pi),
-      )
-      \
-      &=
-      cases(
-        0 &quad (-pi < theta - 2n pi < pi), 
-        2pi &quad (theta - 2n pi = pi <=> theta = (2n + 1) pi),
+        0 &quad (theta - 2n pi = 0),
+        2pi &quad (0 < theta - 2n pi < 2pi),
       )
     $
 
@@ -90,20 +92,21 @@
       sqrt(z) dot.op sqrt(1 / z)
       &=
       cases(
-        sqrt(z dot.op 1/z) & quad (-pi < theta - 2n pi < pi),
-        -sqrt(z dot.op 1/z) & quad (theta = (2n + 1) pi),
+        sqrt(z dot.op 1/z) & quad (theta - 2n pi = 0),
+        -sqrt(z dot.op 1/z) & quad (0 < theta - 2n pi < 2pi),
+      )
+      quad (because #ref(<condition_of_commutativity_of_sqrt_and_product>))
+      \
+      &=
+      cases(
+        sqrt(1) & quad (theta - 2n pi = 0),
+        -sqrt(1) & quad (0 < theta - 2n pi < 2pi),
       )
       \
       &=
       cases(
-        sqrt(1) & quad (-pi < theta - 2n pi < pi),
-        -sqrt(1) & quad (theta = (2n + 1) pi),
-      )
-      \
-      &=
-      cases(
-        1 & quad (-pi < theta - 2n pi < pi),
-        -1 & quad (theta = (2n + 1) pi),
+        1 & quad (theta - 2n pi = 0),
+        -1 & quad (0 < theta - 2n pi < 2pi),
       )
     $
 
@@ -111,8 +114,8 @@
 
     $
       sqrt(1/z) = cases(
-        1/sqrt(z) & quad (-pi < theta - 2n pi < pi),
-        -(1/sqrt(z)) & quad (theta = (2n + 1) pi),
+        1/sqrt(z) & quad (theta - 2n pi = 0 <=> arg^([0, 2pi))(z) = 0),
+        -(1/sqrt(z)) & quad (0 < theta - 2n pi < 2pi <=> 0 < arg^([0, 2pi))(z) < 2pi),
       )
     $
   ]
@@ -124,8 +127,8 @@
 
   $
     sqrt(1/z) = cases(
-        1/sqrt(z) & quad (-pi < arg^( (-pi, pi])(z) < pi <=> z in.not RR_(<0)),
-        -(1/sqrt(z)) & quad (arg^( (-pi, pi])(z) = pi <=> z in RR_(<0)),
+        1/sqrt(z) & quad (arg^([0, 2pi))(z) = 0 <=> z in RR_(>0)),
+        -(1/sqrt(z)) & quad (0 < arg^([0, 2pi))(z) < 2pi <=> z in.not RR_(>0)),
     )
   $
 ]

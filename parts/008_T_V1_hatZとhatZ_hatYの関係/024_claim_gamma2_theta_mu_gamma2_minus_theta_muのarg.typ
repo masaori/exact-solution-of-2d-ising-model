@@ -8,11 +8,11 @@
   $gamma_2(theta_(mu)) = [(r_plus, theta_plus)], gamma_2(-theta_(mu)) = [(r_minus, theta_minus)]$  とするとき、
 
   $
-    arg^((-pi, pi])(gamma_2(theta_(mu))) + arg^((-pi, pi])(gamma_2(-theta_(mu)))
+    arg^([0, 2pi))(gamma_2(theta_(mu))) + arg^([0, 2pi))(gamma_2(-theta_(mu)))
     =
     cases(
-      - pi & quad (exists m in ZZ "s.t." -2pi < theta_plus + theta_minus - 2m pi <= -pi),
-      pi & quad ((r_plus = 0 or r_minus = 0) or exists m in ZZ "s.t." -pi < theta_plus + theta_minus - 2m pi <= pi),
+      pi & quad (exists m in ZZ "s.t." 0 <= theta_plus + theta_minus - 2m pi < 2pi),
+      pi + 2pi & quad (exists m in ZZ "s.t." 2pi <= theta_plus + theta_minus - 2m pi < 4pi),
     )
   $
 
