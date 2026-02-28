@@ -9,8 +9,8 @@
     1/sqrt(z)
     =
     cases(
-      sqrt(1/z) & quad (-pi < arg^((-pi, pi])(z) < pi),
-      -(sqrt(1/z)) & quad (arg^((-pi, pi])(z) = pi),
+      sqrt(1/z) & quad (arg^([0, 2pi))(z) = 0),
+      -(sqrt(1/z)) & quad (0 < arg^([0, 2pi))(z) < 2pi),
     )
   $
 
@@ -25,8 +25,8 @@
 
   $
     (sqrt(z))^(-1) = cases(
-        sqrt(1/z) & quad (-pi < arg^( (-pi, pi])(z) < pi <=> z in.not RR_(<0)),
-        -(sqrt(1/z)) & quad (arg^( (-pi, pi])(z) = pi <=> z in RR_(<0)),
+        sqrt(1/z) & quad (arg^([0, 2pi))(z) = 0 <=> z in RR_(>0)),
+        -(sqrt(1/z)) & quad (0 < arg^([0, 2pi))(z) < 2pi <=> z in.not RR_(>0)),
     )
   $
 ]

@@ -9,7 +9,7 @@
 
   #proof[
     $mu, nu in M$について、
-
+    
     $mu = nu$ のとき、
     $
     [Z_mu, Z_mu]_+

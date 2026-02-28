@@ -6,9 +6,8 @@
     z
     &= 
     cases(
-      -sqrt(z^2) &quad (-pi < arg^((-pi, pi])(z) <= -pi/2),
-      sqrt(z^2) &quad (-pi/2 < arg^((-pi, pi])(z) <= pi/2),
-      -sqrt(z^2) &quad (pi/2 < arg^((-pi, pi])(z) <= pi),
+      sqrt(z^2) &quad (0 <= arg^([0, 2pi))(z) < pi),
+      -sqrt(z^2) &quad (pi <= arg^([0, 2pi))(z) < 2pi),
     )
   $
 
@@ -21,7 +20,7 @@
 
     また、$n in ZZ$ を用いて、
 
-    $-pi < theta - 2n pi <= pi (<=> (2n - 1)pi < theta <= (2n + 1)pi)$ とする。
+    $0 <= theta - 2n pi < 2pi (<=> 2n pi <= theta < (2n + 2)pi)$ とする。
 
     このとき、$#ref(<condition_of_commutativity_of_sqrt_and_product>)$より、
 
@@ -29,23 +28,20 @@
       sqrt(z) sqrt(z)
       &= 
       cases(
-        -sqrt(z^2) &quad (-2pi < arg^((-pi, pi])(z) + arg^((-pi, pi])(z) <= -pi),
-        sqrt(z^2) &quad (-pi < arg^((-pi, pi])(z) + arg^((-pi, pi])(z) <= pi),
-        -sqrt(z^2) &quad (pi < arg^((-pi, pi])(z) + arg^((-pi, pi])(z) <= 2pi),
+        sqrt(z^2) &quad (0 <= arg^([0, 2pi))(z) + arg^([0, 2pi))(z) < 2pi),
+        -sqrt(z^2) &quad (2pi <= arg^([0, 2pi))(z) + arg^([0, 2pi))(z) < 4pi),
       )
       \
       &= 
       cases(
-        -sqrt(z^2) &quad (-2pi < 2 arg^((-pi, pi])(z) <= -pi),
-        sqrt(z^2) &quad (-pi < 2 arg^((-pi, pi])(z) <= pi),
-        -sqrt(z^2) &quad (pi < 2 arg^((-pi, pi])(z) <= 2pi),
+        sqrt(z^2) &quad (0 <= 2 arg^([0, 2pi))(z) < 2pi),
+        -sqrt(z^2) &quad (2pi <= 2 arg^([0, 2pi))(z) < 4pi),
       )
       \
       &= 
       cases(
-        -sqrt(z^2) &quad (-pi < arg^((-pi, pi])(z) <= -pi/2),
-        sqrt(z^2) &quad (-pi/2 < arg^((-pi, pi])(z) <= pi/2),
-        -sqrt(z^2) &quad (pi/2 < arg^((-pi, pi])(z) <= pi),
+        sqrt(z^2) &quad (0 <= arg^([0, 2pi))(z) < pi),
+        -sqrt(z^2) &quad (pi <= arg^([0, 2pi))(z) < 2pi),
       )
     $
   ]
@@ -58,7 +54,7 @@
 
   (すなわち、$z in RR_(<0)$とみなせるとき)
 
-  $arg^((-pi, pi])(z) = pi$ であるから、
+  $arg^([0, 2pi))(z) = pi$ であるから、
 
   $
     z = -sqrt(z^2)

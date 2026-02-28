@@ -778,9 +778,9 @@
       quad
       (
         because
-        arg^((-pi, pi])(-1)_(CC)
+        arg^([0, 2pi))(-1)_(CC)
         +
-        arg^((-pi, pi])((
+        arg^([0, 2pi))((
           gamma_2(theta_(mu))
         )
         (
@@ -972,7 +972,7 @@
       0
       quad
       (
-        because #ref(<inverse_of_sqrt_cc>) "かつ" arg^((-pi, pi])(-1_(CC)) = pi
+        because #ref(<inverse_of_sqrt_cc>) "かつ" 0 < arg^([0, 2pi))(-1_(CC)) = pi < 2pi
       )
       \
       mat(
