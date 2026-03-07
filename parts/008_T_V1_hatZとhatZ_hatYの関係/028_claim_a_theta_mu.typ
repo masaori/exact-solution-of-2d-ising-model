@@ -1,33 +1,5 @@
 #import "../../theorem.typ": theorem, claim, proof, definition, remark, note, theorem_rules
 #claim([$a(theta_mu)$])[
-  ※ホロノミック量子場付録B (B.11/B.12)の表式の検討
-
-  次回(20260228)
-  argが治ってないので修正
-
-  以下のメモ検討
-      - (次回 20250614)
-      - 固有ベクトルが間違えている？ので再度チェック
-      - $v
-      &= 
-      c
-      mat(
-        plus.minus
-        sqrt(
-          -1
-        )
-        sqrt(
-          gamma_2(theta_(mu))
-          gamma_2(-theta_(mu))
-        );
-        sqrt(
-          -1
-        )
-        gamma_2(-theta_(mu))
-      )$ こうなってくれると都合が良い
-  
-  フェルミオンの表式を検討？ ホロノミック読みながら次の流れ考え直す。
-
   $gamma_2(theta_mu) eq.not 0$の時、
 
   $
@@ -69,6 +41,19 @@
     \
     &=
     cases(
+      (
+        (
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        /
+        (
+          gamma_2(-theta_(mu))
+        )
+      )
+      &quad (0 <= arg^([0, 2pi))(gamma_2(-theta_(mu))) <= pi/2 or (3pi)/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi),
       -
       (
         (
@@ -82,297 +67,210 @@
           gamma_2(-theta_(mu))
         )
       )
-      &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
-      (
-        (
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-        )
-        /
-        (
-          gamma_2(-theta_(mu))
-        )
-      )
-      &quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+      &quad (pi/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= (3pi)/2),
     )
   $
-  
+
   #proof[
     $mu in cal(M)$ について、
 
-    $r_plus, r_minus in RR_(>=0), theta_plus, theta_minus in RR$ として、
+    == Part A: $sqrt(gamma_2(theta_(mu)) gamma_2(-theta_(mu)))/(gamma_2(-theta_(mu)))$ と $sqrt((gamma_2(theta_(mu)))/(gamma_2(-theta_(mu))))$ の関係
 
-    $gamma_2(theta_(mu)) = [(r_plus, theta_plus)], gamma_2(-theta_(mu)) = [(r_minus, theta_minus)]$  とするとき、
+    === Step 1: $arg^([0, 2pi))((gamma_2(-theta_(mu)))^2)$の計算
 
     $
-      arg^((-pi, pi])((gamma_2(-theta_(mu)))^2)
+      arg^([0, 2pi))((gamma_2(-theta_(mu)))^2)
       =
       cases(
-        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (exists n in ZZ "s.t." -pi < theta_minus - 2n pi <= -pi/2 <=> -pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
-        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (exists n in ZZ "s.t." -pi/2 < theta_minus - 2n pi <= pi/2 <=> -pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
-        2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (exists n in ZZ "s.t." pi/2 < theta_minus - 2n pi <= pi <=> pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        2 arg^([0, 2pi))(gamma_2(-theta_(mu))) & quad (0 <= arg^([0, 2pi))(gamma_2(-theta_(mu))) < pi),
+        2 arg^([0, 2pi))(gamma_2(-theta_(mu))) - 2pi & quad (pi <= arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi),
       )
       quad
       (because #ref(<range_of_args_of_square_of_complex_numbers>))
     $
 
-    より、
+    特に、
 
     $
-      cases(
-        -2pi + 2pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= -pi + 2pi quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
-        -pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= pi quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
-        pi - 2pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= 2pi - 2pi quad & (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-      )
-      \
-      cases(
-        0 < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= pi quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
-        -pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= pi quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
-        -pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) <= 0 quad & (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-      )
-      \
-      cases(
-        arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) = pi quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
-        -pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) < pi quad & ("otherwise"),
-      )
+      arg^([0, 2pi))((gamma_2(-theta_(mu)))^2) = 0 quad <==> quad arg^([0, 2pi))(gamma_2(-theta_(mu))) in {0, pi}
     $
 
-    が成り立つ。
+    === Step 2: $arg^([0, 2pi))(gamma_2(theta_(mu)) gamma_2(-theta_(mu)))$
 
-    また、$#ref(<arg_of_gamma_2_mu>)$ より、
+    $#ref(<arg_of_gamma_2_mu>)$ より、
 
     $
-      arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) = pi
+      arg^([0, 2pi))(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) = pi
     $
 
+    === Step 3: $arg^([0, 2pi))(1/((gamma_2(-theta_(mu)))^2))$の計算
 
     $#ref(<range_of_args_of_reciprocal_of_complex_numbers>)$ より、
 
     $
-      arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2))
-      &=
-      cases(
-        -arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) & quad (-pi < arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) < pi),
-        pi & quad (arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) = pi),
+      arg^([0, 2pi))(
+        1/((gamma_2(-theta_(mu)))^2)
       )
-      \
       &=
       cases(
-        -arg^((-pi, pi])((gamma_2(-theta_(mu)))^2) & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) eq.not -pi/2 \, pi/2),
-        pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
-      )
-      \
-      &=
-      cases(
-        -(
-          cases(
-            2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
-            2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
-            2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-          )
-        )
-        & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) eq.not -pi/2 \, pi/2),
-        pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
-      )
-      \
-      &=
-      cases(
-        cases(
-          -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2),
-          -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
-          -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-        )
-        & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) eq.not -pi/2 \, pi/2),
-        pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
-      )
-      \
-      &=
-      cases(
-        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
-        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-        pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+        0 & quad (arg^([0, 2pi))((gamma_2(-theta_(mu)))^2) = 0),
+        2pi - arg^([0, 2pi))((gamma_2(-theta_(mu)))^2) & quad (0 < arg^([0, 2pi))((gamma_2(-theta_(mu)))^2) < 2pi),
       )
     $
 
-    であるので、 
+    Step 1の結果を代入すると、
 
     $
-      arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu)))
+      arg^([0, 2pi))(
+        1/((gamma_2(-theta_(mu)))^2)
+      )
+      =
+      cases(
+        0 & quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = 0),
+        2pi - 2 arg^([0, 2pi))(gamma_2(-theta_(mu))) & quad (0 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < pi),
+        0 & quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = pi),
+        4pi - 2 arg^([0, 2pi))(gamma_2(-theta_(mu))) & quad (pi < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi),
+      )
+    $
+
+    === Step 4: $arg$の和の計算
+
+    $
+      &arg^([0, 2pi))(gamma_2(theta_(mu)) gamma_2(-theta_(mu)))
       +
-      arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2))
+      arg^([0, 2pi))(1/((gamma_2(-theta_(mu)))^2))
+      \
       &=
       pi
       +
       cases(
-        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - 2pi & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
-        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-        pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+        0 & quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = 0),
+        2pi - 2 arg^([0, 2pi))(gamma_2(-theta_(mu))) & quad (0 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < pi),
+        0 & quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = pi),
+        4pi - 2 arg^([0, 2pi))(gamma_2(-theta_(mu))) & quad (pi < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi),
       )
       \
       &=
       cases(
-        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - pi & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
-        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + pi & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 3pi & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-        2pi & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
+        pi & quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = 0),
+        3pi - 2 arg^([0, 2pi))(gamma_2(-theta_(mu))) & quad (0 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < pi),
+        pi & quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = pi),
+        5pi - 2 arg^([0, 2pi))(gamma_2(-theta_(mu))) & quad (pi < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi),
       )
     $
 
-    これと、
+    === Step 5: 和が$[0, 2pi)$と$[2pi, 4pi)$のどちらに入るかの判定
 
     $
-      -pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2
-      &<=>
-      -2pi < 2 arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi
-      \
-      &<=>
-      pi <= -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) < 2pi
-      \
-      &<=>
-      0 <= -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) - pi < pi
+      arg^([0, 2pi))(gamma_2(-theta_(mu))) = 0
+      &=>
+      "sum" = pi in [0, 2pi)
     $
     $
-      -pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0 
-      &<=>
-      -pi < 2 arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0
-      \
-      &<=>
-      0 <= -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi
-      \
-      &<=>
-      pi < -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + pi <= 2pi
+      0 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < pi/2
+      &=>
+      2pi < 3pi - 2 arg^([0, 2pi))(gamma_2(-theta_(mu))) < 3pi
+      =>
+      "sum" in [2pi, 4pi)
     $
     $
-      0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2
-      &<=>
-      0 < 2 arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi
-      \
-      &<=>
-      -pi < -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) < 0
-      \
-      &<=>
-      0 < -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + pi < pi
+      arg^([0, 2pi))(gamma_2(-theta_(mu))) = pi/2
+      &=>
+      "sum" = 2pi in [2pi, 4pi)
     $
     $
-      pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi
-      &<=>
-      pi < 2 arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 2pi
-      \
-      &<=>
-      -2pi < -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 2pi <= -pi
-      \
-      &<=>
-      pi < -2 arg^((-pi, pi])(gamma_2(-theta_(mu))) + 3pi <= 2pi
+      pi/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < pi
+      &=>
+      pi < 3pi - 2 arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi
+      =>
+      "sum" in [0, 2pi)
+    $
+    $
+      arg^([0, 2pi))(gamma_2(-theta_(mu))) = pi
+      &=>
+      "sum" = pi in [0, 2pi)
+    $
+    $
+      pi < arg^([0, 2pi))(gamma_2(-theta_(mu))) < (3pi)/2
+      &=>
+      2pi < 5pi - 2 arg^([0, 2pi))(gamma_2(-theta_(mu))) < 3pi
+      =>
+      "sum" in [2pi, 4pi)
+    $
+    $
+      arg^([0, 2pi))(gamma_2(-theta_(mu))) = (3pi)/2
+      &=>
+      "sum" = 2pi in [2pi, 4pi)
+    $
+    $
+      (3pi)/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi
+      &=>
+      pi < 5pi - 2 arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi
+      =>
+      "sum" in [0, 2pi)
     $
 
-    から、
+    以上をまとめると、
 
     $
       cases(
-        0 <= arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) < pi
-        & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
-        pi < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) <= 2pi
-        & quad (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
-        0 < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) < pi
-        & quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        pi < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) <= 2pi
-        & quad (pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-        arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) = 2pi
-        & quad (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2 \, pi/2),
-      )
-      \
-      cases(
-        0 <= arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) < pi
-        & quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or 0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        pi < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) <= 2pi
-        & quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        0 <= "sum" < 2pi
+        & quad (
+          arg^([0, 2pi))(gamma_2(-theta_(mu))) = 0
+          or pi/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= pi
+          or (3pi)/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi
+        ),
+        2pi <= "sum" < 4pi
+        & quad (
+          0 < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= pi/2
+          or pi < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= (3pi)/2
+        ),
       )
     $
+
+    === Step 6: $sqrt(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) dot.op sqrt(1/((gamma_2(-theta_(mu)))^2))$の計算
 
     $#ref(<condition_of_commutativity_of_sqrt_and_product>)$ より、
 
-#note[
-  $
-    
-    sqrt(z_1 z_2)
-    &=
-    cases(
-      -sqrt(z_1) sqrt(z_2) &quad (-2pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= -pi),
-      sqrt(z_1) sqrt(z_2) &quad (-pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= pi),
-      -sqrt(z_1) sqrt(z_2) &quad (pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= 2pi),
-    )
-    \
-    sqrt(z_1) sqrt(z_2)
-    &=
-    cases(
-      -sqrt(z_1 z_2) &quad (-2pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= -pi),
-      sqrt(z_1 z_2) &quad (-pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= pi),
-      -sqrt(z_1 z_2) &quad (pi < arg^((-pi, pi])(z_1) + arg^((-pi, pi])(z_2) <= 2pi),
-    )
-  $
-]
-
     $
       sqrt(
-        (
-          gamma_2(theta_(mu))
-          gamma_2(-theta_(mu))
-        )
+        gamma_2(theta_(mu))
+        gamma_2(-theta_(mu))
       )
       sqrt(
         1
         /
         (
-          (
-            gamma_2(-theta_(mu))
-          )
-          ^
-          2
+          (gamma_2(-theta_(mu)))^2
         )
       )
       &=
       cases(
         sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+          dot.op
+          1
+          /
           (
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-          (
-            1
-            /
-            (
-              (
-                gamma_2(-theta_(mu))
-              )
-              ^
-              2
-            )
+            (gamma_2(-theta_(mu)))^2
           )
         )
-        &quad (0 < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) < pi),
+        &quad (0 <= "sum" < 2pi),
         -sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+          dot.op
+          1
+          /
           (
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-          (
-            1
-            /
-            (
-              (
-                gamma_2(-theta_(mu))
-              )
-              ^
-              2
-            )
+            (gamma_2(-theta_(mu)))^2
           )
         )
-        &quad (pi < arg^((-pi, pi])(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) + arg^((-pi, pi])(1/((gamma_2(-theta_(mu)))^2)) <= 2pi),
+        &quad (2pi <= "sum" < 4pi),
       )
+      quad
+      (because #ref(<condition_of_commutativity_of_sqrt_and_product>))
       \
       &=
       cases(
@@ -381,23 +279,76 @@
           /
           (gamma_2(-theta_(mu)))
         )
-        &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or 0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
+        &quad (
+          arg^([0, 2pi))(gamma_2(-theta_(mu))) = 0
+          or pi/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= pi
+          or (3pi)/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi
+        ),
         -sqrt(
           (gamma_2(theta_(mu)))
           /
           (gamma_2(-theta_(mu)))
         )
-        &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
+        &quad (
+          0 < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= pi/2
+          or pi < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= (3pi)/2
+        ),
       )
     $
 
-    以上より、
+    === Step 7: $sqrt(1/((gamma_2(-theta_(mu)))^2))$と$1/(gamma_2(-theta_(mu)))$の関係
+
+    $#ref(<square_of_sqrt>)$ より、
+
+    $
+      sqrt((gamma_2(-theta_(mu)))^2)
+      =
+      cases(
+        gamma_2(-theta_(mu)) &quad (0 <= arg^([0, 2pi))(gamma_2(-theta_(mu))) < pi),
+        -gamma_2(-theta_(mu)) &quad (pi <= arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi),
+      )
+    $
+
+    また、$#ref(<inverse_of_sqrt_cc>)$より、
+
+    $
+      sqrt(
+        1/((gamma_2(-theta_(mu)))^2)
+      )
+      =
+      cases(
+        1/(sqrt((gamma_2(-theta_(mu)))^2)) &quad (arg^([0, 2pi))((gamma_2(-theta_(mu)))^2) = 0),
+        -(1/(sqrt((gamma_2(-theta_(mu)))^2))) &quad (0 < arg^([0, 2pi))((gamma_2(-theta_(mu)))^2) < 2pi),
+      )
+    $
+
+    Step 1の結果と合わせて場合分けすると、
+
+    $
+      sqrt(
+        1/((gamma_2(-theta_(mu)))^2)
+      )
+      =
+      cases(
+        1/(gamma_2(-theta_(mu))) &quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = 0),
+        -1/(gamma_2(-theta_(mu))) &quad (0 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < pi),
+        -(1/(-gamma_2(-theta_(mu)))) &quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = pi),
+        -(-(1/(-gamma_2(-theta_(mu))))) &quad (pi < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi),
+      )
+      \
+      =
+      cases(
+        1/(gamma_2(-theta_(mu))) &quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = 0 or pi < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi),
+        -1/(gamma_2(-theta_(mu))) &quad (0 < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= pi),
+      )
+    $
+
+    === Step 8: $sqrt(gamma_2(theta_(mu)) gamma_2(-theta_(mu)))/(gamma_2(-theta_(mu)))$の計算
+
+    Step 6とStep 7の結果を組み合わせる。
 
     $
       (
-        sqrt(
-          -1
-        )
         sqrt(
           gamma_2(theta_(mu))
           gamma_2(-theta_(mu))
@@ -407,816 +358,602 @@
       (
         gamma_2(-theta_(mu))
       )
-      &=
+      =
+      sqrt(
+        gamma_2(theta_(mu))
+        gamma_2(-theta_(mu))
+      )
+      dot.op
+      sqrt(
+        1
+        /
+        (
+          (gamma_2(-theta_(mu)))^2
+        )
+      )
+      dot.op
+      (
+        sqrt(
+          1
+          /
+          (
+            (gamma_2(-theta_(mu)))^2
+          )
+        )
+        dot.op
+        gamma_2(-theta_(mu))
+      )^(-1)
+    $
+
+    ここで、Step 7の結果より、
+
+    $
+      sqrt(
+        1
+        /
+        (
+          (gamma_2(-theta_(mu)))^2
+        )
+      )
+      dot.op
+      gamma_2(-theta_(mu))
+      =
       cases(
-        (
-          sqrt(
-            -1
-          )
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
+        1 &quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = 0 or pi < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi),
+        -1 &quad (0 < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= pi),
+      )
+    $
+
+    よって、Step 6の結果と合わせて、各場合を計算すると、
+
+    $
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
         )
-        /
-        (
-          sqrt(
-            (
-              gamma_2(-theta_(mu))
-            )
-            ^
-            2
-          )
+      )
+      /
+      (
+        gamma_2(-theta_(mu))
+      )
+      =
+      cases(
+        sqrt(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
         )
-        quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
-        (
-          sqrt(
-            -1
-          )
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
+        dot.op 1
+        &quad (arg^([0, 2pi))(gamma_2(-theta_(mu))) = 0),
+        -sqrt(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
         )
-        /
+        dot.op (-1)
+        &quad (0 < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= pi/2),
+        sqrt(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
+        )
+        dot.op (-1)
+        &quad (pi/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= pi),
+        -sqrt(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
+        )
+        dot.op 1
+        &quad (pi < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= (3pi)/2),
+        sqrt(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
+        )
+        dot.op 1
+        &quad ((3pi)/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi),
+      )
+    $
+
+    各場合の符号を計算すると、
+
+    $
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      /
+      (
+        gamma_2(-theta_(mu))
+      )
+      =
+      cases(
+        sqrt(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
+        )
+        &quad (
+          0 <= arg^([0, 2pi))(gamma_2(-theta_(mu))) <= pi/2
+          or (3pi)/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) < 2pi
+        ),
+        -sqrt(
+          (gamma_2(theta_(mu)))
+          /
+          (gamma_2(-theta_(mu)))
+        )
+        &quad (pi/2 < arg^([0, 2pi))(gamma_2(-theta_(mu))) <= (3pi)/2),
+      )
+    $
+
+    == Part B: $gamma_2(theta_(mu))/gamma_2(-theta_(mu))$ の $alpha_1, alpha_2$ 表式への変換
+
+    以下では $gamma_2(theta_(mu))/gamma_2(-theta_(mu))$ が $a(theta_mu)$ の定義式の $sqrt$ の中身に等しいことを示す。
+
+    === Step 9: $gamma_2$ の定義の代入
+
+    $gamma_2$ の定義より、
+
+    $
+      (gamma_2(theta_(mu)))
+      /
+      (gamma_2(-theta_(mu)))
+      &=
+      (
+        sqrt(-1)
+        e^(sqrt(-1) theta_(mu))
+        s_2^*
+        (c_1 cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - s_1 c_2)
+      )
+      /
+      (
+        sqrt(-1)
+        e^(-sqrt(-1) theta_(mu))
+        s_2^*
+        (c_1 cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - s_1 c_2)
+      )
+    $
+
+    === Step 10: $cos(-theta) = cos(theta), sin(-theta) = -sin(theta)$ の適用
+
+    $
+      &=
+      (
+        sqrt(-1)
+        e^(sqrt(-1) theta_(mu))
+        s_2^*
+        (c_1 cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - s_1 c_2)
+      )
+      /
+      (
+        sqrt(-1)
+        e^(-sqrt(-1) theta_(mu))
+        s_2^*
+        (c_1 cos(theta_(mu)) + sqrt(-1) sin(theta_(mu)) - s_1 c_2)
+      )
+    $
+
+    === Step 11: $sqrt(-1) s_2^*$ の約分
+
+    $
+      &=
+      (
+        e^(sqrt(-1) theta_(mu))
+        (c_1 cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - s_1 c_2)
+      )
+      /
+      (
+        e^(-sqrt(-1) theta_(mu))
+        (c_1 cos(theta_(mu)) + sqrt(-1) sin(theta_(mu)) - s_1 c_2)
+      )
+    $
+
+    === Step 12: $cos(theta), sin(theta)$ のEuler表示
+
+    $cos(theta_(mu)) = (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))/2$、$sin(theta_(mu)) = (e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))/(2 sqrt(-1))$ を用いると、
+
+    $
+      c_1 cos(theta_(mu)) - sqrt(-1) sin(theta_(mu))
+      &=
+      c_1
+      (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))
+      /
+      2
+      -
+      sqrt(-1)
+      dot.op
+      (e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))
+      /
+      (2 sqrt(-1))
+      \
+      &=
+      c_1
+      (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))
+      /
+      2
+      -
+      (e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))
+      /
+      2
+      \
+      &=
+      (
+        (c_1 - 1) e^(sqrt(-1) theta_(mu))
+        +
+        (c_1 + 1) e^(-sqrt(-1) theta_(mu))
+      )
+      /
+      2
+    $
+
+    同様に、
+
+    $
+      c_1 cos(theta_(mu)) + sqrt(-1) sin(theta_(mu))
+      =
+      (
+        (c_1 + 1) e^(sqrt(-1) theta_(mu))
+        +
+        (c_1 - 1) e^(-sqrt(-1) theta_(mu))
+      )
+      /
+      2
+    $
+
+    === Step 13: 分子分母への代入と整理
+
+    Step 11の式にStep 12の結果を代入すると、
+
+    $
+      (gamma_2(theta_(mu)))
+      /
+      (gamma_2(-theta_(mu)))
+      &=
+      (
+        e^(sqrt(-1) theta_(mu))
         (
+          (
+            (c_1 - 1) e^(sqrt(-1) theta_(mu))
+            +
+            (c_1 + 1) e^(-sqrt(-1) theta_(mu))
+          )
+          /
+          2
+          - s_1 c_2
+        )
+      )
+      /
+      (
+        e^(-sqrt(-1) theta_(mu))
+        (
+          (
+            (c_1 + 1) e^(sqrt(-1) theta_(mu))
+            +
+            (c_1 - 1) e^(-sqrt(-1) theta_(mu))
+          )
+          /
+          2
+          - s_1 c_2
+        )
+      )
+      \
+      &=
+      (
+        e^(sqrt(-1) theta_(mu))
+        (
+          (c_1 - 1) e^(sqrt(-1) theta_(mu))
+          +
+          (c_1 + 1) e^(-sqrt(-1) theta_(mu))
           -
-          sqrt(
-            (
-              gamma_2(-theta_(mu))
-            )
-            ^
-            2
-          )
+          2 s_1 c_2
         )
-        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
       )
-      quad
-      (because #ref(<square_of_sqrt>))
+      /
+      (
+        e^(-sqrt(-1) theta_(mu))
+        (
+          (c_1 + 1) e^(sqrt(-1) theta_(mu))
+          +
+          (c_1 - 1) e^(-sqrt(-1) theta_(mu))
+          -
+          2 s_1 c_2
+        )
+      )
+    $
+
+    分子に $e^(sqrt(-1) theta_(mu))$ を、分母に $e^(-sqrt(-1) theta_(mu))$ を分配すると、
+
+    $
+      &=
+      (
+        (c_1 - 1) e^(2 sqrt(-1) theta_(mu))
+        +
+        (c_1 + 1)
+        -
+        2 s_1 c_2 e^(sqrt(-1) theta_(mu))
+      )
+      /
+      (
+        (c_1 + 1)
+        +
+        (c_1 - 1) e^(-2 sqrt(-1) theta_(mu))
+        -
+        2 s_1 c_2 e^(-sqrt(-1) theta_(mu))
+      )
+    $
+
+    === Step 14: 二次式の係数の整理
+
+    $x := e^(sqrt(-1) theta_(mu))$ とおくと、
+
+    分子 $= (c_1 - 1) x^2 - 2 s_1 c_2 x + (c_1 + 1)$
+
+    分母 $= (c_1 - 1) x^(-2) - 2 s_1 c_2 x^(-1) + (c_1 + 1)$
+
+    $(c_1 + 1)$ でくくると、
+
+    分子 $= (c_1 + 1) ((c_1 - 1)/(c_1 + 1) dot.op x^2 - (2 s_1 c_2)/(c_1 + 1) dot.op x + 1)$
+
+    分母 $= (c_1 + 1) ((c_1 - 1)/(c_1 + 1) dot.op x^(-2) - (2 s_1 c_2)/(c_1 + 1) dot.op x^(-1) + 1)$
+
+    === Step 15: $(c_1 - 1)/(c_1 + 1) = alpha_1 alpha_2^(-1)$ の証明
+
+    $
+      alpha_1 alpha_2^(-1)
+      &=
+      (tanh K_1 tanh K_2^*)
+      dot.op
+      ((tanh K_1)^(-1) tanh K_2^*)^(-1)
       \
       &=
-      cases(
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          sqrt(
-            1
-            /
-            (
-              (
-                gamma_2(-theta_(mu))
-              )
-              ^
-              2
-            )
-          )
-        )
-        quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          (
-            -
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-        )
-        quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = pi/2),
-        -
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          sqrt(
-            1
-            /
-            (
-              (
-                gamma_2(-theta_(mu))
-              )
-              ^
-              2
-            )
-          )
-        )
-        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-        -
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          (
-            -
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-        )
-        quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2),
-      )
+      (tanh K_1 tanh K_2^*)
+      dot.op
+      (tanh K_1 (tanh K_2^*)^(-1))
       \
       &=
-      cases(
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          (
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-        )
-        quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        -
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          (
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-        )
-        quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = pi/2),
-        -
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          (
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-        )
-        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          (
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-        )
-        quad & (arg^((-pi, pi])(gamma_2(-theta_(mu))) = -pi/2),
-      )
+      (tanh K_1)^2
+    $
+
+    一方、
+
+    $
+      (c_1 - 1)
+      /
+      (c_1 + 1)
+      &=
+      (cosh(2 K_1) - 1)
+      /
+      (cosh(2 K_1) + 1)
       \
       &=
-      cases(
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          (
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-        )
-        quad & (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        -
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          sqrt(
-            1
-            /
-            (
-              (
-                gamma_2(-theta_(mu))
-              )
-              ^
-              2
-            )
-          )
-        )
-        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-      )
+      (2 sinh^2(K_1))
+      /
+      (2 cosh^2(K_1))
+      quad (because cosh(2x) - 1 = 2sinh^2(x), cosh(2x) + 1 = 2cosh^2(x))
       \
       &=
-      cases(
-        sqrt(
-          -1
-        )
-        (
-          cases(
-            sqrt(
-              (gamma_2(theta_(mu)))
-              /
-              (gamma_2(-theta_(mu)))
-            )
-            &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or 0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-            -sqrt(
-              (gamma_2(theta_(mu)))
-              /
-              (gamma_2(-theta_(mu)))
-            )
-            &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-          )
-        )
-        quad & (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        -
-        sqrt(
-          -1
-        )
-        (
-          cases(
-            sqrt(
-              (gamma_2(theta_(mu)))
-              /
-              (gamma_2(-theta_(mu)))
-            )
-            &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or 0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-            -sqrt(
-              (gamma_2(theta_(mu)))
-              /
-              (gamma_2(-theta_(mu)))
-            )
-            &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-          )
-        )
-        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-      )
+      (tanh K_1)^2
+    $
+
+    よって、
+
+    $
+      (c_1 - 1)/(c_1 + 1) = alpha_1 alpha_2^(-1) quad dots.c (star.op)
+    $
+
+    === Step 16: $(2 s_1 c_2)/(c_1 + 1) = alpha_1 + alpha_2^(-1)$ の証明
+
+    まず $alpha_1 + alpha_2^(-1)$ を計算する。
+
+    $
+      alpha_1 + alpha_2^(-1)
+      &=
+      tanh K_1 tanh K_2^*
+      +
+      (tanh K_1)^(-1) (tanh K_2^*)^(-1)
       \
       &=
-      cases(
-        sqrt(
-          -1
-        )
-        (
-          cases(
-            sqrt(
-              (gamma_2(theta_(mu)))
-              /
-              (gamma_2(-theta_(mu)))
-            )
-            &quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-            -sqrt(
-              (gamma_2(theta_(mu)))
-              /
-              (gamma_2(-theta_(mu)))
-            )
-            &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
-          )
-        )
-        quad & (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        -
-        sqrt(
-          -1
-        )
-        (
-          cases(
-            sqrt(
-              (gamma_2(theta_(mu)))
-              /
-              (gamma_2(-theta_(mu)))
-            )
-            &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
-            -sqrt(
-              (gamma_2(theta_(mu)))
-              /
-              (gamma_2(-theta_(mu)))
-            )
-            &quad (pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-          )
-        )
-        quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2 or pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-      )
+      tanh K_1 tanh K_2^*
+      +
+      tanh K_1 / tanh K_2^*
+      quad (because alpha_2^(-1) = ((tanh K_1)^(-1) tanh K_2^*)^(-1) = tanh K_1 (tanh K_2^*)^(-1))
       \
       &=
-      cases(
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (gamma_2(theta_(mu)))
-            /
-            (gamma_2(-theta_(mu)))
-          )
-        )
-        &quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        sqrt(
-          -1
-        )
-        (
-          -sqrt(
-            (gamma_2(theta_(mu)))
-            /
-            (gamma_2(-theta_(mu)))
-          )
-        )
-        &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
-        -
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (gamma_2(theta_(mu)))
-            /
-            (gamma_2(-theta_(mu)))
-          )
-        )
-        &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
-        -
-        sqrt(
-          -1
-        )
-        (
-          -sqrt(
-            (gamma_2(theta_(mu)))
-            /
-            (gamma_2(-theta_(mu)))
-          )
-        )
-        &quad (pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-      )
-      \
-      &=
-      cases(
-        -
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (gamma_2(theta_(mu)))
-            /
-            (gamma_2(-theta_(mu)))
-          )
-        )
-        &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) < -pi/2),
-        -
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (gamma_2(theta_(mu)))
-            /
-            (gamma_2(-theta_(mu)))
-          )
-        )
-        &quad (-pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (gamma_2(theta_(mu)))
-            /
-            (gamma_2(-theta_(mu)))
-          )
-        )
-        &quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) < pi/2),
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (gamma_2(theta_(mu)))
-            /
-            (gamma_2(-theta_(mu)))
-          )
-        )
-        &quad (pi/2 <= arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-      )
-      \
-      &=
-      cases(
-        -
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (gamma_2(theta_(mu)))
-            /
-            (gamma_2(-theta_(mu)))
-          )
-        )
-        &quad (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= 0),
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (gamma_2(theta_(mu)))
-            /
-            (gamma_2(-theta_(mu)))
-          )
-        )
-        &quad (0 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-      )
+      tanh K_1
+      dot.op
+      (tanh K_2^* + (tanh K_2^*)^(-1))
     $
 
     ここで、
 
     $
-      sqrt(
-        (gamma_2(theta_(mu)))
-        /
-        (gamma_2(-theta_(mu)))
-      )
+      tanh K_2^* + (tanh K_2^*)^(-1)
       &=
-      sqrt(
-        (
-          sqrt(-1) e^(sqrt(-1) theta_(mu)) s_2^* (c_1 cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - s_1 c_2)
-        )
-        /
-        (
-          sqrt(-1) e^(-sqrt(-1) theta_(mu)) s_2^* (c_1 cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - s_1 c_2)
-        )
-      )
-      quad dots.c quad (R.1)
+      (sinh K_2^*)/(cosh K_2^*)
+      +
+      (cosh K_2^*)/(sinh K_2^*)
       \
       &=
-      sqrt(
-        (
-          sqrt(-1) e^(sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(theta_(mu)) - sqrt(-1) sin(theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
-        )
-        /
-        (
-          sqrt(-1) e^(-sqrt(-1) theta_(mu)) (cosh(2 K_1) cos(-theta_(mu)) - sqrt(-1) sin(-theta_(mu)) - sinh(2 K_1) cosh(2 K_2))
-        )
-      )
-      quad dots.c quad (R.2)
+      (sinh^2 K_2^* + cosh^2 K_2^*)
+      /
+      (sinh K_2^* cosh K_2^*)
       \
       &=
-      sqrt(
-        (
-          e^(sqrt(-1) theta_(mu))
-          (
-            (e^(2 K_1) + e^(-2 K_1))/2
-            (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))/2
-            -
-            sqrt(-1)
-            (e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))/(2 sqrt(-1))
-            -
-            (e^(2 K_1) - e^(-2 K_1))/2
-            (e^(2 K_2) + e^(-2 K_2))/2
-          )
-        )
-        /
-        (
-          e^(-sqrt(-1) theta_(mu))
-          (
-            (e^(2 K_1) + e^(-2 K_1))/2
-            (e^(-sqrt(-1) theta_(mu)) + e^(sqrt(-1) theta_(mu)))/2
-            -
-            sqrt(-1)
-            (e^(-sqrt(-1) theta_(mu)) - e^(sqrt(-1) theta_(mu)))/(2 sqrt(-1))
-            -
-            (e^(2 K_1) - e^(-2 K_1))/2
-            (e^(2 K_2) + e^(-2 K_2))/2
-          )
-        )
-      )
-      quad dots.c quad (R.3)
+      (cosh(2 K_2^*))
+      /
+      (sinh(2 K_2^*) / 2)
+      quad (because cosh^2(x) + sinh^2(x) = cosh(2x), 2sinh(x)cosh(x) = sinh(2x))
       \
       &=
-      sqrt(
-        (
-          e^(sqrt(-1) theta_(mu))
-          (
-            (e^(2 K_1) + e^(-2 K_1))
-            (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))
-            -
-            2(e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))
-            -
-            (e^(2 K_1) - e^(-2 K_1))
-            (e^(2 K_2) + e^(-2 K_2))
-          )
-        )
-        /
-        (
-          e^(-sqrt(-1) theta_(mu))
-          (
-            (e^(2 K_1) + e^(-2 K_1))
-            (e^(-sqrt(-1) theta_(mu)) + e^(sqrt(-1) theta_(mu)))
-            -
-            2(e^(-sqrt(-1) theta_(mu)) - e^(sqrt(-1) theta_(mu)))
-            -
-            (e^(2 K_1) - e^(-2 K_1))
-            (e^(2 K_2) + e^(-2 K_2))
-          )
-        )
-      )
-      quad dots.c quad (R.4)
-      \
-      &=
-      sqrt(
-        (
-          e^(sqrt(-1) theta_(mu))
-          (
-            (e^(2 K_1) + e^(-2 K_1))
-            e^(sqrt(-1) theta_(mu))
-            +
-            (e^(2 K_1) + e^(-2 K_1))
-            e^(-sqrt(-1) theta_(mu))
-            -
-            2
-            e^(sqrt(-1) theta_(mu))
-            +
-            2
-            e^(-sqrt(-1) theta_(mu))
-            -
-            (e^(2 K_1) - e^(-2 K_1))
-            (e^(2 K_2) + e^(-2 K_2))
-          )
-        )
-        /
-        (
-          e^(-sqrt(-1) theta_(mu))
-          (
-            (e^(2 K_1) + e^(-2 K_1))
-            e^(-sqrt(-1) theta_(mu))
-            +
-            (e^(2 K_1) + e^(-2 K_1))
-            e^(sqrt(-1) theta_(mu))
-            -
-            2
-            e^(-sqrt(-1) theta_(mu))
-            +
-            2
-            e^(sqrt(-1) theta_(mu))
-            -
-            (e^(2 K_1) - e^(-2 K_1))
-            (e^(2 K_2) + e^(-2 K_2))
-          )
-        )
-      )
-      quad dots.c quad (R.5)
-      \
-      &=
-      sqrt(
-        (
-          (
-            (e^(2 K_1) + e^(-2 K_1))
-            e^(sqrt(-1) theta_(mu))
-            e^(sqrt(-1) theta_(mu))
-            +
-            (e^(2 K_1) + e^(-2 K_1))
-            e^(-sqrt(-1) theta_(mu))
-            e^(sqrt(-1) theta_(mu))
-            -
-            2
-            e^(sqrt(-1) theta_(mu))
-            e^(sqrt(-1) theta_(mu))
-            +
-            2
-            e^(-sqrt(-1) theta_(mu))
-            e^(sqrt(-1) theta_(mu))
-            -
-            (e^(2 K_1) - e^(-2 K_1))
-            (e^(2 K_2) + e^(-2 K_2))
-            e^(sqrt(-1) theta_(mu))
-          )
-        )
-        /
-        (
-          (
-            (e^(2 K_1) + e^(-2 K_1))
-            e^(-sqrt(-1) theta_(mu))
-            e^(-sqrt(-1) theta_(mu))
-            +
-            (e^(2 K_1) + e^(-2 K_1))
-            e^(sqrt(-1) theta_(mu))
-            e^(-sqrt(-1) theta_(mu))
-            -
-            2
-            e^(-sqrt(-1) theta_(mu))
-            e^(-sqrt(-1) theta_(mu))
-            +
-            2
-            e^(sqrt(-1) theta_(mu))
-            e^(-sqrt(-1) theta_(mu))
-            -
-            (e^(2 K_1) - e^(-2 K_1))
-            (e^(2 K_2) + e^(-2 K_2))
-            e^(-sqrt(-1) theta_(mu))
-          )
-        )
-      )
-      quad dots.c quad (R.6)
-      \
-      &=
-      sqrt(
-        (
-          (e^(2 K_1) + e^(-2 K_1))
-          e^(2 sqrt(-1) theta_(mu))
-          +
-          (e^(2 K_1) + e^(-2 K_1))
-          -
-          2
-          e^(2 sqrt(-1) theta_(mu))
-          +
-          2
-          -
-          (e^(2 K_1) - e^(-2 K_1))
-          (e^(2 K_2) + e^(-2 K_2))
-          e^(sqrt(-1) theta_(mu))
-        )
-        /
-        (
-          (e^(2 K_1) + e^(-2 K_1))
-          e^(-2 sqrt(-1) theta_(mu))
-          +
-          (e^(2 K_1) + e^(-2 K_1))
-          -
-          2
-          e^(-2 sqrt(-1) theta_(mu))
-          +
-          2
-          -
-          (e^(2 K_1) - e^(-2 K_1))
-          (e^(2 K_2) + e^(-2 K_2))
-          e^(-sqrt(-1) theta_(mu))
-        )
-      )
-      quad dots.c quad (R.7)
-      \
-      &=
-      sqrt(
-        (
-          (
-            e^(2 K_1)
-            +
-            e^(-2 K_1)
-            -
-            2
-          )
-          e^(2 sqrt(-1) theta_(mu))
-          -
-          (e^(2 K_1) - e^(-2 K_1))
-          (e^(2 K_2) + e^(-2 K_2))
-          e^(sqrt(-1) theta_(mu))
-          +
-          (
-            e^(2 K_1)
-            +
-            e^(-2 K_1)
-            +
-            2
-          )
-        )
-        /
-        (
-          (
-            e^(2 K_1)
-            +
-            e^(-2 K_1)
-            -
-            2
-          )
-          e^(-2 sqrt(-1) theta_(mu))
-          -
-          (e^(2 K_1) - e^(-2 K_1))
-          (e^(2 K_2) + e^(-2 K_2))
-          e^(-sqrt(-1) theta_(mu))
-          +
-          (
-            e^(2 K_1)
-            +
-            e^(-2 K_1)
-            +
-            2
-          )
-        )
-      )
-      quad dots.c quad (R.8)
+      (2 cosh(2 K_2^*))
+      /
+      (sinh(2 K_2^*))
     $
 
-    また、
+    $K_2^* = -1/2 log(tanh K_2)$, すなわち $e^(-2 K_2^*) = tanh K_2$ より、
+
+    $
+      sinh(2 K_2^*)
+      &=
+      (e^(2 K_2^*) - e^(-2 K_2^*)) / 2
+      \
+      &=
+      ((tanh K_2)^(-1) - tanh K_2) / 2
+      \
+      &=
+      (cosh K_2 / sinh K_2 - sinh K_2 / cosh K_2) / 2
+      \
+      &=
+      (cosh^2 K_2 - sinh^2 K_2) / (2 sinh K_2 cosh K_2)
+      \
+      &=
+      1 / sinh(2 K_2)
+    $
+
+    $
+      cosh(2 K_2^*)
+      &=
+      (e^(2 K_2^*) + e^(-2 K_2^*)) / 2
+      \
+      &=
+      ((tanh K_2)^(-1) + tanh K_2) / 2
+      \
+      &=
+      (cosh K_2 / sinh K_2 + sinh K_2 / cosh K_2) / 2
+      \
+      &=
+      (cosh^2 K_2 + sinh^2 K_2) / (2 sinh K_2 cosh K_2)
+      \
+      &=
+      cosh(2 K_2) / sinh(2 K_2)
+    $
+
+    よって、
+
+    $
+      (2 cosh(2 K_2^*))/(sinh(2 K_2^*))
+      &=
+      2 dot.op (cosh(2 K_2) / sinh(2 K_2)) / (1 / sinh(2 K_2))
+      \
+      &=
+      2 cosh(2 K_2)
+    $
+
+    したがって、
+
+    $
+      alpha_1 + alpha_2^(-1)
+      =
+      tanh K_1 dot.op 2 cosh(2 K_2)
+      =
+      2 tanh K_1 cosh(2 K_2)
+    $
+
+    一方、
+
+    $
+      (2 s_1 c_2)
+      /
+      (c_1 + 1)
+      &=
+      (2 sinh(2 K_1) cosh(2 K_2))
+      /
+      (cosh(2 K_1) + 1)
+      \
+      &=
+      (2 dot.op 2 sinh K_1 cosh K_1 dot.op cosh(2 K_2))
+      /
+      (2 cosh^2 K_1)
+      quad (because sinh(2x) = 2sinh(x)cosh(x), cosh(2x) + 1 = 2cosh^2(x))
+      \
+      &=
+      (2 sinh K_1 cosh(2 K_2))
+      /
+      (cosh K_1)
+      \
+      &=
+      2 tanh K_1 cosh(2 K_2)
+    $
+
+    よって、
+
+    $
+      (2 s_1 c_2)/(c_1 + 1) = alpha_1 + alpha_2^(-1) quad dots.c (star.op star.op)
+    $
+
+    === Step 17: 因数分解の検証
+
+    $(1 - alpha_1 x)(1 - alpha_2^(-1) x)$ を展開すると、
+
+    $
+      (1 - alpha_1 x)(1 - alpha_2^(-1) x)
+      &=
+      1 - (alpha_1 + alpha_2^(-1)) x + alpha_1 alpha_2^(-1) x^2
+    $
+
+    $(star.op)$ と $(star.op star.op)$ を用いると、
+
+    $
+      &=
+      1 - (2 s_1 c_2)/(c_1 + 1) dot.op x + (c_1 - 1)/(c_1 + 1) dot.op x^2
+    $
+
+    よって、
+
+    $
+      (c_1 + 1)(1 - alpha_1 x)(1 - alpha_2^(-1) x)
+      =
+      (c_1 + 1) - 2 s_1 c_2 x + (c_1 - 1) x^2
+    $
+
+    これはStep 14の分子と一致する（$x = e^(sqrt(-1) theta_(mu))$のとき）。
+
+    同様に $y := e^(-sqrt(-1) theta_(mu)) = x^(-1)$ とおくと、
+
+    $
+      (c_1 + 1)(1 - alpha_1 y)(1 - alpha_2^(-1) y)
+      =
+      (c_1 + 1) - 2 s_1 c_2 y + (c_1 - 1) y^2
+    $
+
+    これはStep 14の分母と一致する。
+
+    === Step 18: 結論
+
+    Step 14とStep 17より、
+
+    $
+      (gamma_2(theta_(mu)))
+      /
+      (gamma_2(-theta_(mu)))
+      &=
+      (
+        (c_1 + 1)(1 - alpha_1 e^(sqrt(-1) theta_(mu)))(1 - alpha_2^(-1) e^(sqrt(-1) theta_(mu)))
+      )
+      /
+      (
+        (c_1 + 1)(1 - alpha_1 e^(-sqrt(-1) theta_(mu)))(1 - alpha_2^(-1) e^(-sqrt(-1) theta_(mu)))
+      )
+      \
+      &=
+      (
+        (1 - alpha_1 e^(sqrt(-1) theta_(mu)))(1 - alpha_2^(-1) e^(sqrt(-1) theta_(mu)))
+      )
+      /
+      (
+        (1 - alpha_1 e^(-sqrt(-1) theta_(mu)))(1 - alpha_2^(-1) e^(-sqrt(-1) theta_(mu)))
+      )
+    $
+
+    したがって、$a(theta_mu)$ の定義より、
 
     $
       a(theta_mu)
-      &=
+      =
       sqrt(
         (
           (1 - alpha_1 e^(sqrt(-1) theta_mu))
@@ -1234,1324 +971,17 @@
           (1 - alpha_2^(-1) e^(-sqrt(-1) theta_mu))
         )
       )
-      quad dots.c quad (L.1)
-      \
-      &=
-      sqrt(
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
-        )
-      )
-      quad dots.c quad (L.2)
-      \
-      &=
-      sqrt(
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          (1 - (tanh K_1 (tanh K_2^*)^(-1)) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - (tanh K_1 (tanh K_2^*)^(-1)) e^(-sqrt(-1) theta_mu))
-        )
-      )
-      quad dots.c quad (L.3)
-      \
-      &=
-      sqrt(
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          (tanh K_2^* - (tanh K_1) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (tanh K_2^* - (tanh K_1) e^(-sqrt(-1) theta_mu))
-        )
-      )
-      quad dots.c quad (L.4)
-      \
-      &=
-      sqrt(
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          (tanh K_2^* - (tanh K_1) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (tanh K_2^* - (tanh K_1) e^(-sqrt(-1) theta_mu))
-        )
-      )
-      quad dots.c quad (L.5)
-      // \
-      // &=
-      // sqrt(
-      //   (
-      //     (1 - ((e^(K_1) - e^(-K_1))/(e^(K_1) + e^(-K_1)) (e^(K_2^*) - e^(-K_2^*))/(e^(K_2^*) + e^(K_2^*))) e^(sqrt(-1) theta_mu))
-      //   )
-      //   /
-      //   (
-      //     (1 - ((e^(K_1) - e^(-K_1))/(e^(K_1) + e^(-K_1)) (e^(K_2^*) - e^(-K_2^*))/(e^(K_2^*) + e^(K_2^*))) e^(-sqrt(-1) theta_mu))
-      //   )
-      //   dot.c
-      //   (
-      //     ((e^(K_2^*) - e^(-K_2^*))/(e^(K_2^*) + e^(K_2^*)) - (e^(K_1) - e^(-K_1))/(e^(K_1) + e^(-K_1)) e^(sqrt(-1) theta_mu))
-      //   )
-      //   /
-      //   (
-      //     ((e^(K_2^*) - e^(-K_2^*))/(e^(K_2^*) + e^(K_2^*)) - (e^(K_1) - e^(-K_1))/(e^(K_1) + e^(-K_1)) e^(-sqrt(-1) theta_mu))
-      //   )
-      // )
-      // \
-      // &=
-      // sqrt(
-      //   (
-      //     (e^(K_1) + e^(-K_1))
-      //     (e^(K_2^*) + e^(-K_2^*))
-      //     -
-      //     (e^(K_1) - e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //     e^(sqrt(-1) theta_mu)
-      //   )
-      //   /
-      //   (
-      //     (e^(K_1) + e^(-K_1))
-      //     (e^(K_2^*) + e^(-K_2^*))
-      //     -
-      //     (e^(K_1) - e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //     e^(-sqrt(-1) theta_mu)
-      //   )
-      //   dot.c
-      //   (
-      //     (e^(K_1) + e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //     -
-      //     (e^(K_1) - e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //     e^(sqrt(-1) theta_mu)
-      //   )
-      //   /
-      //   (
-      //     (e^(K_1) + e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //     -
-      //     (e^(K_1) - e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //     e^(-sqrt(-1) theta_mu)
-      //   )
-      // )
-      // \
-      // &=
-      // sqrt(
-      //   (
-      //     (e^(K_1) + e^(-K_1))
-      //     (e^(K_2^*) + e^(-K_2^*))
-      //     e^(sqrt(-1) theta_mu)
-      //     -
-      //     (e^(K_1) - e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //     e^(2 sqrt(-1) theta_mu)
-      //   )
-      //   /
-      //   (
-      //     (e^(K_1) + e^(-K_1))
-      //     (e^(K_2^*) + e^(-K_2^*))
-      //     e^(sqrt(-1) theta_mu)
-      //     -
-      //     (e^(K_1) - e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //   )
-      //   dot.c
-      //   (
-      //     (e^(K_1) + e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //     e^(sqrt(-1) theta_mu)
-      //     -
-      //     (e^(K_1) - e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //     e^(2 sqrt(-1) theta_mu)
-      //   )
-      //   /
-      //   (
-      //     (e^(K_1) + e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //     e^(sqrt(-1) theta_mu)
-      //     -
-      //     (e^(K_1) - e^(-K_1))
-      //     (e^(K_2^*) - e^(-K_2^*))
-      //   )
-      // )
-    $
-
-    ここで、
-
-    $
-      K_2^* :&= -1/2 log(tanh K_2)
-      \
-      K_2^* &= -1/2 log(tanh K_2)
-      \
-      -2 K_2^* &= log(tanh K_2)
-      \
-      e^(-2 K_2^*) &= tanh K_2
-      \
-      e^(K_2^*) &= (tanh K_2)^(-1/2)
-      \
-      e^(-K_2^*) &= (tanh K_2)^(1/2)
-    $
-
-    より、
-    $
-      tanh(K_2^*) &= (e^(K_2^*) - e^(-K_2^*)) / (e^(K_2^*) + e^(-K_2^*)) \
-      \
-      &=
-      ((tanh K_2)^(-1/2) - (tanh K_2)^(1/2)) / ((tanh K_2)^(-1/2) + (tanh K_2)^(1/2))
-      \
-      &=
-      (
-        (tanh K_2)^(1/2) ((tanh K_2)^(-1/2) - (tanh K_2)^(1/2))
-      )
-      /
-      (
-        (tanh K_2)^(1/2) ((tanh K_2)^(-1/2) + (tanh K_2)^(1/2))
-      )
-      \
-      &=
-      (
-        1 - tanh K_2
-      )
-      /
-      (
-        1 + tanh K_2
-      )
-      \
-      &=
-      (
-        1 - (e^(K_2) - e^(-K_2))/(e^(K_2) + e^(-K_2))
-      )
-      /
-      (
-        1 + (e^(K_2) - e^(-K_2))/(e^(K_2) + e^(-K_2))
-      )
-      \
-      &=
-      (
-        (e^(K_2) + e^(-K_2)) (1 - (e^(K_2) - e^(-K_2))/(e^(K_2) + e^(-K_2)))
-      )
-      /
-      (
-        (e^(K_2) + e^(-K_2)) (1 + (e^(K_2) - e^(-K_2))/(e^(K_2) + e^(-K_2)))
-      )
-      \
-      &=
-      (
-        (e^(K_2) + e^(-K_2)) - (e^(K_2) - e^(-K_2))
-      )
-      /
-      (
-        (e^(K_2) + e^(-K_2)) + (e^(K_2) - e^(-K_2))
-      )
-      \
-      &=
-      (
-        2 e^(-K_2)
-      )
-      /
-      (
-        2 e^(K_2)
-      )
-      \
-      &=
-      (e^(-K_2))/(e^(K_2))
-      \
-      &=
-      e^(-2 K_2)
-    $
-
-    これと、
-
-    $
-      tanh(K_1) &= (e^(K_1) - e^(-K_1)) / (e^(K_1) + e^(-K_1))
-      \
-      &=
-      (
-        e^(K_1) (e^(K_1) - e^(-K_1))
-      )
-      /
-      (
-        e^(K_1) (e^(K_1) + e^(-K_1))
-      )
-      \
-      &=
-      (e^(2 K_1) - 1)/(e^(2 K_1) + 1)
-    $
-
-
-    を用いて
-
-    $
-      (L.5)
-      &=
-      sqrt(
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          (tanh K_2^* - (tanh K_1) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (tanh K_2^* - (tanh K_1) e^(-sqrt(-1) theta_mu))
-        )
-      )
-      quad dots.c quad (L.6)
-      \
-      &=
-      sqrt(
-        (
-          (1 - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1) e^(-2 K_2)) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (1 - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1) e^(-2 K_2)) e^(-sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(-sqrt(-1) theta_mu))
-        )
-      )
-      quad dots.c quad (L.7)
-      \
-      &=
-      sqrt(
-        (
-          (e^(2 K_1) + 1) (1 - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1) e^(-2 K_2)) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (e^(2 K_1) + 1) (1 - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1) e^(-2 K_2)) e^(-sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          (e^(2 K_1) + 1) (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          (e^(2 K_1) + 1) (e^(-2 K_2) - ((e^(2 K_1) - 1)/(e^(2 K_1) + 1)) e^(-sqrt(-1) theta_mu))
-        )
-      )
-      quad dots.c quad (L.8)
-      \
-      &=
-      sqrt(
-        (
-          ((e^(2 K_1) + 1) - ((e^(2 K_1) - 1) e^(-2 K_2)) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          ((e^(2 K_1) + 1) - ((e^(2 K_1) - 1) e^(-2 K_2)) e^(-sqrt(-1) theta_mu))
-        )
-        dot.c
-        (
-          ((e^(2 K_1) + 1) e^(-2 K_2) - (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu))
-        )
-        /
-        (
-          ((e^(2 K_1) + 1) e^(-2 K_2) - (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu))
-        )
-      )
-      quad dots.c quad (L.9)
-      \
-      &=
-      sqrt(
-        (
-          (e^(2 K_1) + 1) - (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(sqrt(-1) theta_mu)
-        )
-        /
-        (
-          (e^(2 K_1) + 1) - (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(-sqrt(-1) theta_mu)
-        )
-        dot.c
-        (
-          e^(2 K_1) e^(-2 K_2) + e^(-2 K_2) - (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
-        )
-        /
-        (
-          e^(2 K_1) e^(-2 K_2) + e^(-2 K_2) - (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
-        )
-      )
-      quad dots.c quad (L.10)
-      \
-      &=
-      sqrt(
-        (
-          (
-            (e^(2 K_1) + 1)
-            -
-            (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(sqrt(-1) theta_mu)
-          )
-          dot.c
-          (
-            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
-            -
-            (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
-          )
-        )
-        /
-        (
-          (
-            (e^(2 K_1) + 1)
-            -
-            (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(-sqrt(-1) theta_mu)
-          )
-          dot.c
-          (
-            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
-            -
-            (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
-          )
-        )
-      )
-      quad dots.c quad (L.11)
-      \
-      &=
-      sqrt(
-        (
-          (e^(2 K_1) + 1)
-          dot.c
-          (
-            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
-            -
-            (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
-          )
-          -
-          (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(sqrt(-1) theta_mu)
-          dot.c
-          (
-            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
-            -
-            (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
-          )
-        )
-        /
-        (
-          (e^(2 K_1) + 1)
-          dot.c
-          (
-            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
-            -
-            (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
-          )
-          -
-          (e^(2 K_1) e^(-2 K_2) - e^(-2 K_2)) e^(-sqrt(-1) theta_mu)
-          dot.c
-          (
-            (e^(2 K_1) e^(-2 K_2) + e^(-2 K_2))
-            -
-            (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
-          )
-        )
-      )
-      quad dots.c quad (L.12)
-      \
-      &=
-      sqrt(
-        (
-          (e^(2 K_1) + 1)
-          dot.c
-          (
-            e^(-2 K_2) (e^(2 K_1) + 1)
-            -
-            (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
-          )
-          -
-          e^(-2 K_2) (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
-          dot.c
-          (
-            e^(-2 K_2) (e^(2 K_1) + 1)
-            -
-            (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
-          )
-        )
-        /
-        (
-          (e^(2 K_1) + 1)
-          dot.c
-          (
-            e^(-2 K_2) (e^(2 K_1) + 1)
-            -
-            (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
-          )
-          -
-          e^(-2 K_2) (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
-          dot.c
-          (
-            e^(-2 K_2) (e^(2 K_1) + 1)
-            -
-            (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
-          )
-        )
-      )
-      quad dots.c quad (L.13)
-      \
-      &=
-      sqrt(
-        (          
-          (
-            e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-            -
-            (e^(2 K_1) - 1) (e^(2 K_1) + 1) e^(sqrt(-1) theta_mu)
-          )
-          -
-          (
-            e^(-2 K_2) e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
-            -
-            e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu) e^(sqrt(-1) theta_mu)
-          )
-        )
-        /
-        (
-          (
-            e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-            -
-            (e^(2 K_1) - 1) (e^(2 K_1) + 1) e^(-sqrt(-1) theta_mu)
-          )
-          -
-          (
-            e^(-2 K_2) e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
-            -
-            e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu) e^(-sqrt(-1) theta_mu)
-          )
-        )
-      )
-      quad dots.c quad (L.14)
-      \
-      &=
-      sqrt(
-        (          
-          e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (e^(2 K_1) - 1) (e^(2 K_1) + 1) e^(sqrt(-1) theta_mu)
-          -
-          e^(-2 K_2) e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu)
-          +
-          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(sqrt(-1) theta_mu) e^(sqrt(-1) theta_mu)
-        )
-        /
-        (
-          e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (e^(2 K_1) - 1) (e^(2 K_1) + 1) e^(-sqrt(-1) theta_mu)
-          -
-          e^(-2 K_2) e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu)
-          +
-          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(-sqrt(-1) theta_mu) e^(-sqrt(-1) theta_mu)
-        )
-      )
-      quad dots.c quad (L.15)
-      \
-      &=
-      sqrt(
-        (          
-          e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (
-            (e^(2 K_1) - 1) (e^(2 K_1) + 1) 
-            +
-            e^(-2 K_2) e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1)
-          )
-          e^(sqrt(-1) theta_mu)
-          +
-          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(2 sqrt(-1) theta_mu)
-        )
-        /
-        (
-          e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (
-            (e^(2 K_1) - 1) (e^(2 K_1) + 1)
-            +
-            e^(-2 K_2) e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1)
-          )
-          e^(-sqrt(-1) theta_mu)
-          +
-          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1) e^(-2 sqrt(-1) theta_mu)
-        )
-      )
-      quad dots.c quad (L.16)
-      \
-      &=
-      sqrt(
-        (          
-          e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (
-            (e^(2 K_1) - 1) (e^(2 K_1) + 1) 
-            +
-            e^(-2 K_2) e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1)
-          )
-          e^(sqrt(-1) theta_mu)
-          +
-          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(2 sqrt(-1) theta_mu)
-        )
-        /
-        (
-          e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (
-            (e^(2 K_1) - 1) (e^(2 K_1) + 1)
-            +
-            e^(-2 K_2) e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1)
-          )
-          e^(-sqrt(-1) theta_mu)
-          +
-          e^(-2 K_2) (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(-2 sqrt(-1) theta_mu)
-        )
-      )
-      quad dots.c quad (L.17)
-      \
-      &=
-      sqrt(
-        (          
-          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (
-            e^(2 K_2)
-            (e^(2 K_1) - 1) (e^(2 K_1) + 1) 
-            +
-            e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1)
-          )
-          e^(sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(2 sqrt(-1) theta_mu)
-        )
-        /
-        (
-          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (
-            e^(2 K_2)
-            (e^(2 K_1) - 1) (e^(2 K_1) + 1)
-            +
-            e^(-2 K_2) (e^(2 K_1) + 1) (e^(2 K_1) - 1)
-          )
-          e^(-sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(-2 sqrt(-1) theta_mu)
-        )
-      )
-      quad dots.c quad (L.18)
-      \
-      &=
-      sqrt(
-        (          
-          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          (e^(2 K_1) + 1) (e^(2 K_1) - 1) 
-          e^(sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(2 sqrt(-1) theta_mu)
-        )
-        /
-        (
-          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          (e^(2 K_1) + 1) (e^(2 K_1) - 1)
-          e^(-sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(-2 sqrt(-1) theta_mu)
-        )
-      )
-      quad dots.c quad (L.19)
-      \
-      &=
-      sqrt(
-        (          
-          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          ((e^(2 K_1))^2 - 1)
-          e^(sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(2 sqrt(-1) theta_mu)
-        )
-        /
-        (
-          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          ((e^(2 K_1))^2 - 1)
-          e^(-sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(-2 sqrt(-1) theta_mu)
-        )
-      )
-      quad dots.c quad (L.20)
-      \
-      &=
-      sqrt(
-        (          
-          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(2 sqrt(-1) theta_mu)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          ((e^(2 K_1))^2 - 1)
-          e^(sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-        )
-        /
-        (
-          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(-2 sqrt(-1) theta_mu)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          ((e^(2 K_1))^2 - 1)
-          e^(-sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-        )
-      )
-      quad dots.c quad (L.21)
-      \
-      &=
-      sqrt(
-        (          
-          e^(-2 K_1) (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(2 sqrt(-1) theta_mu)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          (e^(2 K_1) - e^(-2 K_1))
-          e^(sqrt(-1) theta_mu)
-          +
-          e^(-2 K_1)
-          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-        )
-        /
-        (
-          e^(-2 K_1)
-          (e^(2 K_1) - 1) (e^(2 K_1) - 1)
-          e^(-2 sqrt(-1) theta_mu)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          (e^(2 K_1) - e^(-2 K_1))
-          e^(-sqrt(-1) theta_mu)
-          +
-          e^(-2 K_1)
-          (e^(2 K_1) + 1) (e^(2 K_1) + 1)
-        )
-      )
-      quad dots.c quad (L.22)
-      \
-      &=
-      sqrt(
-        (          
-          e^(-2 K_1)
-          ((e^(2 K_1))^2 - 2 e^(2 K_1) + 1)
-          e^(2 sqrt(-1) theta_mu)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          (e^(2 K_1) - e^(-2 K_1))
-          e^(sqrt(-1) theta_mu)
-          +
-          e^(-2 K_1)
-          ((e^(2 K_1))^2 + 2 e^(2 K_1) + 1)
-        )
-        /
-        (
-          e^(-2 K_1)
-          ((e^(2 K_1))^2 - 2 e^(2 K_1) + 1)
-          e^(-2 sqrt(-1) theta_mu)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          (e^(2 K_1) - e^(-2 K_1))
-          e^(-sqrt(-1) theta_mu)
-          +
-          e^(-2 K_1)
-          ((e^(2 K_1))^2 + 2 e^(2 K_1) + 1)
-        )
-      )
-      quad dots.c quad (L.23)
-      \
-      &=
-      sqrt(
-        (          
-          (e^(2 K_1) - 2 + e^(-2 K_1))
-          e^(2 sqrt(-1) theta_mu)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          (e^(2 K_1) - e^(-2 K_1))
-          e^(sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) + 2 + e^(-2 K_1))
-        )
-        /
-        (
-          (e^(2 K_1) - 2 + e^(-2 K_1))
-          e^(-2 sqrt(-1) theta_mu)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          (e^(2 K_1) - e^(-2 K_1))
-          e^(-sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) + 2 + e^(-2 K_1))
-        )
-      )
-      quad dots.c quad (L.23)
-      \
-      &=
-      sqrt(
-        (          
-          (e^(2 K_1) + e^(-2 K_1) - 2)
-          e^(2 sqrt(-1) theta_mu)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          (e^(2 K_1) - e^(-2 K_1))
-          e^(sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) + e^(-2 K_1) + 2)
-        )
-        /
-        (
-          (e^(2 K_1) + e^(-2 K_1) - 2)
-          e^(-2 sqrt(-1) theta_mu)
-          -
-          (e^(2 K_2) + e^(-2 K_2))
-          (e^(2 K_1) - e^(-2 K_1))
-          e^(-sqrt(-1) theta_mu)
-          +
-          (e^(2 K_1) + e^(-2 K_1) + 2)
-        )
-      )
-      quad dots.c quad (L.24)
-    $
-
-    よって、
-
-    $
+      =
       sqrt(
         (gamma_2(theta_(mu)))
         /
         (gamma_2(-theta_(mu)))
       )
-      =
-      a(theta_mu)
     $
 
-    さらに、
+    Part AのStep 8の結果と合わせて、Claimのステートメントが示された。
 
-    #note[
-      $
-    (sqrt(z))^(-1)
-    =
-    1/sqrt(z)
-    =
-    cases(
-      sqrt(1/z) & quad (-pi < arg^((-pi, pi])(z) < pi),
-      -(sqrt(1/z)) & quad (arg^((-pi, pi])(z) = pi),
-    )
-  $
-    ]
-
-    $
-      (
-        sqrt(
-          (gamma_2(theta_(mu)))
-          /
-          (gamma_2(-theta_(mu)))
-        )
-      )^(-1)
-      =
-      cases(
-        sqrt(
-          (gamma_2(-theta_(mu)))
-          /
-          (gamma_2(theta_(mu)))
-        ) & quad (-pi < arg^((-pi, pi])(
-          (gamma_2(theta_(mu)))
-          /
-          (gamma_2(-theta_(mu)))
-        ) < pi),
-        -(
-          sqrt(
-            (gamma_2(-theta_(mu)))
-            /
-            (gamma_2(theta_(mu)))
-          )
-        ) & quad (arg^((-pi, pi])(
-          (gamma_2(theta_(mu)))
-          /
-          (gamma_2(-theta_(mu)))
-        ) = pi),
-      )
-      quad (because #ref(<square_of_sqrt>))
-    $
-
-    $qed$
-
-    #note[
-      $
-        K_2^* := -1/2 log(tanh K_2) arrow.l.r sinh(K_2) sinh(K_2^*) = 1
-      $
-
-      $
-        K_2^* &= -1/2 log(tanh K_2)
-        \
-        -2 K_2^* &= log(tanh K_2)
-        \
-        e^(-2 K_2^*) &= tanh K_2
-        \
-        e^(K_2^*) &= (tanh K_2)^(-1/2)
-        \
-        e^(-K_2^*) &= (tanh K_2)^(1/2)
-      $
-
-      $
-        tanh(K_2^*) &= (e^(K_2^*) - e^(-K_2^*)) / (e^(K_2^*) + e^(-K_2^*)) \
-        \
-        &=
-        ((tanh K_2)^(-1/2) - (tanh K_2)^(1/2)) / ((tanh K_2)^(-1/2) + (tanh K_2)^(1/2)) \
-      $
-
-      より、
-
-      $
-        cosh(2 K_2)
-        &=
-        (cosh(K_2))^2 + (sinh(K_2))^2
-        \
-        &=
-        (1 + (sinh(K_2))^2) + (sinh(K_2))^2
-        \
-        &=
-        1 + 2 (sinh(K_2^*))^(-2)
-      $
-
-      x in RR
-      $
-        e^x = 2(cosh(x) + sinh(x))
-      $
-
-      y in RR
-      $
-        e^(sqrt(-1) y) &= cos(y) + sqrt(-1) sin(y) \
-        e^(-sqrt(-1) y)
-        &= cos(-y) + sqrt(-1) sin(-y)
-        \
-        &= cos(y) - sqrt(-1) sin(y)
-      $
-
-      より、
-
-      $
-        cos(y) = (e^(sqrt(-1) y) + e^(-sqrt(-1) y)) / 2 \
-        sin(y) = (e^(sqrt(-1) y) - e^(-sqrt(-1) y)) / (2 sqrt(-1))
-      $
-
-      z in CC
-      $
-        sinh(z) = -sqrt(-1) sin(sqrt(-1) z) \
-        cosh(z) = cos(sqrt(-1) z) \
-      $
-
-      x in RR
-      $
-        sinh(2x) = 2 sinh(x) cosh(x) \
-        cosh(2x) = (cosh(x))^2 + (sinh(x))^2 \
-
-        (cosh(x))^2 - (sinh(x))^2 = 1 \
-        (cosh(x))^2 = 1 + (sinh(x))^2 \
-        (sinh(x))^2 = (cosh(x))^2 - 1
-      $
-
-
-      $
-        (
-          sqrt(
-            -1
-          )
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-        )
-        /
-        (
-          gamma_2(-theta_(mu))
-        )
-        &=
-        cases(
-          (
-            sqrt(
-              -1
-            )
-            sqrt(
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          /
-          (
-            sqrt(
-              (
-                gamma_2(-theta_(mu))
-              )
-              ^
-              2
-            )
-          )
-          quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
-          (
-            sqrt(
-              -1
-            )
-            sqrt(
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          /
-          (
-            -
-            sqrt(
-              (
-                gamma_2(-theta_(mu))
-              )
-              ^
-              2
-            )
-          )
-          quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-        )
-        quad
-        (because #ref(<square_of_sqrt>))
-        \
-        &=
-        cases(
-          sqrt(
-            -1
-          )
-          (
-            sqrt(
-              (
-                gamma_2(theta_(mu))
-                gamma_2(-theta_(mu))
-              )
-            )
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-          quad & (-pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi/2),
-          -
-          sqrt(
-            -1
-          )
-          (
-            sqrt(
-              (
-                gamma_2(theta_(mu))
-                gamma_2(-theta_(mu))
-              )
-            )
-            sqrt(
-              1
-              /
-              (
-                (
-                  gamma_2(-theta_(mu))
-                )
-                ^
-                2
-              )
-            )
-          )
-          quad & (-pi < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= -pi/2 or pi/2 < arg^((-pi, pi])(gamma_2(-theta_(mu))) <= pi),
-        )
-        \
-        &=
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-          )
-          sqrt(
-            1
-            /
-            (
-              (
-                gamma_2(-theta_(mu))
-              )
-              ^
-              2
-            )
-          )
-        )
-        \
-        &=
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-              gamma_2(-theta_(mu))
-            )
-            dot.op
-            1
-            /
-            (
-              (
-                gamma_2(-theta_(mu))
-              )
-              ^
-              2
-            )
-          )
-        )
-        \
-        &=
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              gamma_2(theta_(mu))
-            )
-            /
-            (
-              gamma_2(-theta_(mu))
-            )
-          )
-        )
-        \
-        &=
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              sqrt(-1) e^(sqrt(-1) theta_(mu)) s_2^* (c_1 cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - s_1 c_2)
-            )
-            /
-            (
-              sqrt(-1) e^(-sqrt(-1) theta_mu) s_2^* (c_1 cos (theta_mu) + sqrt(-1) sin (theta_mu) - s_1 c_2)
-            )
-          )
-        )
-        \
-        &=
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              e^(sqrt(-1) theta_(mu)) (c_1 cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - s_1 c_2)
-            )
-            /
-            (
-              e^(-sqrt(-1) theta_mu) (c_1 cos (theta_mu) + sqrt(-1) sin (theta_mu) - s_1 c_2)
-            )
-          )
-        )
-        \
-        &=
-        sqrt(
-          -1
-        )
-        (
-          sqrt(
-            (
-              e^(sqrt(-1) theta_(mu)) (cosh(2K_1) cos (theta_(mu)) - sqrt(-1) sin (theta_(mu)) - sinh(2K_1) cosh(2K_2))
-            )
-            /
-            (
-              e^(-sqrt(-1) theta_mu) (cosh(2K_1) cos (theta_mu) + sqrt(-1) sin (theta_mu) - sinh(2K_1) cosh(2K_2))
-            )
-          )
-        )
-      $
-
-      $
-        a(theta_mu)
-        &=
-        sqrt(
-          (
-            (1 - alpha_1 e^(sqrt(-1) theta_mu))
-          )
-          /
-          (
-            (1 - alpha_1 e^(-sqrt(-1) theta_mu))
-          )
-          dot.c
-          (
-            (1 - alpha_2^(-1) e^(sqrt(-1) theta_mu))
-          )
-          /
-          (
-            (1 - alpha_2^(-1) e^(-sqrt(-1) theta_mu))
-          )
-        )
-        \
-        &=
-        sqrt(
-          (
-            (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
-          )
-          /
-          (
-            (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
-          )
-          dot.c
-          (
-            (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
-          )
-          /
-          (
-            (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
-          )
-        )
-      $
-
-      より、
-
-      $
-        sqrt(-1) a(theta_mu)^(-1)
-        &=
-        sqrt(
-          (
-            (1 - (tanh K_1 tanh K_2^*) e^(-sqrt(-1) theta_mu))
-          )
-          /
-          (
-            (1 - (tanh K_1 tanh K_2^*) e^(sqrt(-1) theta_mu))
-          )
-          dot.c
-          (
-            (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(-sqrt(-1) theta_mu))
-          )
-          /
-          (
-            (1 - ((tanh K_1)^(-1) tanh K_2^*)^(-1) e^(sqrt(-1) theta_mu))
-          )
-        )
-      $
-    ]
-
-    以下のsagemathコードで数値的に等しいことが検証できた
-    ```python
-    # 変数とパラメータの定義
-    var('K1 K2 theta_mu')
-
-    # K1^*, K2^* の定義
-    def Kstar(K):
-        return -1/2 * log(tanh(K))
-
-    K1s = Kstar(K1)
-    K2s = Kstar(K2)
-
-    # e^{iθ_μ}
-    eiθ = exp(I*theta_mu)
-    emθ = exp(-I*theta_mu)
-
-    # --- 1つ目の式 ---
-    numer1 = eiθ*(cosh(2*K1)*cos(theta_mu) - I*sin(theta_mu) - sinh(2*K1)*cosh(2*K2))
-    denom1 = emθ*(cosh(2*K1)*cos(theta_mu) + I*sin(theta_mu) - sinh(2*K1)*cosh(2*K2))
-    expr1 = I*sqrt(numer1/denom1)
-
-    # --- 2つ目の式 ---
-    tK1 = tanh(K1)
-    tK2s = tanh(K2s)
-    inv_tK1 = 1/tK1
-
-    factor1_num = 1 - (tK1 * tK2s) * emθ
-    factor1_den = 1 - (tK1 * tK2s) * eiθ
-    factor2_num = 1 - (1/(inv_tK1 * tK2s)) * emθ
-    factor2_den = 1 - (1/(inv_tK1 * tK2s)) * eiθ
-    expr2 = sqrt((factor1_num/factor1_den) * (factor2_num/factor2_den))
-
-    # 数値代入例（任意の値、変更可）
-    K1_val = 0.7
-    K2_val = 1.2
-    theta_mu_val = 1.1
-
-    # 代入して数値計算
-    val1 = expr1.subs({K1:K1_val, K2:K2_val, theta_mu:theta_mu_val}).n()
-    val2 = expr2.subs({K1:K1_val, K2:K2_val, theta_mu:theta_mu_val}).n()
-
-    # 結果表示
-    print("expr1 =", val1)
-    print("expr2 =", val2)
-    print("差 =", abs(val1 - val2))
-    ```
     $qed$
   ]
+// SageMath数値検証: sagemath/check/028_claim_a_theta_mu/
 ]<equation_of_a_theta_mu>

@@ -384,26 +384,404 @@
       (
         2M delta^M_(mu + nu, 0) I_((CC^2)^(times.o M))
       )
+    $
+
+    $delta^M_(mu + nu, 0) eq.not 0$ のとき、$mu + nu equiv 0 (mod M)$ すなわち $theta_(nu) = -theta_(mu)$ である。
+
+    このとき、$gamma_2(theta_(nu)) = gamma_2(-theta_(mu))$、$gamma_2(-theta_(nu)) = gamma_2(theta_(mu))$ であるから、
+
+    $
+      &(
+        minus
+        (
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        (
+          sqrt(
+            gamma_2(theta_(nu))
+            gamma_2(-theta_(nu))
+          )
+        )
+        +
+        (
+          gamma_2(-theta_(mu))
+        )
+        (
+          gamma_2(-theta_(nu))
+        )
+      )
+      \
+      &=
+      minus
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        sqrt(
+          gamma_2(-theta_(mu))
+          gamma_2(theta_(mu))
+        )
+      )
+      +
+      gamma_2(-theta_(mu))
+      gamma_2(theta_(mu))
+      quad (because theta_(nu) = -theta_(mu) "を代入")
+      \
+      &=
+      minus
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      +
+      gamma_2(theta_(mu))
+      gamma_2(-theta_(mu))
+      quad (because "乗法の可換性")
+      \
+      &=
+      minus
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )^2
+      +
+      gamma_2(theta_(mu))
+      gamma_2(-theta_(mu))
+      \
+      &=
+      minus
+      gamma_2(theta_(mu))
+      gamma_2(-theta_(mu))
+      +
+      gamma_2(theta_(mu))
+      gamma_2(-theta_(mu))
+      quad (because (sqrt(z))^2 = z)
+      \
+      &=
+      0
+    $
+
+    したがって、$delta^M_(mu + nu, 0) = 0$ のとき全体は $0$、$delta^M_(mu + nu, 0) eq.not 0$ のときも係数が $0$ であるから、
+
+    $
+      [psi_mu^dagger, psi_nu^dagger]_(+) = 0
+    $
+
+    $c) [psi_mu, psi_nu]_(+)$ について、
+
+    $a)$ と同様の計算を行う。$#ref(<def_fermi>)$ より、
+
+    $
+      [psi_mu, psi_nu]_(+)
+      &=
+      [
+        (
+          minus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        hat(Z)_mu^((minus))
+        +
+        (
+          gamma_2(-theta_(mu))
+        )
+        hat(Y)_mu
+        ,
+        (
+          minus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(nu))
+            gamma_2(-theta_(nu))
+          )
+        )
+        hat(Z)_nu^((minus))
+        +
+        (
+          gamma_2(-theta_(nu))
+        )
+        hat(Y)_nu
+      ]_(+)
       \
       &=
       (
         minus
-        abs(
-          gamma_2(theta_(mu))
+        sqrt(
+          -1
         )
-        abs(
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        minus
+        sqrt(
+          -1
+        )
+        sqrt(
           gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      [
+        hat(Z)_mu^((minus))
+        ,
+        hat(Z)_nu^((minus))
+      ]_(+)
+      +
+      (
+        minus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      [
+        hat(Z)_mu^((minus))
+        ,
+        hat(Y)_nu
+      ]_(+)
+      \
+      & quad +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        minus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      [
+        hat(Y)_mu
+        ,
+        hat(Z)_nu^((minus))
+      ]_(+)
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      [
+        hat(Y)_mu
+        ,
+        hat(Y)_nu
+      ]_(+)
+      \
+      &=
+      minus
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        sqrt(
+          gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      dot.op
+      (
+        2M delta^M_(mu + nu, 0) I_((CC^2)^(times.o M))
+      )
+      +
+      0
+      +
+      0
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      dot.op
+      (
+        2M delta^M_(mu + nu, 0) I_((CC^2)^(times.o M))
+      )
+      quad (because #ref(<anticommutator_of_hat_Z_and_hat_Y>))
+    $
+
+    これは $a)$ と同じ式であるから、同じ議論により、
+
+    $
+      [psi_mu, psi_nu]_(+) = 0
+    $
+
+    $b) [psi_mu^dagger, psi_nu]_(+)$ について、
+
+    $#ref(<def_fermi>)$ より、
+
+    $
+      [psi_mu^dagger, psi_nu]_(+)
+      &=
+      [
+        (
+          plus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        hat(Z)_mu^((minus))
+        +
+        (
+          gamma_2(-theta_(mu))
+        )
+        hat(Y)_mu
+        ,
+        (
+          minus
+          sqrt(
+            -1
+          )
+          sqrt(
+            gamma_2(theta_(nu))
+            gamma_2(-theta_(nu))
+          )
+        )
+        hat(Z)_nu^((minus))
+        +
+        (
+          gamma_2(-theta_(nu))
+        )
+        hat(Y)_nu
+      ]_(+)
+      \
+      &=
+      (
+        plus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        minus
+        sqrt(
+          -1
+        )
+        sqrt(
+          gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      [
+        hat(Z)_mu^((minus))
+        ,
+        hat(Z)_nu^((minus))
+      ]_(+)
+      +
+      0
+      +
+      0
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      [
+        hat(Y)_mu
+        ,
+        hat(Y)_nu
+      ]_(+)
+      quad (because #ref(<anticommutator_of_hat_Z_and_hat_Y>))
+      \
+      &=
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        sqrt(
+          gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      dot.op
+      (
+        2M delta^M_(mu + nu, 0) I_((CC^2)^(times.o M))
+      )
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      dot.op
+      (
+        2M delta^M_(mu + nu, 0) I_((CC^2)^(times.o M))
+      )
+      \
+      &=
+      (
+        (
+          sqrt(
+            gamma_2(theta_(mu))
+            gamma_2(-theta_(mu))
+          )
+        )
+        (
+          sqrt(
+            gamma_2(theta_(nu))
+            gamma_2(-theta_(nu))
+          )
         )
         +
         (
-          overline(
-            gamma_2(theta_(mu))
-          )
+          gamma_2(-theta_(mu))
         )
         (
-          overline(
-            gamma_2(theta_(nu))
-          )
+          gamma_2(-theta_(nu))
         )
       )
       dot.op
@@ -412,7 +790,81 @@
       )
     $
 
-    (次回 20250614) WIP
+    $delta^M_(mu + nu, 0) eq.not 0$ のとき、$a)$ と同様に $theta_(nu) = -theta_(mu)$ を代入すると、
+
+    $
+      &(
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )
+      (
+        sqrt(
+          gamma_2(theta_(nu))
+          gamma_2(-theta_(nu))
+        )
+      )
+      +
+      (
+        gamma_2(-theta_(mu))
+      )
+      (
+        gamma_2(-theta_(nu))
+      )
+      \
+      &=
+      (
+        sqrt(
+          gamma_2(theta_(mu))
+          gamma_2(-theta_(mu))
+        )
+      )^2
+      +
+      gamma_2(-theta_(mu))
+      gamma_2(theta_(mu))
+      quad (because theta_(nu) = -theta_(mu) "を代入、乗法の可換性")
+      \
+      &=
+      gamma_2(theta_(mu))
+      gamma_2(-theta_(mu))
+      +
+      gamma_2(theta_(mu))
+      gamma_2(-theta_(mu))
+      quad (because (sqrt(z))^2 = z "、乗法の可換性")
+      \
+      &=
+      2 gamma_2(theta_(mu)) gamma_2(-theta_(mu))
+    $
+
+    よって、
+
+    $
+      [psi_mu^dagger, psi_nu]_(+)
+      &=
+      2 gamma_2(theta_(mu)) gamma_2(-theta_(mu))
+      dot.op
+      2M delta^M_(mu + nu, 0) I_((CC^2)^(times.o M))
+      \
+      &=
+      4M gamma_2(theta_(mu)) gamma_2(-theta_(mu))
+      dot.op
+      delta^M_(mu + nu, 0) I_((CC^2)^(times.o M))
+    $
+
+    ここで $#ref(<relation_of_gamma_2>)$ より $gamma_2(theta_(mu)) gamma_2(-theta_(mu)) = -|gamma_2(theta_(mu))|^2$ であるから、
+
+    $
+      [psi_mu^dagger, psi_nu]_(+)
+      =
+      minus 4M |gamma_2(theta_(mu))|^2
+      dot.op
+      delta^M_(mu + nu, 0) I_((CC^2)^(times.o M))
+    $
+
+    // TODO: ステートメントでは δ_{μ≡ν (mod M)} となっているが、
+    // 計算結果は δ^M_{μ+ν,0} (すなわち ν ≡ -μ (mod M)) に比例する。
+    // 正規化定数 -4M|γ₂(θ_μ)|² の処理も含め、要確認。
 
     #note[
       $
