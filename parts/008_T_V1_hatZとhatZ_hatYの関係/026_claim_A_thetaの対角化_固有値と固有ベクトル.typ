@@ -7,14 +7,30 @@
 
   $theta_(mu) := (2 pi mu) / M$ とおくとき、
 
-  $A(theta_(mu))$の固有値$lambda_(mu) in RR$は
+  $A(theta_(mu))$の固有値$lambda_(plus.minus, mu) in RR$は
   $
-    lambda_(mu)
-    :=
+    lambda_(plus, mu)
+    &:=
     (
       gamma_1(theta_(mu))
     )
-    plus.minus
+    plus
+    sqrt(
+      -
+      (
+        gamma_2(theta_(mu))
+      )
+      (
+        gamma_2(-theta_(mu))
+      )
+    )
+    \
+    lambda_(minus, mu)
+    &:=
+    (
+      gamma_1(theta_(mu))
+    )
+    minus
     sqrt(
       -
       (
@@ -25,8 +41,8 @@
       )
     )
   $
-  
-  で、対応する固有ベクトル $v_(mu) in CC^2 without { mat(0; 0) }$は
+
+  で、$lambda_(plus, mu)$に対応する固有ベクトル $v_(plus, mu)$、$lambda_(minus, mu)$に対応する固有ベクトル $v_(minus, mu) in CC^2 without { mat(0; 0) }$は
 
   1) $gamma_2(theta_mu) = 0$ のとき、
   $

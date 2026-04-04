@@ -166,6 +166,7 @@
 #include "parts/008_T_V1_hatZとhatZ_hatYの関係/015_definition_T_V.typ"
 #include "parts/008_T_V1_hatZとhatZ_hatYの関係/016_definition_A_theta.typ"
 #include "parts/008_T_V1_hatZとhatZ_hatYの関係/017_claim_T_VのhatZ_hatYへの作用.typ"
+#include "parts/008_T_V1_hatZとhatZ_hatYの関係/036_claim_A_thetaの行列分解.typ"
 #include "parts/008_T_V1_hatZとhatZ_hatYの関係/018_definition_theta_mu.typ"
 #include "parts/008_T_V1_hatZとhatZ_hatYの関係/019_definition_A_thetaの対角化の準備.typ"
 #include "parts/008_T_V1_hatZとhatZ_hatYの関係/020_claim_gamma1_gamma2の偏角.typ"
@@ -180,7 +181,13 @@
 #include "parts/008_T_V1_hatZとhatZ_hatYの関係/029_definition_フェルミオン.typ"
 #include "parts/008_T_V1_hatZとhatZ_hatYの関係/030_claim_Vとpsiの交換関係.typ"
 #include "parts/008_T_V1_hatZとhatZ_hatYの関係/031_claim_psiの反交換関係.typ"
-#include "parts/008_T_V1_hatZとhatZ_hatYの関係/032_claim_Vprimeの表式.typ"
+#include "parts/008_T_V1_hatZとhatZ_hatYの関係/034_claim_det_A_theta_mu.typ"
+#include "parts/008_T_V1_hatZとhatZ_hatYの関係/035_claim_gamma1_geq_1.typ"
+#include "parts/008_T_V1_hatZとhatZ_hatYの関係/033_definition_gamma_theta_mu.typ"
+#include "parts/008_T_V1_hatZとhatZ_hatYの関係/032_definition_Vprimeの定義.typ"
+#include "parts/008_T_V1_hatZとhatZ_hatYの関係/037_claim_T_Vprimeのpsiへの作用.typ"
+#include "parts/008_T_V1_hatZとhatZ_hatYの関係/038_claim_T_V_eq_T_Vprime.typ"
+#include "parts/008_T_V1_hatZとhatZ_hatYの関係/039_claim_V_eq_Vprime.typ"
 
 (次回 0531)
 - $gamma_(theta_mu)$を求める

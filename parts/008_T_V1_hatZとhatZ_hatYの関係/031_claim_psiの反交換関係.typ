@@ -945,4 +945,4 @@
 
     ]
   ]
-]
+]<anticommutator_of_psi>
