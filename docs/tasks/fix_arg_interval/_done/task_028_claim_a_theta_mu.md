@@ -1,6 +1,6 @@
 # Task: 028_claim_a_theta_mu.typ の修正
 
-ステータス：未完了
+ステータス：完了
 
 ## 対象ファイル
 `parts/008_T_V1_hatZとhatZ_hatYの関係/028_claim_a_theta_mu.typ`

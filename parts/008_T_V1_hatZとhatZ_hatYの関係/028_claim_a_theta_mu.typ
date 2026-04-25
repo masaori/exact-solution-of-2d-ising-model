@@ -74,7 +74,7 @@
   #proof[
     $mu in cal(M)$ について、
 
-    == Part A: $sqrt(gamma_2(theta_(mu)) gamma_2(-theta_(mu)))/(gamma_2(-theta_(mu)))$ と $sqrt((gamma_2(theta_(mu)))/(gamma_2(-theta_(mu))))$ の関係
+    == Part A: $sqrt(gamma_2(theta_(mu)) gamma_2(-theta_(mu))) dot.op (gamma_2(-theta_(mu)))^(-1)$ と $sqrt(gamma_2(theta_(mu)) dot.op (gamma_2(-theta_(mu)))^(-1))$ の関係
 
     === Step 1: $arg^([0, 2pi))((gamma_2(-theta_(mu)))^2)$の計算
 
@@ -554,7 +554,7 @@
 
     === Step 12: $cos(theta), sin(theta)$ のEuler表示
 
-    $cos(theta_(mu)) = (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))/2$、$sin(theta_(mu)) = (e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))/(2 sqrt(-1))$ を用いると、
+    $#ref(<euler_formula_cos_sin>)$ より、$cos(theta_(mu)) = (e^(sqrt(-1) theta_(mu)) + e^(-sqrt(-1) theta_(mu)))/2$、$sin(theta_(mu)) = (e^(sqrt(-1) theta_(mu)) - e^(-sqrt(-1) theta_(mu)))/(2 sqrt(-1))$ を用いると、
 
     $
       c_1 cos(theta_(mu)) - sqrt(-1) sin(theta_(mu))
@@ -759,7 +759,7 @@
       &=
       tanh K_1 tanh K_2^*
       +
-      tanh K_1 / tanh K_2^*
+      (tanh K_1)/(tanh K_2^*)
       quad (because alpha_2^(-1) = ((tanh K_1)^(-1) tanh K_2^*)^(-1) = tanh K_1 (tanh K_2^*)^(-1))
       \
       &=
@@ -783,15 +783,10 @@
       (sinh K_2^* cosh K_2^*)
       \
       &=
-      (cosh(2 K_2^*))
-      /
-      (sinh(2 K_2^*) / 2)
-      quad (because cosh^2(x) + sinh^2(x) = cosh(2x), 2sinh(x)cosh(x) = sinh(2x))
-      \
-      &=
       (2 cosh(2 K_2^*))
       /
       (sinh(2 K_2^*))
+      quad (because cosh^2(x) + sinh^2(x) = cosh(2x), 2sinh(x)cosh(x) = sinh(2x))
     $
 
     $K_2^* = -1/2 log(tanh K_2)$, すなわち $e^(-2 K_2^*) = tanh K_2$ より、
@@ -799,37 +794,57 @@
     $
       sinh(2 K_2^*)
       &=
-      (e^(2 K_2^*) - e^(-2 K_2^*)) / 2
+      (e^(2 K_2^*) - e^(-2 K_2^*))
+      /
+      2
       \
       &=
-      ((tanh K_2)^(-1) - tanh K_2) / 2
+      ((tanh K_2)^(-1) - tanh K_2)
+      /
+      2
       \
       &=
-      (cosh K_2 / sinh K_2 - sinh K_2 / cosh K_2) / 2
+      ((cosh K_2)/(sinh K_2) - (sinh K_2)/(cosh K_2))
+      /
+      2
       \
       &=
-      (cosh^2 K_2 - sinh^2 K_2) / (2 sinh K_2 cosh K_2)
+      (cosh^2 K_2 - sinh^2 K_2)
+      /
+      (2 sinh K_2 cosh K_2)
       \
       &=
-      1 / sinh(2 K_2)
+      (1)
+      /
+      (sinh(2 K_2))
     $
 
     $
       cosh(2 K_2^*)
       &=
-      (e^(2 K_2^*) + e^(-2 K_2^*)) / 2
+      (e^(2 K_2^*) + e^(-2 K_2^*))
+      /
+      2
       \
       &=
-      ((tanh K_2)^(-1) + tanh K_2) / 2
+      ((tanh K_2)^(-1) + tanh K_2)
+      /
+      2
       \
       &=
-      (cosh K_2 / sinh K_2 + sinh K_2 / cosh K_2) / 2
+      ((cosh K_2)/(sinh K_2) + (sinh K_2)/(cosh K_2))
+      /
+      2
       \
       &=
-      (cosh^2 K_2 + sinh^2 K_2) / (2 sinh K_2 cosh K_2)
+      (cosh^2 K_2 + sinh^2 K_2)
+      /
+      (2 sinh K_2 cosh K_2)
       \
       &=
-      cosh(2 K_2) / sinh(2 K_2)
+      (cosh(2 K_2))
+      /
+      (sinh(2 K_2))
     $
 
     よって、
@@ -837,7 +852,10 @@
     $
       (2 cosh(2 K_2^*))/(sinh(2 K_2^*))
       &=
-      2 dot.op (cosh(2 K_2) / sinh(2 K_2)) / (1 / sinh(2 K_2))
+      2 dot.op
+      ((cosh(2 K_2))/(sinh(2 K_2)))
+      /
+      ((1)/(sinh(2 K_2)))
       \
       &=
       2 cosh(2 K_2)

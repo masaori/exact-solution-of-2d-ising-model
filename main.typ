@@ -65,6 +65,7 @@
 #include "parts/000_計算公式/041_claim_自乗のsqrtとremark_負の実数の場合.typ"
 #include "parts/000_計算公式/042_claim_CCの逆数のsqrtとremark.typ"
 #include "parts/000_計算公式/043_claim_CCのsqrtの逆数とremark.typ"
+#include "parts/000_計算公式/044_theorem_cos_sinのEuler表示.typ"
 
 == 2次元ising模型の分配関数
 
