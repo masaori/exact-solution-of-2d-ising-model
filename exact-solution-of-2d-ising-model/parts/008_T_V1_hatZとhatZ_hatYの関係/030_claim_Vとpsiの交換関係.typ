@@ -5,7 +5,7 @@
   $mu in cal(M)$について、
 
   $
-    T_((V))mat(psi_mu^dagger)
+    T_((V))(psi_mu^dagger)
     &=
     (
       (
@@ -44,55 +44,33 @@
     psi_mu
   $
 
-  #note[
-    $
-      (
-        hat(Z)_mu^((minus)),
-        hat(Y)_mu
-      )
-      dot.op
-      A((2 pi mu) / M)
-      &=
-      mat(
-        (
-          c_1 c_2^*
-          -
-          s_1 s_2^* cos ((2 pi mu) / M)
-        )
-        hat(Z)_mu^((minus))
-        +
-        (
-          - sqrt(-1) exp(-sqrt(-1) (2 pi mu) / M) s_2^* (c_1 cos ((2 pi mu) / M) + sqrt(-1) sin ((2 pi mu) / M) - s_1 c_2)
-        )
-        hat(Y)_mu,
-        (
-          sqrt(-1) exp(sqrt(-1) (2 pi mu) / M) s_2^* (c_1 cos ((2 pi mu) / M) - sqrt(-1) sin ((2 pi mu) / M) - s_1 c_2)
-        )
-        hat(Z)_mu^((minus))
-        +
-        (
-          c_1 c_2^*
-          -
-          s_1 s_2^* cos ((2 pi mu) / M)
-        )
-        hat(Y)_mu
-      )
-    $
-  ]
-
   #proof[
+    $#ref(<def_fermi>)$ より、
+
     $
-      mat(
-        T_((V))(psi_mu^dagger),
-        T_((V))(psi_mu)
-      )
-      &=
-      T_((V))
       mat(
         psi_mu^dagger,
         psi_mu
       )
-      \
+      =
+      (
+        hat(Z)_mu^((minus)),
+        hat(Y)_mu
+      )
+      dot.c
+      P_mu
+    $
+
+    $T_((V))$ は $#ref(<mat_conj>)$ より線型写像であり、$P_mu$ の各成分は $hat(Z)_mu^((minus)), hat(Y)_mu$ に依らない複素数なので、
+
+    $
+      T_((V))
+      (
+        mat(
+          psi_mu^dagger,
+          psi_mu
+        )
+      )
       &=
       T_((V))
       (
@@ -103,165 +81,41 @@
         dot.c
         P_mu
       )
-      quad
-      (because #ref(<mat_conj>)"より、" T_((V))"は線形写像")
-      \
-      &=
-      T_((V))
-      (
-        (
-          plus
-          sqrt(
-            -1
-          )
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-        )
-        hat(Z)_mu^((minus))
-        +
-        (
-          gamma_2(-theta_(mu))
-        )
-        hat(Y)_mu
-        ,
-        (
-          minus
-          sqrt(
-            -1
-          )
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-        )
-        hat(Z)_mu^((minus))
-        +
-        (
-          gamma_2(-theta_(mu))
-        )
-        hat(Y)_mu
-      )
-      \
-      &=
-      (
-        (
-          plus
-          sqrt(
-            -1
-          )
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-        )
-        T_((V))
-        (
-          hat(Z)_mu^((minus))
-        )
-        +
-        (
-          gamma_2(-theta_(mu))
-        )
-        T_((V))
-        (
-          hat(Y)_mu
-        )
-        ,
-        (
-          minus
-          sqrt(
-            -1
-          )
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-        )
-        T_((V))
-        (
-          hat(Z)_mu^((minus))
-        )
-        +
-        (
-          gamma_2(-theta_(mu))
-        )
-        T_((V))
-        (
-          hat(Y)_mu
-        )
-      )
       \
       &=
       mat(
-        T_((V))
-        (
-          hat(Z)_mu^((minus))
-        ),
-        T_((V))
-        (
-          hat(Y)_mu
-        )
+        T_((V))(hat(Z)_mu^((minus))),
+        T_((V))(hat(Y)_mu)
       )
-      mat(
-        (
-          plus
-          sqrt(
-            -1
-          )
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-        )
-        ,
-        (
-          minus
-          sqrt(
-            -1
-          )
-          sqrt(
-            gamma_2(theta_(mu))
-            gamma_2(-theta_(mu))
-          )
-        );
-        (
-          gamma_2(-theta_(mu))
-        ),
-        (
-          gamma_2(-theta_(mu))
-        )
-      )
+      dot.c
+      P_mu
+      quad (because T_((V)) "の線形性")
       \
       &=
       mat(
-        hat(Z)_mu^((minus))
-        ,
+        hat(Z)_mu^((minus)),
         hat(Y)_mu
       )
       A(theta_(mu))
+      dot.c
       P_mu
+      quad (because #ref(<T_V_hatZ_hatY>))
       \
       &=
       mat(
-        hat(Z)_mu^((minus))
-        ,
+        hat(Z)_mu^((minus)),
         hat(Y)_mu
       )
       (
-        P_mu
-        D_mu
-        P_mu
-        ^
-        (-1)
+        P_mu D_mu P_mu^(-1)
       )
+      dot.c
       P_mu
+      quad (because #ref(<eigenvector_of_A_theta>) "から得られる " A(theta_(mu)) = P_mu D_mu P_mu^(-1))
       \
       &=
       mat(
-        hat(Z)_mu^((minus))
-        ,
+        hat(Z)_mu^((minus)),
         hat(Y)_mu
       )
       P_mu
@@ -280,35 +134,14 @@
         psi_mu
       )
       mat(
-        (
-          gamma_1(theta_(mu))
-        )
-        plus
-        sqrt(
-          -
-          (
-            gamma_2(theta_(mu))
-          )
-          (
-            gamma_2(-theta_(mu))
-          )
-        ),
-        0
-        ;
-        0,
-        (
-          gamma_1(theta_(mu))
-        )
-        minus
-        sqrt(
-          -
-          (
-            gamma_2(theta_(mu))
-          )
-          (
-            gamma_2(-theta_(mu))
-          )
-        )
+        lambda_(plus, mu), 0;
+        0, lambda_(minus, mu)
+      )
+      \
+      &=
+      mat(
+        lambda_(plus, mu) psi_mu^dagger,
+        lambda_(minus, mu) psi_mu
       )
       \
       &=
@@ -328,7 +161,8 @@
             )
           )
         )
-        psi_mu^dagger,
+        psi_mu^dagger
+        ,
         (
           (
             gamma_1(theta_(mu))
@@ -346,6 +180,7 @@
         )
         psi_mu
       )
+      quad (because #ref(<eigenvector_of_A_theta>))
       \
       qed
     $

@@ -4,11 +4,12 @@
 
   $mu in cal(M)$について、
 
-  $gamma_2(theta_mu) eq.not 0$のとき、
+  $gamma_2(theta_mu) eq.not 0$のとき、$#ref(<eigenvector_of_A_theta>)$ の任意定数を $c = (1) / (2 sqrt(M) gamma_2(-theta_(mu)))$ と選んで、
 
   $
     P_mu
-    :=
+    :&=
+    (1) / (2 sqrt(M) gamma_2(-theta_(mu)))
     mat(
       plus
       sqrt(
@@ -32,13 +33,44 @@
       gamma_2(-theta_(mu))
     )
     \
+    &=
+    mat(
+      (
+        plus
+        sqrt(-1)
+        sqrt(gamma_2(theta_(mu)) gamma_2(-theta_(mu)))
+      )
+      /
+      (
+        2 sqrt(M) gamma_2(-theta_(mu))
+      )
+      ,
+      (
+        minus
+        sqrt(-1)
+        sqrt(gamma_2(theta_(mu)) gamma_2(-theta_(mu)))
+      )
+      /
+      (
+        2 sqrt(M) gamma_2(-theta_(mu))
+      )
+      ;
+      (1) / (2 sqrt(M))
+      ,
+      (1) / (2 sqrt(M))
+    )
+    \
     D_mu
-    :=
+    :&=
     mat(
       lambda_(plus, mu), 0;
       0, lambda_(minus, mu)
     )
   $
+
+  #note[
+    任意定数 $c$ をこの値に選ぶことで、$#ref(<def_fermi>)$ で定義するフェルミオン $psi_mu^dagger, psi_mu$ が反交換関係 $[psi_mu^dagger, psi_nu]_(+) = delta^M_(mu + nu, 0) I$ を満たすように正規化される（$#ref(<anticommutator_of_psi>)$ 参照）。
+  ]
 
   とおけば、
 

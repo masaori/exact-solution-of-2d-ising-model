@@ -23,6 +23,7 @@
       hat(Y)_mu
     )
     dot.c
+    (1) / (2 sqrt(M) gamma_2(-theta_(mu)))
     mat(
       plus
       sqrt(
@@ -47,6 +48,7 @@
     )
     \
     &=
+    (1) / (2 sqrt(M) gamma_2(-theta_(mu)))
     (
       (
         plus
@@ -85,12 +87,6 @@
     \
     &=
     (
-      hat(Z)_mu^((minus))
-      +
-      (
-        gamma_2(-theta_(mu))
-      )
-      /
       (
         plus
         sqrt(
@@ -101,14 +97,15 @@
           gamma_2(-theta_(mu))
         )
       )
-      hat(Y)_mu
-      ,
+      /
+      (
+        2 sqrt(M) gamma_2(-theta_(mu))
+      )
       hat(Z)_mu^((minus))
       +
-      (
-        gamma_2(-theta_(mu))
-      )
-      /
+      (1) / (2 sqrt(M))
+      hat(Y)_mu
+      ,
       (
         minus
         sqrt(
@@ -119,43 +116,13 @@
           gamma_2(-theta_(mu))
         )
       )
-      hat(Y)_mu
-    )
-    \
-    &=
-    (
-      hat(Z)_mu^((minus))
-      minus
-      sqrt(
-        -1
-      )
-      (
-        gamma_2(-theta_(mu))
-      )
       /
       (
-        sqrt(
-          gamma_2(theta_(mu))
-          gamma_2(-theta_(mu))
-        )
+        2 sqrt(M) gamma_2(-theta_(mu))
       )
-      hat(Y)_mu
-      ,
       hat(Z)_mu^((minus))
       +
-      sqrt(
-        -1
-      )
-      (
-        gamma_2(-theta_(mu))
-      )
-      /
-      (
-        sqrt(
-          gamma_2(theta_(mu))
-          gamma_2(-theta_(mu))
-        )
-      )
+      (1) / (2 sqrt(M))
       hat(Y)_mu
     )
   $
@@ -163,30 +130,42 @@
   と定める
 
   #note[
-    #ref(<equation_of_a_theta_mu>) より、上記のフェルミオンの定義は
+    #ref(<equation_of_a_theta_mu>) の Part A より、
+    $arg^([0, 2pi))(gamma_2(-theta_mu))$ に応じて符号 $epsilon_mu in {plus 1, minus 1}$ が定まり、
+    $
+      (sqrt(gamma_2(theta_(mu)) gamma_2(-theta_(mu)))) / (gamma_2(-theta_(mu)))
+      =
+      epsilon_mu dot.op a(theta_mu)
+    $
+    が成り立つ。よって、上記のフェルミオンの定義は
+
     $
       psi_mu^dagger
-      :=
-      hat(Y)_mu
-      +
-      sqrt(-1)
-      a(theta_mu)
-      hat(Z)_mu^((minus))
+      &=
+      (1) / (2 sqrt(M))
+      (
+        hat(Y)_mu
+        +
+        epsilon_mu dot.op sqrt(-1) a(theta_mu)
+        hat(Z)_mu^((minus))
+      )
       \
       psi_mu
-      :=
-      hat(Y)_mu
-      -
-      sqrt(-1)
-      a(theta_mu)
-      hat(Z)_mu^((minus))
+      &=
+      (1) / (2 sqrt(M))
+      (
+        hat(Y)_mu
+        -
+        epsilon_mu dot.op sqrt(-1) a(theta_mu)
+        hat(Z)_mu^((minus))
+      )
     $
 
     のようにも書ける。
-    
+
     これは、ホロノミック量子場 付録B 式(B.11)(B.12) の定義とは
-    - 定数倍を除いて一致する
     - $a(theta_mu)$が逆数になっている
+    - 領域に応じた符号 $epsilon_mu$ がある
     という違いがある。
   ]
 ])<def_fermi>

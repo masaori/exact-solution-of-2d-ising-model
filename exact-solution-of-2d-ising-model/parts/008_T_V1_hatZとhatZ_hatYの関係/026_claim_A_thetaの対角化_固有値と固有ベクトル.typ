@@ -1077,4 +1077,4 @@
       )
     $
   ]
-]
+]<eigenvector_of_A_theta>
